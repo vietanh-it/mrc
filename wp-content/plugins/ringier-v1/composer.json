@@ -1,0 +1,30 @@
+{
+    "name": "ringier-v1",
+    "description": "RINGIER VIETNAM ver.1",
+    "authors": [
+        {
+            "name": "Le Truc",
+            "email": "letruc@ringier.com.vn"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RVN\\": "app/"
+        },
+        "files": [
+            "app/Support/helpers.php"
+        ]
+    },
+    "require": {
+        "aura/session": "^2.0",
+        "vlucas/valitron": "^1.2",
+        "tareq1988/wp-eloquent": "dev-master",
+        "sailthru/sailthru-php5-client": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/sailthru/sailthru-php5-client"
+        }
+    ]
+}

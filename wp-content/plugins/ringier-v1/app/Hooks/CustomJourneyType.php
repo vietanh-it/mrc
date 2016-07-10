@@ -55,7 +55,7 @@ class CustomJourneyType
 
         $list_ship = $Posts->getList(array(
             'post_status' => array('publish'),
-            'posts_per_page' => 10000,
+            'posts_per_page' => DEFAULT_LIMIT,
             'paged'  => 1,
             'post_type' => 'ship',
             'is_cache' => false
@@ -77,7 +77,7 @@ class CustomJourneyType
 
         $list_port  = $Posts->getList(array(
             'post_status' => array('publish'),
-            'posts_per_page' => 10000,
+            'posts_per_page' => DEFAULT_LIMIT,
             'paged'  => 1,
             'post_type' => 'port',
             'is_cache' => false
@@ -98,7 +98,7 @@ class CustomJourneyType
 
         $list_destination  = $Posts->getList(array(
             'post_status' => array('publish'),
-            'posts_per_page' => 10000,
+            'posts_per_page' => DEFAULT_LIMIT,
             'paged'  => 1,
             'post_type' => 'destination',
             'is_cache' => false

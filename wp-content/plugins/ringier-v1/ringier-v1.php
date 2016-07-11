@@ -28,7 +28,8 @@ function rvn_load()
     //RVN\Hooks\Rewrite::init();
     //RVN\Hooks\BackendUI::init();
     RVN\Hooks\Shortcode::init();
-    RVN\Hooks\CustomJourneyType::init();
+    //RVN\Hooks\CustomJourneyType::init();
+    RVN\Hooks\CustomShips::init();
 
     // call ajax
 }

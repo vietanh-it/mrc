@@ -33,7 +33,7 @@ class CustomShips
     }
 
     public function add_product_size() {
-        add_meta_box('ship_detail', 'Ship detail', array($this,'show'), 'ship', 'normal', 'high');
+        add_meta_box('ship_detail', 'Ship room', array($this,'show'), 'ship', 'normal', 'high');
     }
 
 
@@ -41,14 +41,14 @@ class CustomShips
         global $post;
         $ship_info = $this->getShipInfo($post->ID);
         $result = array();
-        if($ship_info && $ship_info->stateroom_types){
-            $result = unserialize($ship_info->stateroom_types);
+        if($ship_info && $ship_info->room_types){
+            $result = unserialize($ship_info->room_types);
         }
 
         echo '<div class = "ctn-box-size">';
         if($result){
             foreach ($result as $v){
-                $stateroom_type = $v['stateroom_type'];
+                $stateroom_type = $v['room_type'];
                 $quantity = $v['quantity'];
                 echo  $this->html_size($stateroom_type,$quantity);
             }
@@ -68,7 +68,7 @@ class CustomShips
 
                     var html_size = '<div class ="size-product" style="margin-bottom: 30px;border-bottom: 1px solid darkgrey;padding-bottom: 20px"> ' +
                         '<div class="size" style="float: left;width: 50%"> ' +
-                        '<label >STATEROOM TYPE : </label> ' +
+                        '<label >ROOM TYPE : </label> ' +
                         '<input type="text" value="" name="size[]"> ' +
                         '</div> ' +
                         '<div class ="quantity" style="float: left;width: 50%;    margin-bottom: 10px;"> ' +
@@ -100,7 +100,7 @@ class CustomShips
     public function html_size($stateroom_type = '',$quantity = ''){
         $html = '<div class ="size-product" style="margin-bottom: 30px;border-bottom: 1px solid darkgrey;padding-bottom: 20px">
                     <div class="size" style="float: left;width: 50%">
-                        <label >STATEROOM TYPE : </label>
+                        <label >ROOM TYPE : </label>
                         <input type="text" value="'.$stateroom_type.'" name="size[]">
                     </div>
                     <div class ="quantity" style="float: left;width: 50%;    margin-bottom: 10px;">
@@ -123,7 +123,7 @@ class CustomShips
             $list_size = array();
             foreach ($_POST['size'] as $k => $stateroom_type){
                 $size_quantity = array(
-                    'stateroom_type' => $stateroom_type,
+                    'room_type' => $stateroom_type,
                     'quantity' => $_POST['quantity_size'][$k],
                 );
 
@@ -133,10 +133,10 @@ class CustomShips
 
             $ship_info = $this->getShipInfo($_POST['post_ID']);
             if($ship_info){
-                $wpdb->update($this->_table_size,array('stateroom_types' => serialize($list_size)),array('object_id' => $_POST['post_ID']));
+                $wpdb->update($this->_table_size,array('room_types' => serialize($list_size)),array('object_id' => $_POST['post_ID']));
             }else{
                 $wpdb->insert($this->_table_size,array(
-                    'stateroom_types' => serialize($list_size),
+                    'room_types' => serialize($list_size),
                     'object_id' => $_POST['post_ID']
                 ));
             }

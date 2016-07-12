@@ -52,9 +52,47 @@ class acf_field_functions
 	
 	function load_value($value, $post_id, $field)
 	{
+
+		// hack core
+		global $post, $wpdb;
+		if (in_array($post->post_type, array( 'ship', 'journey',"journey_type","port","destination"))) {
+
+			switch ($post->post_type) {
+				case "ship" :
+					$table = $wpdb->prefix . "ship_info";
+					break;
+				case "journey_type" :
+					$table = $wpdb->prefix . "journey_type_info";
+					break;
+				case "journey" :
+					$table = $wpdb->prefix . "journey_info";
+					break;
+
+				default:
+					$table = $wpdb->prefix . "post_info";
+			}
+
+			$query = "SELECT * FROM $table WHERE object_id=$post_id";
+			$result = $wpdb->get_row($query);
+			if (isset($result->$field['name'])) {
+				$value = $result->$field['name'];
+				$is_array = substr($value,0,2);
+				if($is_array == 'a:'){
+					$arg = unserialize($value);
+					if(is_array($arg)){
+						return $arg;
+					}
+				}
+
+			}
+			return stripslashes($value);
+		}
+
 		$found = false;
 		$cache = wp_cache_get( 'load_value/post_id=' . $post_id . '/name=' . $field['name'], 'acf', false, $found );
-		
+
+		// end hack core
+
 		if( $found )
 		{
 			return $cache;
@@ -99,8 +137,7 @@ class acf_field_functions
 				$value = $v;
 		 	}
 		}
-		
-		
+
 		// no value?
 		if( $value === false )
 		{
@@ -180,6 +217,67 @@ class acf_field_functions
 	
 	function update_value( $value, $post_id, $field )
 	{
+
+		// @TODO update value into db base on post_type
+		global $post, $wpdb;
+		if (in_array($post->post_type,array( 'ship', 'journey',"journey_type","port","destination"))) {
+			$data = array();
+
+			$customFields = $_POST['fields'];
+			foreach ($customFields as $key => $value) {
+				$f = get_field_object($key);
+				$value = ($value=='null') ? 0 : $value;
+				$data[$f['name']] = $value;
+			}
+			switch ($post->post_type) {
+				case 'ship' :
+					$table = $wpdb->prefix . "ship_info";
+					foreach ($data as $k => $v){
+						if(is_array($v)){
+							$data[$k] = serialize($v);
+						}
+					}
+					break;
+				case "journey_type" :
+					$table = $wpdb->prefix . "journey_type_info";
+					foreach ($data as $k => $v){
+						if(is_array($v)){
+							$data[$k] = serialize($v);
+						}
+					}
+					break;
+				case "journey" :
+					$table = $wpdb->prefix . "journey_info";
+					foreach ($data as $k => $v){
+						if(is_array($v)){
+							$data[$k] = serialize($v);
+						}
+					}
+					break;
+				default:
+					$table = $wpdb->prefix . "post_info";
+					foreach ($data as $k => $v){
+						if(is_array($v)){
+							$data[$k] = serialize($v);
+						}
+					}
+
+			}
+
+			//var_dump($data);exit();
+			$query = "SELECT * FROM $table WHERE object_id=$post_id";
+			$exist = $wpdb->get_results($query);
+			if ($exist) {
+				$result = $wpdb->update($table, $data, array('object_id' => $post_id));
+			} else {
+				$data['object_id'] = $post_id;
+				$result = $wpdb->insert($table, $data);
+			}
+			return;
+		}
+
+
+
 	
 		// strip slashes
 		// - not needed? http://support.advancedcustomfields.com/discussion/3168/backslashes-stripped-in-wysiwyg-filed

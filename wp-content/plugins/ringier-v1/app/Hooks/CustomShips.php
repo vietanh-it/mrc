@@ -30,11 +30,12 @@ class CustomShips
 
         $this->_table_size = $wpdb->prefix . "ship_info";
 
-        add_action('add_meta_boxes', array($this, 'add_product_size'));
+        add_action('add_meta_boxes', array($this, 'addRoomType'));
         add_action('save_post', array($this, 'save'));
     }
 
-    public function add_product_size()
+
+    public function addRoomType()
     {
         add_meta_box('ship_detail', 'Ship room', array($this, 'show'), 'ship', 'normal', 'high');
     }
@@ -53,7 +54,7 @@ class CustomShips
         if ($result) {
             foreach ($result as $v) {
                 $stateroom_type = $v['room_type'];
-                $quantity = $v['quantity'];
+                $quantity = $v['price'];
                 echo $this->html_size($stateroom_type, $quantity);
             }
         } else {
@@ -61,7 +62,7 @@ class CustomShips
         }
         echo '</div>';
         echo '
-            <a href = "javascript:void(0)" class="add-new-size" data-id="2">Add new STATEROOM TYPE</a>
+            <a href = "javascript:void(0)" class="add-new-size" data-id="2"><i class="fa fa-plus-circle"></i> Add new Room Type</a>
         ';
 
         ?>
@@ -76,8 +77,8 @@ class CustomShips
                     '<input type="text" value="" name="size[]"> ' +
                     '</div> ' +
                     '<div class ="quantity" style="float: left;width: 50%;    margin-bottom: 10px;"> ' +
-                    '<label >Quantity : </label> ' +
-                    '<input type="number" value="" name="quantity_size[]" > ' +
+                    '<label >Price : </label> ' +
+                    '$<input type="number" value="" name="price[]" > ' +
                     '</div> ' +
                     '<div class="close" style=""> ' +
                     '<a href="javascript:void(0)" class="close-box-size" >Delete</a> ' +
@@ -101,6 +102,7 @@ class CustomShips
         <?php
     }
 
+
     public function html_size($stateroom_type = '', $quantity = '')
     {
         $html = '<div class ="size-product" style="margin-bottom: 30px;border-bottom: 1px solid darkgrey;padding-bottom: 20px">
@@ -109,8 +111,8 @@ class CustomShips
                         <input type="text" value="' . $stateroom_type . '" name="size[]">
                     </div>
                     <div class ="quantity" style="float: left;width: 50%;    margin-bottom: 10px;">
-                        <label >Quantity : </label>
-                        <input type="number" value="' . $quantity . '" name="quantity_size[]" >
+                        <label >Price : </label>
+                        $<input type="number" value="' . $quantity . '" name="price[]" >
                     </div>
                      <div class="close" style="">
                         <a href="javascript:void(0)" class="close-box-size" >Delete</a>
@@ -121,16 +123,17 @@ class CustomShips
         return $html;
     }
 
+
     public function save()
     {
         // var_dump($_POST);
         global $wpdb;
-        if ($_POST['size'] && $_POST['quantity_size']) {
+        if ($_POST['size'] && $_POST['price']) {
             $list_size = array();
             foreach ($_POST['size'] as $k => $stateroom_type) {
                 $size_quantity = array(
                     'room_type' => $stateroom_type,
-                    'quantity'  => $_POST['quantity_size'][$k],
+                    'price'     => $_POST['price'][$k],
                 );
 
                 $list_size[] = $size_quantity;
@@ -152,6 +155,7 @@ class CustomShips
 
 
     }
+
 
     public function getShipInfo($ship_id)
     {

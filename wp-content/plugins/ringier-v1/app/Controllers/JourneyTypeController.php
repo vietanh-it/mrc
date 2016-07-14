@@ -1,7 +1,7 @@
 <?php
 namespace RVN\Controllers;
 
-class JourneyController extends _BaseController
+class JourneyTypeController extends _BaseController
 {
     private static $instance;
 
@@ -13,19 +13,14 @@ class JourneyController extends _BaseController
     public static function init()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new JourneyController();
+            self::$instance = new JourneyTypeController();
         }
 
         return self::$instance;
     }
 
-    public function getJourneyDetail($journey_id)
+    public function getJourneyTypeDetail($journey_id)
     {
 
-    }
-
-    public function getJourneyList()
-    {
-        
     }
 }

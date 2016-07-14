@@ -8,7 +8,6 @@ if ( ! isset( $content_width ) ) {
 function r_theme_setup() {
     add_theme_support('post-thumbnails');
 
-
 }
 
 add_action('after_setup_theme', 'r_theme_setup');
@@ -17,6 +16,7 @@ function r_scripts_styles() {
     $version = '20150116_1200';
 
     wp_enqueue_style('plugin-css', THEME_URL . '/css/plugin.css', array(), $version);
+    wp_enqueue_style('main-css', THEME_URL . '/css/main.css', array(), $version);
     wp_enqueue_style('em-style-ext', THEME_URL . '/style.css', array(), $version);
 
     wp_enqueue_script('plugins-js', THEME_URL . '/js/plugins.js', array('jquery'), $version, true);

@@ -8971,14 +8971,13 @@ body {
 
 
 body{
-
+    color: #545454;
+    font-family: Arial, "Times New Roman", "Bitstream Charter", Times, serif;
 }
 header .top-bar{
-    width: 100%;
-    float: left;
     background: #ebebeb;
     color: #a7a7a7;
-    padding: 10px 0;
+    border-bottom: 1px solid #dde4ea;
 }
 header .top-bar a{
     color: #a7a7a7;
@@ -8996,5 +8995,50 @@ header .top-bar .top-info img{
 header .top-bar .top-info li{
     display: inline-block;
     list-style: none;
+    padding: 10px 0;
     padding-right: 20px;
+}
+header .top-bar .top-info li.sign-up{
+    background: #d5b76e;
+    color: white;
+    padding-left: 20px;
+    padding-right: 40px;
+}
+header .top-bar .top-info li.sign-up a{
+    color: white;
+    text-transform: uppercase;
+}
+header .top-bar .top-info li.sign-up a:hover{
+    text-decoration: underline;
+}
+header nav{
+    padding: 20px 0;
+}
+nav ul{
+    width: 100%;
+    text-align: right;
+}
+nav ul li{
+    float: none;
+    display: inline-block;
+}
+nav .navbar-collapse{
+    padding-right: 0;
+}
+nav ul.navbar-nav li a{
+    color: #545454;
+    padding: 0;
+}
+nav ul.navbar-nav li.active a{
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    nav ul.navbar-nav li{
+        float: none;
+        display: inline-block;
+        padding: 10px;
+        text-transform: uppercase;
+    }
+
 }

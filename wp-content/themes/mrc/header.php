@@ -8,7 +8,7 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html lang="vi" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head>
-    <title><?php wp_title('-', true, 'right'); ?></title>
+        <title><?php wp_title('-', true, 'right'); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <!--[if lt IE 9]>
     <script src="<?php echo THEME_URL ?>/js/html5.js"></script>
@@ -39,7 +39,7 @@
     <div class="top-bar">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-12 col-sm-7">
                     <ul class="top-info">
                         <li><a href="#"> <img src="<?php echo THEME_URL.'/images/icon-add-friends.png' ?>"> Refer a Friend</a></li>
                         <li><a href="#"> Media Centre </a></li>
@@ -47,13 +47,45 @@
                         <li><a href="#"> Terms and Conditions </a></li>
                     </ul>
                 </div>
-                <div class="col-xs-12 col-sm-6">
-                    <ul class="top-info">
-                        <li><a href="#"> <img src="<?php echo THEME_URL.'/images/icon-add-friends.png' ?>"> Your booking</a></li>
-                        <li><a href="#"> Sign in | Sign up </a></li>
+                <div class="col-xs-12 col-sm-5">
+                    <ul class="top-info text-right">
+                        <li><a href="#"> <i class="fa fa-calendar" aria-hidden="true"></i> Your booking</a></li>
+                        <li class="sign-up"> <img src="<?php echo THEME_URL.'/images/icon-user.png' ?>">
+                            &nbsp; <a href="#"> Sign in </a> | <a href="#"> Sign up</a> </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <nav class="navbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                    <a href="<?php echo '#' ?>"><img src="<?php echo THEME_URL ?>/images/logo.png" width="100%"></a>
+                </div>
+                <div class="col-sm-9 col-xs-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#" title="" > Home </a></li>
+                            <li><a href="#" title="">WHY US   </a></li>
+                            <li><a href="#" title="">SHIPs </a></li>
+                            <li><a href="#" title="">JOURNEy </a></li>
+                            <li><a href="#" title="">OFFERS </a></li>
+                            <li><a href="#" title="">RESOURCEs </a></li>
+                            <li><a href="#" title="">news </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 </header>

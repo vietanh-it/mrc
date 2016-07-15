@@ -72,7 +72,7 @@ class acf_field_functions
                     $table = $wpdb->prefix . "post_info";
             }
 
-            $query = "SELECT * FROM $table WHERE object_id=$post_id";
+            $query = "SELECT * FROM $table WHERE object_id = $post_id";
             $result = $wpdb->get_row($query);
             if (isset($result->$field['name'])) {
                 $value = $result->$field['name'];

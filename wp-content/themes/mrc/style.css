@@ -235,6 +235,12 @@ nav ul.navbar-nav li.active a{
 
 
 
+@media (min-width: 1200px){
+    .container{
+        width: 1155px !important;
+        max-width: none;
+    }
+}
 @media (min-width: 768px) {
     nav ul.navbar-nav li{
         float: none;
@@ -242,9 +248,4 @@ nav ul.navbar-nav li.active a{
         padding: 10px;
         text-transform: uppercase;
     }
-    .container{
-        width: 1155px !important;
-        max-width: none;
-    }
-
 }

@@ -5,7 +5,7 @@ var $ = jQuery.noConflict();
 jQuery(document).ready(function ($) {
 
     $(".owl-carousel").owlCarousel({
-        autoPlay: 3000,
+        autoPlay: 5000,
         items : 1,
         itemsDesktop : [1199,1],
         itemsDesktopSmall : [760,1],

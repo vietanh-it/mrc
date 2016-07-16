@@ -63,7 +63,7 @@
                 <div class="col-sm-3 col-xs-12">
                     <a href="<?php echo '#' ?>"><img src="<?php echo THEME_URL ?>/images/logo.png" width="100%"></a>
                 </div>
-                <div class="col-sm-9 col-xs-12">
+                <div class="col-sm-7 col-xs-12">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
@@ -83,6 +83,13 @@
                             <li><a href="#" title="">RESOURCEs </a></li>
                             <li><a href="#" title="">news </a></li>
                         </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    <div class="action-contact">
+                        <a href="#" title="">
+                            <img src="<?php echo THEME_URL .'/images/icon-headphone.png' ?>">                                           <div class="right-icon"><span class="top">1-800-304-9616</span><br><span class="bot">or contact our agent</span> </div>
+                        </a>
                     </div>
                 </div>
             </div>

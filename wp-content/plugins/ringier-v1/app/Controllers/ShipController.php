@@ -47,10 +47,39 @@ class ShipController extends _BaseController
     }
 
 
+    public function ajaxSaveRoomInfo($data)
+    {
+        $model = Ships::init();
+
+        $result = false;
+        if (!empty($data['room_id'])) {
+            $rs = $model->saveRoomInfo($data);
+
+            if (!empty($rs)) {
+                $result = [
+                    'status' => 'success',
+                    'data'   => $rs
+                ];
+            }
+        }
+
+        return $result;
+    }
+
+
     public function getShipDetail($ship_id)
     {
         $model = Ships::init();
         $result = $model->getShipDetail($ship_id);
+
+        return $result;
+    }
+
+
+    public function getShipRoomTypes($ship_id)
+    {
+        $model = Ships::init();
+        $result = $model->getShipRoomTypes($ship_id);
 
         return $result;
     }

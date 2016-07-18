@@ -57,9 +57,18 @@ class Ships
     }
 
 
+    public function getShipRoomTypes($ship_id)
+    {
+        $query = "SELECT * FROM {$this->_tbl_room_types} WHERE ship_id = {$ship_id}";
+        $result = $this->_wpdb->get_results($query);
+
+        return $result;
+    }
+
+
     public function getShipRooms($ship_id)
     {
-        $query = "SELECT rt.ship_id, rt.room_type_name, r.* FROM {$this->_tbl_rooms} r INNER JOIN {$this->_tbl_room_types} rt ON r.room_type_id = rt.id WHERE rt.ship_id = {$ship_id}";
+        $query = "SELECT rt.ship_id, rt.room_type_name, rt.background, r.* FROM {$this->_tbl_rooms} r INNER JOIN {$this->_tbl_room_types} rt ON r.room_type_id = rt.id WHERE rt.ship_id = {$ship_id}";
         $result = $this->_wpdb->get_results($query);
 
         if (!empty($result)) {
@@ -74,8 +83,21 @@ class Ships
 
     public function getRoomInfo($room_id)
     {
-        $query = "SELECT * FROM {$this->_tbl_rooms} WHERE id = {$room_id}";
+        $query = "SELECT rt.ship_id, rt.room_type_name, rt.background, r.* FROM {$this->_tbl_rooms} r INNER JOIN {$this->_tbl_room_types} rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
         $result = $this->_wpdb->get_row($query);
+
+        return $result;
+    }
+
+
+    public function saveRoomInfo($data)
+    {
+        $this->_wpdb->update($this->_tbl_rooms, [
+            'room_name'    => $data['room_name'],
+            'room_type_id' => $data['room_type_id']
+        ], ['id' => $data['room_id']]);
+
+        $result = $this->getRoomInfo($data['room_id']);
 
         return $result;
     }

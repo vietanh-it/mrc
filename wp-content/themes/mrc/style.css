@@ -247,6 +247,7 @@ nav ul.navbar-nav li.active a{
 }
 .box-journey {
     margin-bottom: 30px;
+    position: relative;
 }
 .box-journey .image img{
     width: 100%;
@@ -271,7 +272,6 @@ nav ul.navbar-nav li.active a{
     font-family: "Times New Roman";
     padding: 10px 20px;
     background: #e4a611;
-
     border: 1px solid #e4a611;
     color: white;
     border-radius:5px ;
@@ -282,6 +282,21 @@ nav ul.navbar-nav li.active a{
     background: white;
     text-decoration: none;
 }
+.box-journey .desc .read-more i{
+    color: #e4a611;
+    float: right;
+    border: 1px solid #e4a611;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    padding-top: 4px;
+    font-size: 15px;
+}
+.box-journey .desc .read-more:hover i{
+    background: #e4a611;
+    color: white;
+}
+
 .room-home{
     padding-bottom: 50px;
 }
@@ -313,6 +328,22 @@ nav ul.navbar-nav li.active a{
     background-size: 100%;
     padding-bottom: 50px;
 }
+.offer-home .owl-carousel .owl-buttons .owl-next{
+    margin-right: -100px;
+    color: #817c77;
+    border: 1px solid #817c77;
+    text-align: center;
+}
+.offer-home .owl-carousel .owl-buttons .owl-prev{
+    margin-left: -100px;
+    color: #817c77;
+    border: 1px solid #817c77;
+    text-align: center;
+}
+.offer-home .owl-carousel .owl-buttons .owl-next:hover,.offer-home .owl-carousel .owl-buttons .owl-prev:hover {
+    color: white;
+}
+
 .box-white .desc{
     background: white;
     padding: 20px;

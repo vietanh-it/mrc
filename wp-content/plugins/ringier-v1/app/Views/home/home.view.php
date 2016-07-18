@@ -82,20 +82,85 @@ get_header();
             <h2 class="col-xs-12 col-sm-12 tile-main">Latest offer
                 <br> <img src="<?php echo THEME_URL.'/images/line.png' ?>">
             </h2>
-
-            <div class="col-xs-12 col-sm-4">
-                <div class="box-journey box-white">
-                    <div class="image">
-                        <a href="#" title="">
-                            <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                        </a>
-                    </div>
-                    <div class="desc">
-                        <a href="#" class="title" title="">Laos</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                        <a href="#" class="explore" title="">Explore</a>
+            <div  class="owl-carousel-2">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="box-journey box-white">
+                        <div class="image">
+                            <a href="#" title="">
+                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            </a>
+                        </div>
+                        <div class="desc">
+                            <a href="#" class="title" title="">Laos</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
+                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
+                        </div>
                     </div>
                 </div>
+
+                <div class="col-xs-12 col-sm-12">
+                    <div class="box-journey box-white">
+                        <div class="image">
+                            <a href="#" title="">
+                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            </a>
+                        </div>
+                        <div class="desc">
+                            <a href="#" class="title" title="">Laos</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
+                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12">
+                    <div class="box-journey box-white">
+                        <div class="image">
+                            <a href="#" title="">
+                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            </a>
+                        </div>
+                        <div class="desc">
+                            <a href="#" class="title" title="">Laos</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
+                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12">
+                    <div class="box-journey box-white">
+                        <div class="image">
+                            <a href="#" title="">
+                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            </a>
+                        </div>
+                        <div class="desc">
+                            <a href="#" class="title" title="">Laos</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
+                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12">
+                    <div class="box-journey box-white">
+                        <div class="image">
+                            <a href="#" title="">
+                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            </a>
+                        </div>
+                        <div class="desc">
+                            <a href="#" class="title" title="">Laos</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
+                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>

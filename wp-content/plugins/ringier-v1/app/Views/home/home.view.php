@@ -9,10 +9,10 @@ get_header();
 ?>
 <div class="home-slider" id="home-slider">
     <div  class="owl-carousel">
-        <div><img src="<?php echo THEME_URL.'/images/bn1.jpg' ?>" alt=""></div>
-        <div><img src="<?php echo THEME_URL.'/images/bn2.jpg' ?>" alt=""></div>
-        <div><img src="<?php echo THEME_URL.'/images/bn3.jpg' ?>" alt=""></div>
-        <div><img src="<?php echo THEME_URL.'/images/bn4.jpg' ?>" alt=""></div>
+        <div><img src="<?php echo VIEW_URL.'/images/bn1.jpg' ?>" alt=""></div>
+        <div><img src="<?php echo VIEW_URL.'/images/bn2.jpg' ?>" alt=""></div>
+        <div><img src="<?php echo VIEW_URL.'/images/bn3.jpg' ?>" alt=""></div>
+        <div><img src="<?php echo VIEW_URL.'/images/bn4.jpg' ?>" alt=""></div>
     </div>
 
     <div class="form-find-journey">
@@ -53,14 +53,14 @@ get_header();
     <div class="container ">
         <div class="row">
             <h2 class="col-xs-12 col-sm-12 tile-main">Journey
-                <br> <img src="<?php echo THEME_URL.'/images/line.png' ?>">
+                <br> <img src="<?php echo VIEW_URL.'/images/line.png' ?>">
             </h2>
 
             <div class="col-xs-12 col-sm-4">
                 <div class="box-journey">
                     <div class="image">
                         <a href="#" title="">
-                            <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                         </a>
                     </div>
                     <div class="desc">
@@ -75,7 +75,7 @@ get_header();
                 <div class="box-journey">
                     <div class="image">
                         <a href="#" title="">
-                            <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                         </a>
                     </div>
                     <div class="desc">
@@ -90,7 +90,7 @@ get_header();
                 <div class="box-journey">
                     <div class="image">
                         <a href="#" title="">
-                            <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                         </a>
                     </div>
                     <div class="desc">
@@ -103,7 +103,7 @@ get_header();
 
         </div>
     </div>
-    <img src="<?php echo THEME_URL.'/images/icon-trong-dong.png' ?>" alt="" class="bg-a">
+    <img src="<?php echo VIEW_URL.'/images/icon-trong-dong.png' ?>" alt="" class="bg-a">
 </div>
 
 
@@ -111,14 +111,14 @@ get_header();
     <div class="container ">
         <div class="row">
             <h2 class="col-xs-12 col-sm-12 tile-main">Latest offer
-                <br> <img src="<?php echo THEME_URL.'/images/line.png' ?>">
+                <br> <img src="<?php echo VIEW_URL.'/images/line.png' ?>">
             </h2>
             <div  class="owl-carousel-2">
                 <div class="col-xs-12 col-sm-12">
                     <div class="box-journey box-white">
                         <div class="image">
                             <a href="#" title="">
-                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                             </a>
                         </div>
                         <div class="desc">
@@ -133,23 +133,7 @@ get_header();
                     <div class="box-journey box-white">
                         <div class="image">
                             <a href="#" title="">
-                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a href="#" class="title" title="">Laos</a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12">
-                    <div class="box-journey box-white">
-                        <div class="image">
-                            <a href="#" title="">
-                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                             </a>
                         </div>
                         <div class="desc">
@@ -165,7 +149,7 @@ get_header();
                     <div class="box-journey box-white">
                         <div class="image">
                             <a href="#" title="">
-                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                             </a>
                         </div>
                         <div class="desc">
@@ -181,7 +165,23 @@ get_header();
                     <div class="box-journey box-white">
                         <div class="image">
                             <a href="#" title="">
-                                <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                            </a>
+                        </div>
+                        <div class="desc">
+                            <a href="#" class="title" title="">Laos</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
+                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12">
+                    <div class="box-journey box-white">
+                        <div class="image">
+                            <a href="#" title="">
+                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                             </a>
                         </div>
                         <div class="desc">
@@ -202,11 +202,11 @@ get_header();
     <div class="container ">
         <div class="row">
             <h2 class="col-xs-12 col-sm-12 tile-main white">Why us
-                <br> <img src="<?php echo THEME_URL.'/images/line-white.png' ?>">
+                <br> <img src="<?php echo VIEW_URL.'/images/line-white.png' ?>">
             </h2>
             <div class="col-xs-12 col-sm-4">
                 <div class="box-why">
-                    <img src="<?php echo THEME_URL .'/images/why-1.png'?>" alt="">
+                    <img src="<?php echo VIEW_URL .'/images/why-1.png'?>" alt="">
                     <div class="desc">
                         <p class="title">The differences</p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
@@ -215,7 +215,7 @@ get_header();
             </div>
             <div class="col-xs-12 col-sm-4">
                 <div class="box-why">
-                    <img src="<?php echo THEME_URL .'/images/why-2.png'?>" alt="">
+                    <img src="<?php echo VIEW_URL .'/images/why-2.png'?>" alt="">
                     <div class="desc">
                         <p class="title">Our care</p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
@@ -224,7 +224,7 @@ get_header();
             </div>
             <div class="col-xs-12 col-sm-4">
                 <div class="box-why">
-                    <img src="<?php echo THEME_URL .'/images/why-3.png'?>" alt="">
+                    <img src="<?php echo VIEW_URL .'/images/why-3.png'?>" alt="">
                     <div class="desc">
                         <p class="title">Ship owner and partner</p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
@@ -239,36 +239,36 @@ get_header();
     <div class="container ">
         <div class="row">
             <h2 class="col-xs-12 col-sm-12 tile-main">Featured Room Item
-                <br> <img src="<?php echo THEME_URL.'/images/line.png' ?>">
+                <br> <img src="<?php echo VIEW_URL.'/images/line.png' ?>">
             </h2>
 
             <div class="col-xs-12 col-sm-6">
                 <div class="box-room">
-                    <a href="#" title=""><img src="<?php echo THEME_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
+                    <a href="#" title=""><img src="<?php echo VIEW_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
                     <a href="#" title="" class="title">Spa Room</a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3">
                 <div class="box-room">
-                    <a href="#" title=""><img src="<?php echo THEME_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
+                    <a href="#" title=""><img src="<?php echo VIEW_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
                     <a href="#" title="" class="title">Spa Room</a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3">
                 <div class="box-room">
-                    <a href="#" title=""><img src="<?php echo THEME_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
+                    <a href="#" title=""><img src="<?php echo VIEW_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
                     <a href="#" title="" class="title">Spa Room</a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3">
                 <div class="box-room">
-                    <a href="#" title=""><img src="<?php echo THEME_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
+                    <a href="#" title=""><img src="<?php echo VIEW_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
                     <a href="#" title="" class="title">Spa Room</a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3">
                 <div class="box-room">
-                    <a href="#" title=""><img src="<?php echo THEME_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
+                    <a href="#" title=""><img src="<?php echo VIEW_URL.'/images/room.jpg' ?>" alt="" class="lazy"></a>
                     <a href="#" title="" class="title">Spa Room</a>
                 </div>
             </div>

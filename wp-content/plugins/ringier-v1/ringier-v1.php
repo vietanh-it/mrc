@@ -9,7 +9,7 @@ Author URI: http://www.ringier.vn
 */
 
 define("PATH_VIEW", __DIR__ . '/app/Views/');
-define("VIEW_URL", WP_SITEURL . '/wp-content/plugins/ringier-v1/app/Views/');
+define("VIEW_URL", WP_SITEURL . '/wp-content/plugins/ringier-v1/app/Views/_assets');
 
 if (!defined('CACHEGROUP')) {
     define('CACHEGROUP', 'default');

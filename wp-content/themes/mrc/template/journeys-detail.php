@@ -1,8 +1,8 @@
 <?php
 /**
- * Template name: Journey List
+ * Template name: Journey Detail
  */
 
 $Controller = \RVN\Controllers\JourneyController::init();
-$Controller->getJourneyList();
+$Controller->getJourneyDetail(0);
 

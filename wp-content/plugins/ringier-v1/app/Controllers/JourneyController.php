@@ -1,6 +1,8 @@
 <?php
 namespace RVN\Controllers;
 
+use RVN\Models\Posts;
+
 class JourneyController extends _BaseController
 {
     private static $instance;
@@ -22,11 +24,12 @@ class JourneyController extends _BaseController
     public function getJourneyDetail($journey_id)
     {
 
+        return view('journey/detail');
     }
 
     public function getJourneyList()
     {
-
+        $journey = Posts::init();
 
         return view('journey/list');
     }

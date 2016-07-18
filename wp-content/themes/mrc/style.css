@@ -187,6 +187,12 @@ nav ul.navbar-nav li.active a{
     color: #b3adaa;
 
 }
+.form-find-journey select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
 .form-find-journey input:focus,.form-find-journey select:focus{
     color: #b3adaa;
     box-shadow: none;
@@ -496,6 +502,17 @@ footer ul li{
     font-size: 17px;
     font-weight: bold;
 }
+.quick-search-journey button:hover{
+    background: #e4a611;
+    color: white;
+}
+.quick-search-journey select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
 
 @media (min-width: 1200px){
 

@@ -61,7 +61,7 @@
         <div class="container container-big">
             <div class="row">
                 <div class="col-sm-3 col-xs-12">
-                    <a href="<?php echo '#' ?>"><img src="<?php echo THEME_URL ?>/images/logo.png" width="100%"></a>
+                    <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo THEME_URL ?>/images/logo.png" width="100%"></a>
                 </div>
                 <div class="col-sm-7 col-xs-12">
                     <div class="navbar-header">
@@ -75,10 +75,10 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#" title="" > Home </a></li>
+                            <li class="active"><a href="<?php echo WP_SITEURL ?>" title="" > Home </a></li>
                             <li><a href="#" title="">WHY US   </a></li>
                             <li><a href="#" title="">SHIPs </a></li>
-                            <li><a href="#" title="">JOURNEy </a></li>
+                            <li><a href="<?php echo WP_SITEURL.'/journey/' ?>" title="">JOURNEy </a></li>
                             <li><a href="#" title="">OFFERS </a></li>
                             <li><a href="#" title="">RESOURCEs </a></li>
                             <li><a href="#" title="">news </a></li>

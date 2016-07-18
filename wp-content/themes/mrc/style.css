@@ -103,6 +103,9 @@ nav ul.navbar-nav li.active a{
     margin-bottom: 20px;
     position: relative;
 }
+.home-slider img{
+    width: 100%;
+}
 .owl-carousel .owl-buttons{
     position: absolute;
     top: 50%;

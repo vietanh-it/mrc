@@ -1,8 +1,7 @@
 <?php
 namespace RVN\Hooks;
 
-use RVN\Library\CPTColumns;
-use RVN\Models\Posts;
+use RVN\Controllers\ShipController;
 
 /**
  * Created by PhpStorm.
@@ -13,6 +12,7 @@ use RVN\Models\Posts;
 class CustomShips
 {
     private static $instance;
+
 
     public static function init()
     {
@@ -26,10 +26,6 @@ class CustomShips
 
     public function __construct()
     {
-        global $wpdb;
-
-        $this->_table_size = $wpdb->prefix . "ship_info";
-
         add_action('add_meta_boxes', array($this, 'addRoomType'));
         add_action('save_post', array($this, 'save'));
     }
@@ -37,62 +33,94 @@ class CustomShips
 
     public function addRoomType()
     {
-        add_meta_box('ship_detail', 'Ship room', array($this, 'show'), 'ship', 'normal', 'high');
+        add_meta_box('room_info', 'Room Infomation', array($this, 'show'), 'ship', 'normal', 'high');
     }
 
 
     public function show()
     {
         global $post;
-        $ship_info = $this->getShipInfo($post->ID);
-        $result = array();
-        if ($ship_info && $ship_info->room_types) {
-            $result = unserialize($ship_info->room_types);
-        }
+        $ship_ctrl = ShipController::init();
 
-        echo '<div class = "ctn-box-size">';
-        if ($result) {
-            foreach ($result as $v) {
-                $stateroom_type = $v['room_type'];
-                $quantity = $v['price'];
-                echo $this->html_size($stateroom_type, $quantity);
-            }
-        } else {
-            echo $this->html_size();
-        }
-        echo '</div>';
-        echo '
-            <a href = "javascript:void(0)" class="add-new-size" data-id="2"><i class="fa fa-plus-circle"></i> Add new Room Type</a>
-        ';
+        // Ship detail
+        $ship_info = $ship_ctrl->getShipDetail($post->ID);
 
         ?>
+
+        <style>
+            .ship_map {
+                position: relative;
+                width: 100%;
+            }
+
+            .ship_map img {
+                width: 100%;
+                height: auto;
+            }
+
+            .room-info {
+                display: inline-block;
+                vertical-align: top;
+            }
+        </style>
+
+        <div class="ctn-box">
+            <div class="ship_map" style="width: 50%; display: inline-block;">
+                <img src="<?php echo $ship_info->map; ?>"/>
+
+                <?php foreach ($ship_info->rooms as $key => $room) {
+                    echo $room->html;
+                } ?>
+
+            </div>
+
+            <div class="room-info" style="width: 49%; display: inline-block; background: #00a0d2;">
+                <div>Room name: <span class="room-name"></span></div>
+            </div>
+        </div>
+
         <script>
             var $ = jQuery.noConflict();
 
             jQuery(document).ready(function ($) {
+                var ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
 
-                var html_size = '<div class ="size-product" style="margin-bottom: 30px;border-bottom: 1px solid darkgrey;padding-bottom: 20px"> ' +
-                    '<div class="size" style="float: left;width: 50%"> ' +
-                    '<label >ROOM TYPE : </label> ' +
-                    '<input type="text" value="" name="size[]"> ' +
-                    '</div> ' +
-                    '<div class ="quantity" style="float: left;width: 50%;    margin-bottom: 10px;"> ' +
-                    '<label >Price : </label> ' +
-                    '$<input type="number" value="" name="price[]" > ' +
-                    '</div> ' +
-                    '<div class="close" style=""> ' +
-                    '<a href="javascript:void(0)" class="close-box-size" >Delete</a> ' +
-                    '</div>' +
-                    '</div>';
+                $(document).delegate('[data-roomid]', 'click', function (e) {
 
-                $('.add-new-size').click(function () {
-                    var id = $(this).attr('data-id');
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_ship',
+                            method: 'GetRoomInfo',
+                            room_id: $(this).attr('data-roomid')
+                        },
+                        beforeSend: function () {
+                        },
+                        success: function (data) {
+                            console.log(data);
 
-                    $('.ctn-box-size').append(html_size);
-                });
+                            if (data.status == 'success') {
+                                $('.room-name').html(data.data.room_name);
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Lỗi", "text": html_msg, "type": "error", html: true});
+                            }
+                        }
+                    }); // end ajax
 
-                $(document).delegate('.close-box-size', 'click', function () {
-                    $(this).closest('div').closest('div.size-product').remove();
                 });
 
             });
@@ -103,69 +131,9 @@ class CustomShips
     }
 
 
-    public function html_size($stateroom_type = '', $quantity = '')
-    {
-        $html = '<div class ="size-product" style="margin-bottom: 30px;border-bottom: 1px solid darkgrey;padding-bottom: 20px">
-                    <div class="size" style="float: left;width: 50%">
-                        <label >ROOM TYPE : </label>
-                        <input type="text" value="' . $stateroom_type . '" name="size[]">
-                    </div>
-                    <div class ="quantity" style="float: left;width: 50%;    margin-bottom: 10px;">
-                        <label >Price : </label>
-                        $<input type="number" value="' . $quantity . '" name="price[]" >
-                    </div>
-                     <div class="close" style="">
-                        <a href="javascript:void(0)" class="close-box-size" >Delete</a>
-                    </div>
-                </div>
-                 ';
-
-        return $html;
-    }
-
-
     public function save()
     {
-        // var_dump($_POST);
-        global $wpdb;
-        if ($_POST['size'] && $_POST['price']) {
-            $list_size = array();
-            foreach ($_POST['size'] as $k => $stateroom_type) {
-                $size_quantity = array(
-                    'room_type' => $stateroom_type,
-                    'price'     => $_POST['price'][$k],
-                );
-
-                $list_size[] = $size_quantity;
-            }
-
-
-            $ship_info = $this->getShipInfo($_POST['post_ID']);
-            if ($ship_info) {
-                $wpdb->update($this->_table_size, array('room_types' => serialize($list_size)),
-                    array('object_id' => $_POST['post_ID']));
-            } else {
-                $wpdb->insert($this->_table_size, array(
-                    'room_types' => serialize($list_size),
-                    'object_id'  => $_POST['post_ID']
-                ));
-            }
-
-        }
-
 
     }
 
-
-    public function getShipInfo($ship_id)
-    {
-        global $wpdb;
-
-        $query = 'SELECT * FROM ' . $this->_table_size . ' WHERE object_id = ' . $ship_id;
-
-        // echo  $query;
-        $result = $wpdb->get_row($query);
-
-        return $result;
-    }
 }

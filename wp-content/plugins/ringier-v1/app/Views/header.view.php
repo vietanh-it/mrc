@@ -17,6 +17,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-language" content="vi" />
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
     <?php wp_head(); ?>
     <script>
         /*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -27,6 +29,8 @@
          ga('create', 'UA-62562895-1', 'auto');
          ga('send', 'pageview');*/
     </script>
+
+
 </head>
 <body <?php body_class(); ?>>
 

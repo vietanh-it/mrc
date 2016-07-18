@@ -2,12 +2,13 @@
 
 body{
     color: #545454;
-    font-family: Arial, "Times New Roman", "Bitstream Charter", Times, serif;
-    font-size: 13px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
 }
 a {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: normal;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 img{
     max-width: 100%;
@@ -175,7 +176,7 @@ nav ul.navbar-nav li.active a{
     color: white;
     margin-bottom: 30px;
     text-transform: uppercase;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     font-size: 20px;
 }
 .form-find-journey input,.form-find-journey select{
@@ -233,7 +234,7 @@ nav ul.navbar-nav li.active a{
     border: 1px solid #e4a611;
     box-shadow: none;
     border-radius: 5px;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     text-transform: uppercase;
     font-size: 17px;
 }
@@ -253,7 +254,7 @@ nav ul.navbar-nav li.active a{
 }
 .tile-main{
     text-align: center;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     color: black;
     font-size: 20px;
     text-transform: uppercase;
@@ -273,7 +274,7 @@ nav ul.navbar-nav li.active a{
 .box-journey .desc .title{
     color: #e4a611;
     margin: 10px 0;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     font-weight: bold;
     font-size: 15px;
     text-transform: uppercase;
@@ -284,7 +285,7 @@ nav ul.navbar-nav li.active a{
 .box-journey .desc .explore{
     text-transform: uppercase;
     font-weight: bold;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     padding: 10px 20px;
     background: #e4a611;
     border: 1px solid #e4a611;
@@ -334,7 +335,7 @@ nav ul.navbar-nav li.active a{
     color: white;
     left: 25px;
     font-size: 15px;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
 }
 
 
@@ -384,7 +385,7 @@ nav ul.navbar-nav li.active a{
     font-weight: bold;
     text-transform: uppercase;
     font-size: 15px;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
 }
 
 .join-with{
@@ -442,7 +443,7 @@ footer a:hover{
 footer h4{
     color: white;
     text-transform: uppercase;
-    font-family:"Times New Roman";
+    font-family: 'Playfair Display', serif;
     font-size: 15px;
     margin-bottom: 15px;
     margin-top: 0;
@@ -458,7 +459,7 @@ footer ul li{
     border-top:  1px solid #7b7b7c;
     text-transform: uppercase;
     padding: 15px 0 10px;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
 }
 .copy-right a{
     color: white;
@@ -469,7 +470,7 @@ footer ul li{
     background: #d5b76e;
 }
 .quick-search-journey h3{
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     text-transform: uppercase;
     color: white;
     font-size: 20px;
@@ -497,7 +498,7 @@ footer ul li{
     border: 1px solid #e4a611;
     box-shadow: none;
     border-radius: 5px;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     text-transform: uppercase;
     font-size: 17px;
     font-weight: bold;
@@ -533,7 +534,7 @@ footer ul li{
 }
 .journey-detail .featured-image .info h1{
     text-transform: uppercase;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     margin-top: 0;
     font-size: 25px;
     color: white;
@@ -561,7 +562,7 @@ footer ul li{
     background: white;
     text-transform: uppercase;
     font-weight: bold;
-    font-family: "Times New Roman";
+    font-family: 'Playfair Display', serif;
     margin-right: 20px;
 }
 .journey-detail .featured-image .info a:hover{

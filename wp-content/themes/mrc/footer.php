@@ -54,32 +54,32 @@
             <div class="col-xs-12 col-sm-3">
                 <h4>Company information</h4>
                 <ul>
-                    <li>About Us</li>
-                    <li>Contact Us</li>
-                    <li>Media Centre</li>
-                    <li>FAQ</li>
-                    <li>Partner</li>
+                    <li><a href="#" title=""> About Us </a></li>
+                    <li><a href="#" title=""> Contact Us</a></li>
+                    <li><a href="#" title=""> Media Centre</a></li>
+                    <li><a href="#" title=""> FAQ</a></li>
+                    <li><a href="#" title=""> Partner</a></li>
                 </ul>
             </div>
 
             <div class="col-xs-12 col-sm-2">
                 <h4>Ship</h4>
                 <ul>
-                    <li>Overview</li>
-                    <li> Mekong Princess</li>
-                    <li> Viet Princess</li>
-                    <li> Ship Tour</li>
+                    <li><a href="#" title="">Overview</a></li>
+                    <li> <a href="#" title="">Mekong Princess</a></li>
+                    <li> <a href="#" title="">Viet Princess</a></li>
+                    <li> <a href="#" title="">Ship Tour</a></li>
                 </ul>
             </div>
 
             <div class="col-xs-12 col-sm-2">
                 <h4>Journey</h4>
                 <ul>
-                    <li>Destination</li>
-                    <li> Before you go</li>
-                    <li> Manage my journey</li>
-                    <li> Travel information</li>
-                    <li> Services</li>
+                    <li><a href="#" title="">Destination</a></li>
+                    <li> <a href="#" title="">Before you go</a></li>
+                    <li><a href="#" title=""> Manage my journey</a></li>
+                    <li><a href="#" title=""> Travel information</a></li>
+                    <li><a href="#" title=""> Services</a></li>
                 </ul>
             </div>
 
@@ -87,9 +87,9 @@
             <div class="col-xs-12 col-sm-2">
                 <h4>Resource</h4>
                 <ul>
-                    <li>E-brochure </li>
-                    <li>   Gallery </li>
-                    <li> Video </li>
+                    <li><a href="#" title="">E-brochure </a></li>
+                    <li> <a href="#" title="">  Gallery </a></li>
+                    <li><a href="#" title=""> Video </a></li>
                 </ul>
             </div>
 

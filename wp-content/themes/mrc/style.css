@@ -417,6 +417,13 @@ footer{
     background: #2a2b2c;
     color: #7b7b7c;
 }
+footer a{
+    color: #7b7b7c;
+}
+footer a:hover{
+    text-decoration: none;
+    color: white;
+}
 footer h4{
     color: white;
     text-transform: uppercase;

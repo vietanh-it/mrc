@@ -37,6 +37,9 @@ define('DB_CHARSET', 'utf8mb4');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
+define('WP_SITEURL', 'http://local.mrc.com');
+define('WP_HOME', 'http://local.mrc.com');
+
 /**#@+
  * Authentication Unique Keys and Salts.
  *
@@ -77,7 +80,7 @@ $table_prefix  = 'mrc_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 
 /* That's all, stop editing! Happy blogging. */
 

@@ -71,6 +71,36 @@ get_header();
                 </div>
             </div>
 
+            <div class="col-xs-12 col-sm-4">
+                <div class="box-journey">
+                    <div class="image">
+                        <a href="#" title="">
+                            <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <a href="#" class="title" title="">Vietnam</a>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
+                        <a href="#" class="explore" title="">Explore</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+                <div class="box-journey">
+                    <div class="image">
+                        <a href="#" title="">
+                            <img src="<?php echo THEME_URL.'/images/laos.png' ?>" alt="" class="lazy">
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <a href="#" class="title" title="">Cambodia</a>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
+                        <a href="#" class="explore" title="">Explore</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

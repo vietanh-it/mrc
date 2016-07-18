@@ -513,6 +513,70 @@ footer ul li{
     text-overflow: '';
 }
 
+.journey-detail{
+
+}
+.journey-detail .featured-image {
+    position: relative;
+    color: #4a3303;
+}
+.journey-detail .featured-image img{
+    width: 100%;
+}
+.journey-detail .featured-image .info{
+    position: absolute;
+    width: 550px;
+    left: 100px;
+    top: 100px;
+    background: rgba(200, 111, 0, 0.6);
+    padding: 30px;
+}
+.journey-detail .featured-image .info h1{
+    text-transform: uppercase;
+    font-family: "Times New Roman";
+    margin-top: 0;
+    font-size: 25px;
+    color: white;
+}
+.journey-detail .featured-image .info h2{
+    font-size: 13px;
+    margin: 10px 0;
+}
+
+.journey-detail .featured-image .info ul li:first-child{
+    float: left;
+    width: 40%;
+}
+.journey-detail .featured-image .info ul {
+    margin: 20px 0 30px;
+    float: left;
+    width: 100%;
+    padding-left: 15px;
+}
+.journey-detail .featured-image .info a{
+    padding: 10px 20px ;
+    color: #e4a611;
+    border: 1px solid #e4a611;
+    border-radius: 5px;
+    background: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: "Times New Roman";
+    margin-right: 20px;
+}
+.journey-detail .featured-image .info a:hover{
+    background: #e4a611;
+    color: white;
+    text-decoration: none;
+}
+.journey-detail .featured-image .info span{
+    color: white;
+}
+.journey-detail .featured-image .info .price-if{
+    font-weight: bold;
+}
+
+
 
 @media (min-width: 1200px){
 

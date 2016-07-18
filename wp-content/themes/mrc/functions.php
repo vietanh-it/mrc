@@ -1,18 +1,22 @@
 <?php
 
 define('THEME_URL', get_template_directory_uri());
-if ( ! isset( $content_width ) ) {
+if (!isset($content_width)) {
     $content_width = 620;
 }
 
-function r_theme_setup() {
+function r_theme_setup()
+{
+
+    add_image_size('featured', 600, 600, true);
     add_theme_support('post-thumbnails');
 
 }
 
 add_action('after_setup_theme', 'r_theme_setup');
 
-function r_scripts_styles() {
+function r_scripts_styles()
+{
     $version = '20150116_1200';
 
     wp_enqueue_style('bootstrap', THEME_URL . '/css/bootstrap.min.css', array(), '1.0');
@@ -37,7 +41,7 @@ function r_scripts_styles() {
     wp_enqueue_script('nivo-js', THEME_URL . '/js/owl.carousel.js', array('jquery'), '1.0', true);
     wp_enqueue_script('fancybox', THEME_URL . '/js/jquery.fancybox.pack.js', array('jquery'), 1.0, true);
     wp_enqueue_script('my-app-ext', THEME_URL . '/js/main.js', array('jquery'), $version, true);
-    wp_localize_script( 'my-app-ext', 'MyAjax', array( 'ajax_url' => admin_url( 'admin-ajax.php' )));
+    wp_localize_script('my-app-ext', 'MyAjax', array('ajax_url' => admin_url('admin-ajax.php')));
 
 }
 
@@ -45,7 +49,8 @@ add_action('wp_enqueue_scripts', 'r_scripts_styles');
 
 
 add_action('after_setup_theme', 'remove_admin_bar');
-function remove_admin_bar() {
+function remove_admin_bar()
+{
     if (!current_user_can('administrator') and !current_user_can('editor')) {
         show_admin_bar(false);
     }

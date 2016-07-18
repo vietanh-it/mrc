@@ -37,7 +37,7 @@
 
 <header>
     <div class="top-bar">
-        <div class="container">
+        <div class="container container-big">
             <div class="row">
                 <div class="col-xs-12 col-sm-7">
                     <ul class="top-info">
@@ -58,7 +58,7 @@
         </div>
     </div>
     <nav class="navbar">
-        <div class="container">
+        <div class="container container-big">
             <div class="row">
                 <div class="col-sm-3 col-xs-12">
                     <a href="<?php echo '#' ?>"><img src="<?php echo THEME_URL ?>/images/logo.png" width="100%"></a>

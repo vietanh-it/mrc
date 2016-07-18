@@ -22,23 +22,23 @@ class acf_field_functions
     function __construct()
     {
         //value
-        add_filter('acf/load_value', array($this, 'load_value'), 5, 3);
-        add_action('acf/update_value', array($this, 'update_value'), 5, 3);
-        add_action('acf/delete_value', array($this, 'delete_value'), 5, 2);
-        add_action('acf/format_value', array($this, 'format_value'), 5, 3);
-        add_action('acf/format_value_for_api', array($this, 'format_value_for_api'), 5, 3);
+        add_filter('acf/load_value', [$this, 'load_value'], 5, 3);
+        add_action('acf/update_value', [$this, 'update_value'], 5, 3);
+        add_action('acf/delete_value', [$this, 'delete_value'], 5, 2);
+        add_action('acf/format_value', [$this, 'format_value'], 5, 3);
+        add_action('acf/format_value_for_api', [$this, 'format_value_for_api'], 5, 3);
 
 
         // field
-        add_filter('acf/load_field', array($this, 'load_field'), 5, 3);
-        add_action('acf/update_field', array($this, 'update_field'), 5, 2);
-        add_action('acf/delete_field', array($this, 'delete_field'), 5, 2);
-        add_action('acf/create_field', array($this, 'create_field'), 5, 1);
-        add_action('acf/create_field_options', array($this, 'create_field_options'), 5, 1);
+        add_filter('acf/load_field', [$this, 'load_field'], 5, 3);
+        add_action('acf/update_field', [$this, 'update_field'], 5, 2);
+        add_action('acf/delete_field', [$this, 'delete_field'], 5, 2);
+        add_action('acf/create_field', [$this, 'create_field'], 5, 1);
+        add_action('acf/create_field_options', [$this, 'create_field_options'], 5, 1);
 
 
         // extra
-        add_filter('acf/load_field_defaults', array($this, 'load_field_defaults'), 5, 1);
+        add_filter('acf/load_field_defaults', [$this, 'load_field_defaults'], 5, 1);
     }
 
 
@@ -52,6 +52,24 @@ class acf_field_functions
 
     function load_value($value, $post_id, $field)
     {
+        global $wpdb, $post;
+        if (in_array($post->post_type, ['ship'])) {
+            switch ($post->post_type) {
+                case 'ship':
+                    $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}ship_info si ON p.ID = si.object_id WHERE p.ID = {$post_id}";
+                    $result = $wpdb->get_row($query);
+
+                    if (isset($result->{$field['name']})) {
+                        $value = $result->{$field['name']};
+                    }
+
+                    return stripslashes($value);
+                default:
+                    break;
+            }
+        }
+
+
         $found = false;
         $cache = wp_cache_get('load_value/post_id=' . $post_id . '/name=' . $field['name'], 'acf', false, $found);
 
@@ -105,7 +123,7 @@ class acf_field_functions
 
 
         // apply filters
-        foreach (array('type', 'name', 'key') as $key) {
+        foreach (['type', 'name', 'key'] as $key) {
             // run filters
             $value = apply_filters('acf/load_value/' . $key . '=' . $field[$key], $value, $post_id,
                 $field); // new filter
@@ -169,6 +187,26 @@ class acf_field_functions
 
     function update_value($value, $post_id, $field)
     {
+        global $wpdb, $post;
+        if (in_array($post->post_type, ['ship'])) {
+
+            $data = [];
+            $customFields = $_POST['fields'];
+            foreach ($customFields as $key => $value) {
+                $f = get_field_object($key);
+                $value = ($value == 'null') ? 0 : $value;
+                $data[$f['name']] = $value;
+            }
+
+            switch ($post->post_type) {
+                case 'ship':
+                    $wpdb->update($wpdb->prefix . 'ship_info', $data, ['object_id' => $post_id]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
 
         // strip slashes
         // - not needed? http://support.advancedcustomfields.com/discussion/3168/backslashes-stripped-in-wysiwyg-filed
@@ -179,7 +217,7 @@ class acf_field_functions
 
 
         // apply filters
-        foreach (array('key', 'name', 'type') as $key) {
+        foreach (['key', 'name', 'type'] as $key) {
             // run filters
             $value = apply_filters('acf/update_value/' . $key . '=' . $field[$key], $value, $post_id,
                 $field); // new filter
@@ -351,7 +389,7 @@ class acf_field_functions
 
 
         // apply filters
-        foreach (array('type', 'name', 'key') as $key) {
+        foreach (['type', 'name', 'key'] as $key) {
             // run filters
             $field = apply_filters('acf/load_field/' . $key . '=' . $field[$key], $field); // new filter
         }
@@ -376,12 +414,12 @@ class acf_field_functions
     {
         // validate $field
         if (!is_array($field)) {
-            $field = array();
+            $field = [];
         }
 
 
         // defaults
-        $defaults = array(
+        $defaults = [
             'key'               => '',
             'label'             => '',
             'name'              => '',
@@ -392,12 +430,12 @@ class acf_field_functions
             'required'          => 0,
             'id'                => '',
             'class'             => '',
-            'conditional_logic' => array(
+            'conditional_logic' => [
                 'status'   => 0,
                 'allorany' => 'all',
                 'rules'    => 0
-            ),
-        );
+            ],
+        ];
         $field = array_merge($defaults, $field);
 
 

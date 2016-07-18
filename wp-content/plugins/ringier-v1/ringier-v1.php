@@ -9,6 +9,7 @@ Author URI: http://www.ringier.vn
 */
 
 define("PATH_VIEW", __DIR__ . '/app/Views/');
+define("VIEW_URL", WP_SITEURL . '/wp-content/plugins/ringier-v1/app/Views/');
 
 if (!defined('CACHEGROUP')) {
     define('CACHEGROUP', 'default');
@@ -40,4 +41,5 @@ function mrcLoad()
     RVN\Hooks\CustomShips::init();
 
     // call ajax
+    \RVN\Controllers\ShipController::init();
 }

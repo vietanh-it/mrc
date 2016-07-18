@@ -59,14 +59,14 @@ get_header();
             <div class="col-xs-12 col-sm-4">
                 <div class="box-journey">
                     <div class="image">
-                        <a href="#" title="">
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" title="">
                             <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                         </a>
                     </div>
                     <div class="desc">
-                        <a href="#" class="title" title="">Laos</a>
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="title" title="">Laos</a>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                        <a href="#" class="explore" title="">Explore</a>
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="explore" title="">Explore</a>
                     </div>
                 </div>
             </div>
@@ -74,14 +74,14 @@ get_header();
             <div class="col-xs-12 col-sm-4">
                 <div class="box-journey">
                     <div class="image">
-                        <a href="#" title="">
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" title="">
                             <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                         </a>
                     </div>
                     <div class="desc">
-                        <a href="#" class="title" title="">Vietnam</a>
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="title" title="">Vietnam</a>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                        <a href="#" class="explore" title="">Explore</a>
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="explore" title="">Explore</a>
                     </div>
                 </div>
             </div>
@@ -89,14 +89,14 @@ get_header();
             <div class="col-xs-12 col-sm-4">
                 <div class="box-journey">
                     <div class="image">
-                        <a href="#" title="">
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" title="">
                             <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
                         </a>
                     </div>
                     <div class="desc">
-                        <a href="#" class="title" title="">Cambodia</a>
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="title" title="">Cambodia</a>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                        <a href="#" class="explore" title="">Explore</a>
+                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="explore" title="">Explore</a>
                     </div>
                 </div>
             </div>

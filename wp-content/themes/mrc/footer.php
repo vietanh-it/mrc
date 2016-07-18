@@ -93,7 +93,7 @@
                 </ul>
             </div>
 
-            <div class="col-xs-12 col-sm-3">
+            <div class="col-xs-12 col-sm-3 text-right">
                 <img src="<?php echo THEME_URL.'/images/verify-web.png' ?>" alt="">
             </div>
 

@@ -8,26 +8,32 @@ class _BaseController
     protected $session;
     protected $validate;
 
-    protected function __construct() {
+    protected function __construct()
+    {
         // view docs https://github.com/auraphp/Aura.Session
         $session_factory = new \Aura\Session\SessionFactory;
         $this->session = $session_factory->newInstance($_COOKIE);
 
         // view doc https://github.com/vlucas/valitron
-        $this->validate = new \Valitron\Validator($_POST, array(), 'vi');
+        $this->validate = new \Valitron\Validator($_POST, [], 'vi');
     }
 
 
-    public function ajaxHandler(){
+    public function ajaxHandler()
+    {
         // view docs http://labs.omniti.com/labs/jsend
-        $result = array(
+        $result = [
             'status'  => 'error',
             'message' => 'Đã xảy ra lỗi, vui lòng thử lại'
-        );
-        if ( ! empty( $_POST["method"] )) {
-            $method = sanitize_text_field($_POST["method"]);
+        ];
+        if (!empty($_REQUEST["method"])) {
+            $method = sanitize_text_field($_REQUEST["method"]);
             if (method_exists($this, "ajax" . $method)) {
-                $result = call_user_func([$this, "ajax" . $method], $_POST);
+                $rs = call_user_func([$this, "ajax" . $method], $_POST);
+
+                if (!empty($rs)) {
+                    $result = $rs;
+                }
             }
         }
 

@@ -235,6 +235,12 @@ nav ul.navbar-nav li.active a{
 
 .journey-home{
     background: #faf7f2 ;
+    position: relative;
+}
+.journey-home .bg-a{
+    position: absolute;
+    right: 0;
+    bottom: -100px;
 }
 .tile-main{
     text-align: center;

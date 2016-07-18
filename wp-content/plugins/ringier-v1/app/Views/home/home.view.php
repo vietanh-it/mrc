@@ -103,6 +103,7 @@ get_header();
 
         </div>
     </div>
+    <img src="<?php echo THEME_URL.'/images/icon-trong-dong.png' ?>" alt="" class="bg-a">
 </div>
 
 

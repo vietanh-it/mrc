@@ -96,6 +96,7 @@ class acf_field_select extends acf_field
 			
 			$multiple = ' multiple="multiple" size="5" ';
 			$field['name'] .= '[]';
+			$field['class'] .= ' select2';
 		} 
 		
 		

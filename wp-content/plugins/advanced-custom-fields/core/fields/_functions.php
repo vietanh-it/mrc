@@ -53,7 +53,7 @@ class acf_field_functions
     function load_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship'])) {
+        if (in_array($post->post_type, ['ship', 'destination'])) {
             switch ($post->post_type) {
                 case 'ship':
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}ship_info si ON p.ID = si.object_id WHERE p.ID = {$post_id}";
@@ -61,6 +61,22 @@ class acf_field_functions
 
                     if (isset($result->{$field['name']})) {
                         $value = $result->{$field['name']};
+                    }
+
+                    return stripslashes($value);
+                case 'destination':
+                    // var_dump($field);
+
+                    $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}post_info pi ON p.ID = pi.object_id WHERE p.ID = {$post_id}";
+                    $result = $wpdb->get_row($query);
+
+                    if (isset($result->{$field['name']})) {
+                        $value = $result->{$field['name']};
+                    }
+
+                    if ($field['name'] == 'countries' && !empty($value)) {
+                        $value = unserialize($value);
+                        return $value;
                     }
 
                     return stripslashes($value);
@@ -188,7 +204,7 @@ class acf_field_functions
     function update_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship'])) {
+        if (in_array($post->post_type, ['ship', 'destination'])) {
 
             $data = [];
             $customFields = $_POST['fields'];
@@ -200,7 +216,24 @@ class acf_field_functions
 
             switch ($post->post_type) {
                 case 'ship':
-                    $wpdb->update($wpdb->prefix . 'ship_info', $data, ['object_id' => $post_id]);
+                    if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}post_info WHERE object_id = {$post_id}"))) {
+                        $data['object_id'] = $post_id;
+                        $wpdb->insert($wpdb->prefix . 'ship_info', $data);
+                    } else {
+                        $wpdb->update($wpdb->prefix . 'ship_info', $data, ['object_id' => $post_id]);
+                    }
+                    break;
+                case 'destination':
+                    if ($field['name'] == 'countries') {
+                        $data[$field['name']] = serialize($data[$field['name']]);
+                    }
+
+                    if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}post_info WHERE object_id = {$post_id}"))) {
+                        $data['object_id'] = $post_id;
+                        $wpdb->insert($wpdb->prefix . 'post_info', $data);
+                    } else {
+                        $wpdb->update($wpdb->prefix . 'post_info', $data, ['object_id' => $post_id]);
+                    }
                     break;
                 default:
                     break;

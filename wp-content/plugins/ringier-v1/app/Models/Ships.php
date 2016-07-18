@@ -49,7 +49,7 @@ class Ships
         $result = $this->_wpdb->get_row($query);
 
         if (!empty($result)) {
-            $result->map = VIEW_URL . 'ship_maps/' . $result->map;
+            $result->map = VIEW_URL . '/images/ship_maps/' . $result->map;
             $result->rooms = $this->getShipRooms($ship_id);
         }
 

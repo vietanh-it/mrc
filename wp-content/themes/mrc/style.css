@@ -195,7 +195,7 @@ nav ul.navbar-nav li.active a{
     position: relative;
     margin-bottom: 30px;
 }
-.form-find-journey .icon-n{
+ .icon-n{
     width: 15px;
     height: 20px;
     position: absolute;
@@ -204,18 +204,18 @@ nav ul.navbar-nav li.active a{
     right: 10px;
 }
 
-.form-find-journey .icon-n.icon-location{
+ .icon-n.icon-location{
     background: url("images/icon-location.png");
 }
-.form-find-journey .icon-n.icon-date{
+ .icon-n.icon-date{
     background: url("images/icon-date.png");
     width: 20px;
 }
-.form-find-journey .icon-n.icon-port{
+ .icon-n.icon-port{
     background: url("images/icon-port.png");
     width: 20px;
 }
-.form-find-journey .icon-n.icon-ship{
+ .icon-n.icon-ship{
     background: url("images/icon-ship.png");
     width: 23px;
     height: 23px;
@@ -255,7 +255,7 @@ nav ul.navbar-nav li.active a{
     font-weight: bold;
 }
 .box-journey {
-    margin-bottom: 30px;
+    margin-bottom: 70px;
     position: relative;
 }
 .box-journey .image img{
@@ -458,6 +458,44 @@ footer ul li{
     color: white;
 }
 
+
+.quick-search-journey{
+    background: #d5b76e;
+}
+.quick-search-journey h3{
+    font-family: "Times New Roman";
+    text-transform: uppercase;
+    color: white;
+    font-size: 20px;
+}
+.quick-search-journey .form-group{
+    position: relative;
+}
+.quick-search-journey input::-moz-placeholder{
+    color: white !important;
+}
+.quick-search-journey input::-webkit-input-placeholder{
+    color: white !important;
+}
+.quick-search-journey input,.quick-search-journey select{
+    border: 1px solid white;
+    background: #d5b76e;
+    font-size: 13px;
+    color: white;
+    width: 100%;
+}
+.quick-search-journey button{
+    background: white;
+    padding: 5px 20px;
+    color: #e4a611;
+    border: 1px solid #e4a611;
+    box-shadow: none;
+    border-radius: 5px;
+    font-family: "Times New Roman";
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: bold;
+}
 
 @media (min-width: 1200px){
 

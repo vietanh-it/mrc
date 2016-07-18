@@ -26,6 +26,8 @@ class JourneyController extends _BaseController
 
     public function getJourneyList()
     {
-        
+
+
+        return view('journey/list');
     }
 }

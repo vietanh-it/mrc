@@ -20,12 +20,14 @@ function r_scripts_styles()
     $version = '20150116_1200';
 
     wp_enqueue_style('bootstrap', VIEW_URL . '/css/bootstrap.min.css', array(), '1.0');
-    wp_enqueue_style('jquery-ui', VIEW_URL . '/css/jquery-ui.min.css', array(), '1.0');
+    wp_enqueue_style('jquery-ui', VIEW_URL . '/css/blitzer/jquery-ui.min.css', array(), '1.0');
     wp_enqueue_style('awesome', VIEW_URL . '/css/font-awesome.min.css', array(), '1.0');
     wp_enqueue_style('nivo-css', VIEW_URL . '/css/owl.carousel.css', array(), '2.0');
     wp_enqueue_style('fancybox-css', VIEW_URL . '/css/jquery.fancybox.css', array(), '2.0');
     wp_enqueue_style('sweet-alert-css', VIEW_URL . '/css/sweet-alert.css', array(), '2.0');
     wp_enqueue_style('animate-css', VIEW_URL . '/css/animate.css', array(), '2.0');
+    wp_enqueue_style('MonthPicker-css', VIEW_URL . '/css/MonthPicker.min.css', array(), '2.0');
+    wp_enqueue_style('select2-css', VIEW_URL . '/css/select2.css', array(), '2.0');
 
     wp_enqueue_style('em-main', VIEW_URL . '/css/main.css', array(), $version);
     wp_enqueue_style('em-style-ext', THEME_URL . '/style.css', array(), $version);
@@ -35,8 +37,10 @@ function r_scripts_styles()
     wp_enqueue_script('bootstrap-custom.min.js', VIEW_URL . '/js/bootstrap.min.js', array(), '3.0', true);
     wp_enqueue_script('jquery-wow', VIEW_URL . '/js/wow.js', array(), '3.0', true);
     wp_enqueue_script('jquery-number', VIEW_URL . '/js/jquery.number.min.js', array(), '3.0', true);
+    wp_enqueue_script('jquery-MonthPicker', VIEW_URL . '/js/MonthPicker.min.js', array(), '3.0', true);
     wp_enqueue_script('validation', VIEW_URL . '/js/jquery.validate.min.js', array('jquery'), '3.0', true);
     wp_enqueue_script('jquery-lazyload', VIEW_URL . '/js/jquery.lazyload.min.js', array('jquery'), '1.0', true);
+    wp_enqueue_script('jquery-select2', VIEW_URL . '/js/select2.min.js', array('jquery'), '1.0', true);
     wp_enqueue_script('jquery-cycle', VIEW_URL . '/js/jquery.cycle.js', array('jquery'), '1.0', true);
     wp_enqueue_script('swal', VIEW_URL . '/js/sweet-alert.min.js', array('jquery'), '1.0', true);
     wp_enqueue_script('nivo-js', VIEW_URL . '/js/owl.carousel.js', array('jquery'), '1.0', true);

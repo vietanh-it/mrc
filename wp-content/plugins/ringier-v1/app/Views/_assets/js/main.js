@@ -25,6 +25,34 @@ jQuery(document).ready(function ($) {
     $(".owl-carousel .owl-next").html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
     $(".owl-carousel .owl-prev").html('<i class="fa fa-angle-left" aria-hidden="true"></i>');
 
+    /*$( ".datepicker" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) {
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        }
+    });*/
+    $('.month-year-input').attr('readonly',true);
+    $('.month-year-input').MonthPicker({ Button: false });
 
+
+    $("select.select-2").select2({
+        formatResult : function( object, container, query, escapeMarkup ){
+            var markup=[];
+            window.Select2.util.markMatch(object.text, query.term, markup, escapeMarkup);
+            if( $(object.element).data('group') == 1 ){
+                $(container).css({'font-weight' : 'bold'});
+            }else{
+                $(container).css({'padding-left' : 20});
+            }
+            return markup.join("");
+        }
+    });
+    $('select.select-2').on("select2-open", function(e) {
+        e.preventDefault();
+        $(".select2-results").mCustomScrollbar();
+    });
 });
 

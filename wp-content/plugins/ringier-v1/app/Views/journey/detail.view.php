@@ -17,6 +17,8 @@ get_header(); ?>
             <span>from <span class="price-if">US$1,755</span> pp</span>
         </div>
     </div>
+
+    
 </div>
 
 

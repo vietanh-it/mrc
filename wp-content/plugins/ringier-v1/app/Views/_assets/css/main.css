@@ -69,8 +69,14 @@ nav .navbar-collapse{
 }
 nav ul.navbar-nav li a{
     color: #545454;
-    padding: 0;
+    padding: 10px;
     margin-top: 0;
+    border: 1px solid white;
+    transition: all 0.7s;
+}
+nav ul.navbar-nav li a:hover{
+    background: none;
+    border: 1px solid #ccc;
 }
 nav ul.navbar-nav li:last-child{
     /* padding-right: 0;*/
@@ -490,6 +496,9 @@ footer ul li{
     color: white;
     width: 100%;
 }
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+    background : none;
+}
 .quick-search-journey button{
     background: white;
     padding: 5px 20px;
@@ -540,6 +549,8 @@ footer ul li{
 }
 .journey-detail .featured-image .info h2{
     font-size: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 20px;
     margin: 10px 0;
 }
 
@@ -578,6 +589,49 @@ footer ul li{
 
 
 
+.ui-datepicker-calendar {
+    display: none;
+}
+.select2-container, .select2-drop, .select2-search, .select2-search input{
+    background: none;
+    border: 0;
+    padding: 0;
+}
+.select2-container .select2-choice .select2-arrow{
+    display: none;
+}
+.select2-container .select2-choice{
+    text-align: left;
+    margin: 0;
+    width: 100%;
+    display: inline-table;
+    background: none;
+    border: 1px solid white;
+    padding: 5px 0 2px 10px;
+    color: white;
+    font-size: 13px;
+}
+.select2-drop.select2-drop-above.select2-drop-active{
+    border: 1px solid #ccc;
+    background: white;
+}
+.select2-drop, .select2-search, .select2-search input{
+    background: white;
+    border-bottom: 1px solid #ccc;
+}
+.select2-container .select2-choice > .select2-chosen{
+    font-style: normal;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.form-find-journey .select2-container .select2-choice{
+    border: none;
+    border-bottom: 1px solid #FFFFFF;
+    border-radius: 0;
+    padding-left: 0;
+    color: #b3adaa;
+}
+
+
 @media (min-width: 1200px){
 
     .container{
@@ -593,7 +647,7 @@ footer ul li{
     nav ul.navbar-nav li{
         float: none;
         display: inline-block;
-        padding: 10px;
         text-transform: uppercase;
     }
 }
+

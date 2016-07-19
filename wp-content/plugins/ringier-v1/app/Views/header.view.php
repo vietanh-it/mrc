@@ -13,9 +13,9 @@
     <!--[if lt IE 9]>
     <script src="<?php echo VIEW_URL ?>/js/html5.js"></script>
     <![endif]-->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="content-language" content="vi" />
+    <meta http-equiv="content-language" content="vi"/>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
@@ -35,7 +35,8 @@
 <body <?php body_class(); ?>>
 
 <!--[if lt IE 10]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
 <![endif]-->
 
 
@@ -45,7 +46,8 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-7">
                     <ul class="top-info">
-                        <li><a href="#"> <img src="<?php echo VIEW_URL.'/images/icon-add-friends.png' ?>"> Refer a Friend</a></li>
+                        <li><a href="#"> <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer a
+                                Friend</a></li>
                         <li><a href="#"> Media Centre </a></li>
                         <li><a href="#"> Q&A </a></li>
                         <li><a href="#"> Terms and Conditions </a></li>
@@ -54,8 +56,16 @@
                 <div class="col-xs-12 col-sm-5">
                     <ul class="top-info text-right">
                         <li><a href="#"> <i class="fa fa-calendar" aria-hidden="true"></i> Your booking</a></li>
-                        <li class="sign-up"> <img src="<?php echo VIEW_URL.'/images/icon-user.png' ?>">
-                            &nbsp; <a href="#"> Sign in </a> | <a href="#"> Sign up</a> </li>
+                        <li class="sign-up">
+                            <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>">
+                            <a href="<?php echo wp_login_url(get_permalink()); ?>">
+                                Sign in
+                            </a>
+                            |
+                            <a href="<?php echo wp_registration_url(); ?>">
+                                Sign up
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -65,11 +75,13 @@
         <div class="container container-big">
             <div class="row">
                 <div class="col-sm-3 col-xs-12">
-                    <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png" width="100%"></a>
+                    <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png"
+                                                            width="100%"></a>
                 </div>
                 <div class="col-sm-7 col-xs-12">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -79,10 +91,10 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="<?php echo WP_SITEURL ?>" title="" > Home </a></li>
-                            <li><a href="#" title="">WHY US   </a></li>
+                            <li class="active"><a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
+                            <li><a href="#" title="">WHY US </a></li>
                             <li><a href="#" title="">SHIPs </a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/journey/' ?>" title="">JOURNEy </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/journey/' ?>" title="">JOURNEy </a></li>
                             <li><a href="#" title="">OFFERS </a></li>
                             <li><a href="#" title="">RESOURCEs </a></li>
                             <li><a href="#" title="">news </a></li>
@@ -92,7 +104,9 @@
                 <div class="col-xs-12 col-sm-2">
                     <div class="action-contact">
                         <a href="#" title="">
-                            <img src="<?php echo VIEW_URL .'/images/icon-headphone.png' ?>">                                           <div class="right-icon"><span class="top">1-800-304-9616</span><br><span class="bot">or contact our agent</span> </div>
+                            <img src="<?php echo VIEW_URL . '/images/icon-headphone.png' ?>">
+                            <div class="right-icon"><span class="top">1-800-304-9616</span><br><span class="bot">or contact our agent</span>
+                            </div>
                         </a>
                     </div>
                 </div>

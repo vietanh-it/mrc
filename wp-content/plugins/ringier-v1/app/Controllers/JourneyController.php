@@ -1,6 +1,7 @@
 <?php
 namespace RVN\Controllers;
 
+use RVN\Models\Journey;
 use RVN\Models\Posts;
 
 class JourneyController extends _BaseController
@@ -29,8 +30,6 @@ class JourneyController extends _BaseController
 
     public function getJourneyList()
     {
-        $journey = Posts::init();
-
         $params = $_GET;
 
         if($params){
@@ -40,8 +39,9 @@ class JourneyController extends _BaseController
             $ship = $params['_ship'] ? $params['_ship'] : '';
         }
 
-        $list_journey = array();
-        
+        $journey  = Journey::init();
+        $list_journey = $journey->getJourneyList($params);
+
         return view('journey/list',compact('params','list_journey'));
     }
 }

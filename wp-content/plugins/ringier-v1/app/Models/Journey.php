@@ -106,7 +106,7 @@ class Journey
             }
 
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, array('thumbnail', 'avatar', 'featured-image'));
+            $object->images = $objImages->getPostImages($object->ID, array('thumbnail', 'featured'));
             $object->permalink = get_permalink($object->ID);
 
             $query = 'SELECT * FROM ' . $this->_tbl_journey_info . ' WHERE object_id = ' . $object->ID;

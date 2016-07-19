@@ -22,6 +22,10 @@ class HomeController extends _BaseController
 
     public function index()
     {
+        if (!user_can(wp_get_current_user(), 'administrator')) {
+            die('Website is under construction.');
+        }
+
         return view('home/home');
     }
 }

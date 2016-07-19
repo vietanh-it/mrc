@@ -19,32 +19,34 @@ function r_scripts_styles()
 {
     $version = '20150116_1200';
 
-    wp_enqueue_style('bootstrap', VIEW_URL . '/css/bootstrap.min.css', array(), '1.0');
-    wp_enqueue_style('jquery-ui', VIEW_URL . '/css/blitzer/jquery-ui.min.css', array(), '1.0');
-    wp_enqueue_style('awesome', VIEW_URL . '/css/font-awesome.min.css', array(), '1.0');
-    wp_enqueue_style('nivo-css', VIEW_URL . '/css/owl.carousel.css', array(), '2.0');
-    wp_enqueue_style('fancybox-css', VIEW_URL . '/css/jquery.fancybox.css', array(), '2.0');
-    wp_enqueue_style('sweet-alert-css', VIEW_URL . '/css/sweet-alert.css', array(), '2.0');
+    wp_enqueue_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+    wp_enqueue_style('jquery-ui', 'https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css');
+    wp_enqueue_style('awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css');
+    wp_enqueue_style('select2-css', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css');
+    wp_enqueue_style('sweet-alert-css', 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css');
+    wp_enqueue_style('fancybox-css', 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css');
+    wp_enqueue_style('carousel-css', 'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css');
+
+
     wp_enqueue_style('animate-css', VIEW_URL . '/css/animate.css', array(), '2.0');
     wp_enqueue_style('MonthPicker-css', VIEW_URL . '/css/MonthPicker.min.css', array(), '2.0');
-    wp_enqueue_style('select2-css', VIEW_URL . '/css/select2.css', array(), '2.0');
 
     wp_enqueue_style('em-main', VIEW_URL . '/css/main.css', array(), $version);
     wp_enqueue_style('em-style-ext', THEME_URL . '/style.css', array(), $version);
 
 
-    wp_enqueue_script('jquery-ui', VIEW_URL . '/js/jquery-ui.min.js', array(), '', true);
-    wp_enqueue_script('bootstrap-custom.min.js', VIEW_URL . '/js/bootstrap.min.js', array(), '3.0', true);
-    wp_enqueue_script('jquery-wow', VIEW_URL . '/js/wow.js', array(), '3.0', true);
-    wp_enqueue_script('jquery-number', VIEW_URL . '/js/jquery.number.min.js', array(), '3.0', true);
+    wp_enqueue_script('jquery-ui', 'https://code.jquery.com/ui/1.11.4/jquery-ui.min.js', array(), false, true);
+    wp_enqueue_script('bootstrap-custom.min.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array(), false, true);
+    wp_enqueue_script('jquery-select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',  array(), false, true);
+    wp_enqueue_script('swal', 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css' , array(), false, true);
+    wp_enqueue_script('fancybox', 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js', array(), false, true);
+    wp_enqueue_script('carousel-js', "https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js", array(), false, true);
+    wp_enqueue_script('jquery-number', 'https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js', array(), false, true);
+    wp_enqueue_script('jquery-lazyload', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js', array(), false, true);
+    wp_enqueue_script('validation', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js', array(), false, true);
+    //wp_enqueue_script('jquery-cycle', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle/3.0.3/jquery.cycle.all.min.js', array(), false, true);
     wp_enqueue_script('jquery-MonthPicker', VIEW_URL . '/js/MonthPicker.min.js', array(), '3.0', true);
-    wp_enqueue_script('validation', VIEW_URL . '/js/jquery.validate.min.js', array('jquery'), '3.0', true);
-    wp_enqueue_script('jquery-lazyload', VIEW_URL . '/js/jquery.lazyload.min.js', array('jquery'), '1.0', true);
-    wp_enqueue_script('jquery-select2', VIEW_URL . '/js/select2.min.js', array('jquery'), '1.0', true);
-    wp_enqueue_script('jquery-cycle', VIEW_URL . '/js/jquery.cycle.js', array('jquery'), '1.0', true);
-    wp_enqueue_script('swal', VIEW_URL . '/js/sweet-alert.min.js', array('jquery'), '1.0', true);
-    wp_enqueue_script('nivo-js', VIEW_URL . '/js/owl.carousel.js', array('jquery'), '1.0', true);
-    wp_enqueue_script('fancybox', VIEW_URL . '/js/jquery.fancybox.pack.js', array('jquery'), 1.0, true);
+
     wp_enqueue_script('my-app-ext', VIEW_URL . '/js/main.js', array('jquery'), $version, true);
     wp_localize_script('my-app-ext', 'MyAjax', array('ajax_url' => admin_url('admin-ajax.php')));
 

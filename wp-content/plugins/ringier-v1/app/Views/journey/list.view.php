@@ -1,8 +1,9 @@
 <?php
 
 get_header();
+$params = $params ? $params : array();
 
-echo   view('journey/quick-search');
+echo   view('journey/quick-search',compact('params'));
 ?>
 
 <div class="container">

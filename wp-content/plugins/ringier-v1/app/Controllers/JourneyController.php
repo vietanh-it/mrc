@@ -31,6 +31,17 @@ class JourneyController extends _BaseController
     {
         $journey = Posts::init();
 
-        return view('journey/list');
+        $params = $_GET;
+
+        if($params){
+            $destination = $params['_destination'] ? $params['_destination'] : '';
+            $month = $params['_month'] ? $params['_month'] : '';
+            $port = $params['_port'] ? $params['_port'] : '';
+            $ship = $params['_ship'] ? $params['_ship'] : '';
+        }
+
+        $list_journey = array();
+        
+        return view('journey/list',compact('params','list_journey'));
     }
 }

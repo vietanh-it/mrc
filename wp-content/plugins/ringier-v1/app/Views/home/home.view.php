@@ -20,8 +20,11 @@ get_header();
         <form>
             <h3>Find your journey</h3>
             <div class="form-group">
-                <select name="destination" class="form-control">
+                <select name="destination" class="form-control select-2">
                     <option value="">Choose your destination</option>
+                    <option value="1"> destination 1</option>
+                    <option value="2">destination 2</option>
+                    <option value="3">destination 3</option>
                 </select>
                 <span class="icon-n icon-location"></span>
             </div>
@@ -30,14 +33,14 @@ get_header();
                 <span class="icon-n icon-date"></span>
             </div>
             <div class="form-group">
-                <select name="port" class="form-control">
+                <select name="port" class="form-control select-2">
                     <option value="">Choose port of departure</option>
                 </select>
                 <span class="icon-n icon-port"></span>
             </div>
 
             <div class="form-group">
-                <select name="ship" class="form-control">
+                <select name="ship" class="form-control select-2">
                     <option value="">Choose your ship</option>
                 </select>
                 <span class="icon-n icon-ship"></span>

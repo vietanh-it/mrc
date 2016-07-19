@@ -34,7 +34,25 @@ jQuery(document).ready(function ($) {
             $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
         }
     });*/
-
+    $('.month-year-input').attr('readonly',true);
     $('.month-year-input').MonthPicker({ Button: false });
+
+
+    $("select.select-2").select2({
+        formatResult : function( object, container, query, escapeMarkup ){
+            var markup=[];
+            window.Select2.util.markMatch(object.text, query.term, markup, escapeMarkup);
+            if( $(object.element).data('group') == 1 ){
+                $(container).css({'font-weight' : 'bold'});
+            }else{
+                $(container).css({'padding-left' : 20});
+            }
+            return markup.join("");
+        }
+    });
+    $('select.select-2').on("select2-open", function(e) {
+        e.preventDefault();
+        $(".select2-results").mCustomScrollbar();
+    });
 });
 

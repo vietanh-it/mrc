@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="form-group">
-                                <input type="text" name="month" class="form-control" placeholder="Choose sail month">
+                                <input type="text" name="month" class="form-control month-year-input" placeholder="Choose sail month">
                                 <span class="icon-n icon-date"></span>
                             </div>
                         </div>

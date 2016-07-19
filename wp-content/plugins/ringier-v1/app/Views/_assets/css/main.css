@@ -69,8 +69,14 @@ nav .navbar-collapse{
 }
 nav ul.navbar-nav li a{
     color: #545454;
-    padding: 0;
+    padding: 10px;
     margin-top: 0;
+    border: 1px solid white;
+    transition: all 0.7s;
+}
+nav ul.navbar-nav li a:hover{
+    background: none;
+    border: 1px solid #ccc;
 }
 nav ul.navbar-nav li:last-child{
     /* padding-right: 0;*/
@@ -540,6 +546,8 @@ footer ul li{
 }
 .journey-detail .featured-image .info h2{
     font-size: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 20px;
     margin: 10px 0;
 }
 
@@ -593,7 +601,10 @@ footer ul li{
     nav ul.navbar-nav li{
         float: none;
         display: inline-block;
-        padding: 10px;
         text-transform: uppercase;
     }
+}
+
+.ui-datepicker-calendar {
+    display: none;
 }

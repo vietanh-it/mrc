@@ -6,6 +6,7 @@
  * Time: 7:54 PM
  */
 get_header();
+
 ?>
 <div class="home-slider" id="home-slider">
     <div  class="owl-carousel">
@@ -25,7 +26,7 @@ get_header();
                 <span class="icon-n icon-location"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="month" class="form-control" placeholder="Choose sail month">
+                <input type="text" name="month" class="form-control month-year-input" placeholder="Choose sail month">
                 <span class="icon-n icon-date"></span>
             </div>
             <div class="form-group">

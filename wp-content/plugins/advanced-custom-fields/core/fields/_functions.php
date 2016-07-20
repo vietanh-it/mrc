@@ -53,7 +53,7 @@ class acf_field_functions
     function load_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship', 'destination', 'journey_type'])) {
+        if (in_array($post->post_type, ['ship', 'destination', 'journey'])) {
             switch ($post->post_type) {
                 case 'ship':
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}ship_info si ON p.ID = si.object_id WHERE p.ID = {$post_id}";
@@ -80,8 +80,8 @@ class acf_field_functions
                     }
 
                     return stripslashes($value);
-                case 'journey_type':
-                    $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}journey_type_info jti ON p.ID = jti.object_id WHERE p.ID = {$post_id}";
+                case 'journey':
+                    $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}journey_info ji ON p.ID = ji.object_id WHERE p.ID = {$post_id}";
                     $result = $wpdb->get_row($query);
 
                     if (isset($result->{$field['name']})) {
@@ -92,7 +92,7 @@ class acf_field_functions
                         }
                     }
 
-                    return stripslashes($value);
+                    return $value;
                 default:
                     break;
             }
@@ -217,7 +217,7 @@ class acf_field_functions
     function update_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship', 'destination', 'journey_type'])) {
+        if (in_array($post->post_type, ['ship', 'destination', 'journey'])) {
 
             $data = [];
             $customFields = $_POST['fields'];
@@ -248,18 +248,22 @@ class acf_field_functions
                         $wpdb->update($wpdb->prefix . 'post_info', $data, ['object_id' => $post_id]);
                     }
                     break;
-                case 'journey_type':
+                case 'journey':
                     // Serialize if is array
                     if (is_array($data[$field['name']])) {
                         $data[$field['name']] = serialize($data[$field['name']]);
                     }
 
-                    if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}journey_type_info WHERE object_id = {$post_id}"))) {
-                        $data['object_id'] = $post_id;
-                        $wpdb->insert($wpdb->prefix . 'journey_type_info', $data);
-                    } else {
-                        $wpdb->update($wpdb->prefix . 'journey_type_info', $data, ['object_id' => $post_id]);
+                    // Nếu chưa có row => tạo mới
+                    if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}journey_info WHERE object_id = {$post_id}"))) {
+                        $wpdb->insert($wpdb->prefix . 'journey_info', ['object_id' => $post_id]);
                     }
+
+                    $update_value = [
+                        $field['name'] => $data[$field['name']]
+                    ];
+                    $wpdb->update($wpdb->prefix . 'journey_info', $update_value, ['object_id' => $post_id]);
+
                     break;
                 default:
                     break;

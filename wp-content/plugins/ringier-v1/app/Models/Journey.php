@@ -17,10 +17,6 @@ class Journey
     private $_prefix;
     private $_tbl_journey_info;
 
-
-    /**
-     * Users constructor.
-     */
     function __construct()
     {
         global $wpdb;
@@ -41,11 +37,12 @@ class Journey
     }
 
 
-    public function getJourneyList($params){
+    public function getJourneyList($params)
+    {
         $cacheId = __CLASS__ . 'getJourneyList' . serialize($params);
-        if(!empty($params['is_cache'])){
+        if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        }else{
+        } else {
             $result = false;
         }
         if ($result == false) {
@@ -80,10 +77,10 @@ class Journey
                 }
             }
 
-            $result = array(
-                'data' => $list,
+            $result = [
+                'data'  => $list,
                 'total' => $total,
-            );
+            ];
 
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
@@ -92,7 +89,8 @@ class Journey
 
     }
 
-    public function getInfo($object){
+    public function getInfo($object)
+    {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
         } else {
@@ -106,7 +104,7 @@ class Journey
             }
 
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, array('thumbnail', 'featured'));
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured']);
             $object->permalink = get_permalink($object->ID);
 
             $query = 'SELECT * FROM ' . $this->_tbl_journey_info . ' WHERE object_id = ' . $object->ID;

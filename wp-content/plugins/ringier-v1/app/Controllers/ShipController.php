@@ -67,6 +67,18 @@ class ShipController extends _BaseController
     }
 
 
+    public function ajaxGetShipDetail($data)
+    {
+        $model = Ships::init();
+        $result = [
+            'status' => 'success',
+            'data'   => $model->getShipDetail($data['ship_id'])
+        ];
+
+        return $result;
+    }
+
+
     public function getShipDetail($ship_id)
     {
         $model = Ships::init();

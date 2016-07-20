@@ -5,10 +5,12 @@ class JourneyTypeController extends _BaseController
 {
     private static $instance;
 
+
     protected function __construct()
     {
         parent::__construct();
     }
+
 
     public static function init()
     {
@@ -19,8 +21,12 @@ class JourneyTypeController extends _BaseController
         return self::$instance;
     }
 
-    public function getJourneyTypeDetail($journey_id)
-    {
 
+    public function getJourneyTypeInfo($journey_id)
+    {
+        $model = JourneyType::init();
+        $result = $model->getJourneyTypeInfo($journey_id);
+
+        return $result;
     }
 }

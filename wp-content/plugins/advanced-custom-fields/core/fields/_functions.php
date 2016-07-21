@@ -90,6 +90,10 @@ class acf_field_functions
                         if (!is_array($value) && is_serialized($value)) {
                             $value = unserialize($value);
                         }
+
+                        if (in_array($field['name'], ['departure', 'arrive'])) {
+                            $value = date('Y/m/d', strtotime($value));
+                        }
                     }
 
                     return $value;

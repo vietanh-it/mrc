@@ -35,8 +35,8 @@ Theme My Login will always look in your theme's directory first, before using th
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="location" class="text">Your nationality</label>
-                                    <select name="location" id="location" class="form-control select-2">
+                                    <label for="nationality" class="text">Your nationality</label>
+                                    <select name="nationality" id="nationality" class="form-control select-2">
                                         <option value="">--- Choose nationality ---</option>
                                         <option value="vietnam" selected>Vietnam</option>
                                     </select>
@@ -51,9 +51,9 @@ Theme My Login will always look in your theme's directory first, before using th
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="user_login" class="text">Email</label>
-                                    <input type="text" name="user_login" id="user_login" class="form-control"
-                                           value="<?php $template->the_posted_value('user_login'); ?>"/>
+                                    <label for="user_email" class="text">Email</label>
+                                    <input type="text" name="user_email" id="user_email" class="form-control"
+                                           value="<?php $template->the_posted_value('user_email'); ?>"/>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6">

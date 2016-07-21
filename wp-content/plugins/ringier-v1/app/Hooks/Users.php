@@ -27,9 +27,9 @@ class Users {
         add_action( 'user_profile_update_errors', array($this,'tml_user_profile_update_errors'));
 
 
-        /*add_action( 'validate_password_reset', function($errors, $user){
+        add_action( 'validate_password_reset', function($errors, $user){
             $errors->remove( 'password_reset_mismatch' );
-        });*/
+        });
 
         add_action('send_password_change_email', function(){
             return false;
@@ -41,52 +41,57 @@ class Users {
         if ( empty( $_POST['full_name'] ) ) {
             $errors->add( 'empty_full_name', 'Please enter your full name.' );
         }
-        if ( empty( $_POST['location'] ) ) {
+        if ( empty( $_POST['nationality'] ) ) {
             $errors->add( 'empty_location', 'Please choice your nationality' );
         }
         if ( empty( $_POST['phone'] ) ) {
             $errors->add( 'empty_phone', 'Please enter your phone number' );
         }
-
-        //EMAIL - USERNAME
-        $username = $_POST['user_login'];
-        if ( empty( $username ) ) {
-            $errors->add( 'empty_email_address', 'Please enter your email' );
-        } else if ( ! filter_var( $username, FILTER_VALIDATE_EMAIL ) ) {
-            $errors->add( 'valid_email_address', 'Email not valid.' );
-        }
-
         //PASSWORD & RE-PASSWORD
         if ( empty( $_POST['pass1'] ) ) {
             $errors->add( 'empty_pass', 'Please enter a password.' );
         }
         if ( empty( $_POST['pass2'] ) ) {
             $errors->add( 'empty_pass2', 'Please enter your password confirm.' );
+        }else if($_POST['pass1'] != $_POST['pass2']){
+            $errors->add( 'pass_not_match', 'Password confirm not right.' );
+        }
+
+        //EMAIL - USERNAME
+        $username = $_POST['user_email'];
+        if ( empty( $username ) ) {
+            $errors->add( 'empty_email_address', 'Please enter your email' );
+        } else if ( ! filter_var( $username, FILTER_VALIDATE_EMAIL ) ) {
+            $errors->add( 'valid_email_address', 'Email not valid.' );
         }
 
         $errors->remove( 'empty_email' );
         $errors->remove( 'empty_username' );
+        $errors->remove( 'username_exists' );
+
+        //$errors->remove( 'recaptcha' );
 
         return $errors;
     }
 
     function register_new_user( $user_id ) {
-        var_dump($user_id);
-        global $wpdb;
         if ( ! is_wp_error( $user_id ) ) {
-            $objMember = '';
+            $objMember = \RVN\Models\Users::init();
 
-            var_dump($_POST);
-            //$objMember->UserRegister($_POST);
+            $data = $_POST;
+            $data['user_id'] = $user_id;
+            $data['password'] = $_POST['pass1'];
+
+            $objMember->saveUser($data);
         }
     }
 
     function personal_options_update( $user_id ) {
+        $objMember = \RVN\Models\Users::init();
 
-        $objMember = '';
-        //$user_info = $objMember->getUserInfo($user_id);
-        //$objMember->userUpdate($_POST);
-
+        $data = $_POST;
+        $data['user_id'] = $user_id;
+        $objMember->saveUser($data);
     }
 
     function tml_user_profile_update_errors($errors, $update, $user){

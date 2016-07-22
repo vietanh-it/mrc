@@ -7,6 +7,7 @@ class JourneyController extends _BaseController
 {
     private static $instance;
 
+
     protected function __construct()
     {
         parent::__construct();
@@ -21,6 +22,13 @@ class JourneyController extends _BaseController
         return self::$instance;
     }
 
+
+    public function ajaxSaveRoomTypePrice()
+    {
+
+    }
+
+
     public function getJourneyDetail($journey_id)
     {
         $journey = Journey::init();
@@ -28,6 +36,7 @@ class JourneyController extends _BaseController
 
         return view('journey/detail', compact('journey_info'));
     }
+
 
     public function getJourneyList()
     {

@@ -94,7 +94,7 @@
                             <li class="active"><a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
                             <li><a href="#" title="">WHY US </a></li>
                             <li><a href="#" title="">SHIPs </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/journey/' ?>" title="">JOURNEy </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
                             <li><a href="#" title="">OFFERS </a></li>
                             <li><a href="#" title="">RESOURCEs </a></li>
                             <li><a href="#" title="">news </a></li>

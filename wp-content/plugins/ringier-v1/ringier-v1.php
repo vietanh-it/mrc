@@ -39,6 +39,7 @@ function mrcLoad()
     RVN\Hooks\Shortcode::init();
     RVN\Hooks\CustomJourney::init();
     RVN\Hooks\CustomShips::init();
+    RVN\Hooks\Users::init();
 
     // call ajax
     \RVN\Controllers\ShipController::init();

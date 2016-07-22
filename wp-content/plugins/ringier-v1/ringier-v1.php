@@ -38,6 +38,7 @@ function mrcLoad()
     RVN\Hooks\BackendUI::init();
     RVN\Hooks\Shortcode::init();
     RVN\Hooks\CustomJourney::init();
+    RVN\Hooks\CustomJourneyType::init();
     RVN\Hooks\CustomShips::init();
     RVN\Hooks\Users::init();
 

@@ -48,7 +48,7 @@ function r_scripts_styles()
     wp_enqueue_script('jquery-MonthPicker', VIEW_URL . '/js/MonthPicker.min.js', array(), '3.0', true);
 
     wp_enqueue_script('my-app-ext', VIEW_URL . '/js/main.js', array('jquery'), $version, true);
-    wp_localize_script('my-app-ext', 'MyAjax', array('ajax_url' => admin_url('admin-ajax.php')));
+    wp_localize_script('my-app-ext', 'MyAjax', array('ajax_url' => admin_url('admin-ajax.php') ,'app_fb_id' => FACEBOOK_APP_ID ));
 
 }
 

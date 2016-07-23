@@ -8,6 +8,10 @@ Version: 1.0
 Author URI: http://www.ringier.vn
 */
 
+
+define("FACEBOOK_APP_ID", "618730188269964" );
+define("FACEBOOK_SECRET", "455cfc6c7677f1b5fbe67d6904700bc6" );
+
 define("PATH_VIEW", __DIR__ . '/app/Views/');
 define("VIEW_URL", WP_SITEURL . '/wp-content/plugins/ringier-v1/app/Views/_assets');
 

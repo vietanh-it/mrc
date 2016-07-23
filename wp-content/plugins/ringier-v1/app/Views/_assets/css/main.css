@@ -272,7 +272,7 @@ nav ul.navbar-nav li.active a{
     right: 0;
     bottom: -100px;
 }
-.tile-main{
+.tile-main,.title-main{
     text-align: center;
     font-family: 'Playfair Display', serif;
     color: black;
@@ -538,7 +538,7 @@ footer ul li{
 }
 
 .journey-detail{
-
+    padding-bottom: 30px;
 }
 .journey-detail .featured-image {
     position: relative;
@@ -601,8 +601,68 @@ footer ul li{
 .journey-detail .featured-image .info .price-if{
     font-weight: bold;
 }
+.journey-detail .list-img-left img{
+    width: 100%;
+}
+.journey-detail  .title-main{
+    text-align: left;
+    margin-bottom: 20px;
+}
 
+.list-galary  .owl-buttons .owl-next{
+    text-align: center;
+    margin-right: 15px;
+}
+.list-galary  .owl-buttons .owl-prev {
+    text-align: center;
+    margin-left: 15px;
+}
+.journey-detail .box-day-in{
+    margin-bottom: 20px;
+}
+.journey-detail .day-in{
+    color: #e6ab27;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.journey-detail .day-in:after{
+    content: "";
+    width: 100%;
+    height: 1px;
+    padding-left: 20px;
+    position: absolute;
+    background: #e6ab27;
+    margin-left: 20px;
+    bottom: 5px;
+}
+.journey-detail b{
+    color: black;
+}
+.journey-detail .related .title a{
+    color: #545454;
+}
+.journey-detail .related .title a:hover{
+    color: black;
+    text-decoration: none;
+}
+.journey-detail .related .title{
+    margin-top: 15px;
+}
 
+.title-related{
+    color: black;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    border-bottom: 2px solid grey;
+    font-size: 18px;
+    line-height: 35px;
+    margin-bottom: 30px;
+}
 
 .ui-datepicker-calendar {
     display: none;
@@ -681,6 +741,9 @@ footer ul li{
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
+
+
+
 
 
 

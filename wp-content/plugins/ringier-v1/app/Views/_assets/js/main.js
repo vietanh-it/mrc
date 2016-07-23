@@ -22,6 +22,15 @@ jQuery(document).ready(function ($) {
         pagination: false
     });
 
+    $(".list-galary").owlCarousel({
+        autoPlay: 5000,
+        items : 1,
+        itemsDesktop : [1199,1],
+        itemsDesktopSmall : [760,1],
+        navigation: true,
+        pagination: false
+    });
+
     $(".owl-carousel .owl-next").html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
     $(".owl-carousel .owl-prev").html('<i class="fa fa-angle-left" aria-hidden="true"></i>');
 

@@ -1,4 +1,4 @@
 <?php
 $ctl = \RVN\Controllers\Account\AccountController::init();
-$ctl->loginForm();
+$ctl->loginForm($template,$theme_my_login);
 ?>

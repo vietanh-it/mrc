@@ -20,36 +20,36 @@ class AccountController extends _BaseController
         return self::$instance;
     }
 
-    public function loginForm()
+    public function loginForm($template,$theme_my_login)
     {
 
-        return view('account/login');
+        return view('account/login',compact('template','theme_my_login'));
     }
 
 
-    public function register()
+    public function register($template,$theme_my_login)
     {
 
-        return view('account/register');
+        return view('account/register',compact('template','theme_my_login'));
     }
 
-    public function resetpass()
+    public function resetpass($template)
     {
 
-        return view('account/resetpass');
+        return view('account/resetpass',compact('template'));
     }
 
 
-    public function lostpassword()
+    public function lostpassword($template,$theme_my_login)
     {
 
-        return view('account/lost-password');
+        return view('account/lost-password',compact('template','theme_my_login'));
     }
 
-    public function profile()
+    public function profile($template,$profileuser)
     {
 
-        return view('account/profile');
+        return view('account/profile',compact('template','profileuser'));
     }
 }
 

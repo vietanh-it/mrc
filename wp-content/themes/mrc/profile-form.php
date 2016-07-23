@@ -1,4 +1,4 @@
 <?php
 $ctl = \RVN\Controllers\Account\AccountController::init();
-$ctl->profile();
+$ctl->profile($template,$profileuser);
 ?>

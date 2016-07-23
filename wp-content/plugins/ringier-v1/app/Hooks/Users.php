@@ -27,13 +27,13 @@ class Users {
         add_action( 'user_profile_update_errors', array($this,'tml_user_profile_update_errors'));
 
 
-        add_action( 'validate_password_reset', function($errors, $user){
+        /*add_action( 'validate_password_reset', function($errors, $user){
             $errors->remove( 'password_reset_mismatch' );
-        });
+        });*/
 
-        add_action('send_password_change_email', function(){
+        /*add_action('send_password_change_email', function(){
             return false;
-        });
+        });*/
 
     }
 

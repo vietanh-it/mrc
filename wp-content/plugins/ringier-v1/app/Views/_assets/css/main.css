@@ -731,6 +731,10 @@ footer ul li{
 .ctn-account .tml .tile-main,.tml .title-main{
     margin: 20px 0;
 }
+.ctn-account #loginform{
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
 .ctn-account .select2-container--default .select2-selection--single .select2-selection__rendered{
     color: #333;
     font-size: 15px;

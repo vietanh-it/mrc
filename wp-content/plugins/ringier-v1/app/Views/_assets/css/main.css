@@ -725,6 +725,12 @@ footer ul li{
 .ctn-account .tml.tml-register {
     max-width: 600px;
 }
+.ctn-account .tml .tml-action-links a{
+    font-weight: bold;
+}
+.ctn-account .tml .tile-main,.tml .title-main{
+    margin: 20px 0;
+}
 .ctn-account .select2-container--default .select2-selection--single .select2-selection__rendered{
     color: #333;
     font-size: 15px;
@@ -740,9 +746,7 @@ footer ul li{
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
-.tml .tml-action-links a{
-    font-weight: bold;
-}
+
 
 
 

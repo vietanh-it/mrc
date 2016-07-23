@@ -75,11 +75,11 @@ Theme My Login will always look in your theme's directory first, before using th
 
                         <?php do_action('register_form'); ?>
 
-                        <p class="tml-registration-confirmation"
+                        <p class="tml-registration-confirmation" style="text-align: center;margin-top: 30px"
                            id="reg_passmail<?php $template->the_instance(); ?>"><?php echo apply_filters('tml_register_passmail_template_message',
                                 __('Registration confirmation will be e-mailed to you.', 'theme-my-login')); ?></p>
 
-                        <p class="tml-submit-wrap">
+                        <p class="tml-submit-wrap text-center">
                             <input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>"
                                    value="<?php esc_attr_e('Register', 'theme-my-login'); ?>" class="bnt-primary"/>
                             <input type="hidden" name="redirect_to"
@@ -88,7 +88,26 @@ Theme My Login will always look in your theme's directory first, before using th
                             <input type="hidden" name="action" value="register"/>
                         </p>
                     </form>
-                    <?php $template->the_action_links(array('register' => false)); ?>
+                    <div class="row" style="margin-top: 30px;border-top:1px solid #ccc ;padding-top: 30px">
+                        <div class="col-xs-12 col-sm-7">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <a href="javascript:void(0)" onclick="login_fb()" title="Login width facebook">
+                                        <img src="<?php echo VIEW_URL.'/images/login-facebook.png' ?>" alt="" style="width: 200px">
+                                    </a>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6">
+                                    <a href="javascript:void(0)"  title="Login width google">
+                                        <img src="<?php echo VIEW_URL.'/images/glogin.png' ?>" alt="" style="width: 200px">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 text-right">
+                            <?php $template->the_action_links(array('register' => false)); ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

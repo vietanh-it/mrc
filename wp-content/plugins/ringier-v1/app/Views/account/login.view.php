@@ -68,6 +68,11 @@ Theme My Login will always look in your theme's directory first, before using th
                                 <img src="<?php echo VIEW_URL.'/images/login-facebook.png' ?>" alt="">
                             </a>
                         </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <a href="javascript:void(0)"  title="Login width google">
+                                <img src="<?php echo VIEW_URL.'/images/glogin.png' ?>" alt="" >
+                            </a>
+                        </div>
                     </div>
 
                 </div>

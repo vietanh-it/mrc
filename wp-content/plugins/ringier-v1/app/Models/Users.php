@@ -98,7 +98,7 @@ class Users
             $user_info = $this->_wpdb->get_row($query);
 
             if($user_info){
-                $user =  (object) array_merge((array) $user, (array) $user_info);
+                $user =  (object) array_merge((array) $user->data, (array) $user_info);
             }
         }
 

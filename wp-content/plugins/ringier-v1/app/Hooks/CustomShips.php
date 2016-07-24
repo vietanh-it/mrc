@@ -145,10 +145,14 @@ class CustomShips
                     </tr>
                     <tr>
                         <td>
-                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_twin_high_price" id="rp_twin_high_price" placeholder="Twin sharing price">
+                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_twin_high_price"
+                                                                      id="rp_twin_high_price"
+                                                                      placeholder="Twin sharing price">
                         </td>
                         <td>
-                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_single_high_price" id="rp_single_high_price" placeholder="Single use price">
+                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_single_high_price"
+                                                                      id="rp_single_high_price"
+                                                                      placeholder="Single use price">
                         </td>
                     </tr>
                     <tr>
@@ -158,10 +162,14 @@ class CustomShips
                     </tr>
                     <tr>
                         <td>
-                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_twin_low_price" id="rp_twin_low_price" placeholder="Twin sharing price">
+                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_twin_low_price"
+                                                                      id="rp_twin_low_price"
+                                                                      placeholder="Twin sharing price">
                         </td>
                         <td>
-                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_single_low_price" id="rp_single_high_price" placeholder="Single use price">
+                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_single_low_price"
+                                                                      id="rp_single_high_price"
+                                                                      placeholder="Single use price">
                         </td>
                     </tr>
                     <tr>
@@ -285,7 +293,45 @@ class CustomShips
                     e.preventDefault();
 
                     var room_type_id = $('#rp_room_type').val();
-                    if(!room_type_id) {
+                    if (!room_type_id) {
+                        // Chưa chọn room type
+                        swal({
+                            title: 'Please choose room type',
+                            type: 'warning'
+                        });
+                    } else {
+                        var twin_high_price = $('#rp_twin_high_price').val();
+                        var twin_low_price = $('#rp_twin_low_price').val();
+                        var single_high_price = $('#rp_single_use_high_price').val();
+                        var single_low_price = $('#rp_single_use_low_price').val();
+
+                        if (!twin_high_price) {
+                            swal({
+                                title: 'Please enter twin sharing high season room pricing',
+                                type: 'warning'
+                            });
+                        }
+
+                        if (!twin_low_price) {
+                            swal({
+                                title: 'Please enter twin sharing low season room pricing',
+                                type: 'warning'
+                            });
+                        }
+
+                        if (!single_high_price) {
+                            swal({
+                                title: 'Please enter single use high season room pricing',
+                                type: 'warning'
+                            });
+                        }
+
+                        if (!single_low_price) {
+                            swal({
+                                title: 'Please enter single use low season room pricing',
+                                type: 'warning'
+                            });
+                        }
                     }
                 });
 

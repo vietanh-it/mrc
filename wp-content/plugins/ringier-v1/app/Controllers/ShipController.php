@@ -61,6 +61,11 @@ class ShipController extends _BaseController
                     'data'   => $rs
                 ];
             }
+        } else {
+            $result = [
+                'status' => 'fail',
+                'data' => ['Please choose room to edit info']
+            ];
         }
 
         return $result;

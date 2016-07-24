@@ -24,7 +24,7 @@ class _BaseController
         // view docs http://labs.omniti.com/labs/jsend
         $result = [
             'status'  => 'error',
-            'message' => 'Đã xảy ra lỗi, vui lòng thử lại'
+            'message' => ['Đã xảy ra lỗi, vui lòng thử lại']
         ];
         if (!empty($_REQUEST["method"])) {
             $method = sanitize_text_field($_REQUEST["method"]);

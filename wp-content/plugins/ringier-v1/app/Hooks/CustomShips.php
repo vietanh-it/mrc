@@ -63,6 +63,10 @@ class CustomShips
                 display: inline-block;
                 vertical-align: top;
             }
+
+            .form-table td {
+                padding: 8px 10px;
+            }
         </style>
 
         <div class="ctn-box">
@@ -75,42 +79,102 @@ class CustomShips
 
             </div>
 
-            <table class="form-table room-info" style="width: 49%;">
-                <tr>
-                    <th colspan="2">
-                        <h3 style="text-align: center; text-transform: uppercase; margin: 0;">Room Infomartion</h3>
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="room_name">Room name:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="room_name" id="room_name" placeholder="Enter room name" disabled>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="room_type">Room type:</label>
-                    </td>
-                    <td>
-                        <select id="room_type" name="room_type" disabled>
-                            <option>--- Select Room Type ---</option>
-                            <?php foreach ($room_types as $key => $item) {
-                                echo "<option value='{$item->id}'>{$item->room_type_name}</option>";
-                            } ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center;">
-                        <input id="btn_save_room_info" type="button" class="button button-primary button-large"
-                               value="Save Room Info">
+            <div style="width: 49%; display: inline-block; vertical-align: top;">
 
-                        <input type="hidden" name="room_id" id="room_id" value="0">
-                    </td>
-                </tr>
-            </table>
+                <table class="form-table room-info" style="width: 100%;">
+                    <tr>
+                        <th colspan="2">
+                            <h3 style="text-align: center; text-transform: uppercase; margin: 0;">Room Infomartion</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="room_name">Room name:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="room_name" id="room_name" placeholder="Enter room name" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="room_type">Room type:</label>
+                        </td>
+                        <td>
+                            <select id="room_type" name="room_type" disabled>
+                                <option>--- Select Room Type ---</option>
+                                <?php foreach ($room_types as $key => $item) {
+                                    echo "<option value='{$item->id}'>{$item->room_type_name}</option>";
+                                } ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <input id="btn_save_room_info" type="button" class="button button-primary button-large"
+                                   value="Save Room Info">
+
+                            <input type="hidden" name="room_id" id="room_id" value="0">
+                        </td>
+                    </tr>
+                </table>
+
+
+                <table class="form-table room-type-info" style="width: 100%; border-top: 1px dashed #aaaaaa;">
+                    <tr>
+                        <th colspan="2">
+                            <h3 style="text-align: center; text-transform: uppercase; margin: 0;">Room Type Pricing</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="rp_room_type">Room type:</label>
+                        </td>
+                        <td>
+                            <select id="rp_room_type">
+                                <option value="">--- Select Room Type ---</option>
+                                <?php foreach ($room_types as $key => $item) {
+                                    echo "<option value='{$item->id}'>{$item->room_type_name}</option>";
+                                } ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center; font-weight: bold;">
+                            <label>High Season Price:</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_twin_high_price" id="rp_twin_high_price" placeholder="Twin sharing price">
+                        </td>
+                        <td>
+                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_single_high_price" id="rp_single_high_price" placeholder="Single use price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center; font-weight: bold;">
+                            <label>Low Season Price:</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_twin_low_price" id="rp_twin_low_price" placeholder="Twin sharing price">
+                        </td>
+                        <td>
+                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_single_low_price" id="rp_single_high_price" placeholder="Single use price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <input id="btn_save_price" type="button" class="button button-primary button-large"
+                                   value="Save Room Type Pricing">
+
+                            <input type="hidden" name="rp_room_type_id" id="rp_room_type_id" value="0">
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
         </div>
 
         <script>
@@ -153,7 +217,7 @@ class CustomShips
                                     });
                                 }
                                 html_msg += "</div>";
-                                swal({"title": "Lỗi", "text": html_msg, "type": "error", html: true});
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
                             }
                         }
                     }); // end ajax
@@ -207,7 +271,7 @@ class CustomShips
                                         });
                                     }
                                     html_msg += "</div>";
-                                    swal({"title": "Lỗi", "text": html_msg, "type": "error", html: true});
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
                                 }
                             }
                         }); // end ajax
@@ -215,6 +279,14 @@ class CustomShips
 
                     }
 
+                });
+
+                $('#btn_save_price').on('click', function (e) {
+                    e.preventDefault();
+
+                    var room_type_id = $('#rp_room_type').val();
+                    if(!room_type_id) {
+                    }
                 });
 
             });

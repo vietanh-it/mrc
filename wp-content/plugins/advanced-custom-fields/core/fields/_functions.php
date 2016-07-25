@@ -63,6 +63,10 @@ class acf_field_functions
                         $value = $result->{$field['name']};
                     }
 
+                    if (in_array($field['name'], ['high_season_from', 'high_season_to'])) {
+                        $value = date('Y/m/d', strtotime($value));
+                    }
+
                     return stripslashes($value);
                 case 'destination':
                     // var_dump($field);
@@ -243,9 +247,22 @@ class acf_field_functions
                 $value = ($value == 'null') ? 0 : $value;
                 $data[$f['name']] = $value;
             }
+            // var_dump($data);
 
             switch ($post->post_type) {
                 case 'ship':
+                    unset($data['ship_gallery']);
+
+                    if (in_array($field['name'], ['high_season_from', 'high_season_to'])) {
+                        $data[$field['name']] = date('Y-m-d H:i:s', strtotime($data[$field['name']]));
+
+                        if ($field['name'] == 'high_season_from') {
+                            unset($data['high_season_to']);
+                        } else {
+                            unset($data['high_season_from']);
+                        }
+                    }
+
                     if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}ship_info WHERE object_id = {$post_id}"))) {
                         $data['object_id'] = $post_id;
                         $wpdb->insert($wpdb->prefix . 'ship_info', $data);

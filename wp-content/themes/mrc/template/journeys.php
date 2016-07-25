@@ -3,6 +3,5 @@
  * Template name: Journey List
  */
 
-$Controller = \RVN\Controllers\JourneyController::init();
-$Controller->getJourneyList();
-
+$journey_ctrl = \RVN\Controllers\JourneyController::init();
+$journey_ctrl->journeyList($_GET);

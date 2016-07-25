@@ -29,7 +29,7 @@ class JourneyController extends _BaseController
     }
 
 
-    public function getJourneyDetail($journey_id)
+    public function journeyDetail($journey_id)
     {
         $journey = Journey::init();
         $journey_info = $journey->getInfo($journey_id);
@@ -38,20 +38,19 @@ class JourneyController extends _BaseController
     }
 
 
-    public function getJourneyList()
+    public function journeyList($args = [])
     {
-        $params = $_GET;
+        if ($args) {
 
-        if ($params) {
-            $destination = $params['_destination'] ? $params['_destination'] : '';
-            $month = $params['_month'] ? $params['_month'] : '';
-            $port = $params['_port'] ? $params['_port'] : '';
-            $ship = $params['_ship'] ? $params['_ship'] : '';
+            // $destination = $params['_destination'] ? $params['_destination'] : '';
+            // $month = $params['_month'] ? $params['_month'] : '';
+            // $port = $params['_port'] ? $params['_port'] : '';
+            // $ship = $params['_ship'] ? $params['_ship'] : '';
         }
 
         $journey = Journey::init();
-        $list_journey = $journey->getJourneyList($params);
+        $list_journey = $journey->getJourneyList($args);
 
-        return view('journey/list', compact('params', 'list_journey'));
+        view('journey/list', compact('params', 'list_journey'));
     }
 }

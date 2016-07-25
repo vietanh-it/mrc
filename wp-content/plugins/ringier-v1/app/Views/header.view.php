@@ -44,7 +44,7 @@
     <div class="top-bar">
         <div class="container container-big">
             <div class="row">
-                <div class="col-xs-12 col-sm-7">
+                <div class="col-xs-12 col-sm-6">
                     <ul class="top-info">
                         <li><a href="#"> <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer a
                                 Friend</a></li>
@@ -53,21 +53,21 @@
                         <li><a href="#"> Terms and Conditions </a></li>
                     </ul>
                 </div>
-                <div class="col-xs-12 col-sm-5">
+                <div class="col-xs-12 col-sm-6">
                     <ul class="top-info text-right">
                         <li><a href="#"> <i class="fa fa-calendar" aria-hidden="true"></i> Your booking</a></li>
-                        <?php if(!is_user_logged_in()) { ?>
-                        <li class="sign-up">
-                            <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>">
-                            <a href="<?php echo wp_login_url(get_permalink()); ?>">
-                                Sign in
-                            </a>
-                            |
-                            <a href="<?php echo wp_registration_url(); ?>">
-                                Sign up
-                            </a>
-                        </li>
-                        <?php } else{
+                        <?php if (!is_user_logged_in()) { ?>
+                            <li class="sign-up">
+                                <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>">
+                                <a href="<?php echo wp_login_url(get_permalink()); ?>">
+                                    Sign in
+                                </a>
+                                |
+                                <a href="<?php echo wp_registration_url(); ?>">
+                                    Sign up
+                                </a>
+                            </li>
+                        <?php } else {
                             $objUser = \RVN\Models\Users::init();
                             $user_info = $objUser->getUserInfo(get_current_user_id());
                             ?>
@@ -77,7 +77,7 @@
                                     <?php echo $user_info->display_name ?>
                                 </a>
                                 |
-                                <a href="<?php  echo wp_logout_url() ?>">
+                                <a href="<?php echo wp_logout_url() ?>">
                                     Log out
                                 </a>
                             </li>

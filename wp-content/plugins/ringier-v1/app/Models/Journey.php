@@ -65,18 +65,21 @@ class Journey
                 $join = $params['join'];
             }
 
-            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type FROM " . $this->_wpdb->posts . " as p 
-            INNER JOIN 
-            $join 
-            WHERE post_type = 'journey' AND p.post_status='publish' 
-            $where 
-            ORDER BY $order_by  LIMIT $to, $limit";
+            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type FROM " . $this->_wpdb->posts . " as p";
+            if (!empty($join)) {
+                $query .= "INNER JOIN {$join}";
+            }
+            $query .= " WHERE p.post_type = 'journey' AND p.post_status='publish'";
+            if (!empty($where)) {
+                $query .= " AND {$where}";
+            }
+            $query .= " ORDER BY $order_by  LIMIT $to, $limit";
 
             $list = $this->_wpdb->get_results($query);
             $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
             if ($list) {
-                foreach ($list as &$object) {
-                    $object = $this->getInfo($object);
+                foreach ($list as $key => $value) {
+                    $value = $this->getInfo($value);
                 }
             }
 
@@ -91,6 +94,7 @@ class Journey
         return $result;
 
     }
+
 
     public function getInfo($object)
     {

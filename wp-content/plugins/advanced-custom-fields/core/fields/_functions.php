@@ -303,6 +303,7 @@ class acf_field_functions
                 default:
                     break;
             }
+            unset($data['photos']);
         }
 
 

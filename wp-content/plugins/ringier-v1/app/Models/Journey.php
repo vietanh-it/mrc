@@ -16,6 +16,7 @@ class Journey
     private $_wpdb;
     private $_prefix;
     private $_tbl_journey_info;
+    private $_tbl_journey_type_info;
 
     function __construct()
     {
@@ -24,6 +25,7 @@ class Journey
         $this->_prefix = $wpdb->prefix;
 
         $this->_tbl_journey_info = $this->_prefix . 'journey_info';
+        $this->_tbl_journey_type_info = $this->_prefix . 'journey_info';
     }
 
 
@@ -64,6 +66,7 @@ class Journey
             }
 
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type FROM " . $this->_wpdb->posts . " as p 
+            INNER JOIN 
             $join 
             WHERE post_type = 'journey' AND p.post_status='publish' 
             $where 

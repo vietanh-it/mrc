@@ -1,7 +1,9 @@
 <?php
 namespace RVN\Controllers;
 
-class DestinatiionController extends _BaseController
+use RVN\Models\Posts;
+
+class DestinationController extends _BaseController
 {
     private static $instance;
 
@@ -18,10 +20,21 @@ class DestinatiionController extends _BaseController
     public static function init()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new DestinatiionController();
+            self::$instance = new DestinationController();
         }
 
         return self::$instance;
+    }
+
+    public function getDestinationList()
+    {
+        $post = Posts::init();
+        $result = $post->getList(array(
+            'post_type' => 'destination',
+        ));
+
+        return $result;
+
     }
 
 }

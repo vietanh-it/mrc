@@ -116,8 +116,8 @@ class Journey
 
             $query = 'SELECT * FROM ' . $this->_tbl_journey_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
-            $object->post_info = $post_info;
-
+            $object =  (object) array_merge((array) $object, (array) $post_info);
+            
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }

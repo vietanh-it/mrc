@@ -4,8 +4,8 @@ get_header();
 $params = $params ? $params : array();
 $list_journey = $list_journey ? $list_journey : array();
 
-//var_dump($list_journey);
-echo view('journey/quick-search', compact('params'));
+var_dump($list_journey);
+ view('journey/quick-search', compact('params'));
 ?>
 
 <div class="container">

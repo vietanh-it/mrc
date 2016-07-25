@@ -1,6 +1,7 @@
 <?php
 namespace RVN\Controllers;
 
+use RVN\Models\Posts;
 use RVN\Models\Ships;
 
 class ShipController extends _BaseController
@@ -24,6 +25,16 @@ class ShipController extends _BaseController
         }
 
         return self::$instance;
+    }
+
+    public function getSipList()
+    {
+        $post = Posts::init();
+        $result = $post->getList(array(
+            'post_type' => 'ship',
+        ));
+
+        return $result;
     }
 
 

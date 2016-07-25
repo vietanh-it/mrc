@@ -7,6 +7,8 @@
  */
 namespace RVN\Models;
 
+use RVN\Library\Images;
+
 class JourneyType
 {
     private static $instance;
@@ -46,62 +48,86 @@ class JourneyType
         return self::$instance;
     }
 
-
-    public function getJourneyTypeDetail($journey_type_id)
+    public function getJourneyTypeList($params)
     {
-        $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_ship_info} si WHERE p.ID = {$ship_id}";
-        $result = $this->_wpdb->get_row($query);
-
-        if (!empty($result)) {
-            $result->map = VIEW_URL . '/images/ship_maps/' . $result->map;
-            $result->rooms = $this->getShipRooms($ship_id);
+        $cacheId = __CLASS__ . 'getJourneyTypeList' . serialize($params);
+        if (!empty($params['is_cache'])) {
+            $result = wp_cache_get($cacheId);
+        } else {
+            $result = false;
         }
-
-        return $result;
-    }
-
-
-    public function getShipRoomTypes($ship_id)
-    {
-        $query = "SELECT * FROM {$this->_tbl_room_types} WHERE ship_id = {$ship_id}";
-        $result = $this->_wpdb->get_results($query);
-
-        return $result;
-    }
-
-
-    public function getShipRooms($ship_id)
-    {
-        $query = "SELECT rt.ship_id, rt.room_type_name, rt.background, r.* FROM {$this->_tbl_rooms} r INNER JOIN {$this->_tbl_room_types} rt ON r.room_type_id = rt.id WHERE rt.ship_id = {$ship_id}";
-        $result = $this->_wpdb->get_results($query);
-
-        if (!empty($result)) {
-            foreach ($result as $key => $item) {
-                $item->html = "<div data-roomid='{$item->id}' style='position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; background: {$item->background}; cursor: pointer;'><b>{$item->room_name}</b></div>";
+        if ($result == false) {
+            $page = (empty($params['page'])) ? 1 : intval($params['page']);
+            $limit = (empty($params['limit'])) ? 10 : intval($params['limit']);
+            $to = ($page - 1) * $limit;
+            $order_by = "  p.post_date DESC ";
+            if ($params['order_by']) {
+                $order_by = $params['order_by'];
             }
+
+            $where = '';
+            if ($params['where']) {
+                $where = $params['where'];
+            }
+            $join = '';
+            if ($params['join']) {
+                $join = $params['join'];
+            }
+
+            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p";
+            if (!empty($join)) {
+                $query .= "INNER JOIN {$join}";
+            }
+            $query .= " WHERE p.post_type = 'journey_type' AND p.post_status='publish'";
+            if (!empty($where)) {
+                $query .= " AND {$where}";
+            }
+            $query .= " ORDER BY $order_by  LIMIT $to, $limit";
+
+            $list = $this->_wpdb->get_results($query);
+            $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
+            if ($list) {
+                foreach ($list as $key => $value) {
+                    $value = $this->getInfo($value);
+                }
+            }
+
+            $result = [
+                'data'  => $list,
+                'total' => $total,
+            ];
+
+            wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
 
         return $result;
     }
 
-
-    public function getRoomInfo($room_id)
+    public function getInfo($object)
     {
-        $query = "SELECT rt.ship_id, rt.room_type_name, rt.background, r.* FROM {$this->_tbl_rooms} r INNER JOIN {$this->_tbl_room_types} rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
-        $result = $this->_wpdb->get_row($query);
+        if (is_numeric($object)) {
+            $cacheId = __CLASS__ . 'getInfo' . $object;
+        } else {
+            $cacheId = __CLASS__ . 'getInfo' . $object->ID;
+        }
 
-        return $result;
-    }
+        $result = wp_cache_get($cacheId);
+        if ($result == false) {
+            if (is_numeric($object)) {
+                $object = get_post($object);
+            }
 
+            $objImages = Images::init();
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured']);
+            $object->permalink = get_permalink($object->ID);
 
-    public function saveRoomInfo($data)
-    {
-        $this->_wpdb->update($this->_tbl_rooms, [
-            'room_name'    => $data['room_name'],
-            'room_type_id' => $data['room_type_id']
-        ], ['id' => $data['room_id']]);
+            $query = 'SELECT * FROM ' . $this->_tbl_journey_type_info . ' WHERE object_id = ' . $object->ID;
+            $post_info = $this->_wpdb->get_row($query);
+            $object =  (object) array_merge((array) $object, (array) $post_info);
 
-        $result = $this->getRoomInfo($data['room_id']);
+            $result = $object;
+            wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
+        }
 
         return $result;
     }

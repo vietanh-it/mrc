@@ -1,8 +1,17 @@
 <?php
+$objShip = \RVN\Controllers\ShipController::init();
+$objDestination = \RVN\Controllers\DestinationController::init();
+$objPort = \RVN\Controllers\PortController::init();
 
-$params = $params ? $params : array();
+$list_destination = $objDestination->getDestinationList();
+$list_port = $objPort->getPortList();
+$list_ship = $objShip->getSipList();
 
-//var_dump($params);
+$destination = $_GET['_destination'] ? $_GET['_destination'] : '';
+$ship = $_GET['_ship'] ? $_GET['_ship'] : '';
+$port = $_GET['_port'] ? $_GET['_port'] : '';
+
+
 ?>
 <div class="quick-search-journey">
     <form method="get">
@@ -17,9 +26,11 @@ $params = $params ? $params : array();
                             <div class="form-group">
                                 <select name="_destination" class="form-control select-2">
                                     <option value="">Choose your destination</option>
-                                    <option value="1"> destination 1</option>
-                                    <option value="2">destination 2</option>
-                                    <option value="3">destination 3</option>
+                                    <?php if($list_destination['data']){
+                                        foreach ($list_destination['data'] as $v){ ?>
+                                            <option value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $destination ? 'selected': '' ?>> <?php echo $v->post_title ?></option>
+                                        <?php }
+                                    } ?>
                                 </select>
                                 <span class="icon-n icon-location"></span>
                             </div>
@@ -35,6 +46,11 @@ $params = $params ? $params : array();
                             <div class="form-group">
                                 <select name="_port" class="form-control select-2">
                                     <option value="">Choose port of departure</option>
+                                    <?php if($list_port['data']){
+                                        foreach ($list_port['data'] as $v){ ?>
+                                            <option value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $port ? 'selected': '' ?>> <?php echo $v->post_title ?></option>
+                                        <?php }
+                                    } ?>
                                 </select>
                                 <span class="icon-n icon-port"></span>
                             </div>
@@ -44,6 +60,11 @@ $params = $params ? $params : array();
                             <div class="form-group">
                                 <select name="_ship" class="form-control select-2">
                                     <option value="">Choose your ship</option>
+                                    <?php if($list_ship['data']){
+                                        foreach ($list_ship['data'] as $v){ ?>
+                                            <option value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $ship ? 'selected': '' ?>> <?php echo $v->post_title ?></option>
+                                        <?php }
+                                    } ?>
                                 </select>
                                 <span class="icon-n icon-ship"></span>
                             </div>

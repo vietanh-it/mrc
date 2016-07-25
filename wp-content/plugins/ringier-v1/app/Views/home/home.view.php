@@ -22,9 +22,11 @@ get_header();
             <div class="form-group">
                 <select name="_destination" class="form-control select-2">
                     <option value="">Choose your destination</option>
-                    <option value="a"> destination 1</option>
-                    <option value="2">destination 2</option>
-                    <option value="3">destination 3</option>
+                    <?php if($list_destination['data']){
+                        foreach ($list_destination['data'] as $v){ ?>
+                            <option value="<?php echo $v->post_name ?>" > <?php echo $v->post_title ?></option>
+                        <?php }
+                    } ?>
                 </select>
                 <span class="icon-n icon-location"></span>
             </div>
@@ -35,6 +37,11 @@ get_header();
             <div class="form-group">
                 <select name="_port" class="form-control select-2">
                     <option value="">Choose port of departure</option>
+                    <?php if($list_port['data']){
+                        foreach ($list_port['data'] as $v){ ?>
+                            <option value="<?php echo $v->post_name ?>" > <?php echo $v->post_title ?></option>
+                        <?php }
+                    } ?>
                 </select>
                 <span class="icon-n icon-port"></span>
             </div>
@@ -42,6 +49,11 @@ get_header();
             <div class="form-group">
                 <select name="_ship" class="form-control select-2">
                     <option value="">Choose your ship</option>
+                    <?php if($list_ship['data']){
+                        foreach ($list_ship['data'] as $v){ ?>
+                            <option value="<?php echo $v->post_name ?>" > <?php echo $v->post_title ?></option>
+                        <?php }
+                    } ?>
                 </select>
                 <span class="icon-n icon-ship"></span>
             </div>
@@ -59,51 +71,25 @@ get_header();
             <h2 class="col-xs-12 col-sm-12 tile-main">Journey
                 <br> <img src="<?php echo VIEW_URL.'/images/line.png' ?>">
             </h2>
-
-            <div class="col-xs-12 col-sm-4">
-                <div class="box-journey">
-                    <div class="image">
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" title="">
-                            <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                        </a>
+            <?php if($list_journey_type['data']){
+                foreach ($list_journey_type['data'] as $v){
+                    ?>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="box-journey">
+                            <div class="image">
+                                <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                                    <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                                </a>
+                            </div>
+                            <div class="desc">
+                                <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                                <p><?php echo cut_string_by_char($v->post_content,150) ?></p>
+                                <a href="<?php echo $v->permalink ?>" class="explore" title="">Explore</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="desc">
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="title" title="">Laos</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="explore" title="">Explore</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-4">
-                <div class="box-journey">
-                    <div class="image">
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" title="">
-                            <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                        </a>
-                    </div>
-                    <div class="desc">
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="title" title="">Vietnam</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="explore" title="">Explore</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-4">
-                <div class="box-journey">
-                    <div class="image">
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" title="">
-                            <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                        </a>
-                    </div>
-                    <div class="desc">
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="title" title="">Cambodia</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                        <a href="<?php echo WP_SITEURL.'/detail-journey' ?>" class="explore" title="">Explore</a>
-                    </div>
-                </div>
-            </div>
+                <?php }
+            } ?>
 
         </div>
     </div>

@@ -2,6 +2,10 @@
 namespace RVN\Controllers\Home;
 
 use RVN\Controllers\_BaseController;
+use RVN\Controllers\DestinationController;
+use RVN\Controllers\PortController;
+use RVN\Controllers\ShipController;
+use RVN\Models\JourneyType;
 
 class HomeController extends _BaseController
 {
@@ -29,8 +33,21 @@ class HomeController extends _BaseController
         if (!user_can(wp_get_current_user(), 'administrator')) {
             die('Website is under construction.');
         }
+        $objShip = ShipController::init();
+        $objDestination = DestinationController::init();
+        $objPort = PortController::init();
 
-        return view('home/home');
+        $list_destination = $objDestination->getDestinationList();
+        $list_port = $objPort->getPortList();
+        $list_ship = $objShip->getSipList();
+
+        $args = array(
+            'limit' => 6,
+        );
+        $journey = JourneyType::init();
+        $list_journey_type = $journey->getJourneyTypeList($args);
+
+        return view('home/home',compact('list_destination','list_ship','list_port','list_journey_type'));
     }
 }
 

@@ -1,5 +1,7 @@
 <?php
-get_header(); ?>
+get_header();
+var_dump($journey_type_info);
+?>
 
 <div class="journey-detail">
     <div class="featured-image">

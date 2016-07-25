@@ -117,7 +117,13 @@ class Journey
             $query = 'SELECT * FROM ' . $this->_tbl_journey_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
             $object =  (object) array_merge((array) $object, (array) $post_info);
-            
+
+            if($object->journey_type){
+                $journeyType  = JourneyType::init();
+                $journey_type_info = $journeyType->getInfo($object->journey_type);
+                $object->journey_type_info = $journey_type_info;
+            }
+
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }

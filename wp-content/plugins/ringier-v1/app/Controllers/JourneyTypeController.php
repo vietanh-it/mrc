@@ -38,10 +38,10 @@ class JourneyTypeController extends _BaseController
 
     public function journeyTypeDetail($journey_id)
     {
-        $journey = JourneyType::init();
-        $journey_info = $journey->getInfo($journey_id);
+        $journeyType = JourneyType::init();
+        $journey_type_info = $journeyType->getInfo($journey_id);
 
-        return view('journey-type/detail', compact('journey_info'));
+        return view('journey-type/detail', compact('journey_type_info'));
     }
 
 }

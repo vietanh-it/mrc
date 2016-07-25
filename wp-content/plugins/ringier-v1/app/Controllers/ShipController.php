@@ -64,7 +64,7 @@ class ShipController extends _BaseController
         } else {
             $result = [
                 'status' => 'fail',
-                'data' => ['Please choose room to edit info']
+                'data'   => ['Please choose room to edit info']
             ];
         }
 
@@ -79,6 +79,51 @@ class ShipController extends _BaseController
             'status' => 'success',
             'data'   => $model->getShipDetail($data['ship_id'])
         ];
+
+        return $result;
+    }
+
+
+    public function ajaxGetRoomTypePricing($data)
+    {
+        $this->validate->rule('required', ['room_type_id'])
+            ->message('There is an error occurred, please try again.');
+
+        if ($this->validate->validate()) {
+            $model = Ships::init();
+            $result = [
+                'status' => 'success',
+                'data'   => $model->getRoomTypePricing($data['room_type_id'])
+            ];
+        } else {
+            $result = [
+                'status' => 'fail',
+                'data'   => $this->validate->errors()
+            ];
+        }
+
+        return $result;
+    }
+
+
+    public function ajaxSaveRoomTypePricing($data)
+    {
+        $this->validate->rule('required',
+            ['room_type_id', 'twin_high_price', 'twin_low_price', 'single_high_price', 'single_low_price'])
+            ->message('There is an error occurred, please try again.');
+
+        if ($this->validate->validate()) {
+            $model = Ships::init();
+            $result = [
+                'status' => 'success',
+                'data'   => $model->saveRoomTypePricing($data)
+            ];
+        } else {
+            $result = [
+                'status' => 'fail',
+                'data'   => $this->validate->errors()
+            ];
+        }
 
         return $result;
     }

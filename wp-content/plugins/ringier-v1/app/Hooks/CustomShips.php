@@ -140,36 +140,40 @@ class CustomShips
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center; font-weight: bold;">
-                            <label>High Season Price:</label>
+                            <label>High Season Price: (1 day)</label>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_twin_high_price"
-                                                                      id="rp_twin_high_price"
-                                                                      placeholder="Twin sharing price">
+                            Twin sharing:<br/> <span class="prefix-price">$</span><input type="number" min="0"
+                                                                                         name="rp_twin_high_price"
+                                                                                         id="rp_twin_high_price"
+                                                                                         placeholder="Twin sharing price">
                         </td>
                         <td>
-                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_single_high_price"
-                                                                      id="rp_single_high_price"
-                                                                      placeholder="Single use price">
+                            Single use:<br/> <span class="prefix-price">$</span><input type="number" min="0"
+                                                                                       name="rp_single_high_price"
+                                                                                       id="rp_single_high_price"
+                                                                                       placeholder="Single use price">
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center; font-weight: bold;">
-                            <label>Low Season Price:</label>
+                            <label>Low Season Price: (1 day)</label>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_twin_low_price"
-                                                                      id="rp_twin_low_price"
-                                                                      placeholder="Twin sharing price">
+                            Twin sharing:<br/> <span class="prefix-price">$</span><input type="number" min="0"
+                                                                                         name="rp_twin_low_price"
+                                                                                         id="rp_twin_low_price"
+                                                                                         placeholder="Twin sharing price">
                         </td>
                         <td>
-                            <span class="prefix-price">$</span><input type="number" min="0" name="rp_single_low_price"
-                                                                      id="rp_single_high_price"
-                                                                      placeholder="Single use price">
+                            Single use:<br/> <span class="prefix-price">$</span><input type="number" min="0"
+                                                                                       name="rp_single_low_price"
+                                                                                       id="rp_single_low_price"
+                                                                                       placeholder="Single use price">
                         </td>
                     </tr>
                     <tr>
@@ -302,10 +306,13 @@ class CustomShips
                     } else {
                         var twin_high_price = $('#rp_twin_high_price').val();
                         var twin_low_price = $('#rp_twin_low_price').val();
-                        var single_high_price = $('#rp_single_use_high_price').val();
-                        var single_low_price = $('#rp_single_use_low_price').val();
+                        var single_high_price = $('#rp_single_high_price').val();
+                        var single_low_price = $('#rp_single_low_price').val();
+
+                        var is_valid = true;
 
                         if (!twin_high_price) {
+                            is_valid = false;
                             swal({
                                 title: 'Please enter twin sharing high season room pricing',
                                 type: 'warning'
@@ -313,6 +320,7 @@ class CustomShips
                         }
 
                         if (!twin_low_price) {
+                            is_valid = false;
                             swal({
                                 title: 'Please enter twin sharing low season room pricing',
                                 type: 'warning'
@@ -320,6 +328,7 @@ class CustomShips
                         }
 
                         if (!single_high_price) {
+                            is_valid = false;
                             swal({
                                 title: 'Please enter single use high season room pricing',
                                 type: 'warning'
@@ -327,11 +336,108 @@ class CustomShips
                         }
 
                         if (!single_low_price) {
+                            is_valid = false;
                             swal({
                                 title: 'Please enter single use low season room pricing',
                                 type: 'warning'
                             });
                         }
+
+                        if (is_valid) {
+
+                            $.ajax({
+                                url: ajax_url,
+                                type: 'post',
+                                dataType: 'json',
+                                data: {
+                                    action: 'ajax_handler_ship',
+                                    method: 'SaveRoomTypePricing',
+                                    room_type_id: room_type_id,
+                                    twin_high_price: twin_high_price,
+                                    single_high_price: single_high_price,
+                                    twin_low_price: twin_low_price,
+                                    single_low_price: single_low_price
+                                },
+                                beforeSend: function () {
+                                    // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
+                                },
+                                success: function (data) {
+                                    // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
+
+                                    if (data.status == 'success') {
+                                        swal({
+                                            title: 'Update room type pricing successful!',
+                                            type: 'success'
+                                        });
+                                    }
+                                    else {
+                                        var html_msg = '<div>';
+                                        if (data.message) {
+                                            $.each(data.message, function (k_msg, msg) {
+                                                html_msg += msg + "<br/>";
+                                            });
+                                        } else if (data.data) {
+                                            $.each(data.data, function (k_msg, msg) {
+                                                html_msg += msg + "<br/>";
+                                            });
+                                        }
+                                        html_msg += "</div>";
+                                        swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                    }
+                                }
+                            }); // end ajax
+
+                        }
+                    }
+                });
+
+                $('#rp_room_type').on('change', function () {
+                    var room_type_id = $(this).val();
+
+                    if (room_type_id) {
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_ship',
+                                method: 'GetRoomTypePricing',
+                                room_type_id: room_type_id
+                            },
+                            beforeSend: function () {
+//                                $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
+                            },
+                            success: function (data) {
+                                // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
+
+                                if (data.status == 'success') {
+                                    // $('[data-roomid="' + data.data.id + '"]').css('background', data.data.background).html('<b>' + data.data.room_name + '</b>');
+                                    var twin_high_price = (data.data.twin_high_season_price > 0) ? data.data.twin_high_season_price : 0;
+                                    var single_high_price = (data.data.single_high_season_price > 0) ? data.data.single_high_season_price : 0;
+                                    var twin_low_price = (data.data.twin_low_season_price > 0) ? data.data.twin_low_season_price : 0;
+                                    var single_low_price = (data.data.single_low_season_price > 0) ? data.data.single_low_season_price : 0;
+
+                                    $('#rp_twin_high_price').val(twin_high_price);
+                                    $('#rp_single_high_price').val(single_high_price);
+                                    $('#rp_twin_low_price').val(twin_low_price);
+                                    $('#rp_single_low_price').val(single_low_price);
+                                }
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
+                            }
+                        }); // end ajax
                     }
                 });
 

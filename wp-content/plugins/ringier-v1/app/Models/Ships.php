@@ -102,4 +102,27 @@ class Ships
 
         return $result;
     }
+
+
+    public function saveRoomTypePricing($data)
+    {
+        $info = [
+            'twin_high_season_price'   => $data['twin_high_price'],
+            'twin_low_season_price'    => $data['twin_low_price'],
+            'single_high_season_price' => $data['single_high_price'],
+            'single_low_season_price'  => $data['single_low_price']
+        ];
+        $rs = $this->_wpdb->update($this->_tbl_room_types, $info, ['id' => $data['room_type_id']]);
+
+        return $rs;
+    }
+
+
+    public function getRoomTypePricing($room_type_id)
+    {
+        $query = "SELECT * FROM {$this->_tbl_room_types} WHERE id = {$room_type_id}";
+        $result = $this->_wpdb->get_row($query);
+
+        return $result;
+    }
 }

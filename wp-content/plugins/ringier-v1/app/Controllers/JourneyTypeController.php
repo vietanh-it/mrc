@@ -23,10 +23,4 @@ class JourneyTypeController extends _BaseController
         return self::$instance;
     }
 
-
-    public function ajaxSaveRoomTypePrice()
-    {
-
-    }
-
 }

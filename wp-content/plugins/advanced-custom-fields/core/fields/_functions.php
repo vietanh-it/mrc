@@ -251,6 +251,7 @@ class acf_field_functions
 
             switch ($post->post_type) {
                 case 'ship':
+                    // not use
                     unset($data['ship_gallery']);
 
                     if (in_array($field['name'], ['high_season_from', 'high_season_to'])) {
@@ -291,6 +292,10 @@ class acf_field_functions
                     // Nếu chưa có row => tạo mới
                     if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}journey_info WHERE object_id = {$post_id}"))) {
                         $wpdb->insert($wpdb->prefix . 'journey_info', ['object_id' => $post_id]);
+                    }
+
+                    if (in_array($field['name'], ['departure', 'arrive'])) {
+                        $data[$field['name']] = date('Y-m-d H:i:s', strtotime($data[$field['name']]));
                     }
 
                     $update_value = [

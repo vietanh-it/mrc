@@ -67,6 +67,10 @@ class CustomShips
             .form-table td {
                 padding: 8px 10px;
             }
+
+            .green {
+                color: #00d277;
+            }
         </style>
 
         <div class="ctn-box">
@@ -140,7 +144,7 @@ class CustomShips
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center; font-weight: bold;">
-                            <label>High Season Price: (1 day)</label>
+                            <label><span class="green">High Season</span> Price: (1 day)</label>
                         </td>
                     </tr>
                     <tr>
@@ -159,7 +163,7 @@ class CustomShips
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center; font-weight: bold;">
-                            <label>Low Season Price: (1 day)</label>
+                            <label><span class="green">Low Season</span> Price: (1 day)</label>
                         </td>
                     </tr>
                     <tr>

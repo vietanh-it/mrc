@@ -145,6 +145,8 @@ get_header();
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
                             <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
                         </div>
+                        <div class="price">$299</div>
+                        <div class="star"><i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i></div>
                     </div>
                 </div>
 

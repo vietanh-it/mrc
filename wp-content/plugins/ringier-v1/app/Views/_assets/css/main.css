@@ -332,6 +332,21 @@ nav ul.navbar-nav li.active a{
     background: #e4a611;
     color: white;
 }
+.box-journey .star{
+    position: absolute;
+    top: 0;
+    color: #dfb221;
+    padding: 10px 20px;
+}
+.box-journey .price{
+    position: absolute;
+    top: 55%;
+    right: 0;
+    padding: 5px 25px;
+    background: rgba(228, 166, 17, 0.72);
+    color: white;
+    font-weight: bold;
+}
 
 .room-home{
     padding-bottom: 50px;

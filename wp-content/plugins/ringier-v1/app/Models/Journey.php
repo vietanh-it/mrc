@@ -78,7 +78,7 @@ class Journey
             $list = $this->_wpdb->get_results($query);
             $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
             if ($list) {
-                foreach ($list as $key => $value) {
+                foreach ($list as $key => &$value) {
                     $value = $this->getInfo($value);
                 }
             }

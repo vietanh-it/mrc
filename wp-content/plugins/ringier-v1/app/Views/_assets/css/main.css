@@ -348,6 +348,52 @@ nav ul.navbar-nav li.active a{
     font-weight: bold;
 }
 
+.box-journey-2 {
+    margin-bottom: 50px;
+}
+.box-journey-2 .desc{
+    padding-right: 30px;
+}
+.box-journey-2 .desc .title{
+    color: #e4a611;
+    font-size: 17px;
+    text-transform: uppercase;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+.box-journey-2 .desc ul{
+    padding-left: 15px;
+}
+.box-journey-2 .explore{
+    display: block;
+    margin-top: 30px;
+    color: #e1cc9c;
+}
+.box-journey-2 .bk{
+    padding-top: 50px;
+}
+.box-journey-2 .bk p{
+    margin-bottom: 30px;
+}
+.box-journey-2 .bk b{
+    color: #e4a611;
+}
+.box-journey-2 .bk a{
+    background: #e4a611;
+    color: white;
+    padding: 8px 20px;
+    font-family: 'Playfair Display', serif;
+    border: 1px solid #e4a611;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+.box-journey-2 .bk a:hover{
+    background: white;
+    color: #e4a611;
+}
+
 .room-home{
     padding-bottom: 50px;
 }

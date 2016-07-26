@@ -17,7 +17,7 @@ get_header();
     </div>
 
     <div class="form-find-journey">
-        <form method="get" action="<?php echo WP_SITEURL.'/journey' ?>">
+        <form method="get" action="<?php echo WP_SITEURL.'/journeys' ?>">
             <h3>Find your journey</h3>
             <div class="form-group">
                 <select name="_destination" class="form-control select-2">

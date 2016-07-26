@@ -42,7 +42,7 @@ class HomeController extends _BaseController
         $list_ship = $objShip->getSipList();
 
         $args = array(
-            'limit' => 6,
+            'limit' => 3,
         );
         $journey = JourneyType::init();
         $list_journey_type = $journey->getJourneyTypeList($args);

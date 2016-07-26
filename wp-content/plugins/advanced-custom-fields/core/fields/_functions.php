@@ -305,22 +305,25 @@ class acf_field_functions
 
                     break;
                 case 'journey_type':
-                    // Serialize if is array
-                    if (is_array($data[$field['name']])) {
-                        $data[$field['name']] = serialize($data[$field['name']]);
+                    if ($field['name'] == 'photos') {
+                        unset($field);
+                    } else {
+                        // Serialize if is array
+                        if (is_array($data[$field['name']])) {
+                            $data[$field['name']] = serialize($data[$field['name']]);
+                        }
+
+                        // Nếu chưa có row => tạo mới
+                        if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}journey_type_info WHERE object_id = {$post_id}"))) {
+                            $wpdb->insert($wpdb->prefix . 'journey_type_info', ['object_id' => $post_id]);
+                        }
+
+                        $update_value = [
+                            $field['name'] => $data[$field['name']]
+                        ];
+                        $rs = $wpdb->update($wpdb->prefix . 'journey_type_info', $update_value,
+                            ['object_id' => $post_id]);
                     }
-
-                    // Nếu chưa có row => tạo mới
-                    if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}journey_type_info WHERE object_id = {$post_id}"))) {
-                        $wpdb->insert($wpdb->prefix . 'journey_type_info', ['object_id' => $post_id]);
-                    }
-
-                    $update_value = [
-                        $field['name'] => $data[$field['name']]
-                    ];
-
-                    $wpdb->update($wpdb->prefix . 'journey_type_info', $update_value, ['object_id' => $post_id]);
-
                     break;
                 default:
                     break;

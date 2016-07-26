@@ -760,7 +760,7 @@ footer ul li{
     color: white;
     border: 1px solid #e4a611;
 }
-.journey-detail .btt-box button :hover{
+.journey-detail .btt-box button:hover{
     background: white;
     color: #e4a611;
 }

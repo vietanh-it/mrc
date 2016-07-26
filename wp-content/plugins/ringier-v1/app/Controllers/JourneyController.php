@@ -37,10 +37,10 @@ class JourneyController extends _BaseController
     {
         if ($args) {
 
-            // $destination = $params['_destination'] ? $params['_destination'] : '';
-            // $month = $params['_month'] ? $params['_month'] : '';
-            // $port = $params['_port'] ? $params['_port'] : '';
-            // $ship = $params['_ship'] ? $params['_ship'] : '';
+            $destination = $args['_destination'] ? $args['_destination'] : '';
+            $month = $args['_month'] ? $args['_month'] : '';
+            $port = $args['_port'] ? $args['_port'] : '';
+            $ship = $args['_ship'] ? $args['_ship'] : '';
         }
 
         $journey = Journey::init();

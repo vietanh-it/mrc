@@ -639,7 +639,7 @@ footer ul li{
     color: #e6ab27;
     text-transform: uppercase;
     font-weight: bold;
-    font-family: 'Playfair Display', serif;;
+    font-family: 'Playfair Display', serif;
     position: relative;
     overflow: hidden;
     margin-bottom: 10px;
@@ -666,6 +666,107 @@ footer ul li{
 .journey-detail .related .title{
     margin-top: 15px;
 }
+.journey-detail .nav-bar{
+    background: #d5b76e;
+    padding: 10px 0;
+}
+.journey-detail .nav-bar .title-main{
+    margin: 10px  0 10px;
+    font-size: 18px;
+}
+.journey-detail .nav-bar .right{
+    padding-top: 25px;
+    text-align: right;
+}
+.journey-detail .nav-bar .total-price{
+    font-size: 18px;
+    color: white;
+    padding-right: 20px;
+}
+.journey-detail .nav-bar img.btn-menu-jn{
+}
+
+.journey-detail .text-tt{
+    margin: 30px 0;
+    border-bottom: 1px solid #e4a611;
+    color: black;
+    font-weight: bold;
+    line-height: 35px;
+    font-size: 18px;
+    font-family: 'Playfair Display', serif;
+}
+.journey-detail .text-tt span{
+    float: right;
+    font-size: 15px;
+    font-weight: normal;
+    color: #cdcdcd;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.journey-detail .img-ship p{
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+.journey-detail .bk-box{
+    padding: 10px 30px;
+    border-bottom: 1px solid #ccc;
+    float: left;
+    width: 100%;
+}
+.journey-detail .bk-box.bk-box-2{
+    padding: 20px 30px;
+}
+.journey-detail .bk-box.bk-box-gray{
+    background: #f5f5f5;
+}
+.journey-detail .bk-box .text{
+    float: left;
+    padding-top: 8px;
+    text-transform: uppercase;
+}
+.journey-detail .bk-box .price-2{
+    float: right;
+}
+.journey-detail .bk-box .price{
+    float: right;
+    color: #929292;
+    font-size: 13px;
+}
+.journey-detail .bk-box .price .big{
+    font-size: 17px;
+    color: black;
+}
+.journey-detail .bk-box-2 .text{
+    padding-top: 0;
+}
+.journey-detail .btt-box{
+    margin-top: 40px;
+    float: left;
+    width: 100%;
+    font-family: 'Playfair Display', serif;
+}
+.journey-detail .btt-box a.back{
+    color: #9d9d9d;
+    text-decoration: underline;
+    font-size: 18px;
+    padding-right: 30px;
+}
+.journey-detail .btt-box button{
+    padding: 7px 20px ;
+    background:  #e4a611;
+    border-radius: 3px;
+    color: white;
+    border: 1px solid #e4a611;
+}
+.journey-detail .btt-box button :hover{
+    background: white;
+    color: #e4a611;
+}
+
+
+
 
 .title-related{
     color: black;

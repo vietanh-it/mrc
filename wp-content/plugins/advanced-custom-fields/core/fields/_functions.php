@@ -53,7 +53,7 @@ class acf_field_functions
     function load_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type'])) {
+        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type','pretour','posttour'])) {
             switch ($post->post_type) {
                 case 'ship':
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}ship_info si ON p.ID = si.object_id WHERE p.ID = {$post_id}";
@@ -105,6 +105,20 @@ class acf_field_functions
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}journey_type_info jti ON p.ID = jti.object_id WHERE p.ID = {$post_id}";
                     $result = $wpdb->get_row($query);
 
+                    if (isset($result->{$field['name']})) {
+                        $value = $result->{$field['name']};
+
+                        if (!is_array($value) && is_serialized($value)) {
+                            $value = unserialize($value);
+                        }
+                    }
+
+                    return $value;
+
+                case 'pretour':
+                case 'posttour':
+                    $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}tour_info jti ON p.ID = jti.object_id WHERE p.ID = {$post_id}";
+                    $result = $wpdb->get_row($query);
                     if (isset($result->{$field['name']})) {
                         $value = $result->{$field['name']};
 
@@ -238,7 +252,7 @@ class acf_field_functions
     function update_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type'])) {
+        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type','pretour','posttour'])) {
 
             $data = [];
             $customFields = $_POST['fields'];
@@ -323,6 +337,15 @@ class acf_field_functions
                         ];
                         $rs = $wpdb->update($wpdb->prefix . 'journey_type_info', $update_value,
                             ['object_id' => $post_id]);
+                    }
+                    break;
+                case 'pretour':
+                case 'posttour':
+                    if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}tour_info WHERE object_id = {$post_id}"))) {
+                        $data['object_id'] = $post_id;
+                        $wpdb->insert($wpdb->prefix . 'tour_info', $data);
+                    } else {
+                        $wpdb->update($wpdb->prefix . 'tour_info', $data, ['object_id' => $post_id]);
                     }
                     break;
                 default:

@@ -49,7 +49,7 @@ class Journey
         }
         if ($result == false) {
             $page = (empty($params['page'])) ? 1 : intval($params['page']);
-            $limit = (empty($params['limit'])) ? 10 : intval($params['limit']);
+            $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
             $to = ($page - 1) * $limit;
             $order_by = "  p.post_date DESC ";
             if ($params['order_by']) {
@@ -57,24 +57,21 @@ class Journey
             }
 
             $where = '';
-            if ($params['where']) {
-                $where = $params['where'];
-            }
             $join = '';
-            if ($params['join']) {
-                $join = $params['join'];
+
+            var_dump($params);
+            if($params['_destination']){
+                
             }
 
-            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type FROM " . $this->_wpdb->posts . " as p";
-            if (!empty($join)) {
-                $query .= "INNER JOIN {$join}";
-            }
-            $query .= " WHERE p.post_type = 'journey' AND p.post_status='publish'";
-            if (!empty($where)) {
-                $query .= " AND {$where}";
-            }
-            $query .= " ORDER BY $order_by  LIMIT $to, $limit";
+            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type FROM " . $this->_wpdb->posts . " as p
+            $join
+            WHERE p.post_type = 'journey' AND p.post_status='publish'
+            $where          
+            ORDER BY $order_by  LIMIT $to, $limit
+            ";
 
+            echo $query;
             $list = $this->_wpdb->get_results($query);
             $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
             if ($list) {

@@ -13,6 +13,7 @@ class JourneyController extends _BaseController
         parent::__construct();
     }
 
+
     public static function init()
     {
         if (!isset(self::$instance)) {

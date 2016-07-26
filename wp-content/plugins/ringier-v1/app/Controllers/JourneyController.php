@@ -23,12 +23,6 @@ class JourneyController extends _BaseController
     }
 
 
-    public function ajaxSaveRoomTypePrice()
-    {
-
-    }
-
-
     public function journeyDetail($journey_id)
     {
         $journey = Journey::init();

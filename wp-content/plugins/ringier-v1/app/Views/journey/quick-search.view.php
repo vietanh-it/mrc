@@ -10,7 +10,7 @@ $list_ship = $objShip->getSipList();
 $destination = $_GET['_destination'] ? $_GET['_destination'] : '';
 $ship = $_GET['_ship'] ? $_GET['_ship'] : '';
 $port = $_GET['_port'] ? $_GET['_port'] : '';
-
+$month = $_GET['_month'] ? $_GET['_month'] : '';
 
 ?>
 <div class="quick-search-journey">
@@ -37,7 +37,7 @@ $port = $_GET['_port'] ? $_GET['_port'] : '';
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="form-group">
-                                <input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month">
+                                <input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month" value="<?php echo $month ?>">
                                 <span class="icon-n icon-date"></span>
                             </div>
                         </div>

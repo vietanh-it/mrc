@@ -391,6 +391,7 @@ nav ul.navbar-nav li.active a{
 }
 .box-journey-2 .bk a:hover{
     background: white;
+    text-decoration: none;
     color: #e4a611;
 }
 

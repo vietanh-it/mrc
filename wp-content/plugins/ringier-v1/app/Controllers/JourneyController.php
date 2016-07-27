@@ -35,14 +35,6 @@ class JourneyController extends _BaseController
 
     public function journeyList($args = [])
     {
-        if ($args) {
-
-            $destination = $args['_destination'] ? $args['_destination'] : '';
-            $month = $args['_month'] ? $args['_month'] : '';
-            $port = $args['_port'] ? $args['_port'] : '';
-            $ship = $args['_ship'] ? $args['_ship'] : '';
-        }
-
         $journey = Journey::init();
         $list_journey = $journey->getJourneyList($args);
 

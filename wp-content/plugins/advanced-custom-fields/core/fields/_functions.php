@@ -53,7 +53,7 @@ class acf_field_functions
     function load_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type','pretour','posttour'])) {
+        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type','pretour','posttour','addon'])) {
             switch ($post->post_type) {
                 case 'ship':
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}ship_info si ON p.ID = si.object_id WHERE p.ID = {$post_id}";
@@ -70,7 +70,6 @@ class acf_field_functions
                     return stripslashes($value);
                 case 'destination':
                     // var_dump($field);
-
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}post_info pi ON p.ID = pi.object_id WHERE p.ID = {$post_id}";
                     $result = $wpdb->get_row($query);
 
@@ -102,21 +101,42 @@ class acf_field_functions
 
                     return $value;
                 case 'journey_type':
-                    $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}journey_type_info jti ON p.ID = jti.object_id WHERE p.ID = {$post_id}";
-                    $result = $wpdb->get_row($query);
-
-                    if (isset($result->{$field['name']})) {
-                        $value = $result->{$field['name']};
-
-                        if (!is_array($value) && is_serialized($value)) {
-                            $value = unserialize($value);
+                    if($field['name'] == 'port' or $field['name'] == 'river'){
+                        switch ($field['name']){
+                            case 'port' :
+                                $table = $wpdb->prefix.'journey_type_port';
+                                $id = 'port_id';
+                                break;
+                            case 'river' :
+                                $table = $wpdb->prefix.'journey_type_river';
+                                $id = 'river_id';
+                                break;
                         }
-                    }
+                        $query = "SELECT * FROM $table  WHERE journey_type_id = {$post_id}";
+                        $result = $wpdb->get_results($query);
+                        $value = array();
+                        foreach ($result as $v){
+                            $value[] = $v->{$id};
+                        }
+                        return $value;
+                    }else{
+                        $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}journey_type_info jti ON p.ID = jti.object_id WHERE p.ID = {$post_id}";
+                        $result = $wpdb->get_row($query);
 
-                    return $value;
+                        if (isset($result->{$field['name']})) {
+                            $value = $result->{$field['name']};
+
+                            if (!is_array($value) && is_serialized($value)) {
+                                $value = unserialize($value);
+                            }
+                        }
+
+                        return $value;
+                    }
 
                 case 'pretour':
                 case 'posttour':
+                case 'addon':
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}tour_info jti ON p.ID = jti.object_id WHERE p.ID = {$post_id}";
                     $result = $wpdb->get_row($query);
                     if (isset($result->{$field['name']})) {
@@ -133,7 +153,6 @@ class acf_field_functions
             }
         }
 
-
         $found = false;
         $cache = wp_cache_get('load_value/post_id=' . $post_id . '/name=' . $field['name'], 'acf', false, $found);
 
@@ -141,10 +160,8 @@ class acf_field_functions
             return $cache;
         }
 
-
         // set default value
         $value = false;
-
 
         // if $post_id is a string, then it is used in the everything fields and can be found in the options table
         if (is_numeric($post_id)) {
@@ -252,7 +269,7 @@ class acf_field_functions
     function update_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type','pretour','posttour'])) {
+        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type','pretour','posttour','addon'])) {
 
             $data = [];
             $customFields = $_POST['fields'];
@@ -322,6 +339,28 @@ class acf_field_functions
                     if ($field['name'] == 'photos') {
                         unset($field);
                     } else {
+                        if ($field['name'] == 'port') {
+                            $wpdb->delete($wpdb->prefix .'journey_type_port',array('journey_type_id' => $post_id));
+
+                            if (is_array($data[$field['name']])) {
+                                foreach ($data[$field['name']] as $d){
+                                    $wpdb->insert($wpdb->prefix .'journey_type_port',array('journey_type_id' => $post_id, 'port_id' => $d ));
+                                }
+                            }
+                            unset($data[$field['name']]);
+                        }
+
+                        if ($field['name'] == 'river') {
+                            $wpdb->delete($wpdb->prefix .'journey_type_river',array('journey_type_id' => $post_id));
+
+                            if (is_array($data[$field['name']])) {
+                                foreach ($data[$field['name']] as $d){
+                                    $wpdb->insert($wpdb->prefix .'journey_type_river',array('journey_type_id' => $post_id, 'river_id' => $d ));
+                                }
+                            }
+                            unset($data[$field['name']]);
+                        }
+
                         // Serialize if is array
                         if (is_array($data[$field['name']])) {
                             $data[$field['name']] = serialize($data[$field['name']]);
@@ -341,6 +380,7 @@ class acf_field_functions
                     break;
                 case 'pretour':
                 case 'posttour':
+                case 'addon':
                     if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}tour_info WHERE object_id = {$post_id}"))) {
                         $data['object_id'] = $post_id;
                         $wpdb->insert($wpdb->prefix . 'tour_info', $data);

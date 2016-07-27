@@ -17,6 +17,8 @@ class Journey
     private $_prefix;
     private $_tbl_journey_info;
     private $_tbl_journey_type_info;
+    private $_tbl_journey_type_port;
+    private $_tbl_journey_type_river;
 
     function __construct()
     {
@@ -25,7 +27,8 @@ class Journey
         $this->_prefix = $wpdb->prefix;
 
         $this->_tbl_journey_info = $this->_prefix . 'journey_info';
-        $this->_tbl_journey_type_info = $this->_prefix . 'journey_info';
+        $this->_tbl_journey_type_info = $this->_prefix . 'journey_type_info';
+        $this->_tbl_journey_type_port = $this->_prefix . 'journey_type_port';
     }
 
 
@@ -59,9 +62,34 @@ class Journey
             $where = '';
             $join = '';
 
-            var_dump($params);
+            $objPost = Posts::init();
+            $join .= ' INNER JOIN '.$this->_tbl_journey_info .' as ji ON ji.object_id = p.ID
+                       INNER JOIN '.$this->_tbl_journey_type_info .' as jti ON jti.object_id = ji.journey_type';
+
+
+            if($params['_ship']){
+                $ship = $objPost->getPostBySlug($params['_ship'],'ship');
+                if($ship){
+                    $where .= ' AND jti.ship = '.$ship->ID ;
+                }
+            }
             if($params['_destination']){
-                
+                $destination = $objPost->getPostBySlug($params['_destination'],'destination');
+                if($destination){
+                    $where .= ' AND jti.destination = '.$destination->ID ;
+                }
+            }
+            if($params['_port']){
+                $port = $objPost->getPostBySlug($params['_port'],'port');
+                if($port){
+                    $join .= ' INNER JOIN '.$this->_tbl_journey_type_port . ' as jtp ON jtp.journey_type_id = jti.object_id';
+                    $where .= ' AND jtp.port_id = '.$port->ID ;
+                }
+            }
+
+            if($params['_month']){
+                $month = date_format(date_create_from_format("d/m/Y", '01/'.$params['_month']), "Y-m");
+                $where .= " AND DATE_FORMAT(ji.departure,'%Y-%m') = '".$month."'";
             }
 
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type FROM " . $this->_wpdb->posts . " as p
@@ -71,7 +99,8 @@ class Journey
             ORDER BY $order_by  LIMIT $to, $limit
             ";
 
-            echo $query;
+           // echo $query;
+
             $list = $this->_wpdb->get_results($query);
             $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
             if ($list) {

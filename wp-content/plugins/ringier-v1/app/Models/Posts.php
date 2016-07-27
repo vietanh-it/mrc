@@ -129,4 +129,19 @@ class Posts {
         $wp_query->found_posts = $total;
         $wp_query->max_num_pages = ceil($total / $limit);
     }
+
+    public function getPostBySlug($slug,$post_type){
+        $args = array(
+            'name' => $slug,
+            'post_type' => $post_type,
+            'numberposts' => 1
+        );
+        $my_posts = get_posts($args);
+        if($my_posts[0]){
+            $my_posts = array_shift($my_posts);
+        }
+
+        return $my_posts;
+    }
+
 }

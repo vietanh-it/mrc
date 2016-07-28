@@ -85,7 +85,7 @@ class CustomShips
 
             <div style="width: 49%; display: inline-block; vertical-align: top;">
 
-                <table class="form-table room-info" style="width: 100%;">
+                <table class="form-table room-info" style="width: 100%; display: none;">
                     <tr>
                         <th colspan="2">
                             <h3 style="text-align: center; text-transform: uppercase; margin: 0;">Room Infomartion</h3>
@@ -123,7 +123,7 @@ class CustomShips
                 </table>
 
 
-                <table class="form-table room-type-info" style="width: 100%; border-top: 1px dashed #aaaaaa;">
+                <table class="form-table room-type-info" style="width: 100%;">
                     <tr>
                         <th colspan="2">
                             <h3 style="text-align: center; text-transform: uppercase; margin: 0;">Room Type Pricing</h3>
@@ -291,7 +291,6 @@ class CustomShips
                                 }
                             }
                         }); // end ajax
-
 
                     }
 

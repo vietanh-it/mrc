@@ -15,7 +15,8 @@ $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <h3 class="title-main white"><?php the_title(); ?></h3>
-                        <p>From Saigon to Siem Reap, <?php echo $journey_detail->duration; ?>, departure on <b><?php echo date('d M Y', strtotime($journey_detail->departure)); ?></b></p>
+                        <p>From Saigon to Siem Reap, <?php echo $journey_detail->duration; ?>, departure on
+                            <b><?php echo date('d M Y', strtotime($journey_detail->departure)); ?></b></p>
                     </div>
                     <div class="col-xs-12 col-sm-6 right">
                         <span class="total-price">Total: US$8,250</span>
@@ -35,8 +36,18 @@ $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
                 <div class="row">
                     <div class="col-xs-12 col-sm-7">
                         <div class="img-ship">
-                            <p>Mekong Princess Deck Plan</p>
-                            <img src="<?php echo VIEW_URL . '/images/ship_maps/mekong_princess.jpg' ?>" alt="">
+                            <p><?php echo $journey_detail->journey_type_info->ship_info->post_title; ?> Deck Plan</p>
+
+
+                            <div class="ship_map" style="position: relative;">
+                                <img src="<?php echo $journey_detail->journey_type_info->ship_info->map; ?>"
+                                     alt="<?php echo $journey_detail->journey_type_info->ship_info->post_title; ?>"
+                                     style="width: 100%;">
+
+                                <?php foreach ($journey_detail->journey_type_info->ship_info->rooms as $key => $room) {
+                                    echo $room->html;
+                                } ?>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-5">

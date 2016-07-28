@@ -1,0 +1,16 @@
+/*
+Theme Name: MRC
+Theme URI: https://vietcruises.com
+Author: Ringier
+Author URI: https://www.vietanh.photography/
+Description: MRC Theme
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: mrc
+Text Domain: mrc
+*/
+
+.ship_map img {
+    width: 100%;
+}

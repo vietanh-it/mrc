@@ -142,10 +142,18 @@ class Journey
 
             $query = 'SELECT * FROM ' . $this->_tbl_journey_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
-            $object =  (object) array_merge((array) $object, (array) $post_info);
+            $object = (object)array_merge((array)$object, (array)$post_info);
 
-            if($object->journey_type){
-                $journeyType  = JourneyType::init();
+            // Calculate duration
+            $departure = date_create($object->departure);
+            $arrive = date_create($object->arrive);
+            $duration = date_diff($departure, $arrive);
+            $object->nights = $duration->days;
+            $object->days = $duration->days + 1;
+            $object->duration = ($duration->days + 1) . " days " . $duration->days . " nights";
+
+            if ($object->journey_type) {
+                $journeyType = JourneyType::init();
                 $journey_type_info = $journeyType->getInfo($object->journey_type);
                 $object->journey_type_info = $journey_type_info;
             }

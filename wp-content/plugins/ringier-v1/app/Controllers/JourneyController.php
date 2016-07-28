@@ -24,6 +24,15 @@ class JourneyController extends _BaseController
     }
 
 
+    public function getJourneyDetail($journey_id)
+    {
+        $journey = Journey::init();
+        $journey_info = $journey->getInfo($journey_id);
+
+        return $journey_info;
+    }
+
+
     public function journeyDetail($journey_id)
     {
         $journey = Journey::init();

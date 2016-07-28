@@ -7,10 +7,10 @@ $list_destination = $objDestination->getDestinationList();
 $list_port = $objPort->getPortList();
 $list_ship = $objShip->getSipList();
 
-$destination = $_GET['_destination'] ? $_GET['_destination'] : '';
-$ship = $_GET['_ship'] ? $_GET['_ship'] : '';
-$port = $_GET['_port'] ? $_GET['_port'] : '';
-$month = $_GET['_month'] ? $_GET['_month'] : '';
+$destination = !empty($_GET['_destination']) ? $_GET['_destination'] : '';
+$ship = !empty($_GET['_destination']) ? $_GET['_ship'] : '';
+$port = !empty($_GET['_port']) ? $_GET['_port'] : '';
+$month = !empty($_GET['_month']) ? $_GET['_month'] : '';
 
 ?>
 <div class="quick-search-journey">

@@ -61,7 +61,7 @@ class JourneyType
             $limit = (empty($params['limit'])) ? 10 : intval($params['limit']);
             $to = ($page - 1) * $limit;
             $order_by = "  p.post_date DESC ";
-            if ($params['order_by']) {
+            if (!empty($params['order_by'])) {
                 $order_by = $params['order_by'];
             }
 

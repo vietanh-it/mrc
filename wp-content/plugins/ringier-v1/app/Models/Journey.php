@@ -132,19 +132,23 @@ class Journey
 
         $result = wp_cache_get($cacheId);
         if ($result == false) {
+
+            // Post
             if (is_numeric($object)) {
                 $object = get_post($object);
             }
 
+            // images, permalink
             $objImages = Images::init();
             $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured']);
             $object->permalink = get_permalink($object->ID);
 
+            // journey_info
             $query = 'SELECT * FROM ' . $this->_tbl_journey_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
             $object = (object)array_merge((array)$object, (array)$post_info);
 
-            // Calculate duration
+            // days, nights, duration
             $departure = date_create($object->departure);
             $arrive = date_create($object->arrive);
             $duration = date_diff($departure, $arrive);
@@ -152,6 +156,7 @@ class Journey
             $object->days = $duration->days + 1;
             $object->duration = ($duration->days + 1) . " days " . $duration->days . " nights";
 
+            // journey_type_info
             if ($object->journey_type) {
                 $journeyType = JourneyType::init();
                 $journey_type_info = $journeyType->getInfo($object->journey_type);

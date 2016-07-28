@@ -108,19 +108,24 @@ class JourneyType
 
         $result = wp_cache_get($cacheId);
         if ($result == false) {
+
+            // Post
             if (is_numeric($object)) {
                 $object = get_post($object);
             }
 
+            // images, permalink
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured','full']);
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'full']);
             $object->permalink = get_permalink($object->ID);
 
+            // tbl journey_type_info
             $query = 'SELECT * FROM ' . $this->_tbl_journey_type_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
-            $object =  (object) array_merge((array) $object, (array) $post_info);
+            $object = (object)array_merge((array)$object, (array)$post_info);
 
-            if($object->ship){
+            // ship_info
+            if ($object->ship) {
                 $ship = Ships::init();
                 $ship_detail = $ship->getShipDetail($object->ship);
                 $object->ship_info = $ship_detail;

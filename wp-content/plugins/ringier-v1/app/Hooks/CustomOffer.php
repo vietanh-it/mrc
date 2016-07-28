@@ -69,17 +69,18 @@ class CustomOffer
             $(document).ready(function () {
                 $('#journey_type').change(function () {
                     var id = $(this).val();
-                    if(id !=''){
+                    var html = '';
+                    if(id){
                         var room_types = $(this).find('option:selected').attr('data-room_types');
-                        var html = '';
                         if(room_types){
                             room_types = JSON.parse(room_types);
                         }
                         $.each(room_types, function(key, value) {
                             html += '<input type="checkbox" name="room_type" value="'+value.id+'"> '+value.room_type_name+'<br>';
                         });
-                        console.log(html);
 
+                        $('.ctn_room_types').html(html);
+                    }else {
                         $('.ctn_room_types').html(html);
                     }
                 })

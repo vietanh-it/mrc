@@ -36,7 +36,7 @@ $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
                     <div class="col-xs-12 col-sm-7">
                         <div class="img-ship">
                             <p>Mekong Princess Deck Plan</p>
-                            <img src="<?php echo VIEW_URL . '/images/ship_maps/mekong_princess_2.jpg' ?>" alt="">
+                            <img src="<?php echo VIEW_URL . '/images/ship_maps/mekong_princess.jpg' ?>" alt="">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-5">

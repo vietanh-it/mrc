@@ -74,7 +74,7 @@ class Ships
 
         if (!empty($result)) {
             foreach ($result as $key => $item) {
-                $item->html = "<div data-roomid='{$item->id}' style='position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; background: {$item->background}; cursor: pointer;'><b>{$item->room_name}</b></div>";
+                $item->html = "<div data-roomid='{$item->id}' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
             }
         }
 

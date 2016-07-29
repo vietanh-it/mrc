@@ -840,7 +840,22 @@ footer ul li{
     border-bottom: 2px solid #ddd;
     border-top: 0 ;
 }
-
+.ctn-list-journey .table>tbody>tr>td:first-child{
+    padding-left: 15px;
+}
+.ctn-list-journey .bnt-jn{
+    padding: 5px 0;
+    border: 1px solid #e4a611;
+    background: #e4a611;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0px;
+    display: block;
+    width: 90px;
+    text-align: center;
+}
 
 
 .title-related{

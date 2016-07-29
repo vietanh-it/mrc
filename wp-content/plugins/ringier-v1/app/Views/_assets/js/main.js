@@ -106,10 +106,11 @@ jQuery(document).ready(function ($) {
                         html += '<tr> ' +
                             '<td> <b>' + value.departure_fm +'</b> </td> ' +
                             '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '+ value.duration +'</td> ' +
-                            '<td>' + value.journey_type_info.ship_info.post_title +'</td> ' +
+                            '<td style="text-decoration: underline">' + value.journey_type_info.ship_info.post_title +'</td> ' +
                             '<td> ' + value.journey_type_info.navigation + ' </td> ' +
-                            '<td> 2222 </td> ' +
-                            '<td> <a href="' + value.permalink +'" class="bnt-jn">Select</a> </td> ' +
+                            '<td> from <b style="color: #e4a611">US$'+value.min_price+'</b> pp <br>based on twin cabin </td> ' +
+                            '<td> <a href="' + value.permalink +'" class="bnt-jn">Select</a>' +
+                            'Some availability </td> ' +
                             '</tr>';
                     });
 

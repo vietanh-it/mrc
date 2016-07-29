@@ -185,6 +185,22 @@ class Journey
 
                 $object->current_season = $current_season;
 
+                if($object->journey_type_info->ship_info->room_types){
+                    $min_price = 9999999999999999999999999;
+                    foreach ($object->journey_type_info->ship_info->room_types as $v){
+                        if($current_season == 'low'){
+                            $price_sub = $v->single_low_season_price;
+                        }else{
+                            $price_sub = $v->single_high_season_price;
+                        }
+                        if($price_sub < $min_price){
+                            $min_price = $price_sub;
+                        }
+
+                    }
+                    $object->min_price = number_format($min_price);
+                }
+
             }
 
             $result = $object;

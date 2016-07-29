@@ -87,6 +87,10 @@ class Journey
                 }
             }
 
+            if (!empty($params['journey_type_id'])) {
+                $where .= " AND ji.journey_type = ".$params['journey_type_id'];
+            }
+
             if (!empty($params['_month'])) {
                 $month = date_format(date_create_from_format("d/m/Y", '01/' . $params['_month']), "Y-m");
                 $where .= " AND DATE_FORMAT(ji.departure,'%Y-%m') = '" . $month . "'";

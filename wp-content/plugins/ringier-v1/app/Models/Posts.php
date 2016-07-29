@@ -109,6 +109,10 @@ class Posts {
             $post->images = $objImages->getPostImages($post->ID, ['thumbnail', 'featured']);
             $post->permalink = get_permalink($post->ID);
 
+            $objGallery = Gallery::init();
+            $gallery = $objGallery->getGalleryBy($post->ID);
+            $post->gallery = $gallery;
+
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
 

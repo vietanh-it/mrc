@@ -20,7 +20,8 @@ class JourneyType
     private $_tbl_rooms;
     private $_tbl_journey_type_info;
     private $_tbl_journey_info;
-
+    private $_tbl_offer_journey;
+    private $_tbl_offer_info;
 
     /**
      * Users constructor.
@@ -36,6 +37,8 @@ class JourneyType
         $this->_tbl_rooms = $this->_prefix . 'rooms';
         $this->_tbl_journey_type_info = $this->_prefix . 'journey_type_info';
         $this->_tbl_journey_info = $this->_prefix . 'journey_info';
+        $this->_tbl_offer_journey = $this->_prefix . 'offer_journey';
+        $this->_tbl_offer_info = $this->_prefix . 'offer_info';
     }
 
 
@@ -120,7 +123,8 @@ class JourneyType
             $object->permalink = get_permalink($object->ID);
 
             // tbl journey_type_info
-            $query = 'SELECT * FROM ' . $this->_tbl_journey_type_info . ' WHERE object_id = ' . $object->ID;
+            $query = 'SELECT jti.* FROM ' . $this->_tbl_journey_type_info . ' as jti 
+            WHERE jti.object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
             $object = (object)array_merge((array)$object, (array)$post_info);
 
@@ -130,6 +134,14 @@ class JourneyType
                 $ship_detail = $ship->getShipDetail($object->ship);
                 $object->ship_info = $ship_detail;
             }
+
+            $objOffer = Offer::init();
+            $offer = $objOffer->getOfferByJourneyType($object->ID);
+            $object->offer = $offer;
+
+            $objGallery = Gallery::init();
+            $gallery = $objGallery->getGalleryBy($object->ID);
+            $object->gallery = $gallery;
 
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);

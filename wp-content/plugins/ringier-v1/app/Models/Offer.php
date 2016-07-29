@@ -95,4 +95,22 @@ class Offer
         ));
     }
 
+    public function getOfferByJourneyType($jt_id){
+        $rs = array();
+
+        $query = ' SELECT * FROM '.$this->_tbl_offer_journey . ' WHERE journey_type_id = '.$jt_id;
+
+        $list_jt_have_off = $this->_wpdb->get_results($query);
+        if($list_jt_have_off){
+            foreach ($list_jt_have_off as $v){
+                $offer_info =$this->getOfferInfo($v->offer_id);
+                $v->offer_info = $offer_info;
+                unset($v->journey_type_id);
+                $rs[$v->offer_id][] = $v;
+            }
+        }
+
+        return $rs;
+    }
+
 }

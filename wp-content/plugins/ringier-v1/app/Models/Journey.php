@@ -160,11 +160,47 @@ class Journey
             $object->days = $duration->days + 1;
             $object->duration = ($duration->days + 1) . " days " . $duration->days . " nights";
 
+            $departure_fm = date("j F Y", strtotime($object->departure));
+            $object->departure_fm = $departure_fm;
+
             // journey_type_info
             if ($object->journey_type) {
                 $journeyType = JourneyType::init();
                 $journey_type_info = $journeyType->getInfo($object->journey_type);
                 $object->journey_type_info = $journey_type_info;
+
+                $departure = date('Y-m-d',strtotime($object->departure));
+                $arrive = date('Y-m-d',strtotime($object->arrive));
+                $ship_detail = $journey_type_info->ship_info;
+
+                $current_season = 'low';
+                $high_season_from = date('Y-m-d', strtotime($ship_detail->high_season_from));
+                $high_season_to = date('Y-m-d', strtotime($ship_detail->high_season_to));
+                if ((($high_season_from <= $departure) && ($high_season_to >= $departure)) or (($high_season_from <= $arrive) && ($high_season_to >= $arrive)) ) {
+                    $current_season = 'high';
+                }
+                if(($departure <= $high_season_from) && ($arrive >= $high_season_from)){
+                    $current_season = 'high';
+                }
+
+                $object->current_season = $current_season;
+
+                if($object->journey_type_info->ship_info->room_types){
+                    $min_price = 9999999999999999999999999;
+                    foreach ($object->journey_type_info->ship_info->room_types as $v){
+                        if($current_season == 'low'){
+                            $price_sub = $v->single_low_season_price;
+                        }else{
+                            $price_sub = $v->single_high_season_price;
+                        }
+                        if($price_sub < $min_price){
+                            $min_price = $price_sub;
+                        }
+
+                    }
+                    $object->min_price = number_format($min_price);
+                }
+
             }
 
             $result = $object;

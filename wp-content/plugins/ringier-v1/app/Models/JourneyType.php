@@ -8,6 +8,7 @@
 namespace RVN\Models;
 
 use RVN\Library\Images;
+use WeDevs\ORM\WP\Post;
 
 class JourneyType
 {
@@ -131,7 +132,14 @@ class JourneyType
             if ($object->ship) {
                 $ship = Ships::init();
                 $ship_detail = $ship->getShipDetail($object->ship);
+
                 $object->ship_info = $ship_detail;
+            }
+
+            $objPost = Posts::init();
+            if($object->destination){
+                $destination = $objPost->getInfo($object->destination);
+                $object->destination_info = $destination;
             }
 
             $objOffer = Offer::init();

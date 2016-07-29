@@ -101,7 +101,25 @@ jQuery(document).ready(function ($) {
             success: function (data) {
                 if(data.data){
                     var result = data.data;
-                    console.log(result);
+                    var html = '';
+                    $.each(result, function(key, value) {
+                        html += '<tr> ' +
+                            '<td> <b>' + value.departure_fm +'</b> </td> ' +
+                            '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '+ value.duration +'</td> ' +
+                            '<td style="text-decoration: underline">' + value.journey_type_info.ship_info.post_title +'</td> ' +
+                            '<td> ' + value.journey_type_info.navigation + ' </td> ' +
+                            '<td> from <b style="color: #e4a611">US$'+value.min_price+'</b> pp <br>based on twin cabin </td> ' +
+                            '<td> <a href="' + value.permalink +'" class="bnt-jn">Select</a>' +
+                            'Some availability </td> ' +
+                            '</tr>';
+                    });
+
+                    $('.ctn-list-journey tbody').html(html);
+                    $('#ctn-list-journey').fadeIn();
+                    $('html, body').animate({
+                        scrollTop: $('#ctn-list-journey').offset().top - 50
+                    }, 500);
+                    obj.attr('disabled','disabled');
                 }
             }
         })

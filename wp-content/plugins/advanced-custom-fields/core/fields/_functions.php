@@ -292,6 +292,10 @@ class acf_field_functions
             }
             // var_dump($data);
 
+            if ($field['name'] == 'photos') {
+                return true;
+            }
+
             switch ($post->post_type) {
                 case 'ship':
                     // not use

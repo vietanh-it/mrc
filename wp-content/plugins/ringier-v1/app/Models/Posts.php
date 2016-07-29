@@ -113,14 +113,20 @@ class Posts {
             $post->images = $objImages->getPostImages($post->ID, ['thumbnail', 'featured']);
             $post->permalink = get_permalink($post->ID);
 
+            $query = 'SELECT * FROM ' . $this->_table_post_info . ' as pi 
+            WHERE pi.object_id = ' . $post->ID;
+            $post_info = $this->_wpdb->get_row($query);
+            $post = (object)array_merge((array)$post, (array)$post_info);
+
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($post->ID);
             $post->gallery = $gallery;
 
+            $result = $post;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
 
-        return $post;
+        return $result;
     }
 
     /**

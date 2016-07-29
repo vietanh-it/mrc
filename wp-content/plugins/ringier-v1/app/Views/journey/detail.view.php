@@ -5,17 +5,9 @@ global $post;
 
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
-
 $ship_info = $journey_detail->journey_type_info->ship_info;
-
-$current_season = 'low';
-$today = date('Y-m-d');
-$high_season_from = date('Y-m-d', strtotime($ship_info->high_season_from));
-$high_season_to = date('Y-m-d', strtotime($ship_info->high_season_to));
-if (($high_season_from <= $today) && ($high_season_to >= $today)) {
-    $current_season = 'high';
-}
-// var_dump($ship_info);
+$current_season = $journey_detail->current_season;
+var_dump($current_season);
 ?>
 
     <div class="journey-detail">

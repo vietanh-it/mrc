@@ -732,7 +732,7 @@ footer ul li{
     color: white;
 }
 .journey-detail .nav-bar .btn-menu-jn{
-    padding: 0 0 0 20px;
+    padding: 39px 0 32px 20px;
 }
 
 .journey-detail .text-tt{
@@ -814,6 +814,32 @@ footer ul li{
     color: #e4a611;
 }
 
+.ctn-list-journey {
+    padding: 50px 0 0;
+}
+.ctn-list-journey .title{
+    padding: 10px 0;
+    border-bottom: 1px solid #e4a611;
+    font-size: 17px;
+}
+.ctn-list-journey .title span{
+    float: right;
+    font-size: 13px;
+
+}
+.ctn-list-journey .table>thead>tr{
+}
+.ctn-list-journey .table>thead>tr>th{
+    border-bottom: 1px solid #e4a611;
+    text-transform: uppercase;
+    font-weight: normal;
+    padding: 15px 0;
+}
+.ctn-list-journey .table>tbody>tr>td{
+    padding: 15px 0;
+    border-bottom: 2px solid #ddd;
+    border-top: 0 ;
+}
 
 
 

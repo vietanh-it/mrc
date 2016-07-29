@@ -21,10 +21,27 @@ if($journey_type_info){ ?>
             </div>
         </div>
 
-        <div class="container">
+        <div class="container container-big">
             <div class="row">
-                <div class="ctn-list-journey">
-
+                <div class="col-xs-12 col-sm-12">
+                    <div class="ctn-list-journey">
+                        <div class="title">Check availability and book online <span>Prices shown are per person in USD$ and include all discounts.</span></div>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Departure date</th>
+                                <th>From - to</th>
+                                <th>Ship</th>
+                                <th>All | Upstream | Downstream</th>
+                                <th><b>Price</b></th>
+                                <th> </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

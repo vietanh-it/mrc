@@ -101,7 +101,21 @@ jQuery(document).ready(function ($) {
             success: function (data) {
                 if(data.data){
                     var result = data.data;
-                    console.log(result);
+                    var html = '';
+                    $.each(result, function(key, value) {
+                        html += '<tr> ' +
+                            '<td> <b>' + value.departure_fm +'</b> </td> ' +
+                            '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '+ value.duration +'</td> ' +
+                            '<td>' + value.journey_type_info.ship_info.post_title +'</td> ' +
+                            '<td> ' + value.journey_type_info.navigation + ' </td> ' +
+                            '<td> 2222 </td> ' +
+                            '<td> <a href="' + value.permalink +'" class="bnt-jn">Select</a> </td> ' +
+                            '</tr>';
+                    });
+
+                    $('.ctn-list-journey tbody').html(html);
+
+                    obj.attr('disabled','disabled');
                 }
             }
         })

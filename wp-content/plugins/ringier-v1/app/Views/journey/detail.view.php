@@ -171,4 +171,11 @@ if (($high_season_from <= $today) && ($high_season_to >= $today)) {
         </div>
     </div>
 
+    <script>
+        var $ = jQuery.noConflict();
+        $(document).ready(function () {
+
+        });
+    </script>
+
 <?php get_footer();

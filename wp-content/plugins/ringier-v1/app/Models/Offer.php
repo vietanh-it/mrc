@@ -119,6 +119,13 @@ class Offer
             $list_offer_room =$this->_wpdb->get_results($query_2);
             $object->list_offer_room = $list_offer_room;
 
+            if(!empty($list_offer_room[0])){
+                $journey_id = $list_offer_room[0]->journey_id;
+                $Journey = Journey::init();
+                $journey_info = $Journey->getInfo($journey_id,'offer');
+                $object->journey_info = $journey_info;
+            }
+
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
@@ -126,10 +133,10 @@ class Offer
         return $result;
     }
 
-    public function insertOfferRoomType($offer_id,$journey_type_id,$room_type_id){
+    public function insertOfferRoomType($offer_id,$journey_id,$room_type_id){
         return $this->_wpdb->insert($this->_tbl_offer_journey,array(
             'offer_id' => $offer_id,
-            'journey_type_id' => $journey_type_id,
+            'journey_id' => $journey_id,
             'room_type_id' => $room_type_id,
         ));
     }
@@ -140,17 +147,17 @@ class Offer
         ));
     }
 
-    public function getOfferByJourneyType($jt_id){
+    public function getOfferByJourney($jt_id){
         $rs = array();
-        $query = ' SELECT * FROM '.$this->_tbl_offer_journey . ' WHERE journey_type_id = '.$jt_id;
+        $query = ' SELECT * FROM '.$this->_tbl_offer_journey . ' WHERE journey_id = '.$jt_id;
         $list_jt_have_off = $this->_wpdb->get_results($query);
 
         if($list_jt_have_off){
             foreach ($list_jt_have_off as $v){
                 $offer_info =$this->getOfferInfo($v->offer_id);
                 $v->offer_info = $offer_info;
-                unset($v->journey_type_id);
-                $rs[$v->offer_id][] = $v;
+                unset($v->journey_id);
+                $rs[] = $v;
             }
         }
 

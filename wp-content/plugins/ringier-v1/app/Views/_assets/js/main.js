@@ -108,7 +108,7 @@ jQuery(document).ready(function ($) {
                             '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '+ value.duration +'</td> ' +
                             '<td style="text-decoration: underline">' + value.journey_type_info.ship_info.post_title +'</td> ' +
                             '<td> ' + value.journey_type_info.navigation + ' </td> ' +
-                            '<td> from <b style="color: #e4a611">US$'+value.min_price+'</b> pp <br>based on twin cabin </td> ' +
+                            '<td> from <b style="color: #e4a611">US$'+value.min_price_fm+'</b> pp <br>based on twin cabin </td> ' +
                             '<td> <a href="' + value.permalink +'" class="bnt-jn">Select</a>' +
                             'Some availability </td> ' +
                             '</tr>';

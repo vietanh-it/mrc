@@ -142,10 +142,6 @@ class JourneyType
                 $object->destination_info = $destination;
             }
 
-            $objOffer = Offer::init();
-            $offer = $objOffer->getOfferByJourneyType($object->ID);
-            $object->offer = $offer;
-
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($object->ID);
             $object->gallery = $gallery;

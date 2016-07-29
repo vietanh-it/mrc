@@ -6,6 +6,7 @@ use RVN\Controllers\DestinationController;
 use RVN\Controllers\PortController;
 use RVN\Controllers\ShipController;
 use RVN\Models\JourneyType;
+use RVN\Models\Offer;
 
 class HomeController extends _BaseController
 {
@@ -47,7 +48,10 @@ class HomeController extends _BaseController
         $journey = JourneyType::init();
         $list_journey_type = $journey->getJourneyTypeList($args);
 
-        return view('home/home',compact('list_destination','list_ship','list_port','list_journey_type'));
+        $objOffer = Offer::init();
+        $list_offer = $objOffer->getListOffer(array());
+
+        return view('home/home',compact('list_destination','list_ship','list_port','list_journey_type','list_offer'));
     }
 }
 

@@ -856,6 +856,11 @@ footer ul li{
     width: 90px;
     text-align: center;
 }
+.ctn-list-journey .bnt-jn:hover{
+    color: #e4a611;
+    background: white;
+    text-decoration: none;
+}
 
 
 .title-related{

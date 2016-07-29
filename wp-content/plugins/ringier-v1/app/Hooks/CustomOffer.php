@@ -2,6 +2,7 @@
 namespace RVN\Hooks;
 
 use RVN\Library\CPTColumns;
+use RVN\Models\Journey;
 use RVN\Models\JourneyType;
 use RVN\Models\Offer;
 use RVN\Models\Posts;
@@ -36,11 +37,10 @@ class CustomOffer
     public function show()
     {
         global $post;
-        $JourneyType = JourneyType::init();
-        $Ship = JourneyType::init();
+        $Journey = Journey::init();
 
-        $list_journey_type = $JourneyType->getJourneyTypeList(array('limit' =>10000));
-        /*foreach ($list_journey_type['data'] as $jt){
+        $list_journey = $Journey->getJourneyList(array('limit' =>10000));
+        /*foreach ($list_journey['data'] as $jt){
             var_dump(json_encode($jt->ship_info->room_types));
         }*/
 
@@ -70,11 +70,10 @@ class CustomOffer
 
         <div class="ctn_add_journey_type_and_room_type">
         <?php
-
         if($offer_info->list_offer_room){
             $result = array();
             foreach ($offer_info->list_offer_room as $data) {
-                $id = $data->journey_type_id;
+                $id = $data->journey_id;
                 if (isset($result[$id])) {
                     $result[$id][] = $data;
                 } else {
@@ -82,32 +81,36 @@ class CustomOffer
                 }
             }
 
+
             if($result){
                 foreach ($result as $k => $v){
                     $list_room = array();
                     foreach ($v as $k1 => $v1){
                         $list_room[]= $v1->room_type_id;
                     }
+                    foreach ($list_journey['data'] as $jt ){
+                        $room_types = json_encode($jt->journey_type_info->ship_info->room_types);
+                    }
                     ?>
                     <div class="add_journey_type_and_room_type">
                         <select name="journey_type[]" class="journey_type">
                             <option value=""> --- Select journey type --- </option>
-                            <?php foreach ($list_journey_type['data'] as $jt ){
-                                $room_types = json_encode($jt->ship_info->room_types);
+                            <?php foreach ($list_journey['data'] as $jt ){
+                                $room_types = json_encode($jt->journey_type_info->ship_info->room_types);
                                 if($k == $jt->ID){
                                     $select = 'selected';
                                 }else{
                                     $select = '';
                                 }
                                 echo "<option value='".$jt->ID ."' 
-            data-ship = '".$jt->ship_info->ID."' 
+            data-ship = '".$jt->journey_type_info->ship_info->ID."' 
             data-room_types= '".$room_types ."' ".$select." > ".$jt->post_title ."</option>";
                             } ?>
                         </select>
                         <div class="ctn_room_types">
                             <?php
-                            $journey_type_info = $JourneyType->getInfo($k);
-                            $room_types_new = $journey_type_info->ship_info->room_types;
+                            $journey_info = $Journey->getInfo($k);
+                            $room_types_new = $journey_info->journey_type_info->ship_info->room_types;
                             if($room_types_new){
                                 foreach ($room_types_new as $r){
                                     $check = '';
@@ -124,23 +127,23 @@ class CustomOffer
                             ?>
                         </div>
                         <p style="color: orange">Please check room type for offer. </p>
-                        <a href="javascript:void(0)" class="delete_journey_type">Delete this journey type</a>
+                       <!-- <a href="javascript:void(0)" class="delete_journey_type">Delete this journey type</a>-->
                     </div>
                     <?php
                 }
             }
 
         }else{
-            echo $this->html($list_journey_type['data']);
+            echo $this->html($list_journey['data']);
         }
 
 
         ?>
 
         </div>
-        <div class="add_journey_type_and_room_type_new">
+        <!--<div class="add_journey_type_and_room_type_new">
             <a href="javascript:void(0)" data-jt='' >Add new Journey Type</a>
-        </div>
+        </div>-->
         <?php
 
         ?>
@@ -171,23 +174,23 @@ class CustomOffer
                 });
                 
                 $('.add_journey_type_and_room_type_new a').click(function () {
-                    var data = <?php echo json_encode($list_journey_type['data']) ?>;
+                    var data = <?php echo json_encode($list_journey['data']) ?>;
                     var html = '';
                     if(data){
                         html += '<div class="add_journey_type_and_room_type">'+
                             '<select name="journey_type[]" class="journey_type">'+
-                            '<option value=""> --- Select journey type --- </option>';
+                            '<option value=""> --- Select journey --- </option>';
 
                         $.each(data, function(key, value) {
                             html += "<option value='" +value.ID +"'"+
-                                "data-ship = '"+value.ship_info.ID+"'"+
-                                "data-room_types= '"+JSON.stringify(value.ship_info.room_types) +"' > "+
+                                "data-ship = '"+value.journey_type_info.ship_info.ID+"'"+
+                                "data-room_types= '"+JSON.stringify(value.journey_type_info.ship_info.room_types) +"' > "+
                                 value.post_title  +
                                 "</option>";
                         });
 
                         html += '</select> <div class="ctn_room_types"> </div> ' +
-                            ' <a href="javascript:void(0)" class="delete_journey_type">Delete this journey type</a>' +
+                            ' <a href="javascript:void(0)" class="delete_journey_type">Delete this journey</a>' +
                             '</div> ';
                     }
 
@@ -210,7 +213,7 @@ class CustomOffer
         $html = '
             <div class="add_journey_type_and_room_type">
             <select name="journey_type[]" class="journey_type">
-                <option value=""> --- Select journey type --- </option>';
+                <option value=""> --- Select journey --- </option>';
         foreach ($data as $jt){
             $room_types = json_encode($jt->ship_info->room_types);
 
@@ -222,7 +225,7 @@ class CustomOffer
         $html .='</select>
                 <div class="ctn_room_types">
                 </div>
-                <a href="javascript:void(0)" class="delete_journey_type">Delete this journey type</a>
+                <!--<a href="javascript:void(0)" class="delete_journey_type">Delete this journey type</a>-->
                 </div>';
 
         return $html;

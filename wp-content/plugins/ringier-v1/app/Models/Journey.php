@@ -126,7 +126,7 @@ class Journey
     }
 
 
-    public function getInfo($object)
+    public function getInfo($object,$type = '')
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
@@ -164,7 +164,7 @@ class Journey
             $object->departure_fm = $departure_fm;
 
             // journey_type_info
-            if ($object->journey_type) {
+            if (!empty($object->journey_type)) {
                 $journeyType = JourneyType::init();
                 $journey_type_info = $journeyType->getInfo($object->journey_type);
                 $object->journey_type_info = $journey_type_info;
@@ -198,9 +198,16 @@ class Journey
                         }
 
                     }
-                    $object->min_price = number_format($min_price);
+                    $object->min_price = ($min_price);
+                    $object->min_price_fm = number_format($min_price);
                 }
 
+            }
+
+            if($type !='offer'){
+                $objOffer = Offer::init();
+                $offer = $objOffer->getOfferByJourney($object->ID);
+                $object->offer = $offer;
             }
 
             $result = $object;

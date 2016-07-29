@@ -6,7 +6,6 @@
  * Time: 7:54 PM
  */
 get_header();
-
 ?>
 <div class="home-slider" id="home-slider">
     <div  class="owl-carousel">
@@ -96,99 +95,38 @@ get_header();
     <img src="<?php echo VIEW_URL.'/images/icon-trong-dong.png' ?>" alt="" class="bg-a">
 </div>
 
-
-<div class="offer-home">
-    <div class="container ">
-        <div class="row">
-            <h2 class="col-xs-12 col-sm-12 tile-main">Latest offer
-                <br> <img src="<?php echo VIEW_URL.'/images/line.png' ?>">
-            </h2>
-            <div  class="owl-carousel-2">
-                <div class="col-xs-12 col-sm-12">
-                    <div class="box-journey box-white">
-                        <div class="image">
-                            <a href="#" title="">
-                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                            </a>
+<?php if($list_offer['data']){ ?>
+    <div class="offer-home">
+        <div class="container ">
+            <div class="row">
+                <h2 class="col-xs-12 col-sm-12 tile-main">Latest offer
+                    <br> <img src="<?php echo VIEW_URL.'/images/line.png' ?>">
+                </h2>
+                <div  class="owl-carousel-2">
+                    <?php foreach ($list_offer['data'] as $v){
+                        ?>
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="box-journey box-white">
+                                <div class="image">
+                                    <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                                        <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                                    </a>
+                                </div>
+                                <div class="desc">
+                                    <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                                    <p><?php echo cut_string_by_char(($v->post_excerpt),150) ?></p>
+                                    <p><b>Start Date:</b> <?php echo  date("j F Y", strtotime($v->start_date)); ?> <a href="<?php echo $v->permalink ?>" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
+                                </div>
+                                <div class="price">$<?php echo number_format($v->journey_info->min_price) ?></div>
+                                <div class="star"><i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i></div>
+                            </div>
                         </div>
-                        <div class="desc">
-                            <a href="#" class="title" title="">Laos</a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
-
-                <div class="col-xs-12 col-sm-12">
-                    <div class="box-journey box-white">
-                        <div class="image">
-                            <a href="#" title="">
-                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a href="#" class="title" title="">Laos</a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
-                        </div>
-                        <div class="price">$299</div>
-                        <div class="star"><i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i></div>
-                    </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12">
-                    <div class="box-journey box-white">
-                        <div class="image">
-                            <a href="#" title="">
-                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a href="#" class="title" title="">Laos</a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12">
-                    <div class="box-journey box-white">
-                        <div class="image">
-                            <a href="#" title="">
-                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a href="#" class="title" title="">Laos</a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12">
-                    <div class="box-journey box-white">
-                        <div class="image">
-                            <a href="#" title="">
-                                <img src="<?php echo VIEW_URL.'/images/laos.png' ?>" alt="" class="lazy">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a href="#" class="title" title="">Laos</a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum dapibus...</p>
-                            <p><b>Start Date:</b> Aug 10th, 2016 <a href="#" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-
         </div>
     </div>
-</div>
+<?php } ?>
 
 <div class="why-us">
     <div class="container ">

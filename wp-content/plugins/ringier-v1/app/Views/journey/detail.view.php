@@ -5,7 +5,17 @@ global $post;
 
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
-// var_dump($journey_detail);
+
+$ship_info = $journey_detail->journey_type_info->ship_info;
+
+$current_season = 'low';
+$today = date('Y-m-d');
+$high_season_from = date('Y-m-d', strtotime($ship_info->high_season_from));
+$high_season_to = date('Y-m-d', strtotime($ship_info->high_season_to));
+if (($high_season_from <= $today) && ($high_season_to >= $today)) {
+    $current_season = 'high';
+}
+// var_dump($ship_info);
 ?>
 
     <div class="journey-detail">
@@ -36,15 +46,16 @@ $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
                 <div class="row">
                     <div class="col-xs-12 col-sm-7">
                         <div class="img-ship">
-                            <p><?php echo $journey_detail->journey_type_info->ship_info->post_title; ?> Deck Plan</p>
-
+                            <p><?php echo $ship_info->post_title; ?> Deck Plan</p>
+                            <img src="<?php echo VIEW_URL . '/images/booking-info-bar.png'; ?>"
+                                 style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px;">
 
                             <div class="ship_map" style="position: relative;">
-                                <img src="<?php echo $journey_detail->journey_type_info->ship_info->map; ?>"
-                                     alt="<?php echo $journey_detail->journey_type_info->ship_info->post_title; ?>"
+                                <img src="<?php echo $ship_info->map; ?>"
+                                     alt="<?php echo $ship_info->post_title; ?>"
                                      style="width: 100%;">
 
-                                <?php foreach ($journey_detail->journey_type_info->ship_info->rooms as $key => $room) {
+                                <?php foreach ($ship_info->rooms as $key => $room) {
                                     echo $room->html;
                                 } ?>
                             </div>
@@ -55,18 +66,21 @@ $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
                             <form>
                                 <div class="bk-box " style="padding: 20px 30px">
                                     <span style="text-transform: uppercase;font-weight: bold">Stateroom Prices</span>
-                                    (per
-                                    person, including any discount)
-                                </div>
-                                <div class="bk-box bk-box-gray">
-                                    <span class="text">Main Deck Twin Share</span> <span class="price"><span
-                                            class="big">US$2,750</span> <br> US$3,250</span>
+                                    (per person, including any discount)
                                 </div>
 
-                                <div class="bk-box ">
-                                    <span class="text">Main Deck Twin Single Use</span> <span class="price"><span
-                                            class="big">US$2,750</span> <br> US$3,250</span>
-                                </div>
+
+                                <?php foreach ($ship_info->room_types as $key => $room_type) { ?>
+                                    <div class="bk-box bk-box-gray">
+                                        <span class="text">Main Deck Twin Share</span> <span class="price"><span
+                                                class="big">US$2,750</span> <br> US$3,250</span>
+                                    </div>
+
+                                    <div class="bk-box ">
+                                        <span class="text">Main Deck Twin Single Use</span> <span class="price"><span
+                                                class="big">US$2,750</span> <br> US$3,250</span>
+                                    </div>
+                                <?php } ?>
 
                                 <div class="bk-box bk-box-gray">
                                     <span class="text">Upper Deck Twin Share</span> <span class="price"><span

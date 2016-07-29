@@ -172,8 +172,52 @@ if (($high_season_from <= $today) && ($high_season_to >= $today)) {
     </div>
 
     <script>
+        var ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
         var $ = jQuery.noConflict();
         $(document).ready(function () {
+
+            // Click on roomid
+            $(document).delegate('[data-roomid]', 'click', function (e) {
+
+                $.ajax({
+                    url: ajax_url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        action: 'ajax_handler_ship',
+                        method: 'GetRoomInfo',
+                        room_id: $(this).attr('data-roomid')
+                    },
+                    beforeSend: function () {
+                        // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
+                    },
+                    success: function (data) {
+                        // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
+
+                        if (data.status == 'success') {
+                            // $('#room_name').val(data.data.room_name);
+                            // $('#room_type').val(data.data.room_type_id);
+                            // $('#room_id').val(data.data.id);
+                            console.log(data);
+                        }
+                        else {
+                            var html_msg = '<div>';
+                            if (data.message) {
+                                $.each(data.message, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            } else if (data.data) {
+                                $.each(data.data, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            }
+                            html_msg += "</div>";
+                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                        }
+                    }
+                }); // end ajax
+
+            });
 
         });
     </script>

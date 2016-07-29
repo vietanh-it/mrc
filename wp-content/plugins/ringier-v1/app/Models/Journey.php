@@ -55,7 +55,7 @@ class Journey
             $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
             $to = ($page - 1) * $limit;
             $order_by = "  p.post_date DESC ";
-            if ($params['order_by']) {
+            if (!empty($params['order_by'])) {
                 $order_by = $params['order_by'];
             }
 
@@ -67,19 +67,19 @@ class Journey
                        INNER JOIN ' . $this->_tbl_journey_type_info . ' as jti ON jti.object_id = ji.journey_type';
 
 
-            if ($params['_ship']) {
+            if (!empty($params['_ship'])) {
                 $ship = $objPost->getPostBySlug($params['_ship'], 'ship');
                 if ($ship) {
                     $where .= ' AND jti.ship = ' . $ship->ID;
                 }
             }
-            if ($params['_destination']) {
+            if (!empty($params['_destination'])) {
                 $destination = $objPost->getPostBySlug($params['_destination'], 'destination');
                 if ($destination) {
                     $where .= ' AND jti.destination = ' . $destination->ID;
                 }
             }
-            if ($params['_port']) {
+            if (!empty($params['_port'])) {
                 $port = $objPost->getPostBySlug($params['_port'], 'port');
                 if ($port) {
                     $join .= ' INNER JOIN ' . $this->_tbl_journey_type_port . ' as jtp ON jtp.journey_type_id = jti.object_id';
@@ -87,7 +87,11 @@ class Journey
                 }
             }
 
-            if ($params['_month']) {
+            if (!empty($params['journey_type_id'])) {
+                $where .= " AND ji.journey_type = ".$params['journey_type_id'];
+            }
+
+            if (!empty($params['_month'])) {
                 $month = date_format(date_create_from_format("d/m/Y", '01/' . $params['_month']), "Y-m");
                 $where .= " AND DATE_FORMAT(ji.departure,'%Y-%m') = '" . $month . "'";
             }

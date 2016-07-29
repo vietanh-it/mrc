@@ -1,8 +1,6 @@
 <?php
 
 get_header();
-$params = $params ? $params : array();
-$list_journey = $list_journey ? $list_journey : array();
 
  view('journey/quick-search', compact('params'));
 ?>
@@ -31,7 +29,12 @@ $list_journey = $list_journey ? $list_journey : array();
                                     <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>" class="title">
                                         <?php echo $v->post_title ?>
                                     </a>
-                                    <p><?php echo cut_string_by_char($v->post_content,200) ?>
+                                    <p><?php
+                                        if(!empty($v->post_content)){
+                                            $content = strip_tags($v->post_content);
+                                            echo cut_string_by_char($content,200);
+                                        }
+                                         ?>
                                     </p>
                                     <ul>
                                         <li><b>7 nights 6 days</b></li>

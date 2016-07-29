@@ -728,9 +728,9 @@ footer ul li{
 .journey-detail .nav-bar .total-price{
     font-size: 18px;
     color: white;
-    padding-right: 20px;
 }
-.journey-detail .nav-bar img.btn-menu-jn{
+.journey-detail .nav-bar .btn-menu-jn{
+    padding: 0 0 0 20px;
 }
 
 .journey-detail .text-tt{

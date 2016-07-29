@@ -111,7 +111,6 @@ class JourneyType
 
         $result = wp_cache_get($cacheId);
         if ($result == false) {
-
             // Post
             if (is_numeric($object)) {
                 $object = get_post($object);

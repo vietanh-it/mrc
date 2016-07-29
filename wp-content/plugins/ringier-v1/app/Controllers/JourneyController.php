@@ -11,6 +11,10 @@ class JourneyController extends _BaseController
     protected function __construct()
     {
         parent::__construct();
+
+
+        add_action("wp_ajax_ajax_handler_journey", [$this, "ajaxHandler"]);
+        add_action("wp_ajax_nopriv_ajax_handler_journey", [$this, "ajaxHandler"]);
     }
 
 
@@ -36,9 +40,10 @@ class JourneyController extends _BaseController
     public function journeyDetail($journey_id)
     {
         $journey = Journey::init();
-        $journey_info = $journey->getInfo($journey_id);
+        //$journey_info = $journey->getInfo($journey_id);
 
-        return view('journey/detail', compact('journey_info'));
+        //return view('journey/detail', compact('journey_info'));
+        return view('journey/detail');
     }
 
 
@@ -48,5 +53,12 @@ class JourneyController extends _BaseController
         $list_journey = $journey->getJourneyList($args);
 
         view('journey/list', compact('params', 'list_journey'));
+    }
+
+    public function ajaxGetJourneyByJourneyType($args){
+        $journey = Journey::init();
+        $list_journey = $journey->getJourneyList($args);
+
+        return $list_journey;
     }
 }

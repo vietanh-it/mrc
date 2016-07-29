@@ -605,6 +605,8 @@ footer ul li{
 .journey-detail .featured-image {
     position: relative;
     color: #4a3303;
+    max-height: 500px;
+    overflow: hidden;
 }
 .journey-detail .featured-image img{
     width: 100%;

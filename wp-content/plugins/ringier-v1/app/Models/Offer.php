@@ -45,6 +45,51 @@ class Offer
         return self::$instance;
     }
 
+    public function getListOffer($params){
+        $cacheId = __CLASS__ . 'getListOffer' . serialize($params);
+        if (!empty($params['is_cache'])) {
+            $result = wp_cache_get($cacheId);
+        } else {
+            $result = false;
+        }
+        if ($result == false) {
+            $page = (empty($params['page'])) ? 1 : intval($params['page']);
+            $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
+            $to = ($page - 1) * $limit;
+            $order_by = "  p.post_date DESC ";
+            if (!empty($params['order_by'])) {
+                $order_by = $params['order_by'];
+            }
+
+            $where = '';
+            $join = '';
+
+            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type FROM " . $this->_wpdb->posts . " as p
+            $join
+            WHERE p.post_type = 'offer' AND p.post_status='publish'
+            $where          
+            ORDER BY $order_by  LIMIT $to, $limit
+            ";
+
+            // echo $query;
+            $list = $this->_wpdb->get_results($query);
+            $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
+            if ($list) {
+                foreach ($list as $key => &$value) {
+                    $value = $this->getOfferInfo($value);
+                }
+            }
+            $result = [
+                'data'  => $list,
+                'total' => $total,
+            ];
+
+            wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
+        }
+
+        return $result;
+    }
+
 
     public function getOfferInfo($object){
         if (is_numeric($object)) {
@@ -97,10 +142,9 @@ class Offer
 
     public function getOfferByJourneyType($jt_id){
         $rs = array();
-
         $query = ' SELECT * FROM '.$this->_tbl_offer_journey . ' WHERE journey_type_id = '.$jt_id;
-
         $list_jt_have_off = $this->_wpdb->get_results($query);
+
         if($list_jt_have_off){
             foreach ($list_jt_have_off as $v){
                 $offer_info =$this->getOfferInfo($v->offer_id);

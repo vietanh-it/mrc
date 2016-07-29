@@ -81,5 +81,30 @@ jQuery(document).ready(function ($) {
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+
+    $('.btn-show-journey').click(function () {
+        var  obj = $(this);
+        var journey_type_id = obj.attr('data-journey_type');
+
+        $.ajax({
+            type: "post",
+            url: ajaxurl,
+            dataType: 'json',
+            data: ({
+                action: "ajax_handler_journey",
+                method: "GetJourneyByJourneyType",
+                journey_type_id: journey_type_id
+            }),
+            beforeSend: function () {
+            },
+            success: function (data) {
+                if(data.data){
+                    var result = data.data;
+                    console.log(result);
+                }
+            }
+        })
+    });
 });
 

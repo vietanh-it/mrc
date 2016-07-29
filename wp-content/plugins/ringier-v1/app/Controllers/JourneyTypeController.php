@@ -2,6 +2,7 @@
 namespace RVN\Controllers;
 
 use RVN\Models\JourneyType;
+use RVN\Models\Posts;
 
 class JourneyTypeController extends _BaseController
 {
@@ -40,6 +41,11 @@ class JourneyTypeController extends _BaseController
     {
         $journeyType = JourneyType::init();
         $journey_type_info = $journeyType->getInfo($journey_id);
+
+        $objPost = Posts::init();
+        $list_add_on= $objPost->getList(
+            ''
+        );
 
         return view('journey-type/detail', compact('journey_type_info'));
     }

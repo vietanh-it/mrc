@@ -70,103 +70,33 @@ if($journey_type_info){ ?>
                     <?php echo apply_filters('the_content',$journey_type_info->post_content) ?>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12">
-                    <h3 class="title-related">Extensions and Service Addons</h3>
+            <?php if($list_add_on['data']){ ?>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <h3 class="title-related">Extensions and Service Addons</h3>
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-2">
-                            <div class="related">
-                                <div class="images">
-                                    <a href="#" title="">
-                                        <img src="<?php echo VIEW_URL.'/images/related-1.jpg' ?>" alt="">
-                                    </a>
+                        <div class="row">
+                            <?php foreach ($list_add_on['data'] as $v){ ?>
+                                <div class="col-xs-12 col-sm-2">
+                                    <div class="related">
+                                        <div class="images">
+                                            <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                                                <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>">
+                                            </a>
+                                        </div>
+                                        <div class="title">
+                                            <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                                                <?php echo $v->post_title ?>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="title">
-                                    <a href="#" title="">
-                                        PRE CRUISE EXTENSIONS: Saigon & Surroundings (InterContinental Asiana)
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-2">
-                            <div class="related">
-                                <div class="images">
-                                    <a href="#" title="">
-                                        <img src="<?php echo VIEW_URL.'/images/related-1.jpg' ?>" alt="">
-                                    </a>
-                                </div>
-                                <div class="title">
-                                    <a href="#" title="">
-                                        PRE CRUISE EXTENSIONS: Saigon & Surroundings (InterContinental Asiana)
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-2">
-                            <div class="related">
-                                <div class="images">
-                                    <a href="#" title="">
-                                        <img src="<?php echo VIEW_URL.'/images/related-1.jpg' ?>" alt="">
-                                    </a>
-                                </div>
-                                <div class="title">
-                                    <a href="#" title="">
-                                        PRE CRUISE EXTENSIONS: Saigon & Surroundings (InterContinental Asiana)
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-2">
-                            <div class="related">
-                                <div class="images">
-                                    <a href="#" title="">
-                                        <img src="<?php echo VIEW_URL.'/images/related-1.jpg' ?>" alt="">
-                                    </a>
-                                </div>
-                                <div class="title">
-                                    <a href="#" title="">
-                                        PRE CRUISE EXTENSIONS: Saigon & Surroundings (InterContinental Asiana)
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-2">
-                            <div class="related">
-                                <div class="images">
-                                    <a href="#" title="">
-                                        <img src="<?php echo VIEW_URL.'/images/related-1.jpg' ?>" alt="">
-                                    </a>
-                                </div>
-                                <div class="title">
-                                    <a href="#" title="">
-                                        PRE CRUISE EXTENSIONS: Saigon & Surroundings (InterContinental Asiana)
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-2">
-                            <div class="related">
-                                <div class="images">
-                                    <a href="#" title="">
-                                        <img src="<?php echo VIEW_URL.'/images/related-1.jpg' ?>" alt="">
-                                    </a>
-                                </div>
-                                <div class="title">
-                                    <a href="#" title="">
-                                        PRE CRUISE EXTENSIONS: Saigon & Surroundings (InterContinental Asiana)
-                                    </a>
-                                </div>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
+
         </div>
     </div>
 <?php }

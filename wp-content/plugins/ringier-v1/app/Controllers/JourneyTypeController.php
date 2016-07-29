@@ -44,10 +44,12 @@ class JourneyTypeController extends _BaseController
 
         $objPost = Posts::init();
         $list_add_on= $objPost->getList(
-            ''
-        );
+           array(
+               'post_type' => array('addon','pretour','posttour'),
+               'limit' => 6,
+           ));
 
-        return view('journey-type/detail', compact('journey_type_info'));
+        return view('journey-type/detail', compact('journey_type_info','list_add_on'));
     }
 
 }

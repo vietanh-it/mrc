@@ -40,7 +40,7 @@ class Posts {
      * @param array $args
      * @return array|bool
      */
-    public function getList($args = array()){
+    public function getList($params = []){
         $args_default = array(
             'post_type' => 'post',
             'post_status' => 'publish',
@@ -52,7 +52,11 @@ class Posts {
             'is_paging' => false,
         );
 
-        $args = array_merge($args_default,$args);
+        if($params){
+            $args = array_merge($args_default,$params);
+        }else{
+            $args = $args_default;
+        }
         //var_dump($args);
         $cacheId = __CLASS__ . 'getPostBy' . md5(serialize($args));
 

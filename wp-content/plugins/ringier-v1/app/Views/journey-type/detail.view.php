@@ -21,7 +21,7 @@ if($journey_type_info){ ?>
             </div>
         </div>
 
-        <div class="container container-big">
+        <div class="container container-big" id="ctn-list-journey" style="display: none">
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                     <div class="ctn-list-journey">
@@ -38,7 +38,7 @@ if($journey_type_info){ ?>
                             </tr>
                             </thead>
                             <tbody>
-                            
+
                             </tbody>
                         </table>
                     </div>

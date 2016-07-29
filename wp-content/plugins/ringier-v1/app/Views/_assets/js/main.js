@@ -114,7 +114,10 @@ jQuery(document).ready(function ($) {
                     });
 
                     $('.ctn-list-journey tbody').html(html);
-
+                    $('#ctn-list-journey').fadeIn();
+                    $('html, body').animate({
+                        scrollTop: $('#ctn-list-journey').offset().top - 50
+                    }, 500);
                     obj.attr('disabled','disabled');
                 }
             }

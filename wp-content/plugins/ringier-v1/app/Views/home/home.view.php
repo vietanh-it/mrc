@@ -114,7 +114,7 @@ get_header();
                                 </div>
                                 <div class="desc">
                                     <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
-                                    <p><?php echo cut_string_by_char(($v->post_excerpt),150) ?></p>
+                                    <p><?php echo cut_string_by_char(strip_tags($v->post_content),150) ?></p>
                                     <p><b>Start Date:</b> <?php echo  date("j F Y", strtotime($v->start_date)); ?> <a href="<?php echo $v->permalink ?>" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a> </p>
                                 </div>
                                 <div class="price">$<?php echo number_format($v->journey_info->min_price) ?></div>

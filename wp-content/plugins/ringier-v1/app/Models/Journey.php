@@ -163,6 +163,12 @@ class Journey
             $departure_fm = date("j F Y", strtotime($object->departure));
             $object->departure_fm = $departure_fm;
 
+            if($type !='offer'){
+                $objOffer = Offer::init();
+                $offer = $objOffer->getOfferByJourney($object->ID);
+                $object->offer = $offer;
+            }
+
             // journey_type_info
             if (!empty($object->journey_type)) {
                 $journeyType = JourneyType::init();
@@ -187,7 +193,22 @@ class Journey
 
                 if($object->journey_type_info->ship_info->room_types){
                     $min_price = 9999999999999999999999999;
-                    foreach ($object->journey_type_info->ship_info->room_types as $v){
+                    $list_room = array();
+                    $promotion = 0;
+                    if(!empty($object->offer)){
+                        foreach ($object->offer as $o){
+                            $promotion= $o->offer_info->promotion;
+                            $list_room[] = $o->room_type_id;
+                        }
+                    }
+                    foreach ($object->journey_type_info->ship_info->room_types as $k => &$v){
+                        if(in_array($v->id,$list_room)){
+                            $v->twin_high_season_price =intval($v->twin_high_season_price)-  intval($v->twin_high_season_price) * $promotion / 100;
+                            $v->single_high_season_price = intval($v->single_high_season_price) - intval($v->single_high_season_price) * $promotion / 100;
+                            $v->twin_low_season_price = intval($v->twin_low_season_price) -  intval($v->twin_low_season_price) * $promotion / 100;
+                            $v->single_low_season_price = intval($v->single_low_season_price) - intval($v->single_low_season_price) * $promotion / 100;
+                        }
+
                         if($current_season == 'low'){
                             $price_sub = $v->single_low_season_price;
                         }else{
@@ -201,13 +222,6 @@ class Journey
                     $object->min_price = ($min_price);
                     $object->min_price_fm = number_format($min_price);
                 }
-
-            }
-
-            if($type !='offer'){
-                $objOffer = Offer::init();
-                $offer = $objOffer->getOfferByJourney($object->ID);
-                $object->offer = $offer;
             }
 
             $result = $object;

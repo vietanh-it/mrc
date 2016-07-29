@@ -53,7 +53,9 @@ get_header();
                     </div>
                 </div>
             <?php }
-        } ?>
+        }else{ ?>
+            <div class="col-xs-12 col-sm-12" style="    margin: 0 0 20px;">No result is found</div>
+        <?php } ?>
     </div>
 </div>
 

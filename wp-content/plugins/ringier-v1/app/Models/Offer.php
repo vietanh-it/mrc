@@ -123,7 +123,11 @@ class Offer
                 $journey_id = $list_offer_room[0]->journey_id;
                 $Journey = Journey::init();
                 $journey_info = $Journey->getInfo($journey_id,'offer');
+
                 $object->journey_info = $journey_info;
+                if($object->journey_info->min_price){
+                    $object->journey_info->min_price = intval($object->journey_info->min_price) -  intval($object->journey_info->min_price) * $object->promotion / 100;
+                }
             }
 
             $result = $object;

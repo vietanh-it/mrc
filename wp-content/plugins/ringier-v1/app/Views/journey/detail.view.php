@@ -72,25 +72,36 @@ if (($high_season_from <= $today) && ($high_season_to >= $today)) {
 
                                 <?php foreach ($ship_info->room_types as $key => $room_type) { ?>
                                     <div class="bk-box bk-box-gray">
-                                        <span class="text">Main Deck Twin Share</span> <span class="price"><span
-                                                class="big">US$2,750</span> <br> US$3,250</span>
+                                        <span class="text"><?php echo $room_type->room_type_name ?> Twin Share</span>
+                                        <span class="price">
+                                            <span class="big">
+                                                <?php if ($current_season == 'high') {
+                                                    echo "US$" . number_format($room_type->twin_high_season_price);
+                                                } else {
+                                                    echo "US$" . number_format($room_type->twin_low_season_price);
+                                                } ?>
+                                            </span>
+                                            <!--<br>-->
+                                            <!--US$3,250-->
+                                        </span>
                                     </div>
 
                                     <div class="bk-box ">
-                                        <span class="text">Main Deck Twin Single Use</span> <span class="price"><span
-                                                class="big">US$2,750</span> <br> US$3,250</span>
+                                        <span class="text">
+                                            <?php echo $room_type->room_type_name ?> Single Use
+                                        </span>
+                                        <span class="price">
+                                            <span class="big">
+                                                <?php if ($current_season == 'high') {
+                                                    echo "US$" . number_format($room_type->single_high_season_price);
+                                                } else {
+                                                    echo "US$" . number_format($room_type->single_low_season_price);
+                                                } ?>
+                                            </span>
+                                            <!--<br> US$3,250-->
+                                        </span>
                                     </div>
                                 <?php } ?>
-
-                                <div class="bk-box bk-box-gray">
-                                    <span class="text">Upper Deck Twin Share</span> <span class="price"><span
-                                            class="big">US$2,750</span> <br> US$3,250</span>
-                                </div>
-
-                                <div class="bk-box ">
-                                    <span class="text">Upper Deck Twin Single Us</span> <span class="price"><span
-                                            class="big">US$2,750</span> <br> US$3,250</span>
-                                </div>
 
 
                                 <div class="bk-box bk-box-2" style="background: #d5b76e;margin-top: 50px">
@@ -98,61 +109,55 @@ if (($high_season_from <= $today) && ($high_season_to >= $today)) {
                                     style="text-transform: uppercase;font-weight: bold">Your stateroom selection</span>
                                     <span class="price-2">Total: <b>US$8,250</b></span>
                                 </div>
-                                <div class="bk-box bk-box-2">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <span class="text">Main Deck Twin Share</span>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            2 persons
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <span class="price-2">US$<b>5,500</b></span>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="bk-box bk-box-gray bk-box-2">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <span class="text">Main Deck Twin Single Use</span>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            2 persons
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <span class="price-2">US$<b>5,500</b></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php foreach ($ship_info->room_types as $key => $room_type) { ?>
 
-                                <div class="bk-box  bk-box-2">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <span class="text">Upper Deck Twin Share</span>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            2 persons
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <span class="price-2">US$<b>5,500</b></span>
+                                    <div class="bk-box bk-box-2">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-6">
+                                                <span class="text">
+                                                    <?php echo $room_type->room_type_name ?> Twin Share
+                                                </span>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-3">
+                                                <span class="room_type_<?php echo $room_type->id; ?>_twin">0</span>
+                                                persons
+                                            </div>
+                                            <div class="col-xs-12 col-sm-3">
+                                                <span class="price-2">
+                                                    <?php if ($current_season == 'high') {
+                                                        echo "US$<b>" . number_format($room_type->twin_high_season_price) . '</b>';
+                                                    } else {
+                                                        echo "US$<b>" . number_format($room_type->twin_low_season_price) . '</b>';
+                                                    } ?>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="bk-box bk-box-gray bk-box-2">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <span class="text">Upper Deck Twin Single Us</span>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            2 persons
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <span class="price-2">US$<b>5,500</b></span>
+                                    <div class="bk-box bk-box-gray bk-box-2">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-6">
+                                                <span class="text"><?php echo $room_type->room_type_name ?>
+                                                    Single Use</span>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-3">
+                                                <span class="room_type_<?php echo $room_type->id; ?>_single">0</span>
+                                                persons
+                                            </div>
+                                            <div class="col-xs-12 col-sm-3">
+                                                <span class="price-2">
+                                                <?php if ($current_season == 'high') {
+                                                    echo "US$<b>" . number_format($room_type->single_high_season_price) . "</b>";
+                                                } else {
+                                                    echo "US$<b>" . number_format($room_type->single_low_season_price) . "</b>";
+                                                } ?>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                <?php } ?>
 
                                 <div class="text-center btt-box">
                                     <a href="#" class="back">Back</a>

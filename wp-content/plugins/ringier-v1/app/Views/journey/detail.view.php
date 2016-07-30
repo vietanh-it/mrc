@@ -5,13 +5,14 @@ global $post;
 
 $booking_ctrl = \RVN\Controllers\BookingController::init();
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
+$ship_ctrl = \RVN\Controllers\ShipController::init();
+
 $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
 $ship_info = $journey_detail->journey_type_info->ship_info;
 $current_season = $journey_detail->current_season;
 
-$booking_info = $booking_ctrl->getBookedRoom($post->ID);
-
-var_dump($booking_info);
+$booked_rooms = $booking_ctrl->getBookedRoom($post->ID);
+$rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 ?>
 
     <div class="journey-detail">
@@ -21,7 +22,8 @@ var_dump($booking_info);
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <h3 class="title-main white"><?php the_title(); ?></h3>
-                        <p>From <?php echo $journey_detail->journey_type_info->starting_point  ?>, <?php echo $journey_detail->duration; ?>, departure on
+                        <p>From <?php echo $journey_detail->journey_type_info->starting_point ?>
+                            , <?php echo $journey_detail->duration; ?>, departure on
                             <b><?php echo date('d M Y', strtotime($journey_detail->departure)); ?></b></p>
                     </div>
                     <div class="col-xs-12 col-sm-6 right">
@@ -54,7 +56,7 @@ var_dump($booking_info);
                                      alt="<?php echo $ship_info->post_title; ?>"
                                      style="width: 100%;">
 
-                                <?php foreach ($ship_info->rooms as $key => $room) {
+                                <?php foreach ($rooms_html as $key => $room) {
                                     echo $room->html;
                                 } ?>
                             </div>
@@ -177,6 +179,22 @@ var_dump($booking_info);
 
             // Click on roomid
             $(document).delegate('[data-roomid]', 'click', function (e) {
+
+                var parent = $(this).parent();
+                var room_id = $(this).attr('data-roomid');
+                var current_type = $(this).attr('data-type');
+
+                if (current_type == 'twin') {
+                    var type = 'single';
+                    var icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="http://local.mrc.com/wp-content/plugins/ringier-v1/app/Views/_assets/images/icon-booking-single.png">';
+                } else {
+                    type = 'twin';
+                    icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="http://local.mrc.com/wp-content/plugins/ringier-v1/app/Views/_assets/images/icon-booking-twin.png">';
+                }
+
+                $(this).attr('data-type', type);
+                $(this).find('.icon-booking').remove();
+                $(this).prepend(icon_html);
 
                 $.ajax({
                     url: ajax_url,

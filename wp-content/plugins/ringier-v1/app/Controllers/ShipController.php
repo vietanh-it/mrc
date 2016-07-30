@@ -30,9 +30,9 @@ class ShipController extends _BaseController
     public function getSipList()
     {
         $post = Posts::init();
-        $result = $post->getList(array(
+        $result = $post->getList([
             'post_type' => 'ship',
-        ));
+        ]);
 
         return $result;
     }
@@ -158,10 +158,10 @@ class ShipController extends _BaseController
     }
 
 
-    public function getShipRooms($ship_id)
+    public function getShipRooms($ship_id, $booked_rooms = [])
     {
         $model = Ships::init();
-        $result = $model->getShipRooms($ship_id);
+        $result = $model->getShipRooms($ship_id, $booked_rooms);
 
         return $result;
     }

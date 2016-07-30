@@ -191,17 +191,75 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
                     var parent = $(this).parent();
                     var room_id = $(this).attr('data-roomid');
+                    var room_type_id = $(this).attr('data-roomtypeid');
                     var current_type = $(this).attr('data-type');
+                    var current_room_type = ".room_type_" + room_type_id;
 
                     if (current_type == 'twin') {
+                        // SINGLE
+
+                        // Icon
                         var type = 'single';
-                        var icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="http://local.mrc.com/wp-content/plugins/ringier-v1/app/Views/_assets/images/icon-booking-single.png">';
+                        var icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="<?php echo VIEW_URL ?>/images/icon-booking-single.png">';
+
+                        // Twin quantity
+                        var twin_quantity = parseInt($(current_room_type + "_twin").html());
+                        if (twin_quantity > 0) {
+                            twin_quantity = twin_quantity - 2;
+                        } else {
+                            twin_quantity = 0;
+                        }
+                        $(current_room_type + "_twin").html(twin_quantity);
+
+                        // Single quantity
+                        current_room_type += "_" + type;
+                        var current_quantity = parseInt($(current_room_type).html());
+                        $(current_room_type).html(current_quantity + 1);
+
                     } else if (current_type == 'single') {
+                        // NONE
+
                         type = 'none';
                         icon_html = '';
+
+                        // Twin quantity
+                        twin_quantity = parseInt($(current_room_type + "_twin").html());
+                        if (twin_quantity > 0) {
+                            twin_quantity = twin_quantity - 2;
+                        } else {
+                            twin_quantity = 0;
+                        }
+                        $(current_room_type + "_twin").html(twin_quantity);
+
+                        // Single quantity
+                        var single_quantity = parseInt($(current_room_type + "_single").html());
+                        if (single_quantity > 0) {
+                            single_quantity = single_quantity - 1;
+                        } else {
+                            single_quantity = 0;
+                        }
+                        $(current_room_type + "_single").html(single_quantity);
+
                     } else {
+                        // TWIN
+
                         type = 'twin';
-                        icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="http://local.mrc.com/wp-content/plugins/ringier-v1/app/Views/_assets/images/icon-booking-twin.png">';
+                        icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="<?php echo VIEW_URL ?>/images/icon-booking-twin.png">';
+
+                        // Single quantity
+                        single_quantity = parseInt($(current_room_type + "_single").html());
+                        if (single_quantity > 0) {
+                            single_quantity = single_quantity - 1;
+                        } else {
+                            single_quantity = 0;
+                        }
+                        $(current_room_type + "_single").html(single_quantity);
+
+                        // Twin quantity
+                        current_room_type += "_" + type;
+                        current_quantity = parseInt($(current_room_type).html());
+                        $(current_room_type).html(current_quantity + 2);
+
                     }
 
                     $(this).attr('data-type', type);

@@ -73,17 +73,17 @@ class Ships
 
     public function getShipRooms($ship_id, $booked_rooms = [], $journey_id = 0)
     {
-        $query = "SELECT rt.ship_id, rt.room_type_name, rt.deck_plan, r.* FROM {$this->_tbl_rooms} r INNER JOIN {$this->_tbl_room_types} rt ON r.room_type_id = rt.id WHERE rt.ship_id = {$ship_id}";
+        $query = "SELECT rt.id as room_type_id, rt.ship_id, rt.room_type_name, rt.deck_plan, r.* FROM {$this->_tbl_rooms} r INNER JOIN {$this->_tbl_room_types} rt ON r.room_type_id = rt.id WHERE rt.ship_id = {$ship_id}";
         $result = $this->_wpdb->get_results($query);
 
         if (!empty($result)) {
             foreach ($result as $key => $item) {
                 if (empty($booked_rooms)) {
                     // Unbooked rooms
-                    $item->html = "<div data-roomid='{$item->id}' data-type='none' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
+                    $item->html = "<div data-roomid='{$item->id}' data-roomtypeid='{$item->room_type_id}' data-type='none' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
                 } elseif (!in_array($item->id, $booked_rooms)) {
                     // Unbooked rooms
-                    $item->html = "<div data-roomid='{$item->id}' data-type='none' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
+                    $item->html = "<div data-roomid='{$item->id}' data-roomtypeid='{$item->room_type_id}' data-type='none' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
                 } else {
                     // Booked rooms
                     $item->html = "<div style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: no-drop;'>" .

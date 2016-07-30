@@ -116,7 +116,9 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                     <span class="price-2">Total: <b>US$<span class="booking-total">0</span></b></span>
                                 </div>
 
-                                <?php foreach ($ship_info->room_types as $key => $room_type) { ?>
+                                <?php foreach ($ship_info->room_types as $key => $room_type) {
+                                    $twin_price = ($current_season == 'high') ? $room_type->twin_high_season_price : $room_type->twin_low_season_price;
+                                    $single_price = ($current_season == 'high') ? $room_type->single_high_season_price : $room_type->single_low_season_price; ?>
 
                                     <div class="bk-box bk-box-2">
                                         <div class="row">
@@ -126,16 +128,15 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                                 </span>
                                             </div>
                                             <div class="col-xs-12 col-sm-3">
-                                                <span class="room_type_<?php echo $room_type->id; ?>_twin">0</span>
+                                                <span class="room_type_<?php echo $room_type->id; ?>_twin"
+                                                      data-price="<?php echo $twin_price; ?>">
+                                                    0
+                                                </span>
                                                 persons
                                             </div>
                                             <div class="col-xs-12 col-sm-3">
                                                 <span class="price-2">
-                                                    <?php if ($current_season == 'high') {
-                                                        echo "US$<b>" . number_format($room_type->twin_high_season_price) . '</b>';
-                                                    } else {
-                                                        echo "US$<b>" . number_format($room_type->twin_low_season_price) . '</b>';
-                                                    } ?>
+                                                    <?php echo "US$<b>" . number_format($twin_price) . '</b>'; ?>
                                                 </span>
                                             </div>
                                         </div>
@@ -145,19 +146,19 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-6">
                                                 <span class="text"><?php echo $room_type->room_type_name ?>
-                                                    Single Use</span>
+                                                    Single Use
+                                                </span>
                                             </div>
                                             <div class="col-xs-12 col-sm-3">
-                                                <span class="room_type_<?php echo $room_type->id; ?>_single">0</span>
+                                                <span class="room_type_<?php echo $room_type->id; ?>_single"
+                                                      data-price="<?php echo $single_price; ?>">
+                                                    0
+                                                </span>
                                                 persons
                                             </div>
                                             <div class="col-xs-12 col-sm-3">
                                                 <span class="price-2">
-                                                <?php if ($current_season == 'high') {
-                                                    echo "US$<b>" . number_format($room_type->single_high_season_price) . "</b>";
-                                                } else {
-                                                    echo "US$<b>" . number_format($room_type->single_low_season_price) . "</b>";
-                                                } ?>
+                                                <?php echo "US$<b>" . number_format($single_price) . "</b>"; ?>
                                                 </span>
                                             </div>
                                         </div>
@@ -189,7 +190,6 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                 if (booking_ready) {
                     booking_ready = false;
 
-                    var parent = $(this).parent();
                     var room_id = $(this).attr('data-roomid');
                     var room_type_id = $(this).attr('data-roomtypeid');
                     var current_type = $(this).attr('data-type');
@@ -266,45 +266,54 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                     $(this).find('.icon-booking').remove();
                     $(this).prepend(icon_html);
 
-                    $.ajax({
-                        url: ajax_url,
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            action: 'ajax_handler_booking',
-                            method: 'SaveBooking',
-                            room_id: $(this).attr('data-roomid'),
-                            type: type
-                        },
-                        beforeSend: function () {
-                            // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
-                        },
-                        success: function (data) {
-                            // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
+                    var price = $(current_room_type).attr('data-price');
 
-                            if (data.status == 'success') {
-                                booking_ready = true;
-                                // $('#room_name').val(data.data.room_name);
-                                // $('#room_type').val(data.data.room_type_id);
-                                // $('#room_id').val(data.data.id);
-                                console.log(data);
-                            }
-                            else {
-                                var html_msg = '<div>';
-                                if (data.message) {
-                                    $.each(data.message, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
-                                } else if (data.data) {
-                                    $.each(data.data, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
+                    if (price) {
+
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_booking',
+                                method: 'SaveCart',
+                                room_id: room_id,
+                                type: type,
+                                price: price,
+                                journey_id: <?php echo $post->ID; ?>
+                            },
+                            beforeSend: function () {
+                                // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
+                            },
+                            success: function (data) {
+                                // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
+
+                                if (data.status == 'success') {
+                                    booking_ready = true;
+                                    // $('#room_name').val(data.data.room_name);
+                                    // $('#room_type').val(data.data.room_type_id);
+                                    // $('#room_id').val(data.data.id);
+                                    console.log(data);
                                 }
-                                html_msg += "</div>";
-                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
                             }
-                        }
-                    }); // end ajax
+                        }); // end ajax
+
+                    }
+
                 }
 
             });

@@ -44,9 +44,54 @@ class Booking
         return self::$instance;
     }
 
-    public function saveBooking($data)
+
+    public function saveCart($data)
     {
-        return $data;
+        if (!is_user_logged_in()) {
+            return [
+                'status' => 'error',
+                'data'   => ['Please login to book room.']
+            ];
+        }
+
+        $user_id = get_current_user_id();
+        $cart = $this->getCart($user_id);
+        $cart_item = $this->getCartItem($cart->id, $data['room_id']);
+
+        if (!empty($cart_item)) {
+            $this->_wpdb->update($this->_tbl_cart_detail, [
+                ''
+            ]);
+        }
+
+
+        return $cart;
+    }
+
+
+    public function getCart($user_id)
+    {
+        $query = "SELECT * FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id}";
+        $cart = $this->_wpdb->get_results($query);
+        if (empty($cart)) {
+            $this->_wpdb->insert($this->_tbl_cart, [
+                'user_id'    => $user_id,
+                'created_at' => current_time('mysql')
+            ]);
+
+            $cart = $this->_wpdb->get_row($query);
+        }
+
+        return $cart;
+    }
+
+
+    public function getCartItem($cart_id, $journey_id, $room_id)
+    {
+        $query = "SELECT * FROM {$this->_tbl_cart_detail} WHERE cart_id = {$cart_id} AND journey_id = {$journey_id} AND room_id = {$room_id}";
+        $result = $this->_wpdb->get_row($query);
+
+        return $result;
     }
 
 
@@ -70,12 +115,6 @@ class Booking
     {
         $booked_room = $this->getBookedRoom($journey_id);
         return in_array($room_id, $booked_room);
-    }
-
-
-    public function getRoomHtml($journey_id)
-    {
-        $ship_model = Ships::init();
     }
 
 }

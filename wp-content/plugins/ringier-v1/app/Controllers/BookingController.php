@@ -40,10 +40,10 @@ class BookingController extends _BaseController
     }
 
 
-    public function getBookingInfo($journey_id)
+    public function getBookedRoom($journey_id)
     {
         $model = Booking::init();
-        $result = $model->getBookingInfo($journey_id);
+        $result = $model->getBookedRoom($journey_id);
 
         return $result;
     }

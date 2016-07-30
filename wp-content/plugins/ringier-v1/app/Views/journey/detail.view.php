@@ -9,7 +9,10 @@ $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
 $ship_info = $journey_detail->journey_type_info->ship_info;
 $current_season = $journey_detail->current_season;
 
-$booking_info = $booking_ctrl->getBookingInfo($post->ID); ?>
+$booking_info = $booking_ctrl->getBookedRoom($post->ID);
+
+var_dump($booking_info);
+?>
 
     <div class="journey-detail">
 

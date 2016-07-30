@@ -3,11 +3,13 @@
 get_header();
 global $post;
 
+$booking_ctrl = \RVN\Controllers\BookingController::init();
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
 $ship_info = $journey_detail->journey_type_info->ship_info;
 $current_season = $journey_detail->current_season;
-?>
+
+$booking_info = $booking_ctrl->getBookingInfo($post->ID); ?>
 
     <div class="journey-detail">
 
@@ -20,7 +22,7 @@ $current_season = $journey_detail->current_season;
                             <b><?php echo date('d M Y', strtotime($journey_detail->departure)); ?></b></p>
                     </div>
                     <div class="col-xs-12 col-sm-6 right">
-                        <span class="total-price">Total: US$8,250</span>
+                        <span class="total-price">Total: US$<span class="booking-total">0</span></span>
                         <a href="javascript:void(0)" class="btn-menu-jn"><img
                                 src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
                     </div>
@@ -31,8 +33,11 @@ $current_season = $journey_detail->current_season;
         <div class="content-booking">
             <div class="container container-big">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 "><p class="text-tt">Check availability and book online <span>Please select guests and starterooms
-</span></p></div>
+                    <div class="col-xs-12 col-sm-12 ">
+                        <p class="text-tt">
+                            Check availability and book online <span>Please select guests and starterooms</span>
+                        </p>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-7">
@@ -98,7 +103,7 @@ $current_season = $journey_detail->current_season;
                                 <div class="bk-box bk-box-2" style="background: #d5b76e;margin-top: 50px">
                                 <span
                                     style="text-transform: uppercase;font-weight: bold">Your stateroom selection</span>
-                                    <span class="price-2">Total: <b>US$8,250</b></span>
+                                    <span class="price-2">Total: <b>US$<span class="booking-total">0</span></b></span>
                                 </div>
 
                                 <?php foreach ($ship_info->room_types as $key => $room_type) { ?>

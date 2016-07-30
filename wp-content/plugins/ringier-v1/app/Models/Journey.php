@@ -88,7 +88,7 @@ class Journey
             }
 
             if (!empty($params['journey_type_id'])) {
-                $where .= " AND ji.journey_type = ".$params['journey_type_id'];
+                $where .= " AND ji.journey_type = " . $params['journey_type_id'];
             }
 
             if (!empty($params['_month'])) {
@@ -126,7 +126,7 @@ class Journey
     }
 
 
-    public function getInfo($object,$type = '')
+    public function getInfo($object, $type = '')
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
@@ -163,7 +163,7 @@ class Journey
             $departure_fm = date("j F Y", strtotime($object->departure));
             $object->departure_fm = $departure_fm;
 
-            if($type !='offer'){
+            if ($type != 'offer') {
                 $objOffer = Offer::init();
                 $offer = $objOffer->getOfferByJourney($object->ID);
                 $object->offer = $offer;
@@ -175,46 +175,46 @@ class Journey
                 $journey_type_info = $journeyType->getInfo($object->journey_type);
                 $object->journey_type_info = $journey_type_info;
 
-                $departure = date('Y-m-d',strtotime($object->departure));
-                $arrive = date('Y-m-d',strtotime($object->arrive));
+                $departure = date('Y-m-d', strtotime($object->departure));
+                $arrive = date('Y-m-d', strtotime($object->arrive));
                 $ship_detail = $journey_type_info->ship_info;
 
                 $current_season = 'low';
                 $high_season_from = date('Y-m-d', strtotime($ship_detail->high_season_from));
                 $high_season_to = date('Y-m-d', strtotime($ship_detail->high_season_to));
-                if ((($high_season_from <= $departure) && ($high_season_to >= $departure)) or (($high_season_from <= $arrive) && ($high_season_to >= $arrive)) ) {
+                if ((($high_season_from <= $departure) && ($high_season_to >= $departure)) or (($high_season_from <= $arrive) && ($high_season_to >= $arrive))) {
                     $current_season = 'high';
                 }
-                if(($departure <= $high_season_from) && ($arrive >= $high_season_from)){
+                if (($departure <= $high_season_from) && ($arrive >= $high_season_from)) {
                     $current_season = 'high';
                 }
 
                 $object->current_season = $current_season;
 
-                if($object->journey_type_info->ship_info->room_types){
+                if ($object->journey_type_info->ship_info->room_types) {
                     $min_price = 9999999999999999999999999;
-                    $list_room = array();
+                    $list_room = [];
                     $promotion = 0;
-                    if(!empty($object->offer)){
-                        foreach ($object->offer as $o){
-                            $promotion= $o->offer_info->promotion;
+                    if (!empty($object->offer)) {
+                        foreach ($object->offer as $o) {
+                            $promotion = $o->offer_info->promotion;
                             $list_room[] = $o->room_type_id;
                         }
                     }
-                    foreach ($object->journey_type_info->ship_info->room_types as $k => &$v){
-                        if(in_array($v->id,$list_room)){
-                            $v->twin_high_season_price =intval($v->twin_high_season_price)-  intval($v->twin_high_season_price) * $promotion / 100;
+                    foreach ($object->journey_type_info->ship_info->room_types as $k => &$v) {
+                        if (in_array($v->id, $list_room)) {
+                            $v->twin_high_season_price = intval($v->twin_high_season_price) - intval($v->twin_high_season_price) * $promotion / 100;
                             $v->single_high_season_price = intval($v->single_high_season_price) - intval($v->single_high_season_price) * $promotion / 100;
-                            $v->twin_low_season_price = intval($v->twin_low_season_price) -  intval($v->twin_low_season_price) * $promotion / 100;
+                            $v->twin_low_season_price = intval($v->twin_low_season_price) - intval($v->twin_low_season_price) * $promotion / 100;
                             $v->single_low_season_price = intval($v->single_low_season_price) - intval($v->single_low_season_price) * $promotion / 100;
                         }
 
-                        if($current_season == 'low'){
+                        if ($current_season == 'low') {
                             $price_sub = $v->single_low_season_price;
-                        }else{
+                        } else {
                             $price_sub = $v->single_high_season_price;
                         }
-                        if($price_sub < $min_price){
+                        if ($price_sub < $min_price) {
                             $min_price = $price_sub;
                         }
 

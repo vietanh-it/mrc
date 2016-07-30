@@ -44,9 +44,38 @@ class Booking
         return self::$instance;
     }
 
-    public function AddToCart($data)
+    public function addToCart($data)
     {
 
+    }
+
+
+    public function getBookedRoom($journey_id)
+    {
+        $query_cart = "SELECT * FROM {$this->_tbl_booking} b INNER JOIN {$this->_tbl_booking_detail} bd ON b.id = bd.booking_id WHERE b.journey_id = {$journey_id}";
+        $cart = $this->_wpdb->get_results($query_cart);
+
+        $result = [];
+        if ($cart) {
+            foreach ($cart as $key => $item) {
+                $result[] = $item->room_id;
+            }
+        }
+
+        return $result;
+    }
+
+
+    public function isRoomBooked($journey_id, $room_id)
+    {
+        $booked_room = $this->getBookedRoom($journey_id);
+        return in_array($room_id, $booked_room);
+    }
+
+
+    public function getRoomHtml($journey_id)
+    {
+        $ship_model = Ships::init();
     }
 
 }

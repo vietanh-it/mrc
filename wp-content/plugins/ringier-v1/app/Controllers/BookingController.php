@@ -1,6 +1,8 @@
 <?php
 namespace RVN\Controllers;
 
+use RVN\Models\Booking;
+
 class BookingController extends _BaseController
 {
     private static $instance;
@@ -27,7 +29,32 @@ class BookingController extends _BaseController
 
     public function ajaxAddToCart($data)
     {
-        $model = BookingController::init();
+        $model = Booking::init();
+        $rs = $model->addToCart($data);
+        if ($rs) {
+            $result = [
+                'status' => 'success',
+                'data'   => $rs
+            ];
+        }
+    }
+
+
+    public function getBookingInfo($journey_id)
+    {
+        $model = Booking::init();
+        $result = $model->getBookingInfo($journey_id);
+
+        return $result;
+    }
+
+
+    public function isRoomBooked($journey_id, $room_id)
+    {
+        $model = Booking::init();
+        $result = $model->isRoomBooked($journey_id, $room_id);
+
+        return $result;
     }
 
 }

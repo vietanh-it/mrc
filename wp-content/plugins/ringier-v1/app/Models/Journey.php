@@ -203,10 +203,10 @@ class Journey
                     }
                     foreach ($object->journey_type_info->ship_info->room_types as $k => &$v){
                         if(in_array($v->id,$list_room)){
-                            $v->twin_high_season_price =intval($v->twin_high_season_price)-  intval($v->twin_high_season_price) * $promotion / 100;
-                            $v->single_high_season_price = intval($v->single_high_season_price) - intval($v->single_high_season_price) * $promotion / 100;
-                            $v->twin_low_season_price = intval($v->twin_low_season_price) -  intval($v->twin_low_season_price) * $promotion / 100;
-                            $v->single_low_season_price = intval($v->single_low_season_price) - intval($v->single_low_season_price) * $promotion / 100;
+                            $v->twin_high_season_price_offer =intval($v->twin_high_season_price)-  intval($v->twin_high_season_price) * $promotion / 100;
+                            $v->single_high_season_price_offer = intval($v->single_high_season_price) - intval($v->single_high_season_price) * $promotion / 100;
+                            $v->twin_low_season_price_offer = intval($v->twin_low_season_price) -  intval($v->twin_low_season_price) * $promotion / 100;
+                            $v->single_low_season_price_offer = intval($v->single_low_season_price) - intval($v->single_low_season_price) * $promotion / 100;
                         }
 
                         if($current_season == 'low'){
@@ -219,8 +219,10 @@ class Journey
                         }
 
                     }
-                    $object->min_price = ($min_price);
-                    $object->min_price_fm = number_format($min_price);
+                    $object->min_price = intval($min_price);
+                    $object->min_price_offer = intval($min_price) - intval($min_price) * $promotion / 100;
+                    $object->min_price_fm = number_format($object->min_price);
+                    $object->min_price_offer_fm = number_format($object->min_price_offer);
                 }
             }
 

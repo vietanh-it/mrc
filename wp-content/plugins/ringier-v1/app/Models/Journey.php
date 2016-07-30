@@ -201,11 +201,11 @@ class Journey
                             $list_room[] = $o->room_type_id;
                         }
                     }
-                    foreach ($object->journey_type_info->ship_info->room_types as $k => &$v){
-                        if(in_array($v->id,$list_room)){
-                            $v->twin_high_season_price_offer =intval($v->twin_high_season_price)-  intval($v->twin_high_season_price) * $promotion / 100;
+                    foreach ($object->journey_type_info->ship_info->room_types as $k => &$v) {
+                        if (in_array($v->id, $list_room)) {
+                            $v->twin_high_season_price_offer = intval($v->twin_high_season_price) - intval($v->twin_high_season_price) * $promotion / 100;
                             $v->single_high_season_price_offer = intval($v->single_high_season_price) - intval($v->single_high_season_price) * $promotion / 100;
-                            $v->twin_low_season_price_offer = intval($v->twin_low_season_price) -  intval($v->twin_low_season_price) * $promotion / 100;
+                            $v->twin_low_season_price_offer = intval($v->twin_low_season_price) - intval($v->twin_low_season_price) * $promotion / 100;
                             $v->single_low_season_price_offer = intval($v->single_low_season_price) - intval($v->single_low_season_price) * $promotion / 100;
                         }
 

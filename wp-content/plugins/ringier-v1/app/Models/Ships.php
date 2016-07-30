@@ -71,7 +71,7 @@ class Ships
     }
 
 
-    public function getShipRooms($ship_id, $booked_rooms = [])
+    public function getShipRooms($ship_id, $booked_rooms = [], $journey_id = 0)
     {
         $query = "SELECT rt.ship_id, rt.room_type_name, rt.deck_plan, r.* FROM {$this->_tbl_rooms} r INNER JOIN {$this->_tbl_room_types} rt ON r.room_type_id = rt.id WHERE rt.ship_id = {$ship_id}";
         $result = $this->_wpdb->get_results($query);
@@ -79,10 +79,13 @@ class Ships
         if (!empty($result)) {
             foreach ($result as $key => $item) {
                 if (empty($booked_rooms)) {
-                    $item->html = "<div data-roomid='{$item->id}' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
+                    // Unbooked rooms
+                    $item->html = "<div data-roomid='{$item->id}' data-type='none' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
                 } elseif (!in_array($item->id, $booked_rooms)) {
-                    $item->html = "<div data-roomid='{$item->id}' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
+                    // Unbooked rooms
+                    $item->html = "<div data-roomid='{$item->id}' data-type='none' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
                 } else {
+                    // Booked rooms
                     $item->html = "<div style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: no-drop;'>" .
                         "<img style='position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -17px; margin-left: -11px;' src='" . VIEW_URL . "/images/icon-booking-locked.png'/>" .
                         "<img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/>" .

@@ -1,5 +1,10 @@
 <?php
 
+if (!is_user_logged_in()) {
+    wp_redirect(wp_login_url($_SERVER['REQUEST_URI']));
+    exit;
+}
+
 get_header();
 global $post;
 
@@ -177,62 +182,71 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
         var $ = jQuery.noConflict();
         $(document).ready(function () {
 
+            var booking_ready = true;
+
             // Click on roomid
             $(document).delegate('[data-roomid]', 'click', function (e) {
+                if (booking_ready) {
+                    booking_ready = false;
 
-                var parent = $(this).parent();
-                var room_id = $(this).attr('data-roomid');
-                var current_type = $(this).attr('data-type');
+                    var parent = $(this).parent();
+                    var room_id = $(this).attr('data-roomid');
+                    var current_type = $(this).attr('data-type');
 
-                if (current_type == 'twin') {
-                    var type = 'single';
-                    var icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="http://local.mrc.com/wp-content/plugins/ringier-v1/app/Views/_assets/images/icon-booking-single.png">';
-                } else {
-                    type = 'twin';
-                    icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="http://local.mrc.com/wp-content/plugins/ringier-v1/app/Views/_assets/images/icon-booking-twin.png">';
-                }
-
-                $(this).attr('data-type', type);
-                $(this).find('.icon-booking').remove();
-                $(this).prepend(icon_html);
-
-                $.ajax({
-                    url: ajax_url,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        action: 'ajax_handler_ship',
-                        method: 'GetRoomInfo',
-                        room_id: $(this).attr('data-roomid')
-                    },
-                    beforeSend: function () {
-                        // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
-                    },
-                    success: function (data) {
-                        // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
-
-                        if (data.status == 'success') {
-                            // $('#room_name').val(data.data.room_name);
-                            // $('#room_type').val(data.data.room_type_id);
-                            // $('#room_id').val(data.data.id);
-                            console.log(data);
-                        }
-                        else {
-                            var html_msg = '<div>';
-                            if (data.message) {
-                                $.each(data.message, function (k_msg, msg) {
-                                    html_msg += msg + "<br/>";
-                                });
-                            } else if (data.data) {
-                                $.each(data.data, function (k_msg, msg) {
-                                    html_msg += msg + "<br/>";
-                                });
-                            }
-                            html_msg += "</div>";
-                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                        }
+                    if (current_type == 'twin') {
+                        var type = 'single';
+                        var icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="http://local.mrc.com/wp-content/plugins/ringier-v1/app/Views/_assets/images/icon-booking-single.png">';
+                    } else if (current_type == 'single') {
+                        type = 'none';
+                        icon_html = '';
+                    } else {
+                        type = 'twin';
+                        icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="http://local.mrc.com/wp-content/plugins/ringier-v1/app/Views/_assets/images/icon-booking-twin.png">';
                     }
-                }); // end ajax
+
+                    $(this).attr('data-type', type);
+                    $(this).find('.icon-booking').remove();
+                    $(this).prepend(icon_html);
+
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_ship',
+                            method: 'GetRoomInfo',
+                            room_id: $(this).attr('data-roomid')
+                        },
+                        beforeSend: function () {
+                            // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
+                        },
+                        success: function (data) {
+                            // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
+
+                            if (data.status == 'success') {
+                                booking_ready = true;
+                                // $('#room_name').val(data.data.room_name);
+                                // $('#room_type').val(data.data.room_type_id);
+                                // $('#room_id').val(data.data.id);
+                                console.log(data);
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+                        }
+                    }); // end ajax
+                }
 
             });
 

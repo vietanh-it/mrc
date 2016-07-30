@@ -158,10 +158,10 @@ class ShipController extends _BaseController
     }
 
 
-    public function getShipRooms($ship_id, $booked_rooms = [])
+    public function getShipRooms($ship_id, $booked_rooms = [], $journey_id = 0)
     {
         $model = Ships::init();
-        $result = $model->getShipRooms($ship_id, $booked_rooms);
+        $result = $model->getShipRooms($ship_id, $booked_rooms, $journey_id);
 
         return $result;
     }

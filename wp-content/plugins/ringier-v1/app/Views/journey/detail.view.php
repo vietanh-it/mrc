@@ -166,7 +166,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                 <?php } ?>
 
                                 <div class="text-center btt-box">
-                                    <a href="#" class="back">Back</a>
+                                    <a href="<?php echo WP_SITEURL . '/journeys' ?>" class="back">Back</a>
                                     <button type="submit">Continue</button>
                                 </div>
                             </form>
@@ -271,9 +271,10 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                         type: 'post',
                         dataType: 'json',
                         data: {
-                            action: 'ajax_handler_ship',
-                            method: 'GetRoomInfo',
-                            room_id: $(this).attr('data-roomid')
+                            action: 'ajax_handler_booking',
+                            method: 'SaveBooking',
+                            room_id: $(this).attr('data-roomid'),
+                            type: type
                         },
                         beforeSend: function () {
                             // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);

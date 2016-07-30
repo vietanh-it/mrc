@@ -44,9 +44,9 @@ class Booking
         return self::$instance;
     }
 
-    public function addToCart($data)
+    public function saveBooking($data)
     {
-
+        return $data;
     }
 
 

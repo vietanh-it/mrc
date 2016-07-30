@@ -49,4 +49,5 @@ function mrcLoad()
     // call ajax
     \RVN\Controllers\ShipController::init();
     \RVN\Controllers\JourneyController::init();
+    \RVN\Controllers\BookingController::init();
 }

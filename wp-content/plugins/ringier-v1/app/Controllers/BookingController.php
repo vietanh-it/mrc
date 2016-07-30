@@ -27,16 +27,18 @@ class BookingController extends _BaseController
     }
 
 
-    public function ajaxAddToCart($data)
+    public function ajaxSaveBooking($data)
     {
         $model = Booking::init();
-        $rs = $model->addToCart($data);
+        $rs = $model->saveBooking($data);
         if ($rs) {
             $result = [
                 'status' => 'success',
                 'data'   => $rs
             ];
         }
+
+        return valueOrNull($result, []);
     }
 
 

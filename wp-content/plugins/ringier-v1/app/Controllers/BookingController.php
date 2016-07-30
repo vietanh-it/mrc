@@ -24,4 +24,10 @@ class BookingController extends _BaseController
         return self::$instance;
     }
 
+
+    public function ajaxAddToCart($data)
+    {
+        $model = BookingController::init();
+    }
+
 }

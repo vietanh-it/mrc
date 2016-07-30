@@ -53,7 +53,8 @@ class acf_field_functions
     function load_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type','pretour','posttour','addon','offer'])) {
+        if (in_array($post->post_type,
+            ['ship', 'destination', 'journey', 'journey_type', 'pretour', 'posttour', 'addon', 'offer'])) {
             switch ($post->post_type) {
                 case 'ship':
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}ship_info si ON p.ID = si.object_id WHERE p.ID = {$post_id}";
@@ -101,25 +102,25 @@ class acf_field_functions
 
                     return $value;
                 case 'journey_type':
-                    if($field['name'] == 'port' or $field['name'] == 'river'){
-                        switch ($field['name']){
+                    if ($field['name'] == 'port' or $field['name'] == 'river') {
+                        switch ($field['name']) {
                             case 'port' :
-                                $table = $wpdb->prefix.'journey_type_port';
+                                $table = $wpdb->prefix . 'journey_type_port';
                                 $id = 'port_id';
                                 break;
                             case 'river' :
-                                $table = $wpdb->prefix.'journey_type_river';
+                                $table = $wpdb->prefix . 'journey_type_river';
                                 $id = 'river_id';
                                 break;
                         }
                         $query = "SELECT * FROM $table  WHERE journey_type_id = {$post_id}";
                         $result = $wpdb->get_results($query);
-                        $value = array();
-                        foreach ($result as $v){
+                        $value = [];
+                        foreach ($result as $v) {
                             $value[] = $v->{$id};
                         }
                         return $value;
-                    }else{
+                    } else {
                         $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}journey_type_info jti ON p.ID = jti.object_id WHERE p.ID = {$post_id}";
                         $result = $wpdb->get_row($query);
 
@@ -281,7 +282,8 @@ class acf_field_functions
     function update_value($value, $post_id, $field)
     {
         global $wpdb, $post;
-        if (in_array($post->post_type, ['ship', 'destination', 'journey', 'journey_type','pretour','posttour','addon','offer'])) {
+        if (in_array($post->post_type,
+            ['ship', 'destination', 'journey', 'journey_type', 'pretour', 'posttour', 'addon', 'offer'])) {
 
             $data = [];
             $customFields = $_POST['fields'];
@@ -356,22 +358,24 @@ class acf_field_functions
                         unset($field);
                     } else {
                         if ($field['name'] == 'port') {
-                            $wpdb->delete($wpdb->prefix .'journey_type_port',array('journey_type_id' => $post_id));
+                            $wpdb->delete($wpdb->prefix . 'journey_type_port', ['journey_type_id' => $post_id]);
 
                             if (is_array($data[$field['name']])) {
-                                foreach ($data[$field['name']] as $d){
-                                    $wpdb->insert($wpdb->prefix .'journey_type_port',array('journey_type_id' => $post_id, 'port_id' => $d ));
+                                foreach ($data[$field['name']] as $d) {
+                                    $wpdb->insert($wpdb->prefix . 'journey_type_port',
+                                        ['journey_type_id' => $post_id, 'port_id' => $d]);
                                 }
                             }
                             unset($data[$field['name']]);
                         }
 
                         if ($field['name'] == 'river') {
-                            $wpdb->delete($wpdb->prefix .'journey_type_river',array('journey_type_id' => $post_id));
+                            $wpdb->delete($wpdb->prefix . 'journey_type_river', ['journey_type_id' => $post_id]);
 
                             if (is_array($data[$field['name']])) {
-                                foreach ($data[$field['name']] as $d){
-                                    $wpdb->insert($wpdb->prefix .'journey_type_river',array('journey_type_id' => $post_id, 'river_id' => $d ));
+                                foreach ($data[$field['name']] as $d) {
+                                    $wpdb->insert($wpdb->prefix . 'journey_type_river',
+                                        ['journey_type_id' => $post_id, 'river_id' => $d]);
                                 }
                             }
                             unset($data[$field['name']]);

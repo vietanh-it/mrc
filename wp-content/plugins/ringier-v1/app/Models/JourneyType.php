@@ -128,6 +128,12 @@ class JourneyType
             $post_info = $this->_wpdb->get_row($query);
             $object = (object)array_merge((array)$object, (array)$post_info);
 
+            if(!empty($object->map_image)){
+                $img = wp_get_attachment_image_src($object->map_image,'featured');
+                if($img){
+                    $object->map_image = $img[0];
+                }
+            }
             // ship_info
             if ($object->ship) {
                 $ship = Ships::init();

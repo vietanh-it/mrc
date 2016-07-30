@@ -49,20 +49,27 @@ if($journey_type_info){ ?>
         <div class="container container-big">
             <div class="row">
                 <div class="col-xs-12 col-sm-4 list-img-left">
+                    <?php if($journey_type_info->gallery){ ?>
                     <h3 class="title-main">Journey photos</h3>
                     <div class="list-galary">
-                        <div><img src="<?php echo VIEW_URL .'/images/laos.png' ?>"></div>
-                        <div><img src="<?php echo VIEW_URL .'/images/laos.png' ?>"></div>
+                        <?php foreach ($journey_type_info->gallery as $g){
+                            ?>
+                            <div><img src="<?php echo $g->featured ?>"></div>
+                        <?php } ?>
                     </div>
+                    <?php } ?>
 
                     <h3 class="title-main">Journey map</h3>
-                    <img src="<?php echo VIEW_URL.'/images/jouney-map.jpg' ?>" alt="">
+                    <img src="<?php echo $journey_type_info->map_image ?>" alt="">
 
+                    <?php if($journey_type_info->ship_info->gallery){ ?>
                     <h3 class="title-main">The ship</h3>
                     <div class="list-galary">
-                        <div><img src="<?php echo VIEW_URL .'/images/room.jpg' ?>"></div>
-                        <div><img src="<?php echo VIEW_URL .'/images/room.jpg' ?>"></div>
+                        <?php foreach ($journey_type_info->ship_info->gallery as $g){ ?>
+                            <div><img src="<?php echo $g->featured ?>"></div>
+                        <?php } ?>
                     </div>
+                    <?php } ?>
                 </div>
 
                 <div class="col-xs-12 col-sm-8">

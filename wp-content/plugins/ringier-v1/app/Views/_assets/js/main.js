@@ -99,9 +99,10 @@ jQuery(document).ready(function ($) {
             beforeSend: function () {
             },
             success: function (data) {
-                if(data.data){
+                var html = '';
+                if(data.total > 0){
+                    console.log(data);
                     var result = data.data;
-                    var html = '';
                     $.each(result, function(key, value) {
                         html += '<tr> ' +
                             '<td> <b>' + value.departure_fm +'</b> </td> ' +
@@ -113,14 +114,17 @@ jQuery(document).ready(function ($) {
                             'Some availability </td> ' +
                             '</tr>';
                     });
-
-                    $('.ctn-list-journey tbody').html(html);
-                    $('#ctn-list-journey').fadeIn();
-                    $('html, body').animate({
-                        scrollTop: $('#ctn-list-journey').offset().top - 50
-                    }, 500);
-                    obj.attr('disabled','disabled');
+                }else {
+                    html +='<tr> <td colspan="6"> No result is found</td> </tr>';
                 }
+
+                console.log(html);
+
+                $('.ctn-list-journey tbody').html(html);
+                $('#ctn-list-journey').fadeIn();
+                $('html, body').animate({
+                    scrollTop: $('#ctn-list-journey').offset().top - 50
+                }, 500);
             }
         })
     });

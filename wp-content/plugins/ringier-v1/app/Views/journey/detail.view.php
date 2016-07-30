@@ -16,7 +16,7 @@ $current_season = $journey_detail->current_season;
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <h3 class="title-main white"><?php the_title(); ?></h3>
-                        <p>From Saigon to Siem Reap, <?php echo $journey_detail->duration; ?>, departure on
+                        <p>From <?php echo $journey_detail->journey_type_info->starting_point  ?>, <?php echo $journey_detail->duration; ?>, departure on
                             <b><?php echo date('d M Y', strtotime($journey_detail->departure)); ?></b></p>
                     </div>
                     <div class="col-xs-12 col-sm-6 right">

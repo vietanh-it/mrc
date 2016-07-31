@@ -20,8 +20,8 @@ $current_season = $journey_detail->current_season;
 $booked_rooms = $booking_ctrl->getBookedRoom($post->ID);
 $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
-$cart = $booking_ctrl->ajaxGetCart(['user_id' => $user_id]);
-var_dump($cart);
+// $cart = $booking_ctrl->ajaxGetCart(['user_id' => $user_id]);
+// var_dump($cart);
 ?>
 
     <div class="journey-detail">

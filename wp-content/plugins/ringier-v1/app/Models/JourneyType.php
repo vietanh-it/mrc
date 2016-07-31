@@ -23,6 +23,7 @@ class JourneyType
     private $_tbl_journey_info;
     private $_tbl_offer_journey;
     private $_tbl_offer_info;
+    private $_tbl_journey_type_port;
 
     /**
      * Users constructor.
@@ -40,6 +41,8 @@ class JourneyType
         $this->_tbl_journey_info = $this->_prefix . 'journey_info';
         $this->_tbl_offer_journey = $this->_prefix . 'offer_journey';
         $this->_tbl_offer_info = $this->_prefix . 'offer_info';
+        $this->_tbl_journey_type_port = $this->_prefix . 'journey_type_port';
+
     }
 
 
@@ -72,16 +75,37 @@ class JourneyType
             $where = '';
             $join = '';
 
+            $join .= ' INNER JOIN ' . $this->_tbl_journey_type_info . ' as jti ON jti.object_id = p.ID';
+            $objPost = Posts::init();
+            if (!empty($params['_ship'])) {
+                $ship = $objPost->getPostBySlug($params['_ship'], 'ship');
+                if ($ship) {
+                    $where .= ' AND jti.ship = ' . $ship->ID;
+                }
+            }
+            if (!empty($params['_destination'])) {
+                $destination = $objPost->getPostBySlug($params['_destination'], 'destination');
+                if ($destination) {
+                    $where .= ' AND jti.destination = ' . $destination->ID;
+                }
+            }
+            if (!empty($params['_port'])) {
+                $port = $objPost->getPostBySlug($params['_port'], 'port');
+                if ($port) {
+                    $join .= ' INNER JOIN ' . $this->_tbl_journey_type_port . ' as jtp ON jtp.journey_type_id = p.ID';
+                    $where .= ' AND jtp.port_id = ' . $port->ID;
+                }
+            }
 
-            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p";
-            if (!empty($join)) {
-                $query .= "INNER JOIN {$join}";
-            }
-            $query .= " WHERE p.post_type = 'journey_type' AND p.post_status='publish'";
-            if (!empty($where)) {
-                $query .= " AND {$where}";
-            }
-            $query .= " ORDER BY $order_by  LIMIT $to, $limit";
+
+            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
+            $join
+            WHERE p.post_type = 'journey_type' AND p.post_status='publish'
+            $where          
+            ORDER BY $order_by  LIMIT $to, $limit
+            ";
+
+            //echo $query;
 
             $list = $this->_wpdb->get_results($query);
             $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");

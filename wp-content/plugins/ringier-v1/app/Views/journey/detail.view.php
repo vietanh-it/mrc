@@ -305,7 +305,8 @@ var_dump($cart);
                             if (data.status == 'success') {
                                 booking_ready = true;
 
-                                console.log(data);
+                                // TOTAL
+                                $('.booking-total').html(data.data.booking_total);
                             }
                             else {
                                 var html_msg = '<div>';
@@ -350,16 +351,36 @@ var_dump($cart);
                         booking_ready = true;
 
                         if (data.status == 'success') {
-                            console.log(data.data);
+                            var icon_single_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="<?php echo VIEW_URL ?>/images/icon-booking-single.png">';
+                            var icon_twin_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="<?php echo VIEW_URL ?>/images/icon-booking-twin.png">';
 
-                            var room_type_count = data.data.room_type_count;
-
-                            for (var key in room_type_count) {
-                                if (room_type_count.hasOwnProperty(key)) {
-                                    console.log(key + " -> " + room_type_count[key]);
-                                    $('room_type_' + key + '_').html(room_type_count[key]);
+                            // TWIN
+                            var room_type_twin_count = data.data.room_type_twin_count;
+                            for (var tkey in room_type_twin_count) {
+                                if (room_type_twin_count.hasOwnProperty(tkey)) {
+                                    $('.room_type_' + tkey + '_twin').html(room_type_twin_count[tkey]);
                                 }
                             }
+
+                            // SINGLE
+                            var room_type_single_count = data.data.room_type_single_count;
+                            for (var skey in room_type_single_count) {
+                                if (room_type_single_count.hasOwnProperty(skey)) {
+                                    $('.room_type_' + skey + '_single').html(room_type_single_count[skey]);
+                                }
+                            }
+
+                            // ROOM
+                            $(data.data.cart).each(function (k, v) {
+                                if (v.type == 'twin') {
+                                    $('[data-roomid="' + v.room_id + '"]').prepend(icon_twin_html).attr('data-type', v.type);
+                                } else if (v.type == 'single') {
+                                    $('[data-roomid="' + v.room_id + '"]').prepend(icon_single_html).attr('data-type', v.type);
+                                }
+                            });
+
+                            // TOTAL
+                            $('.booking-total').html(data.data.total);
                         }
                         else {
                             var html_msg = '<div>';

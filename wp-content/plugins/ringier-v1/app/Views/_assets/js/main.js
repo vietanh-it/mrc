@@ -104,12 +104,16 @@ jQuery(document).ready(function ($) {
                     console.log(data);
                     var result = data.data;
                     $.each(result, function(key, value) {
+                        var text = '';
+                        if(value.min_price_fm != value.min_price_offer_fm ){
+                             text = '<span style="text-decoration: line-through;color: burlywood;">'+value.min_price_fm+'</span>';
+                        }
                         html += '<tr> ' +
                             '<td> <b>' + value.departure_fm +'</b> </td> ' +
                             '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '+ value.duration +'</td> ' +
                             '<td style="text-decoration: underline">' + value.journey_type_info.ship_info.post_title +'</td> ' +
                             '<td> ' + value.navigation + ' </td> ' +
-                            '<td> from <span style="text-decoration: line-through;color: burlywood;">'+value.min_price_fm+'</span> <b style="color: #e4a611">US$'+value.min_price_offer_fm+'</b> pp <br>based on twin cabin </td> ' +
+                            '<td> from '+text+' <b style="color: #e4a611">US$'+value.min_price_offer_fm+'</b> pp <br>based on twin cabin </td> ' +
                             '<td> <a href="' + value.permalink +'" class="bnt-jn">Select</a>' +
                             'Some availability </td> ' +
                             '</tr>';

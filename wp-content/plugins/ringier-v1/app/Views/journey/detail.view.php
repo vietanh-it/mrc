@@ -271,52 +271,52 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
                     var price = $(current_room_type).attr('data-price');
 
-                    if (price) {
-
-                        $.ajax({
-                            url: ajax_url,
-                            type: 'post',
-                            dataType: 'json',
-                            data: {
-                                action: 'ajax_handler_booking',
-                                method: 'SaveCart',
-                                room_id: room_id,
-                                type: type,
-                                price: price,
-                                journey_id: <?php echo $post->ID; ?>,
-                                total: price * quantity
-                            },
-                            beforeSend: function () {
-                                // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
-                            },
-                            success: function (data) {
-                                // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
-
-                                if (data.status == 'success') {
-                                    booking_ready = true;
-                                    // $('#room_name').val(data.data.room_name);
-                                    // $('#room_type').val(data.data.room_type_id);
-                                    // $('#room_id').val(data.data.id);
-                                    console.log(data);
-                                }
-                                else {
-                                    var html_msg = '<div>';
-                                    if (data.message) {
-                                        $.each(data.message, function (k_msg, msg) {
-                                            html_msg += msg + "<br/>";
-                                        });
-                                    } else if (data.data) {
-                                        $.each(data.data, function (k_msg, msg) {
-                                            html_msg += msg + "<br/>";
-                                        });
-                                    }
-                                    html_msg += "</div>";
-                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                                }
-                            }
-                        }); // end ajax
-
+                    if (!price) {
+                        price = 0;
                     }
+
+
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_booking',
+                            method: 'SaveCart',
+                            room_id: room_id,
+                            type: type,
+                            price: price,
+                            journey_id: <?php echo $post->ID; ?>,
+                            total: price * quantity,
+                            quantity: quantity
+                        },
+                        beforeSend: function () {
+                            // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
+                        },
+                        success: function (data) {
+                            // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
+
+                            if (data.status == 'success') {
+                                booking_ready = true;
+
+                                console.log(data);
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+                        }
+                    }); // end ajax
 
                 }
 

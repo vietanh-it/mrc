@@ -42,6 +42,27 @@ class BookingController extends _BaseController
     }
 
 
+    public function getCart($user_id)
+    {
+        $model = Booking::init();
+        $result = $model->getCart($user_id);
+
+        return $result;
+    }
+
+
+    public function ajaxGetCart($data)
+    {
+        $model = Booking::init();
+        $rs = $model->getCartInfo($data['user_id']);
+
+        return [
+            'status' => 'success',
+            'data'   => $rs
+        ];
+    }
+
+
     public function getBookedRoom($journey_id)
     {
         $model = Booking::init();

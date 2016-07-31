@@ -107,6 +107,33 @@ class Booking
     }
 
 
+    public function getCartInfo($user_id)
+    {
+        $query = "SELECT c.id as cart_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.journey_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id}";
+        $cart = $this->_wpdb->get_results($query);
+        $room_type_count = [];
+
+        if (!empty($cart)) {
+            foreach ($cart as $key => $item) {
+                $query = "SELECT room_type_id FROM {$this->_prefix}rooms WHERE id = {$item->room_id}";
+                $item->room_type_id = $this->_wpdb->get_var($query);
+
+                $quantity = ($item->type == 'twin') ? 2 : 1;
+                if (!empty($room_type_count[$item->room_type_id])) {
+                    $room_type_count[$item->room_type_id] += $quantity;
+                } else {
+                    $room_type_count[$item->room_type_id] = $quantity;
+                }
+            }
+        }
+
+        return [
+            'cart'            => $cart,
+            'room_type_count' => $room_type_count
+        ];
+    }
+
+
     public function getCartItem($cart_id, $journey_id, $room_id)
     {
         $query = "SELECT * FROM {$this->_tbl_cart_detail} WHERE cart_id = {$cart_id} AND journey_id = {$journey_id} AND room_id = {$room_id}";

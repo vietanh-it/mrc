@@ -4,6 +4,7 @@ if (!is_user_logged_in()) {
     wp_redirect(wp_login_url($_SERVER['REQUEST_URI']));
     exit;
 }
+$user_id = get_current_user_id();
 
 get_header();
 global $post;
@@ -18,6 +19,9 @@ $current_season = $journey_detail->current_season;
 
 $booked_rooms = $booking_ctrl->getBookedRoom($post->ID);
 $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
+
+$cart = $booking_ctrl->ajaxGetCart(['user_id' => $user_id]);
+var_dump($cart);
 ?>
 
     <div class="journey-detail">
@@ -187,6 +191,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
             // Click on roomid
             $(document).delegate('[data-roomid]', 'click', function (e) {
+
                 if (booking_ready) {
                     booking_ready = false;
 
@@ -276,6 +281,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                     }
 
 
+                    // Add to cart ajax
                     $.ajax({
                         url: ajax_url,
                         type: 'post',
@@ -322,6 +328,57 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
             });
 
+
+            // Load room
+            if (booking_ready) {
+
+                $.ajax({
+                    url: ajax_url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        action: 'ajax_handler_booking',
+                        method: 'GetCart',
+                        user_id: '<?php echo $user_id; ?>'
+                    },
+                    beforeSend: function () {
+                        booking_ready = false;
+                        // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
+                    },
+                    success: function (data) {
+                        // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
+                        booking_ready = true;
+
+                        if (data.status == 'success') {
+                            console.log(data.data);
+
+                            var room_type_count = data.data.room_type_count;
+
+                            for (var key in room_type_count) {
+                                if (room_type_count.hasOwnProperty(key)) {
+                                    console.log(key + " -> " + room_type_count[key]);
+                                    $('room_type_' + key + '_').html(room_type_count[key]);
+                                }
+                            }
+                        }
+                        else {
+                            var html_msg = '<div>';
+                            if (data.message) {
+                                $.each(data.message, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            } else if (data.data) {
+                                $.each(data.data, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            }
+                            html_msg += "</div>";
+                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                        }
+                    }
+                }); // end ajax
+
+            }
         });
     </script>
 

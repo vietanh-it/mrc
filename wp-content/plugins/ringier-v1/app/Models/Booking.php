@@ -56,14 +56,33 @@ class Booking
 
         $user_id = get_current_user_id();
         $cart = $this->getCart($user_id);
-        $cart_item = $this->getCartItem($cart->id, $data['room_id']);
+        $cart_item = $this->getCartItem($cart->id, $data['journey_id'], $data['room_id']);
 
-        if (!empty($cart_item)) {
-            $this->_wpdb->update($this->_tbl_cart_detail, [
-                ''
-            ]);
+        if ($data['type'] == 'none') {
+            $this->_wpdb->delete($this->_tbl_cart_detail, ['id' => $cart_item->id]);
+        } else {
+
+            if (!empty($cart_item)) {
+                var_dump($cart_item);
+                // update cart item
+                $this->_wpdb->update($this->_tbl_cart_detail, [
+                    'type'  => $data['type'],
+                    'price' => $data['price'],
+                    'total' => $data['total']
+                ], ['id' => $cart_item->id]);
+            } else {
+                // Create cart item
+                $this->_wpdb->insert($this->_tbl_cart_detail, [
+                    'cart_id'    => $cart->cart_id,
+                    'journey_id' => $data['journey_id'],
+                    'room_id'    => $data['room_id'], 
+                    'type'       => $data['type'],
+                    'price'      => $data['price'],
+                    'total'      => $data['total']
+                ]);
+            }
+
         }
-
 
         return $cart;
     }
@@ -71,7 +90,7 @@ class Booking
 
     public function getCart($user_id)
     {
-        $query = "SELECT * FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id}";
+        $query = "SELECT c.id as cart_id, c.user_id, c.created_at, cd.* FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id}";
         $cart = $this->_wpdb->get_results($query);
         if (empty($cart)) {
             $this->_wpdb->insert($this->_tbl_cart, [

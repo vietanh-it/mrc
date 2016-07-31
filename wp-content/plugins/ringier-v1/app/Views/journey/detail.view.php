@@ -197,6 +197,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
                     if (current_type == 'twin') {
                         // SINGLE
+                        var quantity = 1;
 
                         // Icon
                         var type = 'single';
@@ -218,6 +219,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
                     } else if (current_type == 'single') {
                         // NONE
+                        quantity = 0;
 
                         type = 'none';
                         icon_html = '';
@@ -242,6 +244,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
                     } else {
                         // TWIN
+                        quantity = 2;
 
                         type = 'twin';
                         icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="<?php echo VIEW_URL ?>/images/icon-booking-twin.png">';
@@ -280,7 +283,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                 room_id: room_id,
                                 type: type,
                                 price: price,
-                                journey_id: <?php echo $post->ID; ?>
+                                journey_id: <?php echo $post->ID; ?>,
+                                total: price * quantity
                             },
                             beforeSend: function () {
                                 // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);

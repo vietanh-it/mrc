@@ -67,7 +67,7 @@ get_header();
 <div class="journey-home">
     <div class="container ">
         <div class="row">
-            <h2 class="col-xs-12 col-sm-12 tile-main">Journey
+            <h2 class="col-xs-12 col-sm-12 tile-main"><a href="<?php echo WP_SITEURL.'/journeys/' ?>">Journey</a>
                 <br> <img src="<?php echo VIEW_URL.'/images/line.png' ?>">
             </h2>
             <?php if($list_journey_type['data']){
@@ -99,7 +99,7 @@ get_header();
     <div class="offer-home">
         <div class="container ">
             <div class="row">
-                <h2 class="col-xs-12 col-sm-12 tile-main">Latest offer
+                <h2 class="col-xs-12 col-sm-12 tile-main"><a href="<?php echo WP_SITEURL.'/offers/' ?>">Latest offer</a>
                     <br> <img src="<?php echo VIEW_URL.'/images/line.png' ?>">
                 </h2>
                 <div  class="owl-carousel-2">
@@ -131,7 +131,7 @@ get_header();
 <div class="why-us">
     <div class="container ">
         <div class="row">
-            <h2 class="col-xs-12 col-sm-12 tile-main white">Why us
+            <h2 class="col-xs-12 col-sm-12 tile-main white"><a href="<?php echo WP_SITEURL.'/why-us/' ?>">Why us</a>
                 <br> <img src="<?php echo VIEW_URL.'/images/line-white.png' ?>">
             </h2>
             <div class="col-xs-12 col-sm-4">

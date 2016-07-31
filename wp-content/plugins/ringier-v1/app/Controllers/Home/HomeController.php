@@ -27,13 +27,6 @@ class HomeController extends _BaseController
 
     public function index()
     {
-        if (!is_user_logged_in()) {
-            wp_redirect(wp_login_url());
-        }
-
-        if (!user_can(wp_get_current_user(), 'administrator')) {
-            die('Website is under construction.');
-        }
         $objShip = ShipController::init();
         $objDestination = DestinationController::init();
         $objPort = PortController::init();

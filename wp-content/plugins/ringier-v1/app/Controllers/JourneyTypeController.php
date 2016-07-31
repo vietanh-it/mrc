@@ -24,13 +24,11 @@ class JourneyTypeController extends _BaseController
         return self::$instance;
     }
 
-    public function journeyTypeList()
+    public function journeyTypeList($args)
     {
         $page = get_query_var('paged');
-        $args = array(
-            'limit' => 6,
-            'page' => $page ? $page : 1,
-        );
+        $args['limit'] = 6 ;
+        $args['page'] = $page ? $page : 1;
         $journey = JourneyType::init();
         $list_journey_type = $journey->getJourneyTypeList($args);
 

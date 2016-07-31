@@ -40,9 +40,6 @@ class CustomOffer
         $Journey = Journey::init();
 
         $list_journey = $Journey->getJourneyList(array('limit' =>10000));
-        /*foreach ($list_journey['data'] as $jt){
-            var_dump(json_encode($jt->ship_info->room_types));
-        }*/
 
         $objOffer = Offer::init();
         $offer_info= $objOffer->getOfferInfo($post);
@@ -101,6 +98,9 @@ class CustomOffer
                                     $select = 'selected';
                                 }else{
                                     $select = '';
+                                }
+                                if(($k == $jt->ID)  or empty($jt->offer)){
+
                                 }
                                 echo "<option value='".$jt->ID ."' 
             data-ship = '".$jt->journey_type_info->ship_info->ID."' 
@@ -215,11 +215,12 @@ class CustomOffer
             <select name="journey_type[]" class="journey_type">
                 <option value=""> --- Select journey --- </option>';
         foreach ($data as $jt){
-            $room_types = json_encode($jt->ship_info->room_types);
-
-            $html .="<option value='".$jt->ID ."' 
+            if(empty($jt->offer)){
+                $room_types = json_encode($jt->ship_info->room_types);
+                $html .="<option value='".$jt->ID ."' 
             data-ship = '".$jt->ship_info->ID."' 
             data-room_types= '".$room_types ."' > ".$jt->post_title ."</option>";
+            }
         }
 
         $html .='</select>

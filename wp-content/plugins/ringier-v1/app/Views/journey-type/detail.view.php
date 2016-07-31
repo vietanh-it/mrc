@@ -7,18 +7,21 @@ if($journey_type_info){ ?>
         <div class="featured-image">
             <img src="<?php echo $journey_type_info->images->full ?>" alt="<?php echo $journey_type_info->post_title ?>" >
 
-            <div class="info">
-                <h1><?php the_title() ?></h1>
-                <h2>
-                    <?php the_excerpt() ?>
-                </h2>
-                <ul>
-                    <li><b>7 nights 6 days</b></li>
-                    <li><b>Promotion:</b> Save up to 20% on selected dates</li>
-                </ul>
-                <a href="javascript:void(0)" class="btn-show-journey" data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
-                <span>from <span class="price-if">US$1,755</span> pp</span>
+            <div class="container container-big">
+                <div class="info">
+                    <h1><?php the_title() ?></h1>
+                    <h2>
+                        <?php the_excerpt() ?>
+                    </h2>
+                    <ul>
+                        <li><b>7 nights 6 days</b></li>
+                        <li><b>Promotion:</b> Save up to 20% on selected dates</li>
+                    </ul>
+                    <a href="javascript:void(0)" class="btn-show-journey" data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
+                    <span>from <span class="price-if">US$1,755</span> pp</span>
+                </div>
             </div>
+
         </div>
 
         <div class="container container-big" id="ctn-list-journey" style="display: none">

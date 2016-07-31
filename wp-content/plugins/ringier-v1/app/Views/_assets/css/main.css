@@ -10,6 +10,10 @@ a {
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
 }
+a:hover{
+    text-decoration: none;
+    color: #e4a611;
+}
 img{
     max-width: 100%;
     width: auto;
@@ -281,6 +285,14 @@ nav ul.navbar-nav li.active a{
     margin: 50px 0;
     font-weight: bold;
 }
+.tile-main a,.title-main a{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+.tile-main a:hover,.title-main a:hover{
+    color: #e4a611;
+}
 .box-journey {
     margin-bottom: 70px;
     position: relative;
@@ -298,6 +310,9 @@ nav ul.navbar-nav li.active a{
     font-weight: bold;
     font-size: 15px;
     text-transform: uppercase;
+}
+.box-journey .desc .title:hover{
+    color: #8c6405;
 }
 .box-journey .desc p{
     margin: 10px 0 20px;
@@ -452,6 +467,11 @@ nav ul.navbar-nav li.active a{
 .white{
     color: white;
 }
+.white a{
+    color: white;
+}.white a:hover{
+    color: #e4a611;
+ }
 .why-us{
     background: #d5b76e;
 }
@@ -614,7 +634,6 @@ footer ul li{
 .journey-detail .featured-image .info{
     position: absolute;
     width: 550px;
-    left: 100px;
     top: 100px;
     background: rgba(234, 173, 35, 0.6);
     padding: 30px;

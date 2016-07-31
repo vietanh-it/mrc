@@ -37,6 +37,14 @@ class ShipController extends _BaseController
         return $result;
     }
 
+    public function listShip(){
+        $post = Posts::init();
+        $list_ship = $post->getList([
+            'post_type' => 'ship',
+        ]);
+
+        view('ship/list', compact('params', 'list_ship'));
+    }
 
     public function ajaxGetRoomInfo($data)
     {

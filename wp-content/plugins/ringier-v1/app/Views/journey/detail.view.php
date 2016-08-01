@@ -340,7 +340,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                     data: {
                         action: 'ajax_handler_booking',
                         method: 'GetCart',
-                        user_id: '<?php echo $user_id; ?>'
+                        user_id: '<?php echo $user_id; ?>',
+                        journey_id: '<?php echo $post->ID; ?>'
                     },
                     beforeSend: function () {
                         booking_ready = false;

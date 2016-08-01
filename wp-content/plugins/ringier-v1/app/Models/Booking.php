@@ -59,9 +59,9 @@ class Booking
         }
 
         $user_id = get_current_user_id();
-        $cart = $this->getCart($user_id);
+        $cart = $this->getCart($user_id, $data['journey_id']);
         $cart = array_shift($cart);
-        $cart_item = $this->getCartItem($cart->cart_id, $data['journey_id'], $data['room_id']);
+        $cart_item = $this->getCartItem($cart->cart_id, $data['room_id']);
 
         if ($data['type'] == 'none') {
             $this->_wpdb->delete($this->_tbl_cart_detail, ['id' => $cart_item->id]);
@@ -78,19 +78,18 @@ class Booking
             } else {
                 // Create cart item
                 $this->_wpdb->insert($this->_tbl_cart_detail, [
-                    'cart_id'    => $cart->cart_id,
-                    'journey_id' => $data['journey_id'],
-                    'room_id'    => $data['room_id'],
-                    'type'       => $data['type'],
-                    'price'      => $data['price'],
-                    'total'      => $data['total'],
-                    'quantity'   => $data['quantity']
+                    'cart_id'  => $cart->cart_id,
+                    'room_id'  => $data['room_id'],
+                    'type'     => $data['type'],
+                    'price'    => $data['price'],
+                    'total'    => $data['total'],
+                    'quantity' => $data['quantity']
                 ]);
             }
 
         }
 
-        $cart->booking_total = valueOrNull($this->getCartTotal($user_id), 0);
+        $cart->booking_total = valueOrNull($this->getCartTotal($user_id, $data['journey_id']), 0);
 
         return $cart;
     }
@@ -100,15 +99,17 @@ class Booking
      * Get or create to get object cart
      *
      * @param $user_id
+     * @param $journey_id
      * @return array|null|object
      */
-    public function getCart($user_id)
+    public function getCart($user_id, $journey_id)
     {
-        $query = "SELECT c.id as cart_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.journey_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id}";
+        $query = "SELECT c.id as cart_id, c.journey_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
         $cart = $this->_wpdb->get_results($query);
         if (empty($cart)) {
             $this->_wpdb->insert($this->_tbl_cart, [
                 'user_id'    => $user_id,
+                'journey_id' => $journey_id,
                 'created_at' => current_time('mysql')
             ]);
 
@@ -123,15 +124,15 @@ class Booking
      * Get cart info when reload booking page
      *
      * @param $user_id
+     * @param $journey_id
      * @return array
      */
-    public function getCartInfo($user_id)
+    public function getCartInfo($user_id, $journey_id)
     {
-        $query = "SELECT c.id as cart_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.journey_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id}";
+        $query = "SELECT c.id as cart_id, c.journey_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
         $cart = $this->_wpdb->get_results($query);
         $room_type_twin_count = [];
         $room_type_single_count = [];
-        $total = 0;
 
         if (!empty($cart)) {
             foreach ($cart as $key => $item) {
@@ -154,21 +155,21 @@ class Booking
             'cart'                   => $cart,
             'room_type_twin_count'   => $room_type_twin_count,
             'room_type_single_count' => $room_type_single_count,
-            'total'                  => $this->getCartTotal($user_id)
+            'total'                  => $this->getCartTotal($user_id, $journey_id)
         ];
     }
 
 
-    public function getCartTotal($user_id)
+    public function getCartTotal($user_id, $journey_id)
     {
-        $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id}";
+        $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
         return valueOrNull($this->_wpdb->get_var($query), 0);
     }
 
 
-    public function getCartItem($cart_id, $journey_id, $room_id)
+    public function getCartItem($cart_id, $room_id)
     {
-        $query = "SELECT * FROM {$this->_tbl_cart_detail} WHERE cart_id = {$cart_id} AND journey_id = {$journey_id} AND room_id = {$room_id}";
+        $query = "SELECT * FROM {$this->_tbl_cart_detail} WHERE cart_id = {$cart_id} AND room_id = {$room_id}";
         $result = $this->_wpdb->get_row($query);
 
         return $result;

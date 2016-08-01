@@ -136,17 +136,19 @@ class Booking
 
         if (!empty($cart)) {
             foreach ($cart as $key => $item) {
-                $query = "SELECT room_type_id FROM {$this->_prefix}rooms WHERE id = {$item->room_id}";
-                $item->room_type_id = $this->_wpdb->get_var($query);
+                if ($item->room_id) {
+                    $query = "SELECT room_type_id FROM {$this->_prefix}rooms WHERE id = {$item->room_id}";
+                    $item->room_type_id = $this->_wpdb->get_var($query);
 
-                if ($item->type == 'twin') {
-                    $room_type_twin_count[$item->room_type_id] = valueOrNull($room_type_twin_count[$item->room_type_id],
-                        0);
-                    $room_type_twin_count[$item->room_type_id] += 2;
-                } elseif ($item->type == 'single') {
-                    $room_type_single_count[$item->room_type_id] = valueOrNull($room_type_single_count[$item->room_type_id],
-                        0);
-                    $room_type_single_count[$item->room_type_id] += 1;
+                    if ($item->type == 'twin') {
+                        $room_type_twin_count[$item->room_type_id] = valueOrNull($room_type_twin_count[$item->room_type_id],
+                            0);
+                        $room_type_twin_count[$item->room_type_id] += 2;
+                    } elseif ($item->type == 'single') {
+                        $room_type_single_count[$item->room_type_id] = valueOrNull($room_type_single_count[$item->room_type_id],
+                            0);
+                        $room_type_single_count[$item->room_type_id] += 1;
+                    }
                 }
             }
         }

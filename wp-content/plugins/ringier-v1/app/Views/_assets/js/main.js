@@ -133,6 +133,14 @@ jQuery(document).ready(function ($) {
         })
     });
 
-    
+    var is_active_menu  = false;
+    $('.btn-menu-jn').click(function () {
+        if(is_active_menu == false){
+            $('.ctn-btn-action').fadeIn();
+            is_active_menu = true;
+        }else {
+            $('.ctn-btn-action').fadeOut();
+        }
+    });
 });
 

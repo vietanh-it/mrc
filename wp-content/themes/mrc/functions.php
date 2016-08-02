@@ -8,8 +8,8 @@ if (!isset($content_width)) {
 function r_theme_setup()
 {
 
-    add_image_size('featured', 600, 600, true);
-    add_image_size('small', 500, 281, true);
+    add_image_size('featured', 500, 500, true);
+    add_image_size('small', 485, 360, true);
     add_theme_support('post-thumbnails');
 
 }

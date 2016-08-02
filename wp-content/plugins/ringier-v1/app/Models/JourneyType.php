@@ -153,7 +153,7 @@ class JourneyType
             $object = (object)array_merge((array)$object, (array)$post_info);
 
             if(!empty($object->map_image)){
-                $img = wp_get_attachment_image_src($object->map_image,'featured');
+                $img = wp_get_attachment_image_src($object->map_image,'small');
                 if($img){
                     $object->map_image = $img[0];
                 }

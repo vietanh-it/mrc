@@ -40,8 +40,8 @@ class r_photo {
                     'crop' => true
                 ),
                 'small' => array(
-                    'width' => 500,
-                    'height' => 281,
+                    'width' => 485,
+                    'height' => 360,
                     'crop' => true
                 )
             )

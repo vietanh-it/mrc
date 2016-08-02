@@ -158,7 +158,6 @@ global $post;
 
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

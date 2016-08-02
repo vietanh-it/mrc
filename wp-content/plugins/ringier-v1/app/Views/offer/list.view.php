@@ -15,7 +15,7 @@ $list_offer = $list_offer ? $list_offer : array(); ?>
                     <div class="box-journey box-white">
                         <div class="image">
                             <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
-                                <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                                <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
                             </a>
                         </div>
                         <div style="border: 1px solid #ccc">

@@ -355,7 +355,7 @@ nav ul.navbar-nav li.active a{
 }
 .box-journey .price{
     position: absolute;
-    top: 55%;
+    top: 50.5%;
     right: 0;
     padding: 5px 25px;
     background: rgba(228, 166, 17, 0.72);
@@ -385,6 +385,9 @@ nav ul.navbar-nav li.active a{
     display: block;
     margin-top: 30px;
     color: #e1cc9c;
+}
+.box-journey-2 .explore:hover{
+    color: #e4a611;
 }
 .box-journey-2 .bk{
     padding-top: 50px;

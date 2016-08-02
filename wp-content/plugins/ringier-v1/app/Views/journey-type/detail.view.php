@@ -57,7 +57,7 @@ if($journey_type_info){ ?>
                     <div class="list-galary">
                         <?php foreach ($journey_type_info->gallery as $g){
                             ?>
-                            <div><img src="<?php echo $g->featured ?>"></div>
+                            <div><img src="<?php echo $g->small ?>"></div>
                         <?php } ?>
                     </div>
                     <?php } ?>
@@ -69,7 +69,7 @@ if($journey_type_info){ ?>
                     <h3 class="title-main">The ship</h3>
                     <div class="list-galary">
                         <?php foreach ($journey_type_info->ship_info->gallery as $g){ ?>
-                            <div><img src="<?php echo $g->featured ?>"></div>
+                            <div><img src="<?php echo $g->small ?>"></div>
                         <?php } ?>
                     </div>
                     <?php } ?>

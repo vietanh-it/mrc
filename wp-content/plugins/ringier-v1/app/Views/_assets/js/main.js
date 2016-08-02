@@ -137,9 +137,12 @@ jQuery(document).ready(function ($) {
     $('.btn-menu-jn').click(function () {
         if(is_active_menu == false){
             $('.ctn-btn-action').fadeIn();
+            $(this).css('padding-right','30px');
             is_active_menu = true;
         }else {
             $('.ctn-btn-action').fadeOut();
+            is_active_menu = false;
+            $(this).css('padding-right','0');
         }
     });
 });

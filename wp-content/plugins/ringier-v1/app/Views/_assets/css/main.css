@@ -1031,7 +1031,7 @@ footer ul li{
     text-transform: uppercase;
     height: 40px;
     padding-top: 10px;
-    border-radius: 10px;
+    border-radius: 7px;
     margin-top: 10px;
     border: 1px solid #f0cf7e;
 }
@@ -1039,8 +1039,27 @@ footer ul li{
     background: white;
     color: #f0cf7e;
 }
-
-
+.content-booking-review .table>thead>tr>th{
+    color: black;
+    padding: 8px 0;
+}
+.content-booking-review .table>tbody>tr>td{
+    padding: 8px 0;
+}
+.content-booking-review .table>thead>tr>th:last-child, .content-booking-review .table>tbody>tr>td:last-child{
+    padding-right: 15px;
+}
+.content-booking-review .title{
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+}
+.content-booking-review .color-main{
+    color: #d5b76e;
+}
+.content-booking-review .info-bk{
+    padding-left: 50px;
+}
 
 
 @media (min-width: 1200px){

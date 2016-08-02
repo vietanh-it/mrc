@@ -85,4 +85,11 @@ class BookingController extends _BaseController
         view('booking/booking_addon');
     }
 
+
+    public function bookingReview(){
+
+        view('booking/review');
+    }
+
+
 }

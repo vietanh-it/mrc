@@ -740,23 +740,19 @@ footer ul li{
 }
 .journey-detail .nav-bar{
     background: #d5b76e;
-    padding: 10px 0;
 }
 .journey-detail .nav-bar .title-main{
-    margin: 10px  0 10px;
+    margin: 30px  0 10px;
     font-size: 18px;
 }
 .journey-detail .nav-bar .right{
-    padding-top: 25px;
     text-align: right;
 }
 .journey-detail .nav-bar .total-price{
     font-size: 18px;
     color: white;
 }
-.journey-detail .nav-bar .btn-menu-jn{
-    padding: 39px 0 32px 20px;
-}
+
 
 .journey-detail .text-tt{
     margin: 30px 0;
@@ -1061,17 +1057,25 @@ footer ul li{
     padding-left: 50px;
 }
 
-
+.journey-detail .nav-bar .btn-menu-jn{
+    text-align: right;
+    width: 50px;
+    padding-bottom: 24px;
+    padding-top: 40px;
+}
+.btn-menu-jn,.btn-menu-edit,.btn-menu-info,.btn-menu-delete{
+    padding: 30px 0;
+    display: inline-block;
+    width: 144px;
+    text-align: center
+}
 .btn-menu-edit{
-    padding: 39px 50px 32px;
     background: #f5f5f5;
 }
 .btn-menu-info{
-    padding: 39px 50px 32px;
     background: #0e76bc;
 }
 .btn-menu-delete{
-    padding: 39px 50px 32px;
     background: #9e0b0f;
 }
 

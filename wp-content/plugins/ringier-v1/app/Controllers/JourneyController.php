@@ -61,4 +61,10 @@ class JourneyController extends _BaseController
 
         return $list_journey;
     }
+
+    public function getMonth(){
+        $model = Journey::init();
+
+        return $model->getMonthHaveJourney();
+    }
 }

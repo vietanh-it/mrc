@@ -2,10 +2,13 @@
 $objShip = \RVN\Controllers\ShipController::init();
 $objDestination = \RVN\Controllers\DestinationController::init();
 $objPort = \RVN\Controllers\PortController::init();
+$objJourney = \RVN\Controllers\JourneyController::init();
 
 $list_destination = $objDestination->getDestinationList();
 $list_port = $objPort->getPortList();
 $list_ship = $objShip->getSipList();
+$list_month = $objJourney->getMonth();
+
 
 $destination = !empty($_GET['_destination']) ? $_GET['_destination'] : '';
 $ship = !empty($_GET['_destination']) ? $_GET['_ship'] : '';
@@ -37,7 +40,15 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="form-group">
-                                <input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month" value="<?php echo $month ?>">
+                                <!--<input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month" value="<?php /*echo $month */?>">-->
+                                <select name="_month" class="form-control select-2">
+                                    <option value="">Choose sail month</option>
+                                    <?php if($list_month){
+                                        foreach ($list_month as $v){ ?>
+                                            <option value="<?php echo $v->month ?>" <?php echo $v->month == $month ? 'selected': '' ?>> <?php echo $v->month ?></option>
+                                        <?php }
+                                    } ?>
+                                </select>
                                 <span class="icon-n icon-date"></span>
                             </div>
                         </div>

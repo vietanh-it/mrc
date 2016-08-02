@@ -3,8 +3,10 @@ namespace RVN\Controllers\Home;
 
 use RVN\Controllers\_BaseController;
 use RVN\Controllers\DestinationController;
+use RVN\Controllers\JourneyController;
 use RVN\Controllers\PortController;
 use RVN\Controllers\ShipController;
+use RVN\Models\Journey;
 use RVN\Models\JourneyType;
 use RVN\Models\Offer;
 
@@ -30,10 +32,12 @@ class HomeController extends _BaseController
         $objShip = ShipController::init();
         $objDestination = DestinationController::init();
         $objPort = PortController::init();
+        $objJourney = JourneyController::init();
 
         $list_destination = $objDestination->getDestinationList();
         $list_port = $objPort->getPortList();
         $list_ship = $objShip->getSipList();
+        $list_month = $objJourney->getMonth();
 
         $args = array(
             'limit' => 3,
@@ -44,7 +48,7 @@ class HomeController extends _BaseController
         $objOffer = Offer::init();
         $list_offer = $objOffer->getListOffer(array());
 
-        return view('home/home',compact('list_destination','list_ship','list_port','list_journey_type','list_offer'));
+        return view('home/home',compact('list_destination','list_ship','list_port','list_journey_type','list_offer','list_month'));
     }
 }
 

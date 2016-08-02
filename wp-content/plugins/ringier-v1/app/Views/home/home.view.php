@@ -30,7 +30,15 @@ get_header();
                 <span class="icon-n icon-location"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month">
+               <!-- <input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month">-->
+                <select name="_month" class="form-control select-2">
+                    <option value="">Choose sail month</option>
+                    <?php if($list_month){
+                        foreach ($list_month as $v){ ?>
+                            <option value="<?php echo $v->month ?>" <?php echo $v->month == $month ? 'selected': '' ?>> <?php echo $v->month ?></option>
+                        <?php }
+                    } ?>
+                </select>
                 <span class="icon-n icon-date"></span>
             </div>
             <div class="form-group">

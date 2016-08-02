@@ -233,4 +233,17 @@ class Journey
         return $result;
     }
 
+    public function getMonthHaveJourney(){
+        $query = ' SELECT DATE_FORMAT(ji.departure,\'%Y-%m\') as month FROM '.$this->_wpdb->posts .' as p INNER JOIN '.$this->_tbl_journey_info .' as ji ON ji.object_id = p.ID WHERE p.post_status = "publish" GROUP BY month' ;
+
+        $result = $this->_wpdb->get_results($query);
+        if($result){
+            foreach ($result as &$v){
+                $v->month = date_format(date_create_from_format("Y-m",$v->month), "m/Y");
+            }
+        }
+
+        return $result;
+    }
+
 }

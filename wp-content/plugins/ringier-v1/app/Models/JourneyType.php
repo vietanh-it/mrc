@@ -143,7 +143,7 @@ class JourneyType
 
             // images, permalink
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'full']);
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'full','small']);
             $object->permalink = get_permalink($object->ID);
 
             // tbl journey_type_info

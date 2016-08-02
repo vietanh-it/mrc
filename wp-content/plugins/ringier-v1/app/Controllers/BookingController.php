@@ -80,4 +80,9 @@ class BookingController extends _BaseController
         return $result;
     }
 
+    public function bookingAddOn(){
+
+        view('booking/booking_addon');
+    }
+
 }

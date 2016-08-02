@@ -38,6 +38,11 @@ class r_photo {
                     'width' => 600,
                     'height' => 600,
                     'crop' => true
+                ),
+                'small' => array(
+                    'width' => 500,
+                    'height' => 281,
+                    'crop' => true
                 )
             )
         );

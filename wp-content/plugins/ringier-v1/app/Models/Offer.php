@@ -108,7 +108,7 @@ class Offer
 
             // images, permalink
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured']);
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured','small']);
             $object->permalink = get_permalink($object->ID);
 
             $query = 'SELECT * FROM ' . $this->_tbl_offer_info . ' WHERE object_id = ' . $object->ID;

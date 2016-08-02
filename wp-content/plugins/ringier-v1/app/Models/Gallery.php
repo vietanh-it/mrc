@@ -40,9 +40,11 @@ class Gallery
                 $image = unserialize($v->images);
                 $image_thumbnail = WP_SITEURL.'/'.$image['url'].'/'.$image['thumbnail'];
                 $image_featured = WP_SITEURL.'/'.$image['url'].'/'.$image['featured'];
+                $image_small = WP_SITEURL.'/'.$image['url'].'/'.$image['small'];
 
                 $v->featured = $image_featured;
                 $v->thumbnail = $image_thumbnail;
+                $v->small = $image_small;
                 $result[] = $v;
             }
         }

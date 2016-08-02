@@ -460,6 +460,7 @@ nav ul.navbar-nav li.active a{
 .box-white .desc{
     background: white;
     padding: 20px;
+    border-bottom: 3px solid #e4a611;
 }
 .orange{
     color: #e4a611;
@@ -981,7 +982,60 @@ footer ul li{
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-
+.booking-addon{
+    border-bottom: 2px solid #cccccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+.booking-addon .title{
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.booking-addon .table>tbody>tr>td{
+    border-top: 0;
+    padding: 5px 0;
+}
+.booking-addon .table>thead>tr>th{
+    border-bottom: 0;
+    padding: 5px 0;
+    color: black;
+}
+.booking-addon .action-quantity:hover{
+    color: #e4a611;
+    border: 1px solid #e4a611;
+}
+.booking-addon .action-quantity{
+    border-radius: 50%;
+    border: 1px solid #676767;
+    font-size: 15px;
+    vertical-align: middle;
+    float: left;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    line-height: 12px;
+    color: #676767;
+    margin-top: 2px;
+}
+.booking-addon .add-addon{
+    display: block;
+    text-align: center;
+    width: 115px;
+    background: #f0cf7e;
+    color: white;
+    text-transform: uppercase;
+    height: 40px;
+    padding-top: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 1px solid #f0cf7e;
+}
+.booking-addon .add-addon:hover{
+    background: white;
+    color: #f0cf7e;
+}
 
 
 

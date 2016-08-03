@@ -108,12 +108,12 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/why-us/'?>" title="">WHY US </a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/ships/'?>" title="">SHIPs </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/ships/' ?>" title="">SHIPs </a></li>
                             <li><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/offers/'?>" title="">OFFERS </a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/resources/'?>" title="">RESOURCEs </a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/news/'?>" title="">news </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/offers/' ?>" title="">OFFERS </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/resources/' ?>" title="">RESOURCEs </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
                         </ul>
                     </div>
                 </div>
@@ -132,5 +132,6 @@
 </header>
 
 <?php if (function_exists('yoast_breadcrumb') && !is_home()) {
-    yoast_breadcrumb('<div class="container container-big"><div class="row"><div class="col-xs-12 col-sm-12"><div class="site-breadcrumb">', '</div></div></div></div>');
+    yoast_breadcrumb('<div class="container container-big"><div class="row"><div class="col-xs-12 col-sm-12"><div class="site-breadcrumb">',
+        '</div></div></div></div>');
 } ?>

@@ -130,3 +130,7 @@
         </div>
     </nav>
 </header>
+
+<?php if (function_exists('yoast_breadcrumb') && !is_home()) {
+    yoast_breadcrumb('<div class="container container-big"><div class="row"><div class="col-xs-12 col-sm-12"><div class="site-breadcrumb">', '</div></div></div></div>');
+} ?>

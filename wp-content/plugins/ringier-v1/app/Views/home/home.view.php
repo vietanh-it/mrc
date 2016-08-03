@@ -33,9 +33,9 @@ get_header();
                <!-- <input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month">-->
                 <select name="_month" class="form-control select-2">
                     <option value="">Choose sail month</option>
-                    <?php if($list_month){
+                    <?php if(!empty($list_month)){
                         foreach ($list_month as $v){ ?>
-                            <option value="<?php echo $v->month ?>" <?php echo $v->month == $month ? 'selected': '' ?>> <?php echo $v->month ?></option>
+                            <option value="<?php echo $v->month ?>" > <?php echo $v->month ?></option>
                         <?php }
                     } ?>
                 </select>

@@ -1028,6 +1028,7 @@ footer ul li{
     height: 40px;
     padding-top: 10px;
     border-radius: 7px;
+    font-family: 'Playfair Display', serif;
     margin-top: 10px;
     border: 1px solid #f0cf7e;
 }
@@ -1078,6 +1079,23 @@ footer ul li{
 }
 .btn-menu-delete{
     background: #9e0b0f;
+}
+
+.site-breadcrumb{
+    font-family: 'Playfair Display', serif;
+    margin: 20px 0;
+}
+.site-breadcrumb a:hover{
+    color: black;
+}
+.site-breadcrumb a{
+    color: darkgrey;
+}
+.site-breadcrumb strong
+{
+    font-weight: normal;
+    text-transform: none;
+    color: slategrey;
 }
 
 

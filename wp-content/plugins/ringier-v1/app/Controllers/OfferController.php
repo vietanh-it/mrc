@@ -34,4 +34,12 @@ class OfferController extends _BaseController
 
         view('offer/list', compact('params', 'list_offer'));
     }
+
+    public function offerDetail($id){
+        $objOffer = Offer::init();
+        $offer_info = $objOffer->getOfferInfo($id);
+
+
+        return view('offer/detail', compact('offer_info'));
+    }
 }

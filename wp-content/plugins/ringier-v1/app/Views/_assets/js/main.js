@@ -87,7 +87,7 @@ jQuery(document).ready(function ($) {
         prevEffect: 'fade',
         nextEffect: 'fade',
         afterShow: function () {
-            $('.fancybox-wrap').swipe({
+            /*$('.fancybox-wrap').swipe({
                 swipe: function (event, direction) {
                     if (direction === 'left' || direction === 'up') {
                         $.fancybox.prev(direction);
@@ -95,7 +95,7 @@ jQuery(document).ready(function ($) {
                         $.fancybox.next(direction);
                     }
                 }
-            });
+            });*/
         }
     });
 

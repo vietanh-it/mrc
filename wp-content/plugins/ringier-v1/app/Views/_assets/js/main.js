@@ -74,6 +74,31 @@ jQuery(document).ready(function ($) {
         });
     };
 
+    $("a.auto_fancybox, a.fancybox").fancybox({
+        helpers: {
+            title: {
+                type: 'over'
+            },
+            overlay: {
+                speedOut: 0
+            }
+        },
+        padding: 10,
+        prevEffect: 'fade',
+        nextEffect: 'fade',
+        afterShow: function () {
+            $('.fancybox-wrap').swipe({
+                swipe: function (event, direction) {
+                    if (direction === 'left' || direction === 'up') {
+                        $.fancybox.prev(direction);
+                    } else {
+                        $.fancybox.next(direction);
+                    }
+                }
+            });
+        }
+    });
+
     (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}

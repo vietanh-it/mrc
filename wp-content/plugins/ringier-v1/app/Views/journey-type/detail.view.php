@@ -5,7 +5,7 @@ if($journey_type_info){ ?>
 
     <div class="journey-detail">
         <div class="featured-image">
-            <img src="<?php echo $journey_type_info->images->full ?>" alt="<?php echo $journey_type_info->post_title ?>" >
+            <a href="<?php echo $journey_type_info->images->full ?>" class="fancybox"><img src="<?php echo $journey_type_info->images->full ?>" alt="<?php echo $journey_type_info->post_title ?>" ></a>
 
             <div class="container container-big">
                 <div class="info">
@@ -57,19 +57,19 @@ if($journey_type_info){ ?>
                     <div class="list-galary">
                         <?php foreach ($journey_type_info->gallery as $g){
                             ?>
-                            <div><img src="<?php echo $g->small ?>"></div>
+                            <div><a href="<?php echo $g->full ?>" class="fancybox" rel="Journey photos"><img src="<?php echo $g->small ?>"></a></div>
                         <?php } ?>
                     </div>
                     <?php } ?>
 
                     <h3 class="title-main">Journey map</h3>
-                    <img src="<?php echo $journey_type_info->map_image ?>" alt="">
+                    <a href="<?php echo $journey_type_info->map_image ?>" class="fancybox"><img src="<?php echo $journey_type_info->map_image ?>" alt=""></a>
 
                     <?php if($journey_type_info->ship_info->gallery){ ?>
                     <h3 class="title-main">The ship</h3>
                     <div class="list-galary">
                         <?php foreach ($journey_type_info->ship_info->gallery as $g){ ?>
-                            <div><img src="<?php echo $g->small ?>"></div>
+                            <div><a href="<?php echo $g->full ?>" class="fancybox" rel="ship photos"><img src="<?php echo $g->small ?>"></a></div>
                         <?php } ?>
                     </div>
                     <?php } ?>

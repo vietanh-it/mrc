@@ -144,7 +144,7 @@ class Journey
 
             // images, permalink
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured','small']);
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured','small','full']);
             $object->permalink = get_permalink($object->ID);
 
             // journey_info

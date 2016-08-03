@@ -110,7 +110,7 @@ class Posts {
         if($result == false){
 
             $objImages = Images::init();
-            $post->images = $objImages->getPostImages($post->ID, ['thumbnail', 'featured','small']);
+            $post->images = $objImages->getPostImages($post->ID, ['thumbnail', 'featured','small','full']);
             $post->permalink = get_permalink($post->ID);
 
             $query = 'SELECT * FROM ' . $this->_table_post_info . ' as pi 

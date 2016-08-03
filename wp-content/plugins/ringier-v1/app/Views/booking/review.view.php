@@ -13,14 +13,16 @@ global $post;
     <div class="nav-bar">
         <div class="container container-big">
             <div class="row">
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-12 col-sm-5">
                     <h3 class="title-main white">CLASSIC MEKONG</h3>
                     <p>From Saigon to Siem Reap, 7 nights, departure on <b>14 July 2016</b></p>
                 </div>
-                <div class="col-xs-12 col-sm-6 right">
+                <div class="col-xs-12 col-sm-7 right">
                     <span class="total-price">Total: US$<span class="booking-total">0</span></span>
-                    <a href="javascript:void(0)" class="btn-menu-jn"><img
-                            src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
+                    <a href="javascript:void(0)" class="btn-menu-jn"><img src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
+                        <span class="ctn-btn-action" style="display: none;">
+                            <a href="#" class="btn-menu-edit"><img src="<?php echo VIEW_URL.'/images/icon-edit.png'?>"><br>See journey detail</a><a href="#" class="btn-menu-info"><img src="<?php echo VIEW_URL.'/images/icon-info.png'?>"><br>Edit journey</a><a href="#" class="btn-menu-delete"><img src="<?php echo VIEW_URL.'/images/icon-delete.png'?>"><br>Delete</a>
+                        </span>
                 </div>
             </div>
         </div>

@@ -50,13 +50,4 @@ function mrcLoad()
     \RVN\Controllers\ShipController::init();
     \RVN\Controllers\JourneyController::init();
     \RVN\Controllers\BookingController::init();
-
-    // Debugging mode
-    // if (IS_DEBUGGING) {
-    //     if (!is_user_logged_in() || (!user_can(wp_get_current_user(),
-    //                 'administrator') && !user_can(wp_get_current_user(), 'moderator'))
-    //     ) {
-    //         wp_redirect(wp_login_url());
-    //     }
-    // }
 }

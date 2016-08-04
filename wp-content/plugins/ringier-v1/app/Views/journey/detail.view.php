@@ -1,9 +1,5 @@
 <?php
 
-if (!is_user_logged_in()) {
-    wp_redirect(wp_login_url($_SERVER['REQUEST_URI']));
-    exit;
-}
 $user_id = get_current_user_id();
 
 get_header();

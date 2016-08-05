@@ -914,10 +914,12 @@ footer ul li{
 .ui-datepicker-calendar {
     display: none;
 }
+
 .select2-container, .select2-drop, .select2-search, .select2-search input{
     background: none;
     border: 0;
     padding: 0;
+    z-index: 9999999;
 }
 
 .select2-drop.select2-drop-above.select2-drop-active{

@@ -16,8 +16,8 @@ jQuery(document).ready(function ($) {
     $(".owl-carousel-2").owlCarousel({
         autoPlay: 5000,
         items : 3,
-        itemsDesktop : [1199,1],
-        itemsDesktopSmall : [760,1],
+        itemsDesktop : [1199,3],
+        itemsDesktopSmall : [760,3],
         navigation: true,
         pagination: false
     });

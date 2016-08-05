@@ -104,6 +104,9 @@ nav ul.navbar-nav li.active a{
     font-weight: bold;
 }
 
+.action-contact {
+    float: right;
+}
 .action-contact a{
     color: #545454;
 }

@@ -355,11 +355,11 @@ nav ul.navbar-nav li.active a{
 }
 .box-journey .price{
     position: absolute;
-    top: 43.6%;
     right: 0;
     padding: 5px 25px;
     background: rgba(228, 166, 17, 0.72);
     color: white;
+    bottom: 0;
     font-weight: bold;
 }
 

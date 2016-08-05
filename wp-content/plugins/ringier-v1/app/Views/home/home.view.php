@@ -8,16 +8,8 @@
 get_header();
 ?>
 <div class="home-slider" id="home-slider">
-    <div  class="owl-carousel">
-        <div><img src="<?php echo VIEW_URL.'/images/bn1.jpg' ?>" alt=""></div>
-        <div><img src="<?php echo VIEW_URL.'/images/bn2.jpg' ?>" alt=""></div>
-        <div><img src="<?php echo VIEW_URL.'/images/bn3.jpg' ?>" alt=""></div>
-        <div><img src="<?php echo VIEW_URL.'/images/bn4.jpg' ?>" alt=""></div>
-    </div>
-
     <div class="container">
-        <!-- <div class="row">
-             <div class="col-xs-12 col-sm-12">-->
+       
         <div class="form-find-journey">
             <form method="get" action="<?php echo WP_SITEURL.'/journeys' ?>">
                 <h3>Find your journey</h3>
@@ -75,6 +67,14 @@ get_header();
         </div>
         <!--   </div>
        </div>-->
+    </div>
+    <div class="ctn-slide">
+        <div  class="owl-carousel">
+            <div><img src="<?php echo VIEW_URL.'/images/bn1.jpg' ?>" alt=""></div>
+            <div><img src="<?php echo VIEW_URL.'/images/bn2.jpg' ?>" alt=""></div>
+            <div><img src="<?php echo VIEW_URL.'/images/bn3.jpg' ?>" alt=""></div>
+            <div><img src="<?php echo VIEW_URL.'/images/bn4.jpg' ?>" alt=""></div>
+        </div>
     </div>
 
 </div>

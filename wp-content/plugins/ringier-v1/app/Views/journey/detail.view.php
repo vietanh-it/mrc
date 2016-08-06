@@ -33,9 +33,15 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                     </div>
                     <div class="col-xs-12 col-sm-7 right">
                         <span class="total-price">Total: US$<span class="booking-total">0</span></span>
-                        <a href="javascript:void(0)" class="btn-menu-jn"><img src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
+                        <a href="javascript:void(0)" class="btn-menu-jn"><img
+                                src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
                         <span class="ctn-btn-action" style="display: none;">
-                            <a href="#" class="btn-menu-edit"><img src="<?php echo VIEW_URL.'/images/icon-edit.png'?>"><br>See journey detail</a><a href="#" class="btn-menu-info"><img src="<?php echo VIEW_URL.'/images/icon-info.png'?>"><br>Edit journey</a><a href="#" class="btn-menu-delete"><img src="<?php echo VIEW_URL.'/images/icon-delete.png'?>"><br>Delete</a>
+                            <a href="#" class="btn-menu-edit"><img
+                                    src="<?php echo VIEW_URL . '/images/icon-edit.png' ?>"><br>See journey detail</a><a
+                                href="#" class="btn-menu-info"><img
+                                    src="<?php echo VIEW_URL . '/images/icon-info.png' ?>"><br>Edit journey</a><a
+                                href="#" class="btn-menu-delete"><img
+                                    src="<?php echo VIEW_URL . '/images/icon-delete.png' ?>"><br>Delete</a>
                         </span>
                     </div>
                 </div>
@@ -84,9 +90,11 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                         <span class="price">
                                             <span class="big">
                                                 <?php if ($current_season == 'high') {
-                                                    echo "US$" . number_format($room_type->twin_high_season_price);
+                                                    echo "US$" . number_format(valueOrNull($room_type->twin_high_season_price_offer,
+                                                            $room_type->twin_high_season_price));
                                                 } else {
-                                                    echo "US$" . number_format($room_type->twin_low_season_price);
+                                                    echo "US$" . number_format(valueOrNull($room_type->twin_low_season_price_offer,
+                                                            $room_type->twin_low_season_price));
                                                 } ?>
                                             </span>
                                             <!--<br>-->
@@ -101,9 +109,11 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                         <span class="price">
                                             <span class="big">
                                                 <?php if ($current_season == 'high') {
-                                                    echo "US$" . number_format($room_type->single_high_season_price);
+                                                    echo "US$" . number_format(valueOrNull($room_type->single_high_season_price_offer,
+                                                            $room_type->single_high_season_price));
                                                 } else {
-                                                    echo "US$" . number_format($room_type->single_low_season_price);
+                                                    echo "US$" . number_format(valueOrNull($room_type->single_low_season_price_offer,
+                                                            $room_type->single_low_season_price));
                                                 } ?>
                                             </span>
                                             <!--<br> US$3,250-->
@@ -119,8 +129,17 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                 </div>
 
                                 <?php foreach ($ship_info->room_types as $key => $room_type) {
-                                    $twin_price = ($current_season == 'high') ? $room_type->twin_high_season_price : $room_type->twin_low_season_price;
-                                    $single_price = ($current_season == 'high') ? $room_type->single_high_season_price : $room_type->single_low_season_price; ?>
+                                    $twin_price = ($current_season == 'high') ?
+                                        valueOrNull($room_type->twin_high_season_price_offer,
+                                            $room_type->twin_high_season_price) :
+                                        valueOrNull($room_type->twin_low_season_price_offer,
+                                            $room_type->twin_low_season_price);
+
+                                    $single_price = ($current_season == 'high') ?
+                                        valueOrNull($room_type->single_high_season_price_offer,
+                                            $room_type->single_high_season_price) :
+                                        valueOrNull($room_type->single_low_season_price_offer,
+                                            $room_type->single_low_season_price); ?>
 
                                     <div class="bk-box bk-box-2">
                                         <div class="row">

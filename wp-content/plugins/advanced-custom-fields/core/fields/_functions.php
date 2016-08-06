@@ -138,6 +138,16 @@ class acf_field_functions
                 case 'pretour':
                 case 'posttour':
                 case 'addon':
+                    if($field['name'] == 'journey_type'){
+                        $table = $wpdb->prefix . 'tour_journey_type';
+                        $query = "SELECT * FROM $table  WHERE tour_id = {$post_id}";
+                        $result = $wpdb->get_results($query);
+                        $value = [];
+                        foreach ($result as $v) {
+                            $value[] = $v->journey_type_id;
+                        }
+                        return $value;
+                    }
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}tour_info jti ON p.ID = jti.object_id WHERE p.ID = {$post_id}";
                     $result = $wpdb->get_row($query);
                     if (isset($result->{$field['name']})) {
@@ -401,6 +411,19 @@ class acf_field_functions
                 case 'pretour':
                 case 'posttour':
                 case 'addon':
+                    if ($field['name'] == 'journey_type') {
+                        $wpdb->delete($wpdb->prefix . 'tour_journey_type', ['tour_id' => $post_id]);
+
+
+                        if (is_array($data[$field['name']])) {
+                            foreach ($data[$field['name']] as $d) {
+                                $wpdb->insert($wpdb->prefix . 'tour_journey_type',
+                                    ['tour_id' => $post_id, 'journey_type_id' => $d]);
+                            }
+                        }
+                        unset($data[$field['name']]);
+                    }
+
                     if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}tour_info WHERE object_id = {$post_id}"))) {
                         $data['object_id'] = $post_id;
                         $wpdb->insert($wpdb->prefix . 'tour_info', $data);

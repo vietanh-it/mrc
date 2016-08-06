@@ -11,7 +11,7 @@ if($journey_type_info){ ?>
                 <div class="info">
                     <h1><?php the_title() ?></h1>
                     <h2>
-                        <?php the_excerpt() ?>
+                        <?php echo $journey_type_info->post_content ?>
                     </h2>
                     <ul>
                         <li><b>7 nights 6 days</b></li>
@@ -77,7 +77,17 @@ if($journey_type_info){ ?>
 
                 <div class="col-xs-12 col-sm-8">
                     <h3 class="title-main">Itinerary</h3>
-                    <?php echo apply_filters('the_content',$journey_type_info->post_content) ?>
+                    <?php if(!empty($journey_type_info->itinerary)){
+                        $itinerary = unserialize($journey_type_info->itinerary);
+                        foreach ($itinerary as $it){ ?>
+                            <div class="box-day-in">
+                                <div class="day-in">DAY <?php echo $it['day_name'] ?> <?php echo $it['day_port'] ?></div>
+                                <p><?php echo apply_filters('the_content',$it['day_content']) ?></p>
+                            </div>
+                        <?php }
+                    } ?>
+                    <div class="title-main">WHAT’S INCLUDED</div>
+                    <p><b>Cruise Price Includes:</b> <?php echo $journey_type_info->include ?></p>
                 </div>
             </div>
             <?php if($list_add_on['data']){ ?>

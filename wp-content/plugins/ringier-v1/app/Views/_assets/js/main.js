@@ -170,5 +170,18 @@ jQuery(document).ready(function ($) {
             $(this).css('padding-right','0');
         }
     });
+
+    $('.quick-search-journey-form').submit(function (e) {
+        var _destination = $('select[name = "_destination"]').val();
+        var _month = $('select[name = "_month"]').val();
+        var _port = $('select[name = "_port"]').val();
+        var _ship = $('select[name = "_ship"]').val();
+
+        if(_ship == '' && _destination == '' && _month =='' && _port ==''){
+            e.preventDefault();
+
+            swal({ 'title':'Warning',"text": 'Please choose one of the options', "type": "warning", html: true});
+        }
+    });
 });
 

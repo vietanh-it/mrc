@@ -17,7 +17,7 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
 
 ?>
 <div class="quick-search-journey">
-    <form method="get">
+    <form method="get" class="quick-search-journey-form">
         <div class="container container-big">
             <div class="row">
                 <h3 class="col-xs-12 col-sm-12">Find your journey</h3>

@@ -9,9 +9,8 @@ get_header();
 ?>
 <div class="home-slider" id="home-slider">
     <div class="container">
-       
         <div class="form-find-journey">
-            <form method="get" action="<?php echo WP_SITEURL.'/journeys' ?>">
+            <form method="get" action="<?php echo WP_SITEURL.'/journeys' ?>" class="quick-search-journey-form">
                 <h3>Find your journey</h3>
                 <div class="form-group">
                     <select name="_destination" class="form-control select-2">

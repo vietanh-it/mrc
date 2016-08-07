@@ -1,6 +1,6 @@
 <?php
 get_header();
-!empty($journey_type_info) ? $journey_type_info = $journey_type_info : $journey_type_info = '';
+$journey_type_info =  !empty($journey_type_info) ? $journey_type_info : $journey_type_info = '';
 if($journey_type_info){ ?>
 
     <div class="journey-detail">
@@ -90,7 +90,7 @@ if($journey_type_info){ ?>
                     <p><b>Cruise Price Includes:</b> <?php echo $journey_type_info->include ?></p>
                 </div>
             </div>
-            <?php if($list_add_on['data']){ ?>
+            <?php if(!empty($list_add_on['data'])){ ?>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <h3 class="title-related">Extensions and Service Addons</h3>

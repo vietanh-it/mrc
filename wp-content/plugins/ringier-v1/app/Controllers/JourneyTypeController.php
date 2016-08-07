@@ -3,6 +3,7 @@ namespace RVN\Controllers;
 
 use RVN\Models\JourneyType;
 use RVN\Models\Posts;
+use RVN\Models\TourAddon;
 
 class JourneyTypeController extends _BaseController
 {
@@ -40,10 +41,10 @@ class JourneyTypeController extends _BaseController
         $journeyType = JourneyType::init();
         $journey_type_info = $journeyType->getInfo($journey_id);
 
-        $objPost = Posts::init();
-        $list_add_on= $objPost->getList(
+        $objTourAddon = TourAddon::init();
+        $list_add_on= $objTourAddon->getList(
            array(
-               'post_type' => array('addon','pretour','posttour'),
+               'journey_type_id' => $journey_id,
                'limit' => 6,
            ));
 

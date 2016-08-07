@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <ul class="top-info text-right">
-                        <li><a href="#"> <i class="fa fa-calendar" aria-hidden="true"></i> Your booking</a></li>
+                        <li><a href="#"> <img src="<?php echo VIEW_URL.'/images/icon-date-2.png' ?>" style="margin-top: -3px;margin-right: 5px" alt=""> Your booking</a></li>
                         <?php if (!is_user_logged_in()) { ?>
                             <li class="sign-up">
                                 <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>">

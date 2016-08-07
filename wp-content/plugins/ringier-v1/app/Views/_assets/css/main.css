@@ -123,7 +123,9 @@ nav ul.navbar-nav li.active a{
     font-weight: bold;
 }
 .action-contact .right-icon .bot{
-    font-size: 13px;
+    font-size: 14px;
+    color: #bababa;
+    font-weight: bold;
 }
 
 

@@ -88,15 +88,40 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                     <div class="bk-box bk-box-gray">
                                         <span class="text"><?php echo $room_type->room_type_name ?> Twin Share</span>
                                         <span class="price">
-                                            <span class="big">
+
                                                 <?php if ($current_season == 'high') {
-                                                    echo "US$" . number_format(valueOrNull($room_type->twin_high_season_price_offer,
-                                                            $room_type->twin_high_season_price));
+
+                                                    // High season price
+                                                    // Offer
+                                                    if (!empty($room_type->twin_high_season_price_offer)) {
+                                                        echo "<span class='old-price'>US$" . number_format($room_type->twin_high_season_price) . "</span>";
+                                                        echo "<span class='big'>US$" . number_format($room_type->twin_high_season_price_offer) . "</span>";
+                                                    } else {
+                                                        // No offer ?>
+                                                        <span class="big">
+                                                            <?php echo "US$" . number_format($room_type->twin_high_season_price); ?>
+                                                        </span>
+                                                    <?php }
+
                                                 } else {
-                                                    echo "US$" . number_format(valueOrNull($room_type->twin_low_season_price_offer,
-                                                            $room_type->twin_low_season_price));
+
+                                                    // Low season price
+                                                    // Offer
+                                                    if (!empty($room_type->twin_low_season_price_offer)) { ?>
+                                                        <span class="old-price">
+                                                            <?php echo "US$" . number_format($room_type->twin_low_season_price); ?>
+                                                        </span>
+                                                        <span class="big">
+                                                            <?php echo "US$" . number_format($room_type->twin_low_season_price_offer); ?>
+                                                        </span>
+                                                    <?php } else {
+                                                        // No offer ?>
+                                                        <span class="big">
+                                                            <?php echo "US$" . number_format($room_type->twin_low_season_price); ?>
+                                                        </span>
+                                                    <?php }
+
                                                 } ?>
-                                            </span>
                                             <!--<br>-->
                                             <!--US$3,250-->
                                         </span>

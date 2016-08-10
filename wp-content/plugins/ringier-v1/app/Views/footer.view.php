@@ -102,6 +102,10 @@
 
                     <div class="col-xs-12 col-sm-3 text-right">
                         <img src="<?php echo VIEW_URL . '/images/verify-web.png' ?>" alt="">
+                        <br/><br/>
+                        MEKONG RIVER CRUISER LIMITED <br/>
+                        Add: No. 11.O, Mieu Noi Residential Area, Ward 3, Binh Thanh District, HCMC, Vietnam <br/>
+                        Tel: +84 8 3514 6033 <br/>
                     </div>
 
                 </div>
@@ -112,10 +116,16 @@
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="copy-right">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6">© 2016 Mekong River Cruise.</div>
-                        <div class="col-xs-12 col-sm-6 text-right"><a href="#" title="">Terms of Use</a> | <a href="#"
-                                                                                                              title="">Privacy
-                                Policy</a> | <a href="#" title="">Site Map</a></div>
+                        <div class="col-xs-12 col-sm-6">&copy; <?php echo date('Y'); ?> Mekong River Cruise.</div>
+                        <div class="col-xs-12 col-sm-6 text-right">
+                            <a href="#" title="">
+                                Terms of Use
+                            </a> |
+                            <a href="#" title="">
+                                Privacy Policy
+                            </a> |
+                            <a href="#" title="">Site Map</a>
+                        </div>
                     </div>
                 </div>
             </div>

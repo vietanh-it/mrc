@@ -16,6 +16,11 @@ Text Domain: mrc
     height: 100%;
 }
 
+.old-price {
+    color: #999999;
+    text-decoration: line-through;
+}
+
 @media (min-width: 1200px) {
     .container {
         width: 1170px !important;

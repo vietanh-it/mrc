@@ -111,13 +111,13 @@ if (!function_exists('set_cache_tag')) {
     function set_cache_tag($key, $tags)
     {
         if (!is_array($tags)) {
-            $tags = array($tags);
+            $tags = [$tags];
         }
         foreach ($tags as $tag) {
             $tag_key = "tag_" . md5($tag);
             $list = wp_cache_get($tag_key);
             if ($list === false) {
-                $list = array($key);
+                $list = [$key];
             } else {
                 $list[] = $key;
             }
@@ -134,7 +134,7 @@ if (!function_exists('delete_cache_tag')) {
     function delete_cache_tag($tags)
     {
         if (!is_array($tags)) {
-            $tags = array($tags);
+            $tags = [$tags];
         }
         foreach ($tags as $tag) {
             $tag_key = "tag_" . md5($tag);
@@ -210,4 +210,71 @@ if (!function_exists('validateDate')) {
         }
 
     }
+}
+
+if (!function_exists('showPrice')) {
+
+    function showPrice($room_type_object, $type = 'twin', $season = 'high')
+    {
+        $result_string = '';
+
+        if (!empty($room_type_object)) {
+
+            if ($type == 'twin') {
+                // Twin
+
+                if ($season == 'high') {
+                    // High season
+
+                    if (!empty($room_type_object->twin_high_season_price_offer)) {
+                        $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_high_season_price) . "</span>";
+                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_high_season_price_offer) . "</span>";
+                    } else {
+                        // No offer
+                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_high_season_price) . '</span>';
+                    }
+                } elseif ($season == 'low') {
+                    // Low season
+
+                    if (!empty($room_type_object->twin_low_season_price_offer)) {
+                        $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_low_season_price) . "</span>";
+                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_low_season_price_offer) . "</span>";
+                    } else {
+                        // No offer
+                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_low_season_price) . '</span>';
+                    }
+                }
+
+            } elseif ($type == 'single') {
+
+                // Single
+                if ($season == 'high') {
+                    // High season
+
+                    if (!empty($room_type_object->single_high_season_price_offer)) {
+                        $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->single_high_season_price) . "</span>";
+                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_high_season_price_offer) . "</span>";
+                    } else {
+                        // No offer
+                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_high_season_price) . '</span>';
+                    }
+                } elseif ($season == 'low') {
+                    // Low season
+
+                    if (!empty($room_type_object->single_low_season_price_offer)) {
+                        $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->single_low_season_price) . "</span>";
+                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_low_season_price_offer) . "</span>";
+                    } else {
+                        // No offer
+                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_low_season_price) . '</span>';
+                    }
+                }
+
+            }
+
+        }
+
+        return $result_string;
+    }
+
 }

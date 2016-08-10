@@ -15,7 +15,7 @@ class _BaseController
         $this->session = $session_factory->newInstance($_COOKIE);
 
         // view doc https://github.com/vlucas/valitron
-        $this->validate = new \Valitron\Validator($_POST, [], 'vi');
+        $this->validate = new \Valitron\Validator($_POST, [], 'en');
     }
 
 

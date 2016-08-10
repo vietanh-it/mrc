@@ -29,12 +29,21 @@ class BookingController extends _BaseController
 
     public function ajaxSaveCart($data)
     {
-        $model = Booking::init();
-        $rs = $model->saveCart($data);
-        if (!empty($rs)) {
+        $this->validate->rule('required', ['journey_id', 'room_id']);
+
+        if ($this->validate->validate()) {
+            $model = Booking::init();
+            $rs = $model->saveCart($data);
+            if (!empty($rs)) {
+                $result = [
+                    'status' => 'success',
+                    'data'   => $rs
+                ];
+            }
+        } else {
             $result = [
-                'status' => 'success',
-                'data'   => $rs
+                'status' => 'fail',
+                'data'   => $this->validate->errors()
             ];
         }
 
@@ -80,13 +89,15 @@ class BookingController extends _BaseController
         return $result;
     }
 
-    public function bookingAddOn(){
+    public function bookingAddOn()
+    {
 
         view('booking/booking_addon');
     }
 
 
-    public function bookingReview(){
+    public function bookingReview()
+    {
 
         view('booking/review');
     }

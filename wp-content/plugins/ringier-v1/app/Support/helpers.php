@@ -212,9 +212,9 @@ if (!function_exists('validateDate')) {
     }
 }
 
-if (!function_exists('showPrice')) {
+if (!function_exists('htmlPrice')) {
 
-    function showPrice($room_type_object, $type = 'twin', $season = 'high')
+    function htmlPrice($room_type_object, $type = 'twin', $season = 'high')
     {
         $result_string = '';
 

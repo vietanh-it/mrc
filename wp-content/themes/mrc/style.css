@@ -19,6 +19,8 @@ Text Domain: mrc
 .old-price {
     color: #999999;
     text-decoration: line-through;
+    font-size: 14px;
+    padding-right: 6px;
 }
 
 @media (min-width: 1200px) {

@@ -89,41 +89,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                         <span class="text"><?php echo $room_type->room_type_name ?> Twin Share</span>
                                         <span class="price">
 
-                                                <?php if ($current_season == 'high') {
+                                                <?php echo htmlPrice($room_type, 'twin', $current_season); ?>
 
-                                                    // High season price
-                                                    // Offer
-                                                    if (!empty($room_type->twin_high_season_price_offer)) {
-                                                        echo "<span class='old-price'>US$" . number_format($room_type->twin_high_season_price) . "</span>";
-                                                        echo "<span class='big'>US$" . number_format($room_type->twin_high_season_price_offer) . "</span>";
-                                                    } else {
-                                                        // No offer ?>
-                                                        <span class="big">
-                                                            <?php echo "US$" . number_format($room_type->twin_high_season_price); ?>
-                                                        </span>
-                                                    <?php }
-
-                                                } else {
-
-                                                    // Low season price
-                                                    // Offer
-                                                    if (!empty($room_type->twin_low_season_price_offer)) { ?>
-                                                        <span class="old-price">
-                                                            <?php echo "US$" . number_format($room_type->twin_low_season_price); ?>
-                                                        </span>
-                                                        <span class="big">
-                                                            <?php echo "US$" . number_format($room_type->twin_low_season_price_offer); ?>
-                                                        </span>
-                                                    <?php } else {
-                                                        // No offer ?>
-                                                        <span class="big">
-                                                            <?php echo "US$" . number_format($room_type->twin_low_season_price); ?>
-                                                        </span>
-                                                    <?php }
-
-                                                } ?>
-                                            <!--<br>-->
-                                            <!--US$3,250-->
                                         </span>
                                     </div>
 
@@ -133,15 +100,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
                                         </span>
                                         <span class="price">
                                             <span class="big">
-                                                <?php if ($current_season == 'high') {
-                                                    echo "US$" . number_format(valueOrNull($room_type->single_high_season_price_offer,
-                                                            $room_type->single_high_season_price));
-                                                } else {
-                                                    echo "US$" . number_format(valueOrNull($room_type->single_low_season_price_offer,
-                                                            $room_type->single_low_season_price));
-                                                } ?>
+                                                <?php echo htmlPrice($room_type, 'single', $current_season); ?>
                                             </span>
-                                            <!--<br> US$3,250-->
                                         </span>
                                     </div>
                                 <?php } ?>
@@ -214,7 +174,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms);
 
                                 <div class="text-center btt-box">
                                     <a href="<?php echo WP_SITEURL . '/journeys' ?>" class="back">Back</a>
-                                    <button type="submit">Continue</button>
+                                    <!--<button type="submit">Continue</button>-->
+                                    <a href="<?php echo WP_SITEURL . '/booking-add-on' ?>" class="btn btn-primary">Continue</a>
                                 </div>
                             </form>
                         </div>

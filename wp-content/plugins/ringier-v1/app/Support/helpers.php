@@ -221,51 +221,55 @@ if (!function_exists('showPrice')) {
         if (!empty($room_type_object)) {
 
             if ($type == 'twin') {
-                // Twin
+                // 1. Twin
 
                 if ($season == 'high') {
-                    // High season
+                    // 1.1 High season
 
                     if (!empty($room_type_object->twin_high_season_price_offer)) {
+                        // 1.1.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_high_season_price) . "</span>";
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_high_season_price_offer) . "</span>";
                     } else {
-                        // No offer
+                        // 1.1.2 No offer
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_high_season_price) . '</span>';
                     }
                 } elseif ($season == 'low') {
-                    // Low season
+                    // 1.2 Low season
 
                     if (!empty($room_type_object->twin_low_season_price_offer)) {
+                        // 1.2.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_low_season_price) . "</span>";
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_low_season_price_offer) . "</span>";
                     } else {
-                        // No offer
+                        // 1.2.2 No offer
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_low_season_price) . '</span>';
                     }
                 }
 
             } elseif ($type == 'single') {
 
-                // Single
+                // 2. Single
                 if ($season == 'high') {
-                    // High season
+                    // 2.1 High season
 
                     if (!empty($room_type_object->single_high_season_price_offer)) {
+                        // 2.1.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->single_high_season_price) . "</span>";
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_high_season_price_offer) . "</span>";
                     } else {
-                        // No offer
+                        // 2.1.2 No offer
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_high_season_price) . '</span>';
                     }
                 } elseif ($season == 'low') {
-                    // Low season
+                    // 2.2 Low season
 
                     if (!empty($room_type_object->single_low_season_price_offer)) {
+                        // 2.2.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->single_low_season_price) . "</span>";
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_low_season_price_offer) . "</span>";
                     } else {
-                        // No offer
+                        // 2.2.2 No offer
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_low_season_price) . '</span>';
                     }
                 }

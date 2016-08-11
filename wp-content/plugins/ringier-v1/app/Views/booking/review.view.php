@@ -19,9 +19,15 @@ global $post;
                 </div>
                 <div class="col-xs-12 col-sm-7 right">
                     <span class="total-price">Total: US$<span class="booking-total">0</span></span>
-                    <a href="javascript:void(0)" class="btn-menu-jn"><img src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
-                        <span class="ctn-btn-action" style="display: none;">
-                            <a href="#" class="btn-menu-edit"><img src="<?php echo VIEW_URL.'/images/icon-edit.png'?>"><br>See journey detail</a><a href="#" class="btn-menu-info"><img src="<?php echo VIEW_URL.'/images/icon-info.png'?>"><br>Edit journey</a><a href="#" class="btn-menu-delete"><img src="<?php echo VIEW_URL.'/images/icon-delete.png'?>"><br>Delete</a>
+                    <a href="javascript:void(0)" class="btn-menu-jn"><img
+                            src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
+                    <span class="ctn-btn-action" style="display: none;">
+                            <a href="#" class="btn-menu-edit"><img
+                                    src="<?php echo VIEW_URL . '/images/icon-edit.png' ?>"><br>See journey detail</a><a
+                            href="#" class="btn-menu-info"><img
+                                src="<?php echo VIEW_URL . '/images/icon-info.png' ?>"><br>Edit journey</a><a href="#"
+                                                                                                              class="btn-menu-delete"><img
+                                src="<?php echo VIEW_URL . '/images/icon-delete.png' ?>"><br>Delete</a>
                         </span>
                 </div>
             </div>
@@ -53,7 +59,7 @@ global $post;
                             <tr>
                                 <td>Upper Deck Twin Sharing</td>
                                 <td>2</td>
-                                <td class="text-right color-main" >US$650.00</td>
+                                <td class="text-right color-main">US$650.00</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right">
@@ -78,7 +84,7 @@ global $post;
                                     (InterContinental Asiana)
                                 </td>
                                 <td>2</td>
-                                <td class="text-right color-main" >US$650.00</td>
+                                <td class="text-right color-main">US$650.00</td>
                             </tr>
 
                             <!--<----- >-->
@@ -112,14 +118,18 @@ global $post;
                             </div>
 
                             <b class="title" style="margin: 30px 0 10px">Additional information</b>
-                            <textarea class="form-control" rows="5" name="comment" value="I need vegetable food and need visa application support."></textarea>
+                            <textarea class="form-control" rows="5" name="comment"
+                                      value="I need vegetable food and need visa application support."></textarea>
 
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">I have read and agree to the terms & conditions</label>
+                                <label><input type="checkbox" value="">I have read and agree to the terms &
+                                    conditions</label>
                             </div>
 
                             <div class="text-center btt-box">
-                                <a href="http://local.mrc.com/journeys" class="back">Back</a>
+                                <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>
+
+                                <a href="<?php echo $url . '?step=booking-review' ?>" class="back">Back</a>
                                 <button type="submit">Pay Deposit</button>
                             </div>
                         </div>

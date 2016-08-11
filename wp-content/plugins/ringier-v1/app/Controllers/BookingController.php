@@ -51,10 +51,10 @@ class BookingController extends _BaseController
     }
 
 
-    public function getCart($user_id, $journey_id)
+    public function getCartItems($user_id, $journey_id)
     {
         $model = Booking::init();
-        $result = $model->getCart($user_id, $journey_id);
+        $result = $model->getCartItems($user_id, $journey_id);
 
         return $result;
     }

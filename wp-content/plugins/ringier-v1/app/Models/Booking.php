@@ -59,7 +59,7 @@ class Booking
         }
 
         $user_id = get_current_user_id();
-        $cart = $this->getCart($user_id, $data['journey_id']);
+        $cart = $this->getCartItems($user_id, $data['journey_id']);
         $cart = array_shift($cart);
         $cart_item = $this->getCartItem($cart->cart_id, $data['room_id']);
 
@@ -102,7 +102,7 @@ class Booking
      * @param $journey_id
      * @return array|null|object
      */
-    public function getCart($user_id, $journey_id)
+    public function getCartItems($user_id, $journey_id)
     {
         $query = "SELECT c.id as cart_id, c.journey_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
         $cart = $this->_wpdb->get_results($query);

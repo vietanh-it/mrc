@@ -9,6 +9,8 @@ if (empty($_GET['step'])) {
     view('booking/select_room');
 } elseif ($_GET['step'] == 'services-addons') {
     view('booking/booking_addon');
+} elseif ($_GET['step'] == 'booking-review') {
+    view('booking/review');
 } else {
     // Redirect to step select room
     $url = strtok($_SERVER["REQUEST_URI"], '?');

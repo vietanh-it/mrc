@@ -11,9 +11,13 @@ if (empty($_GET['step'])) {
     view('booking/booking_addon');
 } elseif ($_GET['step'] == 'booking-review') {
     view('booking/review');
+} elseif ($_GET['step'] == 'process') {
+    view('booking/process');
+} elseif ($_GET['step'] == 'return') {
+    view('booking/return');
 } else {
     // Redirect to step select room
-    $url = strtok($_SERVER["REQUEST_URI"], '?');
+    $url = WP_SITEURL . strtok($_SERVER["REQUEST_URI"], '?');
     wp_redirect($url);
     exit;
 }

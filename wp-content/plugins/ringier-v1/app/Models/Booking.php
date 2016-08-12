@@ -153,10 +153,15 @@ class Booking
             }
         }
 
+        $total_twin_guests = array_sum($room_type_twin_count);
+        $total_single_guests = array_sum($room_type_single_count);
+
         return [
             'cart'                   => $cart,
             'room_type_twin_count'   => $room_type_twin_count,
             'room_type_single_count' => $room_type_single_count,
+            'total_twin'             => $total_twin_guests,
+            'total_single'           => $total_single_guests,
             'total'                  => $this->getCartTotal($user_id, $journey_id)
         ];
     }
@@ -165,7 +170,8 @@ class Booking
     public function getCartTotal($user_id, $journey_id)
     {
         $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
-        return valueOrNull($this->_wpdb->get_var($query), 0);
+        $rs = $this->_wpdb->get_var($query);
+        return valueOrNull($rs, 0);
     }
 
 

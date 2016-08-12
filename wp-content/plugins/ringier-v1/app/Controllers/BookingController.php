@@ -89,6 +89,7 @@ class BookingController extends _BaseController
         return $result;
     }
 
+
     public function bookingAddOn()
     {
 
@@ -103,4 +104,8 @@ class BookingController extends _BaseController
     }
 
 
+    public function bookingPaymentReturn()
+    {
+        view('booking/return');
+    }
 }

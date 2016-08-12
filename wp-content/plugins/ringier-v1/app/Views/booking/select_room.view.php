@@ -23,38 +23,14 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
 <div class="journey-detail">
 
-    <div class="nav-bar">
-        <div class="container container-big">
-            <div class="row">
-                <div class="col-xs-12 col-sm-5">
-                    <h3 class="title-main white"><?php the_title(); ?></h3>
-                    <p>From <?php echo $journey_detail->journey_type_info->starting_point ?>
-                        , <?php echo $journey_detail->duration; ?>, departure on
-                        <b><?php echo date('d M Y', strtotime($journey_detail->departure)); ?></b></p>
-                </div>
-                <div class="col-xs-12 col-sm-7 right">
-                    <span class="total-price">Total: US$<span class="booking-total">0</span></span>
-                    <a href="javascript:void(0)" class="btn-menu-jn"><img
-                            src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
-                    <span class="ctn-btn-action" style="display: none;">
-                            <a href="#" class="btn-menu-edit"><img
-                                    src="<?php echo VIEW_URL . '/images/icon-edit.png' ?>"><br>See journey detail</a><a
-                            href="#" class="btn-menu-info"><img
-                                src="<?php echo VIEW_URL . '/images/icon-info.png' ?>"><br>Edit journey</a><a
-                            href="#" class="btn-menu-delete"><img
-                                src="<?php echo VIEW_URL . '/images/icon-delete.png' ?>"><br>Delete</a>
-                        </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php view('blocks/booking-topbar', ['journey_id' => $journey_detail->ID]); ?>
 
     <div class="content-booking">
         <div class="container container-big">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 ">
                     <p class="text-tt">
-                        Check availability and book online <span>Please select guests and starterooms</span>
+                        Check availability and book online <span>Would you like extension and service addons?</span>
                     </p>
                 </div>
             </div>
@@ -176,7 +152,9 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                             <div class="text-center btt-box">
                                 <a href="<?php echo WP_SITEURL . '/journeys' ?>" class="back">Back</a>
                                 <!--<button type="submit">Continue</button>-->
-                                <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
+                                <!--<a href="-->
+                                <?php //echo $journey_detail->permalink . '?step=services-addons'; ?><!--"-->
+                                <a href="<?php echo $journey_detail->permalink . '?step=process&payment_type=atm'; ?>"
                                    class="btn btn-primary">Continue</a>
                             </div>
                         </form>

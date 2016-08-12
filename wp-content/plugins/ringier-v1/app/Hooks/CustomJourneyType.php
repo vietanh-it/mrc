@@ -121,10 +121,10 @@ class CustomJourneyType
                     <div class="class-hide-all" style="display: none">
                         <b>Day  : <span class="number_day_change"><?php echo $v['day_name'] ?></span></b>
                     </div>
-                    <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Show more" >
+                    <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
                         <i class="fa fa-sort-asc" aria-hidden="true"></i>
                     </a>
-                    <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Hide" style="display: none">
+                    <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -153,10 +153,10 @@ class CustomJourneyType
                 <div class="class-hide-all" style="display: none">
                     <b>Day  : <span class="number_day_change"></span></b>
                 </div>
-                <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Show more" >
+                <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
                     <i class="fa fa-sort-asc" aria-hidden="true"></i>
                 </a>
-                <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Hide" style="display: none">
+                <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
                     <i class="fa fa-sort-desc" aria-hidden="true"></i>
                 </a>
             </div>
@@ -189,10 +189,10 @@ class CustomJourneyType
                     '<div class="class-hide-all" style="display: none"> ' +
                     '<b>Day  : <span class="number_day_change"></span></b> ' +
                     '</div> ' +
-                    '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Show more" > ' +
+                    '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" > ' +
                     '<i class="fa fa-sort-asc" aria-hidden="true"></i> ' +
                     '</a> ' +
-                    '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Hide" style="display: none"> ' +
+                    '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none"> ' +
                     '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
                     '</a>' +
                     '</div>';

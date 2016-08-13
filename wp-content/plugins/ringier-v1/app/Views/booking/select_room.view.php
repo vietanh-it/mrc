@@ -154,8 +154,9 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 <!--<button type="submit">Continue</button>-->
                                 <!--<a href="-->
                                 <?php //echo $journey_detail->permalink . '?step=services-addons'; ?><!--"-->
-                                <a href="<?php echo $journey_detail->permalink . '?step=process&payment_type=atm'; ?>"
-                                   class="btn btn-primary">Continue</a>
+                                <?php //echo $journey_detail->permalink . '?step=process&payment_type=atm'; ?>
+                                <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
+                                   class="btn btn-primary btn-continue">Continue</a>
                             </div>
                         </form>
                     </div>
@@ -384,5 +385,53 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
             }); // end ajax
 
         }
+
+        // Button continue
+        var btn_continue_ready = true;
+
+        $('.btn-continue').on('click', function (e) {
+            e.preventDefault();
+            var next = $(this).attr('href');
+
+            if (btn_continue_ready) {
+
+                $.ajax({
+                    url: ajax_url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        action: 'ajax_handler_booking',
+                        method: 'CheckCartEmpty',
+                        user_id: '<?php echo $user_id; ?>',
+                        journey_id: '<?php echo $post->ID; ?>'
+                    },
+                    beforeSend: function () {
+                        btn_continue_ready = false;
+                    },
+                    success: function (data) {
+                        btn_continue_ready = true;
+
+                        if (data.status == 'success') {
+                            window.location.href = next;
+                        }
+                        else {
+                            var html_msg = '<div>';
+                            if (data.message) {
+                                $.each(data.message, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            } else if (data.data) {
+                                $.each(data.data, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            }
+                            html_msg += "</div>";
+                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                        }
+                    }
+                }); // end ajax
+            }
+
+        });
     });
 </script>

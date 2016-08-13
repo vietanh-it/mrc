@@ -51,6 +51,25 @@ class BookingController extends _BaseController
     }
 
 
+    public function ajaxCheckCartEmpty($data)
+    {
+        $model = Booking::init();
+        $rs = $model->getCartInfo($data['user_id'], $data['journey_id']);
+
+        if (!empty($rs['total'])) {
+            return [
+                'status' => 'success',
+                'data'   => $rs
+            ];
+        } else {
+            return [
+                'status' => 'fail',
+                'data'   => ['Please select room to continue.']
+            ];
+        }
+    }
+
+
     public function getCartItems($user_id, $journey_id)
     {
         $model = Booking::init();

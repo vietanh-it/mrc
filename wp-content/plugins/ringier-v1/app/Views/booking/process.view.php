@@ -6,7 +6,7 @@
  * Time: 2:07 PM
  */
 
-if (!empty($_GET['payment_type'])) {
+if (!empty($_GET['payment_type']) && is_user_logged_in()) {
 
     $payment_type = $_GET['payment_type'];
     $current_url = WP_SITEURL . (strtok($_SERVER["REQUEST_URI"], '?'));
@@ -113,6 +113,6 @@ if (!empty($_GET['payment_type'])) {
     }
 
 } else {
-    wp_redirect(strtok($_SERVER["REQUEST_URI"], '?'));
+    wp_redirect(WP_SITEURL);
     exit;
 }

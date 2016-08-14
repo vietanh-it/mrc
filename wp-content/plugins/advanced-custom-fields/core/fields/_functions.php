@@ -428,6 +428,11 @@ class acf_field_functions
                     } else {
                         $wpdb->update($wpdb->prefix . 'tour_info', $data, ['object_id' => $post_id]);
                     }
+
+                    // Type for addon
+                    if ($post->post_type == 'addon') {
+                        $wpdb->update($wpdb->prefix . 'tour_info', ['type' => 'addon'], ['object_id' => $post_id]);
+                    }
                     break;
                 case 'offer':
                     // Serialize if is array

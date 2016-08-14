@@ -54,7 +54,7 @@ class acf_field_functions
     {
         global $wpdb, $post;
         if (in_array($post->post_type,
-            ['ship', 'destination', 'journey', 'journey_type', 'pretour', 'posttour', 'addon', 'offer'])) {
+            ['ship', 'destination', 'journey', 'journey_type', 'tour', 'addon', 'offer'])) {
             switch ($post->post_type) {
                 case 'ship':
                     $query = "SELECT * FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}ship_info si ON p.ID = si.object_id WHERE p.ID = {$post_id}";
@@ -135,10 +135,9 @@ class acf_field_functions
                         return $value;
                     }
 
-                case 'pretour':
-                case 'posttour':
+                case 'tour':
                 case 'addon':
-                    if($field['name'] == 'journey_type'){
+                    if ($field['name'] == 'journey_type') {
                         $table = $wpdb->prefix . 'tour_journey_type';
                         $query = "SELECT * FROM $table  WHERE tour_id = {$post_id}";
                         $result = $wpdb->get_results($query);
@@ -293,7 +292,7 @@ class acf_field_functions
     {
         global $wpdb, $post;
         if (in_array($post->post_type,
-            ['ship', 'destination', 'journey', 'journey_type', 'pretour', 'posttour', 'addon', 'offer'])) {
+            ['ship', 'destination', 'journey', 'journey_type', 'tour', 'addon', 'offer'])) {
 
             $data = [];
             $customFields = $_POST['fields'];
@@ -408,8 +407,7 @@ class acf_field_functions
                             ['object_id' => $post_id]);
                     }
                     break;
-                case 'pretour':
-                case 'posttour':
+                case 'tour':
                 case 'addon':
                     if ($field['name'] == 'journey_type') {
                         $wpdb->delete($wpdb->prefix . 'tour_journey_type', ['tour_id' => $post_id]);

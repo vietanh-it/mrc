@@ -70,8 +70,7 @@ class Addon
             $join
             WHERE p.post_status='publish'
             $where          
-            ORDER BY $order_by  LIMIT $to, $limit
-            ";
+            ORDER BY $order_by  LIMIT $to, $limit";
 
         //echo $query;
 

@@ -126,16 +126,24 @@ jQuery(document).ready(function ($) {
             success: function (data) {
                 var html = '';
                 if(data.total > 0){
-                    console.log(data);
+                    //console.log(data);
                     var result = data.data;
                     $.each(result, function(key, value) {
                         var text = '';
                         if(value.min_price_fm != value.min_price_offer_fm ){
                              text = '<span style="text-decoration: line-through;color: burlywood;">'+value.min_price_fm+'</span>';
                         }
+                        var htm_offer = '';
+                        if(value.offer_main_info){
+                            var offer_info = value.offer_main_info.offer_info;
+                            var  img_ticket = $('#ctn-list-journey').attr('data-img_ticket');
+                            console.log(offer_info);
+                            htm_offer = '<b>'+offer_info.post_title +'<br>'+ offer_info.month_year +' and save '+offer_info.promotion +'%.</b> <img src="'+img_ticket+'"> ';
+                        }
+
                         html += '<tr> ' +
                             '<td> <b>' + value.departure_fm +'</b> </td> ' +
-                            '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '+ value.duration +'</td> ' +
+                            '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '+ value.nights +' nights<br> '+htm_offer+'</td> ' +
                             '<td style="text-decoration: underline">' + value.journey_type_info.ship_info.post_title +'</td> ' +
                             '<td> ' + value.navigation + ' </td> ' +
                             '<td> from '+text+' <b style="color: #e4a611">US$'+value.min_price_offer_fm+'</b> pp <br>based on twin cabin </td> ' +
@@ -147,7 +155,7 @@ jQuery(document).ready(function ($) {
                     html +='<tr> <td colspan="6"> No result is found</td> </tr>';
                 }
 
-                console.log(html);
+                //console.log(html);
 
                 $('.ctn-list-journey tbody').html(html);
                 $('#ctn-list-journey').fadeIn();

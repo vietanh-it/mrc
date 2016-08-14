@@ -156,7 +156,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 <?php //echo $journey_detail->permalink . '?step=services-addons'; ?><!--"-->
                                 <?php //echo $journey_detail->permalink . '?step=process&payment_type=atm'; ?>
                                 <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
-                                   class="btn btn-primary btn-continue">Continue</a>
+                                   class="btn btn-primary btn-continue btn-yellow">Continue</a>
                             </div>
                         </form>
                     </div>

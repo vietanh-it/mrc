@@ -2,10 +2,24 @@
 global $post;
 $user_id = get_current_user_id();
 
+// Journey detail
+$journey_ctrl = \RVN\Controllers\JourneyController::init();
+$journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
+var_dump($journey_detail);
+
+// Add-ons
+
+
+// Cart detail
 $booking_ctrl = \RVN\Controllers\BookingController::init();
 $booking = \RVN\Models\Booking::init();
 $cart_info = $booking->getCartInfo($user_id, $post->ID);
-var_dump($cart_info); ?>
+if (empty($cart_info['total'])) {
+    // Redirect to step select room
+    $url = WP_SITEURL . strtok($_SERVER["REQUEST_URI"], '?');
+    wp_redirect($url);
+    exit;
+} ?>
 
 <div class="journey-detail">
 
@@ -20,80 +34,17 @@ var_dump($cart_info); ?>
                     </p>
                 </div>
             </div>
+
+            <!--List-->
             <div class="row">
 
-                <!-- item -->
-                <div class="col-xs-12 col-sm-12">
-                    <div class="booking-addon">
-                        <div class="title">
-                            Pre-cruise extensions
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-3">
-                                <div class="images">
-                                    <img src="<?php echo VIEW_URL . '/images/laos.png' ?>">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-9">
-                                <div class="desc">
-                                    <p><b>Saigon & Surroundings (InterContinental Asiana)</b></p>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-9">
-                                            <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th>Option</th>
-                                                    <th>Price per person</th>
-                                                    <th>Person</th>
-                                                    <th>Sub Total</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>Sharing</td>
-                                                    <td>US$325.00</td>
-                                                    <td><a class="action-quantity" href="javascript:void(0)">-</a> <span
-                                                            style="float: left">&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;</span>
-                                                        <a href="javascript:void(0)" class="action-quantity">+</a></td>
-                                                    <td>US$650.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>One Person</td>
-                                                    <td>US$640.00</td>
-                                                    <td><a class="action-quantity" href="javascript:void(0)">-</a> <span
-                                                            style="float: left">&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;</span>
-                                                        <a href="javascript:void(0)" class="action-quantity">+</a></td>
-                                                    <td>US$0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3" style="text-align: right;padding-right: 10%">
-                                                        <b>Total</b>
-                                                    </td>
-                                                    <td><b>US$0.0</b></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            Add this service?
-                                            <a class="add-addon" href="#">
-                                                Yes, please
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                <?php view('blocks/item-addon'); ?>
 
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- end item -->
                 <div class="text-center btt-box">
                     <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>
 
-                    <a href="<?php echo $url . '?step=booking-review' ?>" class="back">Back</a>
-                    <a href="#" class="btn-main">Continue</a>
+                    <a href="<?php echo $journey_detail->permalink; ?>" class="back">Back</a>
+                    <a href="<?php echo $journey_detail->permalink . '?step=booking-review'; ?>" class="btn-main">Continue</a>
                 </div>
             </div>
         </div>

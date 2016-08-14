@@ -23,6 +23,23 @@ Text Domain: mrc
     padding-right: 6px;
 }
 
+.btn-yellow {
+    padding: 7px 20px;
+    background: #e4a611;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #ffffff;
+    border: 1px solid #e4a611;
+    font-family: inherit;
+}
+
+.btn-yellow:hover {
+    background: #ffffff;
+    color: #e4a611;
+    border: 1px solid #e4a611;
+}
+
 @media (min-width: 1200px) {
     .container {
         width: 1170px !important;

@@ -51,12 +51,14 @@ class JourneyController extends _BaseController
         view('journey/list', compact('params', 'list_journey'));
     }
 
+
     public function ajaxGetJourneyByJourneyType($args){
         $journey = Journey::init();
         $list_journey = $journey->getJourneyList($args);
 
         return $list_journey;
     }
+
 
     public function getMonth(){
         $model = Journey::init();

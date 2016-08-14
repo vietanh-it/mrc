@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-14 23:02:10
+Date: 2016-08-14 23:23:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -992,7 +992,7 @@ INSERT INTO `mrc_postmeta` VALUES ('294', '58', 'port', '65');
 INSERT INTO `mrc_postmeta` VALUES ('295', '58', '_port', 'field_57821584d9956');
 INSERT INTO `mrc_postmeta` VALUES ('296', '58', 'ship', '65');
 INSERT INTO `mrc_postmeta` VALUES ('297', '58', '_ship', 'field_578214cf89b70');
-INSERT INTO `mrc_postmeta` VALUES ('299', '85', '_edit_lock', '1471190498:1');
+INSERT INTO `mrc_postmeta` VALUES ('299', '85', '_edit_lock', '1471191370:1');
 INSERT INTO `mrc_postmeta` VALUES ('300', '85', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('303', '85', 'navigation', '');
 INSERT INTO `mrc_postmeta` VALUES ('304', '85', '_navigation', 'field_578e02f125463');
@@ -1031,7 +1031,7 @@ INSERT INTO `mrc_postmeta` VALUES ('358', '25', 'photos', 'a:2:{i:0;s:2:\"kh\";i
 INSERT INTO `mrc_postmeta` VALUES ('359', '25', '_photos', 'field_5795caa73a7fb');
 INSERT INTO `mrc_postmeta` VALUES ('360', '89', '_wp_attached_file', '2016/07/498081.png');
 INSERT INTO `mrc_postmeta` VALUES ('361', '89', '_wp_attachment_metadata', 'a:4:{s:5:\"width\";i:1680;s:6:\"height\";i:1050;s:4:\"file\";s:18:\"2016/07/498081.png\";s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}');
-INSERT INTO `mrc_postmeta` VALUES ('363', '90', '_edit_lock', '1471190530:1');
+INSERT INTO `mrc_postmeta` VALUES ('363', '90', '_edit_lock', '1471190472:1');
 INSERT INTO `mrc_postmeta` VALUES ('364', '90', '_edit_last', '2');
 INSERT INTO `mrc_postmeta` VALUES ('365', '90', 'field_5795cd42be585', 'a:11:{s:3:\"key\";s:19:\"field_5795cd42be585\";s:5:\"label\";s:9:\"Departure\";s:4:\"name\";s:9:\"departure\";s:4:\"type\";s:11:\"date_picker\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:11:\"date_format\";s:8:\"yy/mm/dd\";s:14:\"display_format\";s:8:\"dd/mm/yy\";s:9:\"first_day\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:0:\"\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:0;}');
 INSERT INTO `mrc_postmeta` VALUES ('366', '90', 'field_5795cd59be586', 'a:11:{s:3:\"key\";s:19:\"field_5795cd59be586\";s:5:\"label\";s:6:\"Arrive\";s:4:\"name\";s:6:\"arrive\";s:4:\"type\";s:11:\"date_picker\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:11:\"date_format\";s:8:\"yy/mm/dd\";s:14:\"display_format\";s:8:\"dd/mm/yy\";s:9:\"first_day\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:0:\"\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:1;}');
@@ -1596,8 +1596,7 @@ CREATE TABLE `mrc_tour_info` (
 -- Records of mrc_tour_info
 -- ----------------------------
 INSERT INTO `mrc_tour_info` VALUES ('102', 'addon', null, null, '50');
-INSERT INTO `mrc_tour_info` VALUES ('105', 'Post-tour', '5', '10', '10');
-INSERT INTO `mrc_tour_info` VALUES ('106', null, '2days 1night', '70', '40');
+INSERT INTO `mrc_tour_info` VALUES ('105', 'post-tour', '5', '10', '10');
 
 -- ----------------------------
 -- Table structure for mrc_tour_journey_type

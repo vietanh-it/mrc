@@ -130,7 +130,7 @@ global $post;
                                 <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>
 
                                 <a href="<?php echo $url . '?step=booking-review' ?>" class="back">Back</a>
-                                <button type="submit">Pay Deposit</button>
+                                <a href="#" class="btn-main">Pay Deposit</a>
                             </div>
                         </div>
                     </div>

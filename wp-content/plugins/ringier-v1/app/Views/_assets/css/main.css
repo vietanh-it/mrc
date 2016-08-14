@@ -852,6 +852,17 @@ footer ul li{
     background: white;
     color: #e4a611;
 }
+.journey-detail .btn-main:hover{
+    background: white;
+    color: #e4a611;
+}
+.journey-detail .btn-main{
+    padding: 7px 20px ;
+    background:  #e4a611;
+    border-radius: 3px;
+    color: white;
+    border: 1px solid #e4a611;
+}
 
 .ctn-list-journey {
     padding: 50px 0 0;

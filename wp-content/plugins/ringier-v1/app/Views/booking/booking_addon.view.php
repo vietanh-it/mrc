@@ -82,13 +82,19 @@ var_dump($cart_info); ?>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
                     </div>
                 </div>
                 <!-- end item -->
+                <div class="text-center btt-box">
+                    <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>
 
+                    <a href="<?php echo $url . '?step=booking-review' ?>" class="back">Back</a>
+                    <a href="#" class="btn-main">Continue</a>
+                </div>
             </div>
         </div>
     </div>

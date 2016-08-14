@@ -3,7 +3,7 @@ namespace RVN\Controllers;
 
 use RVN\Models\JourneyType;
 use RVN\Models\Posts;
-use RVN\Models\TourAddon;
+use RVN\Models\Addon;
 
 class JourneyTypeController extends _BaseController
 {
@@ -28,7 +28,7 @@ class JourneyTypeController extends _BaseController
     public function journeyTypeList($args)
     {
         $page = get_query_var('paged');
-        $args['limit'] = 6 ;
+        $args['limit'] = 6;
         $args['page'] = $page ? $page : 1;
         $journey = JourneyType::init();
         $list_journey_type = $journey->getJourneyTypeList($args);
@@ -41,14 +41,14 @@ class JourneyTypeController extends _BaseController
         $journeyType = JourneyType::init();
         $journey_type_info = $journeyType->getInfo($journey_id);
 
-        $objTourAddon = TourAddon::init();
-        $list_add_on= $objTourAddon->getList(
-           array(
-               'journey_type_id' => $journey_id,
-               'limit' => 6,
-           ));
+        $objTourAddon = Addon::init();
+        $list_add_on = $objTourAddon->getList(
+            [
+                'journey_type_id' => $journey_id,
+                'limit'           => 6,
+            ]);
 
-        return view('journey-type/detail', compact('journey_type_info','list_add_on'));
+        return view('journey-type/detail', compact('journey_type_info', 'list_add_on'));
     }
 
 }

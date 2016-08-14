@@ -9,7 +9,7 @@ namespace RVN\Models;
 
 use RVN\Library\Images;
 
-class TourAddon
+class Addon
 {
     private static $instance;
 
@@ -34,7 +34,7 @@ class TourAddon
     public static function init()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new TourAddon();
+            self::$instance = new Addon();
         }
 
         return self::$instance;

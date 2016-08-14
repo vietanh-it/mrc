@@ -43,60 +43,50 @@ class Addon
 
     public function getList($params)
     {
-        $cacheId = __CLASS__ . 'getList' . serialize($params);
-        if (!empty($params['is_cache'])) {
-            $result = wp_cache_get($cacheId);
-        } else {
-            $result = false;
+        $page = (empty($params['page'])) ? 1 : intval($params['page']);
+        $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
+        $to = ($page - 1) * $limit;
+        $order_by = "  p.post_date DESC ";
+        if (!empty($params['order_by'])) {
+            $order_by = $params['order_by'];
         }
-        if ($result == false) {
-            $page = (empty($params['page'])) ? 1 : intval($params['page']);
-            $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
-            $to = ($page - 1) * $limit;
-            $order_by = "  p.post_date DESC ";
-            if (!empty($params['order_by'])) {
-                $order_by = $params['order_by'];
-            }
 
-            $where = ' ';
-            $join = '';
+        $where = ' ';
+        $join = '';
 
 
-            if (!empty($params['journey_type_id'])) {
-                $join .= ' INNER JOIN ' . $this->_tbl_tour_journey_type . ' as ji ON ji.tour_id = p.ID';
-                $where .= ' AND ji.journey_type_id = '.intval($params['journey_type_id']);
-            }
+        if (!empty($params['journey_type_id'])) {
+            $join .= ' INNER JOIN ' . $this->_tbl_tour_journey_type . ' as ji ON ji.tour_id = p.ID';
+            $where .= ' AND ji.journey_type_id = ' . intval($params['journey_type_id']);
+        }
 
-            if(empty($params['post_type'])){
-                $where .= ' AND p.post_type IN ("addon","pretour","posttour")';
-            }else{
-                $where .=  ' AND p.post_type = '.$params['post_type'];
-            }
+        if (empty($params['post_type'])) {
+            $where .= ' AND p.post_type IN ("addon","pretour","posttour")';
+        } else {
+            $where .= ' AND p.post_type = ' . $params['post_type'];
+        }
 
-            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
+        $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
             $join
             WHERE p.post_status='publish'
             $where          
             ORDER BY $order_by  LIMIT $to, $limit
             ";
 
-             //echo $query;
+        //echo $query;
 
-            $list = $this->_wpdb->get_results($query);
-            $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
-            if ($list) {
-                foreach ($list as $key => &$value) {
-                    $value = $this->getInfo($value);
-                }
+        $list = $this->_wpdb->get_results($query);
+        $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
+        if ($list) {
+            foreach ($list as $key => &$value) {
+                $value = $this->getInfo($value);
             }
-
-            $result = [
-                'data'  => $list,
-                'total' => $total,
-            ];
-
-            wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
+
+        $result = [
+            'data'  => $list,
+            'total' => $total,
+        ];
 
         return $result;
 
@@ -105,33 +95,22 @@ class Addon
 
     public function getInfo($object, $type = '')
     {
+        // Post
         if (is_numeric($object)) {
-            $cacheId = __CLASS__ . 'getInfo' . $object;
-        } else {
-            $cacheId = __CLASS__ . 'getInfo' . $object->ID;
+            $object = get_post($object);
         }
 
-        $result = wp_cache_get($cacheId);
-        if ($result == false) {
+        // images, permalink
+        $objImages = Images::init();
+        $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'small', 'full']);
+        $object->permalink = get_permalink($object->ID);
 
-            // Post
-            if (is_numeric($object)) {
-                $object = get_post($object);
-            }
+        // journey_info
+        $query = 'SELECT * FROM ' . $this->_tbl_tour_info . ' WHERE object_id = ' . $object->ID;
+        $post_info = $this->_wpdb->get_row($query);
+        $object = (object)array_merge((array)$object, (array)$post_info);
 
-            // images, permalink
-            $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured','small','full']);
-            $object->permalink = get_permalink($object->ID);
-
-            // journey_info
-            $query = 'SELECT * FROM ' . $this->_tbl_tour_info . ' WHERE object_id = ' . $object->ID;
-            $post_info = $this->_wpdb->get_row($query);
-            $object = (object)array_merge((array)$object, (array)$post_info);
-
-            $result = $object;
-            wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
-        }
+        $result = $object;
 
         return $result;
     }

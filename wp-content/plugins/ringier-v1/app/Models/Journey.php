@@ -163,10 +163,16 @@ class Journey
             $departure_fm = date("j F Y", strtotime($object->departure));
             $object->departure_fm = $departure_fm;
 
+            $object->offer_main_info = false;
             if ($type != 'offer') {
                 $objOffer = Offer::init();
                 $offer = $objOffer->getOfferByJourney($object->ID);
                 $object->offer = $offer;
+                $object->offer_main_info = array_shift($object->offer);
+                if(!empty($object->offer_main_info->offer_info->start_date)){
+                    $object->offer_main_info->offer_info->month_year = date('M Y', strtotime($object->offer_main_info->offer_info->start_date));
+                }
+               // var_dump($object->offer_main_info);
             }
 
             // journey_type_info
@@ -195,12 +201,14 @@ class Journey
                     $min_price = 9999999999999999999999999;
                     $list_room = [];
                     $promotion = 0;
+                    $promotion = 0;
                     if (!empty($object->offer)) {
                         foreach ($object->offer as $o) {
                             $promotion = $o->offer_info->promotion;
                             $list_room[] = $o->room_type_id;
                         }
                     }
+
                     foreach ($object->journey_type_info->ship_info->room_types as $k => &$v) {
                         if (in_array($v->id, $list_room)) {
                             $v->twin_high_season_price_offer = intval($v->twin_high_season_price) - intval($v->twin_high_season_price) * $promotion / 100;

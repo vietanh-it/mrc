@@ -24,7 +24,7 @@ if($journey_type_info){ ?>
 
         </div>
 
-        <div class="container container-big" id="ctn-list-journey" style="display: none">
+        <div class="container container-big" id="ctn-list-journey" style="display: none" data-img_ticket="<?php echo VIEW_URL.'/images/icon-ticket.png' ?>">
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                     <div class="ctn-list-journey">

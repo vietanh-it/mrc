@@ -5,10 +5,11 @@ $user_id = get_current_user_id();
 // Journey detail
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
-var_dump($journey_detail);
+// var_dump($journey_detail);
 
 // Add-ons
-
+$addon_model = \RVN\Models\Addon::init();
+$addon_list = $addon_model->getList(['journey_type_id' => $journey_detail->journey_type_info->ID]);
 
 // Cart detail
 $booking_ctrl = \RVN\Controllers\BookingController::init();
@@ -38,7 +39,12 @@ if (empty($cart_info['total'])) {
             <!--List-->
             <div class="row">
 
-                <?php view('blocks/item-addon'); ?>
+                <?php
+                if (!empty($addon_list['data'])) {
+                    foreach ($addon_list['data'] as $key => $item) {
+                        view('blocks/item-addon', ['item' => $item]);
+                    }
+                } ?>
 
                 <div class="text-center btt-box">
                     <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>

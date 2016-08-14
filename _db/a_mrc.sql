@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-14 12:55:25
+Date: 2016-08-14 23:02:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -88,7 +88,7 @@ CREATE TABLE `mrc_cart_detail` (
   `quantity` int(11) DEFAULT NULL,
   `total` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of mrc_cart_detail
@@ -99,8 +99,13 @@ INSERT INTO `mrc_cart_detail` VALUES ('5', '1', '10', 'twin', '1800', '2', '3600
 INSERT INTO `mrc_cart_detail` VALUES ('6', '1', '6', 'single', '1400', '1', '1400');
 INSERT INTO `mrc_cart_detail` VALUES ('8', '1', '8', 'twin', '2000', '2', '4000');
 INSERT INTO `mrc_cart_detail` VALUES ('9', '1', '7', 'twin', '2000', '2', '4000');
-INSERT INTO `mrc_cart_detail` VALUES ('26', '2', '8', 'single', '1760', '1', '1760');
-INSERT INTO `mrc_cart_detail` VALUES ('27', '2', '10', 'twin', '1440', '2', '2880');
+INSERT INTO `mrc_cart_detail` VALUES ('27', '2', '10', 'single', '1600', '1', '1600');
+INSERT INTO `mrc_cart_detail` VALUES ('28', '2', '12', 'twin', '1440', '2', '2880');
+INSERT INTO `mrc_cart_detail` VALUES ('29', '2', '7', 'single', '1760', '1', '1760');
+INSERT INTO `mrc_cart_detail` VALUES ('32', '2', '6', 'twin', '1200', '2', '2400');
+INSERT INTO `mrc_cart_detail` VALUES ('33', '2', '5', 'single', '1400', '1', '1400');
+INSERT INTO `mrc_cart_detail` VALUES ('34', '2', '8', 'twin', '1600', '2', '3200');
+INSERT INTO `mrc_cart_detail` VALUES ('35', '2', '4', 'single', '1600', '1', '1600');
 
 -- ----------------------------
 -- Table structure for mrc_commentmeta
@@ -444,6 +449,7 @@ DROP TABLE IF EXISTS `mrc_journey_type_info`;
 CREATE TABLE `mrc_journey_type_info` (
   `object_id` bigint(20) NOT NULL,
   `starting_point` varchar(500) DEFAULT NULL,
+  `nights` int(11) DEFAULT NULL,
   `destination` varchar(500) DEFAULT NULL,
   `ship` varchar(255) DEFAULT NULL,
   `map_image` bigint(20) DEFAULT NULL,
@@ -455,9 +461,9 @@ CREATE TABLE `mrc_journey_type_info` (
 -- ----------------------------
 -- Records of mrc_journey_type_info
 -- ----------------------------
-INSERT INTO `mrc_journey_type_info` VALUES ('85', 'Nha Rong', '26', '65', '158', 'a:2:{i:0;a:3:{s:8:\"day_name\";s:1:\"1\";s:8:\"day_port\";s:7:\"SAI GON\";s:11:\"day_content\";s:423:\"Transfer from the InterContinental Asiana Saigon Hotel to the port of My Tho by coach to embark cruise. Please note: Your guide will collect your passports at the meeting point so we can arrange the immigration formalities.\r\n\r\nRegistration Details\r\nINTERCONTINENTAL ASIANA SAIGON HOTEL, Purple Jade Bar (Level One) /\r\n\r\n39 Le Duan, Ben Nghe, Ho Chi Minh City, Vietnam\r\n\r\nTel: (+84) 8 3520 9999\r\n\r\nRegistration is at 10.30am\";}i:1;a:3:{s:8:\"day_name\";s:1:\"2\";s:8:\"day_port\";s:6:\"CAI BE\";s:11:\"day_content\";s:318:\"In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.\";}}', 'Cruise Price Includes: Entrance fees, guide services (English language), gratuities to crew, main meals, locally made soft drinks, local beer and local spirits, jugged coffee and selection of teas and tisanes, mineral water. Transfers between the meeting point and the ship at the start and end of a voyage.\r\n\r\nCruise Price Excludes: International flights, port dues (if levied), laundry, all visa costs, fuel surcharges (see terms and conditions), imported beverages such as wines, premium spirits and liqueurs, fancy soft drinks like Perrier, espressos and cappuccinos at bar and tips to tour guides, local guides, bus drivers, boat operators and cyclo drivers.');
-INSERT INTO `mrc_journey_type_info` VALUES ('125', 'Nha Rong', '26', '65', '158', 'a:1:{i:0;a:3:{s:8:\"day_name\";s:0:\"\";s:8:\"day_port\";s:0:\"\";s:11:\"day_content\";s:0:\"\";}}', '');
-INSERT INTO `mrc_journey_type_info` VALUES ('128', 'Nha Rong', '26', '65', '158', null, null);
+INSERT INTO `mrc_journey_type_info` VALUES ('85', 'SG', '5', '26', '65', '158', 'a:2:{i:0;a:3:{s:8:\"day_name\";s:1:\"1\";s:8:\"day_port\";s:7:\"SAI GON\";s:11:\"day_content\";s:423:\"Transfer from the InterContinental Asiana Saigon Hotel to the port of My Tho by coach to embark cruise. Please note: Your guide will collect your passports at the meeting point so we can arrange the immigration formalities.\r\n\r\nRegistration Details\r\nINTERCONTINENTAL ASIANA SAIGON HOTEL, Purple Jade Bar (Level One) /\r\n\r\n39 Le Duan, Ben Nghe, Ho Chi Minh City, Vietnam\r\n\r\nTel: (+84) 8 3520 9999\r\n\r\nRegistration is at 10.30am\";}i:1;a:3:{s:8:\"day_name\";s:1:\"2\";s:8:\"day_port\";s:6:\"CAI BE\";s:11:\"day_content\";s:318:\"In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.\";}}', 'Cruise Price Includes: Entrance fees, guide services (English language), gratuities to crew, main meals, locally made soft drinks, local beer and local spirits, jugged coffee and selection of teas and tisanes, mineral water. Transfers between the meeting point and the ship at the start and end of a voyage.\r\n\r\nCruise Price Excludes: International flights, port dues (if levied), laundry, all visa costs, fuel surcharges (see terms and conditions), imported beverages such as wines, premium spirits and liqueurs, fancy soft drinks like Perrier, espressos and cappuccinos at bar and tips to tour guides, local guides, bus drivers, boat operators and cyclo drivers.');
+INSERT INTO `mrc_journey_type_info` VALUES ('125', 'Nha Rong', null, '26', '65', '158', 'a:1:{i:0;a:3:{s:8:\"day_name\";s:0:\"\";s:8:\"day_port\";s:0:\"\";s:11:\"day_content\";s:0:\"\";}}', '');
+INSERT INTO `mrc_journey_type_info` VALUES ('128', 'Nha Rong', null, '26', '65', '158', null, null);
 
 -- ----------------------------
 -- Table structure for mrc_journey_type_port
@@ -468,16 +474,16 @@ CREATE TABLE `mrc_journey_type_port` (
   `journey_type_id` int(11) DEFAULT NULL,
   `port_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mrc_journey_type_port
 -- ----------------------------
 INSERT INTO `mrc_journey_type_port` VALUES ('46', '128', '20');
-INSERT INTO `mrc_journey_type_port` VALUES ('72', '85', '21');
-INSERT INTO `mrc_journey_type_port` VALUES ('73', '85', '20');
 INSERT INTO `mrc_journey_type_port` VALUES ('74', '125', '21');
 INSERT INTO `mrc_journey_type_port` VALUES ('75', '125', '20');
+INSERT INTO `mrc_journey_type_port` VALUES ('78', '85', '21');
+INSERT INTO `mrc_journey_type_port` VALUES ('79', '85', '20');
 
 -- ----------------------------
 -- Table structure for mrc_journey_type_river
@@ -488,14 +494,14 @@ CREATE TABLE `mrc_journey_type_river` (
   `journey_type_id` int(11) DEFAULT NULL,
   `river_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mrc_journey_type_river
 -- ----------------------------
 INSERT INTO `mrc_journey_type_river` VALUES ('20', '128', '82');
-INSERT INTO `mrc_journey_type_river` VALUES ('34', '85', '82');
 INSERT INTO `mrc_journey_type_river` VALUES ('35', '125', '82');
+INSERT INTO `mrc_journey_type_river` VALUES ('37', '85', '82');
 
 -- ----------------------------
 -- Table structure for mrc_links
@@ -570,7 +576,7 @@ CREATE TABLE `mrc_options` (
   `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=971 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=973 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of mrc_options
@@ -695,22 +701,22 @@ INSERT INTO `mrc_options` VALUES ('266', 'wpseo_xml', 'a:21:{s:22:\"disable_auth
 INSERT INTO `mrc_options` VALUES ('267', 'wpseo_flush_rewrite', '1', 'yes');
 INSERT INTO `mrc_options` VALUES ('274', 'widget_theme-my-login', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('275', 'theme_my_login', 'a:4:{s:10:\"enable_css\";b:1;s:10:\"login_type\";s:5:\"email\";s:14:\"active_modules\";a:1:{i:0;s:23:\"recaptcha/recaptcha.php\";}s:7:\"version\";s:5:\"6.4.5\";}', 'yes');
-INSERT INTO `mrc_options` VALUES ('276', 'wpseo_sitemap_1_cache_validator', '2xTY4', 'no');
+INSERT INTO `mrc_options` VALUES ('276', 'wpseo_sitemap_1_cache_validator', '5b8jj', 'no');
 INSERT INTO `mrc_options` VALUES ('277', 'wpseo_sitemap_page_cache_validator', '3dVU7', 'no');
 INSERT INTO `mrc_options` VALUES ('280', 'crontrol_schedules', 'a:0:{}', 'yes');
 INSERT INTO `mrc_options` VALUES ('290', 'WPLANG', '', 'yes');
 INSERT INTO `mrc_options` VALUES ('293', 'wpseo_sitemap_ship_cache_validator', '4zbXp', 'no');
 INSERT INTO `mrc_options` VALUES ('300', 'theme_my_login_recaptcha', 'a:3:{s:10:\"public_key\";s:40:\"6LfzISUTAAAAAIEikKjdRoVN_dklUXIWRtrMnD0v\";s:11:\"private_key\";s:40:\"6LfzISUTAAAAABCCls0xLdvsBX91nEnyVV-LsiRQ\";s:5:\"theme\";s:5:\"light\";}', 'yes');
 INSERT INTO `mrc_options` VALUES ('307', 'wpseo_sitemap_attachment_cache_validator', '9Om1', 'no');
-INSERT INTO `mrc_options` VALUES ('308', 'wpseo_sitemap_acf_cache_validator', '2xTYh', 'no');
+INSERT INTO `mrc_options` VALUES ('308', 'wpseo_sitemap_acf_cache_validator', '5akxh', 'no');
 INSERT INTO `mrc_options` VALUES ('316', 'wpseo_sitemap_post_cache_validator', 'c6fm', 'no');
 INSERT INTO `mrc_options` VALUES ('343', 'current_theme', '', 'yes');
 INSERT INTO `mrc_options` VALUES ('344', 'theme_mods_mrc', 'a:1:{i:0;b:0;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('345', 'theme_switched', '', 'yes');
 INSERT INTO `mrc_options` VALUES ('355', 'wpseo_sitemap_revision_cache_validator', '4zSMB', 'no');
-INSERT INTO `mrc_options` VALUES ('356', 'wpseo_sitemap_destination_cache_validator', '3mA7L', 'no');
+INSERT INTO `mrc_options` VALUES ('356', 'wpseo_sitemap_destination_cache_validator', '53eon', 'no');
 INSERT INTO `mrc_options` VALUES ('357', 'wpseo_sitemap_port_cache_validator', '4yVLU', 'no');
-INSERT INTO `mrc_options` VALUES ('384', 'wpseo_sitemap_journey_type_cache_validator', '3crEv', 'no');
+INSERT INTO `mrc_options` VALUES ('384', 'wpseo_sitemap_journey_type_cache_validator', '5b8jt', 'no');
 INSERT INTO `mrc_options` VALUES ('403', 'wpseo_sitemap_cache_validator_global', '36aDD', 'no');
 INSERT INTO `mrc_options` VALUES ('533', 'user_role_editor', 'a:2:{s:11:\"ure_version\";s:6:\"4.26.3\";s:19:\"ure_hide_pro_banner\";i:1;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('534', 'mrc_backup_user_roles', 'a:5:{s:13:\"administrator\";a:2:{s:4:\"name\";s:13:\"Administrator\";s:12:\"capabilities\";a:69:{s:13:\"switch_themes\";b:1;s:11:\"edit_themes\";b:1;s:16:\"activate_plugins\";b:1;s:12:\"edit_plugins\";b:1;s:10:\"edit_users\";b:1;s:10:\"edit_files\";b:1;s:14:\"manage_options\";b:1;s:17:\"moderate_comments\";b:1;s:17:\"manage_categories\";b:1;s:12:\"manage_links\";b:1;s:12:\"upload_files\";b:1;s:6:\"import\";b:1;s:15:\"unfiltered_html\";b:1;s:10:\"edit_posts\";b:1;s:17:\"edit_others_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:10:\"edit_pages\";b:1;s:4:\"read\";b:1;s:8:\"level_10\";b:1;s:7:\"level_9\";b:1;s:7:\"level_8\";b:1;s:7:\"level_7\";b:1;s:7:\"level_6\";b:1;s:7:\"level_5\";b:1;s:7:\"level_4\";b:1;s:7:\"level_3\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:17:\"edit_others_pages\";b:1;s:20:\"edit_published_pages\";b:1;s:13:\"publish_pages\";b:1;s:12:\"delete_pages\";b:1;s:19:\"delete_others_pages\";b:1;s:22:\"delete_published_pages\";b:1;s:12:\"delete_posts\";b:1;s:19:\"delete_others_posts\";b:1;s:22:\"delete_published_posts\";b:1;s:20:\"delete_private_posts\";b:1;s:18:\"edit_private_posts\";b:1;s:18:\"read_private_posts\";b:1;s:20:\"delete_private_pages\";b:1;s:18:\"edit_private_pages\";b:1;s:18:\"read_private_pages\";b:1;s:12:\"delete_users\";b:1;s:12:\"create_users\";b:1;s:17:\"unfiltered_upload\";b:1;s:14:\"edit_dashboard\";b:1;s:14:\"update_plugins\";b:1;s:14:\"delete_plugins\";b:1;s:15:\"install_plugins\";b:1;s:13:\"update_themes\";b:1;s:14:\"install_themes\";b:1;s:11:\"update_core\";b:1;s:10:\"list_users\";b:1;s:12:\"remove_users\";b:1;s:13:\"promote_users\";b:1;s:18:\"edit_theme_options\";b:1;s:13:\"delete_themes\";b:1;s:6:\"export\";b:1;s:18:\"view_query_monitor\";b:1;s:14:\"ure_edit_roles\";b:1;s:16:\"ure_create_roles\";b:1;s:16:\"ure_delete_roles\";b:1;s:23:\"ure_create_capabilities\";b:1;s:23:\"ure_delete_capabilities\";b:1;s:18:\"ure_manage_options\";b:1;s:15:\"ure_reset_roles\";b:1;}}s:6:\"editor\";a:2:{s:4:\"name\";s:6:\"Editor\";s:12:\"capabilities\";a:34:{s:17:\"moderate_comments\";b:1;s:17:\"manage_categories\";b:1;s:12:\"manage_links\";b:1;s:12:\"upload_files\";b:1;s:15:\"unfiltered_html\";b:1;s:10:\"edit_posts\";b:1;s:17:\"edit_others_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:10:\"edit_pages\";b:1;s:4:\"read\";b:1;s:7:\"level_7\";b:1;s:7:\"level_6\";b:1;s:7:\"level_5\";b:1;s:7:\"level_4\";b:1;s:7:\"level_3\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:17:\"edit_others_pages\";b:1;s:20:\"edit_published_pages\";b:1;s:13:\"publish_pages\";b:1;s:12:\"delete_pages\";b:1;s:19:\"delete_others_pages\";b:1;s:22:\"delete_published_pages\";b:1;s:12:\"delete_posts\";b:1;s:19:\"delete_others_posts\";b:1;s:22:\"delete_published_posts\";b:1;s:20:\"delete_private_posts\";b:1;s:18:\"edit_private_posts\";b:1;s:18:\"read_private_posts\";b:1;s:20:\"delete_private_pages\";b:1;s:18:\"edit_private_pages\";b:1;s:18:\"read_private_pages\";b:1;}}s:6:\"author\";a:2:{s:4:\"name\";s:6:\"Author\";s:12:\"capabilities\";a:10:{s:12:\"upload_files\";b:1;s:10:\"edit_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:4:\"read\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:12:\"delete_posts\";b:1;s:22:\"delete_published_posts\";b:1;}}s:11:\"contributor\";a:2:{s:4:\"name\";s:11:\"Contributor\";s:12:\"capabilities\";a:5:{s:10:\"edit_posts\";b:1;s:4:\"read\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:12:\"delete_posts\";b:1;}}s:10:\"subscriber\";a:2:{s:4:\"name\";s:10:\"Subscriber\";s:12:\"capabilities\";a:2:{s:4:\"read\";b:1;s:7:\"level_0\";b:1;}}}', 'no');
@@ -738,7 +744,7 @@ INSERT INTO `mrc_options` VALUES ('845', 'wpseo_sitemap_journey_cache_validator'
 INSERT INTO `mrc_options` VALUES ('848', 'wpseo_sitemap_offer_cache_validator', 'qfQR', 'no');
 INSERT INTO `mrc_options` VALUES ('851', 'wpseo_sitemap_pretour_cache_validator', '2s7VB', 'no');
 INSERT INTO `mrc_options` VALUES ('852', 'wpseo_sitemap_posttour_cache_validator', '2gvJy', 'no');
-INSERT INTO `mrc_options` VALUES ('853', 'wpseo_sitemap_addon_cache_validator', '2xCJB', 'no');
+INSERT INTO `mrc_options` VALUES ('853', 'wpseo_sitemap_addon_cache_validator', '2AsW8', 'no');
 INSERT INTO `mrc_options` VALUES ('924', '_site_transient_timeout_browser_fb5ae4c281981ca10a522b6e1bdcd161', '1471076660', 'yes');
 INSERT INTO `mrc_options` VALUES ('925', '_site_transient_browser_fb5ae4c281981ca10a522b6e1bdcd161', 'a:9:{s:8:\"platform\";s:7:\"Windows\";s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"51.0.2704.103\";s:10:\"update_url\";s:28:\"http://www.google.com/chrome\";s:7:\"img_src\";s:49:\"http://s.wordpress.org/images/browsers/chrome.png\";s:11:\"img_src_ssl\";s:48:\"https://wordpress.org/images/browsers/chrome.png\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('928', '_transient_timeout_feed_ac0b00fe65abe10e0c5b588f3ed8c7ca', '1470515064', 'no');
@@ -775,7 +781,7 @@ CREATE TABLE `mrc_postmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `post_id` (`post_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=671 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=675 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of mrc_postmeta
@@ -800,7 +806,7 @@ INSERT INTO `mrc_postmeta` VALUES ('21', '24', '_edit_lock', '1468120840:2');
 INSERT INTO `mrc_postmeta` VALUES ('22', '25', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('23', '25', '_edit_lock', '1469434906:1');
 INSERT INTO `mrc_postmeta` VALUES ('24', '26', '_edit_last', '1');
-INSERT INTO `mrc_postmeta` VALUES ('25', '26', '_edit_lock', '1469801610:2');
+INSERT INTO `mrc_postmeta` VALUES ('25', '26', '_edit_lock', '1471189469:1');
 INSERT INTO `mrc_postmeta` VALUES ('26', '27', '_edit_lock', '1468120905:2');
 INSERT INTO `mrc_postmeta` VALUES ('27', '29', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('28', '29', '_edit_lock', '1469033202:1');
@@ -809,9 +815,9 @@ INSERT INTO `mrc_postmeta` VALUES ('30', '31', '_edit_lock', '1468121151:2');
 INSERT INTO `mrc_postmeta` VALUES ('31', '32', '_edit_last', '2');
 INSERT INTO `mrc_postmeta` VALUES ('33', '32', '_edit_lock', '1468121364:2');
 INSERT INTO `mrc_postmeta` VALUES ('38', '32', '_wp_desired_post_slug', '32');
-INSERT INTO `mrc_postmeta` VALUES ('39', '33', '_edit_lock', '1469866165:2');
-INSERT INTO `mrc_postmeta` VALUES ('40', '33', '_edit_last', '2');
-INSERT INTO `mrc_postmeta` VALUES ('41', '33', 'field_578214cf89b70', 'a:12:{s:3:\"key\";s:19:\"field_578214cf89b70\";s:5:\"label\";s:4:\"Ship\";s:4:\"name\";s:4:\"ship\";s:4:\"type\";s:11:\"post_object\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:9:\"post_type\";a:1:{i:0;s:4:\"ship\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:4;}');
+INSERT INTO `mrc_postmeta` VALUES ('39', '33', '_edit_lock', '1471190311:1');
+INSERT INTO `mrc_postmeta` VALUES ('40', '33', '_edit_last', '1');
+INSERT INTO `mrc_postmeta` VALUES ('41', '33', 'field_578214cf89b70', 'a:12:{s:3:\"key\";s:19:\"field_578214cf89b70\";s:5:\"label\";s:4:\"Ship\";s:4:\"name\";s:4:\"ship\";s:4:\"type\";s:11:\"post_object\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:9:\"post_type\";a:1:{i:0;s:4:\"ship\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:5;}');
 INSERT INTO `mrc_postmeta` VALUES ('43', '33', 'position', 'normal');
 INSERT INTO `mrc_postmeta` VALUES ('44', '33', 'layout', 'default');
 INSERT INTO `mrc_postmeta` VALUES ('45', '33', 'hide_on_screen', '');
@@ -822,10 +828,10 @@ INSERT INTO `mrc_postmeta` VALUES ('55', '36', '_ship', 'a:1:{i:0;s:2:\"10\";}')
 INSERT INTO `mrc_postmeta` VALUES ('56', '36', '__ship', 'field_578214cf89b70');
 INSERT INTO `mrc_postmeta` VALUES ('57', '36', '_edit_lock', '1468335195:2');
 INSERT INTO `mrc_postmeta` VALUES ('58', '36', '_wp_old_slug', '36');
-INSERT INTO `mrc_postmeta` VALUES ('59', '33', 'field_57821584d9956', 'a:12:{s:3:\"key\";s:19:\"field_57821584d9956\";s:5:\"label\";s:4:\"Port\";s:4:\"name\";s:4:\"port\";s:4:\"type\";s:11:\"post_object\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:9:\"post_type\";a:1:{i:0;s:4:\"port\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"1\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:3;}');
+INSERT INTO `mrc_postmeta` VALUES ('59', '33', 'field_57821584d9956', 'a:12:{s:3:\"key\";s:19:\"field_57821584d9956\";s:5:\"label\";s:4:\"Port\";s:4:\"name\";s:4:\"port\";s:4:\"type\";s:11:\"post_object\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:9:\"post_type\";a:1:{i:0;s:4:\"port\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"1\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:4;}');
 INSERT INTO `mrc_postmeta` VALUES ('61', '36', 'port', 'a:2:{i:0;s:2:\"20\";i:1;s:2:\"21\";}');
 INSERT INTO `mrc_postmeta` VALUES ('62', '36', '__port', 'field_57821584d9956');
-INSERT INTO `mrc_postmeta` VALUES ('63', '33', 'field_578215ef69442', 'a:12:{s:3:\"key\";s:19:\"field_578215ef69442\";s:5:\"label\";s:12:\"Destination \";s:4:\"name\";s:11:\"destination\";s:4:\"type\";s:11:\"post_object\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:9:\"post_type\";a:1:{i:0;s:11:\"destination\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:1;}');
+INSERT INTO `mrc_postmeta` VALUES ('63', '33', 'field_578215ef69442', 'a:12:{s:3:\"key\";s:19:\"field_578215ef69442\";s:5:\"label\";s:12:\"Destination \";s:4:\"name\";s:11:\"destination\";s:4:\"type\";s:11:\"post_object\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:9:\"post_type\";a:1:{i:0;s:11:\"destination\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:2;}');
 INSERT INTO `mrc_postmeta` VALUES ('67', '36', '_destination', 'a:1:{i:0;s:2:\"25\";}');
 INSERT INTO `mrc_postmeta` VALUES ('68', '36', '__destination', 'field_578215ef69442');
 INSERT INTO `mrc_postmeta` VALUES ('69', '29', '_destination', 'field_578215ef69442');
@@ -859,7 +865,7 @@ INSERT INTO `mrc_postmeta` VALUES ('103', '53', '_edit_lock', '1468329019:2');
 INSERT INTO `mrc_postmeta` VALUES ('104', '54', '_edit_lock', '1468329689:2');
 INSERT INTO `mrc_postmeta` VALUES ('105', '55', '_edit_lock', '1468330369:2');
 INSERT INTO `mrc_postmeta` VALUES ('117', '58', '_edit_last', '2');
-INSERT INTO `mrc_postmeta` VALUES ('118', '58', '_edit_lock', '1470145042:2');
+INSERT INTO `mrc_postmeta` VALUES ('118', '58', '_edit_lock', '1471190503:1');
 INSERT INTO `mrc_postmeta` VALUES ('119', '58', '_wp_old_slug', '58');
 INSERT INTO `mrc_postmeta` VALUES ('123', '40', 'field_5785065cf16bc', 'a:11:{s:3:\"key\";s:19:\"field_5785065cf16bc\";s:5:\"label\";s:8:\"End date\";s:4:\"name\";s:8:\"end_date\";s:4:\"type\";s:11:\"date_picker\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:11:\"date_format\";s:8:\"yy-mm-dd\";s:14:\"display_format\";s:8:\"dd/mm/yy\";s:9:\"first_day\";s:1:\"1\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:2:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:2;}');
 INSERT INTO `mrc_postmeta` VALUES ('124', '40', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:7:\"journey\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:0;}');
@@ -907,7 +913,7 @@ INSERT INTO `mrc_postmeta` VALUES ('187', '25', '_country', 'field_578c85c11f848
 INSERT INTO `mrc_postmeta` VALUES ('188', '25', '_yoast_wpseo_content_score', '30');
 INSERT INTO `mrc_postmeta` VALUES ('189', '69', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:11:\"destination\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:0;}');
 INSERT INTO `mrc_postmeta` VALUES ('190', '26', '_wp_old_slug', 'demo-destination-2');
-INSERT INTO `mrc_postmeta` VALUES ('191', '26', 'countries', 'a:3:{i:0;s:2:\"af\";i:1;s:2:\"kh\";i:2;s:2:\"vn\";}');
+INSERT INTO `mrc_postmeta` VALUES ('191', '26', 'countries', 'a:5:{i:0;s:2:\"af\";i:1;s:2:\"al\";i:2;s:2:\"as\";i:3;s:2:\"kh\";i:4;s:2:\"vn\";}');
 INSERT INTO `mrc_postmeta` VALUES ('192', '26', '_countries', 'field_578c85c11f848');
 INSERT INTO `mrc_postmeta` VALUES ('193', '26', '_yoast_wpseo_content_score', '30');
 INSERT INTO `mrc_postmeta` VALUES ('194', '25', 'countries', 'a:2:{i:0;s:2:\"kh\";i:1;s:2:\"vn\";}');
@@ -951,7 +957,7 @@ INSERT INTO `mrc_postmeta` VALUES ('243', '60', '_wp_page_template', 'default');
 INSERT INTO `mrc_postmeta` VALUES ('244', '60', '_yoast_wpseo_content_score', '30');
 INSERT INTO `mrc_postmeta` VALUES ('245', '82', '_edit_lock', '1469605562:2');
 INSERT INTO `mrc_postmeta` VALUES ('246', '82', '_edit_last', '1');
-INSERT INTO `mrc_postmeta` VALUES ('247', '33', 'field_578f9770c8a5c', 'a:12:{s:3:\"key\";s:19:\"field_578f9770c8a5c\";s:5:\"label\";s:5:\"River\";s:4:\"name\";s:5:\"river\";s:4:\"type\";s:11:\"post_object\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:9:\"post_type\";a:1:{i:0;s:5:\"river\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"1\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:2;}');
+INSERT INTO `mrc_postmeta` VALUES ('247', '33', 'field_578f9770c8a5c', 'a:12:{s:3:\"key\";s:19:\"field_578f9770c8a5c\";s:5:\"label\";s:5:\"River\";s:4:\"name\";s:5:\"river\";s:4:\"type\";s:11:\"post_object\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:9:\"post_type\";a:1:{i:0;s:5:\"river\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"1\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:3;}');
 INSERT INTO `mrc_postmeta` VALUES ('251', '29', 'river_id', '65');
 INSERT INTO `mrc_postmeta` VALUES ('252', '29', '_river_id', 'field_578f9770c8a5c');
 INSERT INTO `mrc_postmeta` VALUES ('259', '40', '_wp_trash_meta_status', 'publish');
@@ -986,17 +992,17 @@ INSERT INTO `mrc_postmeta` VALUES ('294', '58', 'port', '65');
 INSERT INTO `mrc_postmeta` VALUES ('295', '58', '_port', 'field_57821584d9956');
 INSERT INTO `mrc_postmeta` VALUES ('296', '58', 'ship', '65');
 INSERT INTO `mrc_postmeta` VALUES ('297', '58', '_ship', 'field_578214cf89b70');
-INSERT INTO `mrc_postmeta` VALUES ('299', '85', '_edit_lock', '1470971284:1');
-INSERT INTO `mrc_postmeta` VALUES ('300', '85', '_edit_last', '2');
+INSERT INTO `mrc_postmeta` VALUES ('299', '85', '_edit_lock', '1471190498:1');
+INSERT INTO `mrc_postmeta` VALUES ('300', '85', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('303', '85', 'navigation', '');
 INSERT INTO `mrc_postmeta` VALUES ('304', '85', '_navigation', 'field_578e02f125463');
-INSERT INTO `mrc_postmeta` VALUES ('305', '85', 'destination', '');
+INSERT INTO `mrc_postmeta` VALUES ('305', '85', 'destination', '158');
 INSERT INTO `mrc_postmeta` VALUES ('306', '85', '_destination', 'field_578215ef69442');
-INSERT INTO `mrc_postmeta` VALUES ('307', '85', 'river', '');
+INSERT INTO `mrc_postmeta` VALUES ('307', '85', 'river', '158');
 INSERT INTO `mrc_postmeta` VALUES ('308', '85', '_river', 'field_578f9770c8a5c');
-INSERT INTO `mrc_postmeta` VALUES ('309', '85', 'port', '');
+INSERT INTO `mrc_postmeta` VALUES ('309', '85', 'port', '158');
 INSERT INTO `mrc_postmeta` VALUES ('310', '85', '_port', 'field_57821584d9956');
-INSERT INTO `mrc_postmeta` VALUES ('311', '85', 'ship', '');
+INSERT INTO `mrc_postmeta` VALUES ('311', '85', 'ship', '158');
 INSERT INTO `mrc_postmeta` VALUES ('312', '85', '_ship', 'field_578214cf89b70');
 INSERT INTO `mrc_postmeta` VALUES ('313', '87', '_edit_lock', '1469429328:1');
 INSERT INTO `mrc_postmeta` VALUES ('314', '87', '_edit_last', '1');
@@ -1025,7 +1031,7 @@ INSERT INTO `mrc_postmeta` VALUES ('358', '25', 'photos', 'a:2:{i:0;s:2:\"kh\";i
 INSERT INTO `mrc_postmeta` VALUES ('359', '25', '_photos', 'field_5795caa73a7fb');
 INSERT INTO `mrc_postmeta` VALUES ('360', '89', '_wp_attached_file', '2016/07/498081.png');
 INSERT INTO `mrc_postmeta` VALUES ('361', '89', '_wp_attachment_metadata', 'a:4:{s:5:\"width\";i:1680;s:6:\"height\";i:1050;s:4:\"file\";s:18:\"2016/07/498081.png\";s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}');
-INSERT INTO `mrc_postmeta` VALUES ('363', '90', '_edit_lock', '1469866173:2');
+INSERT INTO `mrc_postmeta` VALUES ('363', '90', '_edit_lock', '1471190530:1');
 INSERT INTO `mrc_postmeta` VALUES ('364', '90', '_edit_last', '2');
 INSERT INTO `mrc_postmeta` VALUES ('365', '90', 'field_5795cd42be585', 'a:11:{s:3:\"key\";s:19:\"field_5795cd42be585\";s:5:\"label\";s:9:\"Departure\";s:4:\"name\";s:9:\"departure\";s:4:\"type\";s:11:\"date_picker\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:11:\"date_format\";s:8:\"yy/mm/dd\";s:14:\"display_format\";s:8:\"dd/mm/yy\";s:9:\"first_day\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:0:\"\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:0;}');
 INSERT INTO `mrc_postmeta` VALUES ('366', '90', 'field_5795cd59be586', 'a:11:{s:3:\"key\";s:19:\"field_5795cd59be586\";s:5:\"label\";s:6:\"Arrive\";s:4:\"name\";s:6:\"arrive\";s:4:\"type\";s:11:\"date_picker\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:11:\"date_format\";s:8:\"yy/mm/dd\";s:14:\"display_format\";s:8:\"dd/mm/yy\";s:9:\"first_day\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:0:\"\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:1;}');
@@ -1047,10 +1053,10 @@ INSERT INTO `mrc_postmeta` VALUES ('383', '88', 'rule', 'a:5:{s:5:\"param\";s:9:
 INSERT INTO `mrc_postmeta` VALUES ('384', '88', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:4:\"ship\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:2;}');
 INSERT INTO `mrc_postmeta` VALUES ('385', '88', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:5:\"river\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:3;}');
 INSERT INTO `mrc_postmeta` VALUES ('386', '88', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:12:\"journey_type\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:4;}');
-INSERT INTO `mrc_postmeta` VALUES ('387', '33', 'field_57963b155cc29', 'a:11:{s:3:\"key\";s:19:\"field_57963b155cc29\";s:5:\"label\";s:9:\"Map Image\";s:4:\"name\";s:9:\"map_image\";s:4:\"type\";s:5:\"image\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:11:\"save_format\";s:6:\"object\";s:12:\"preview_size\";s:9:\"thumbnail\";s:7:\"library\";s:3:\"all\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:5;}');
+INSERT INTO `mrc_postmeta` VALUES ('387', '33', 'field_57963b155cc29', 'a:11:{s:3:\"key\";s:19:\"field_57963b155cc29\";s:5:\"label\";s:9:\"Map Image\";s:4:\"name\";s:9:\"map_image\";s:4:\"type\";s:5:\"image\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:11:\"save_format\";s:6:\"object\";s:12:\"preview_size\";s:9:\"thumbnail\";s:7:\"library\";s:3:\"all\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_578e02f125463\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:8:\"upstream\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:6;}');
 INSERT INTO `mrc_postmeta` VALUES ('389', '85', 'photos', '89');
 INSERT INTO `mrc_postmeta` VALUES ('390', '85', '_photos', 'field_5795caa73a7fb');
-INSERT INTO `mrc_postmeta` VALUES ('391', '85', 'map_image', '');
+INSERT INTO `mrc_postmeta` VALUES ('391', '85', 'map_image', '158');
 INSERT INTO `mrc_postmeta` VALUES ('392', '85', '_map_image', 'field_57963b155cc29');
 INSERT INTO `mrc_postmeta` VALUES ('393', '85', '_', null);
 INSERT INTO `mrc_postmeta` VALUES ('394', '85', 'map_attachment_id', '89');
@@ -1063,7 +1069,7 @@ INSERT INTO `mrc_postmeta` VALUES ('400', '95', '_wp_attached_file', '2016/07/po
 INSERT INTO `mrc_postmeta` VALUES ('401', '95', '_wp_attachment_metadata', 'a:4:{s:5:\"width\";i:20;s:6:\"height\";i:20;s:4:\"file\";s:21:\"2016/07/post-tour.png\";s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}');
 INSERT INTO `mrc_postmeta` VALUES ('402', '96', '_wp_attached_file', '2016/07/plus.png');
 INSERT INTO `mrc_postmeta` VALUES ('403', '96', '_wp_attachment_metadata', 'a:4:{s:5:\"width\";i:20;s:6:\"height\";i:20;s:4:\"file\";s:16:\"2016/07/plus.png\";s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}');
-INSERT INTO `mrc_postmeta` VALUES ('405', '99', '_edit_lock', '1471154116:1');
+INSERT INTO `mrc_postmeta` VALUES ('405', '99', '_edit_lock', '1471167122:1');
 INSERT INTO `mrc_postmeta` VALUES ('406', '99', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('407', '99', 'field_5798636a6bc6a', 'a:14:{s:3:\"key\";s:19:\"field_5798636a6bc6a\";s:5:\"label\";s:19:\"Night of tour dates\";s:4:\"name\";s:6:\"length\";s:4:\"type\";s:4:\"text\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:10:\"formatting\";s:4:\"html\";s:9:\"maxlength\";s:0:\"\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:0:\"\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:2;}');
 INSERT INTO `mrc_postmeta` VALUES ('408', '99', 'field_579863de6bc6b', 'a:15:{s:3:\"key\";s:19:\"field_579863de6bc6b\";s:5:\"label\";s:20:\"Twin-share Price ($)\";s:4:\"name\";s:16:\"twin_share_price\";s:4:\"type\";s:6:\"number\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:3:\"min\";s:0:\"\";s:3:\"max\";s:0:\"\";s:4:\"step\";s:0:\"\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:0:\"\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:3;}');
@@ -1077,11 +1083,11 @@ INSERT INTO `mrc_postmeta` VALUES ('421', '101', 'field_579864586d640', 'a:15:{s
 INSERT INTO `mrc_postmeta` VALUES ('423', '101', 'position', 'normal');
 INSERT INTO `mrc_postmeta` VALUES ('424', '101', 'layout', 'default');
 INSERT INTO `mrc_postmeta` VALUES ('425', '101', 'hide_on_screen', '');
-INSERT INTO `mrc_postmeta` VALUES ('427', '102', '_edit_lock', '1471153921:1');
+INSERT INTO `mrc_postmeta` VALUES ('427', '102', '_edit_lock', '1471167123:1');
 INSERT INTO `mrc_postmeta` VALUES ('428', '102', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('432', '102', 'single_price', '1');
 INSERT INTO `mrc_postmeta` VALUES ('433', '102', '_single_price', 'field_579864586d640');
-INSERT INTO `mrc_postmeta` VALUES ('436', '105', '_edit_lock', '1471154112:1');
+INSERT INTO `mrc_postmeta` VALUES ('436', '105', '_edit_lock', '1471189485:1');
 INSERT INTO `mrc_postmeta` VALUES ('438', '105', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('439', '105', 'length', '10');
 INSERT INTO `mrc_postmeta` VALUES ('440', '105', '_length', 'field_5798636a6bc6a');
@@ -1119,9 +1125,9 @@ INSERT INTO `mrc_postmeta` VALUES ('496', '118', '_journey_type', 'field_5798b9b
 INSERT INTO `mrc_postmeta` VALUES ('497', '118', 'promotion', '20');
 INSERT INTO `mrc_postmeta` VALUES ('498', '118', '_promotion', 'field_5798c5e9b38ba');
 INSERT INTO `mrc_postmeta` VALUES ('502', '109', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:5:\"offer\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:0;}');
-INSERT INTO `mrc_postmeta` VALUES ('509', '85', 'starting_point', '');
+INSERT INTO `mrc_postmeta` VALUES ('509', '85', 'starting_point', '158');
 INSERT INTO `mrc_postmeta` VALUES ('510', '85', '_starting_point', 'field_57986efd64c65');
-INSERT INTO `mrc_postmeta` VALUES ('511', '125', '_edit_lock', '1470471973:2');
+INSERT INTO `mrc_postmeta` VALUES ('511', '125', '_edit_lock', '1471188487:1');
 INSERT INTO `mrc_postmeta` VALUES ('512', '125', '_edit_last', '2');
 INSERT INTO `mrc_postmeta` VALUES ('516', '125', 'navigation', '');
 INSERT INTO `mrc_postmeta` VALUES ('517', '125', '_navigation', 'field_578e02f125463');
@@ -1155,7 +1161,6 @@ INSERT INTO `mrc_postmeta` VALUES ('550', '128', 'map_image', '');
 INSERT INTO `mrc_postmeta` VALUES ('551', '128', '_map_image', 'field_57963b155cc29');
 INSERT INTO `mrc_postmeta` VALUES ('552', '90', 'field_579c60c8f59a4', 'a:12:{s:3:\"key\";s:19:\"field_579c60c8f59a4\";s:5:\"label\";s:10:\"Navigation\";s:4:\"name\";s:10:\"navigation\";s:4:\"type\";s:6:\"select\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:7:\"choices\";a:2:{s:8:\"upstream\";s:8:\"Upstream\";s:10:\"downstream\";s:10:\"Downstream\";}s:13:\"default_value\";s:0:\"\";s:10:\"allow_null\";s:1:\"0\";s:8:\"multiple\";s:1:\"0\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:2:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:3;}');
 INSERT INTO `mrc_postmeta` VALUES ('553', '90', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:7:\"journey\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:0;}');
-INSERT INTO `mrc_postmeta` VALUES ('554', '33', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:12:\"journey_type\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:0;}');
 INSERT INTO `mrc_postmeta` VALUES ('555', '131', '_edit_lock', '1470145145:2');
 INSERT INTO `mrc_postmeta` VALUES ('556', '131', '_edit_last', '2');
 INSERT INTO `mrc_postmeta` VALUES ('558', '131', 'departure', 'upstream');
@@ -1224,7 +1229,7 @@ INSERT INTO `mrc_postmeta` VALUES ('630', '105', '_yoast_wpseo_content_score', '
 INSERT INTO `mrc_postmeta` VALUES ('631', '106', '_thumbnail_id', '157');
 INSERT INTO `mrc_postmeta` VALUES ('632', '106', '_yoast_wpseo_content_score', '30');
 INSERT INTO `mrc_postmeta` VALUES ('633', '102', '_thumbnail_id', '156');
-INSERT INTO `mrc_postmeta` VALUES ('634', '102', '_yoast_wpseo_content_score', '60');
+INSERT INTO `mrc_postmeta` VALUES ('634', '102', '_yoast_wpseo_content_score', '30');
 INSERT INTO `mrc_postmeta` VALUES ('635', '160', '_edit_lock', '1470294254:1');
 INSERT INTO `mrc_postmeta` VALUES ('636', '161', '_edit_lock', '1470294287:1');
 INSERT INTO `mrc_postmeta` VALUES ('637', '99', 'field_57a58ecf35881', 'a:14:{s:3:\"key\";s:19:\"field_57a58ecf35881\";s:5:\"label\";s:12:\"Journey Type\";s:4:\"name\";s:12:\"journey_type\";s:4:\"type\";s:12:\"relationship\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:13:\"return_format\";s:6:\"object\";s:9:\"post_type\";a:1:{i:0;s:12:\"journey_type\";}s:8:\"taxonomy\";a:1:{i:0;s:3:\"all\";}s:7:\"filters\";a:1:{i:0;s:6:\"search\";}s:15:\"result_elements\";a:1:{i:0;s:9:\"post_type\";}s:3:\"max\";s:0:\"\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:0:\"\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:1;}');
@@ -1247,6 +1252,10 @@ INSERT INTO `mrc_postmeta` VALUES ('665', '105', 'type', '10');
 INSERT INTO `mrc_postmeta` VALUES ('666', '105', '_type', 'field_57b002dc95e0e');
 INSERT INTO `mrc_postmeta` VALUES ('669', '99', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:4:\"tour\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:0;}');
 INSERT INTO `mrc_postmeta` VALUES ('670', '99', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:4:\"tour\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:1;}');
+INSERT INTO `mrc_postmeta` VALUES ('671', '33', 'field_57b094d4743be', 'a:15:{s:3:\"key\";s:19:\"field_57b094d4743be\";s:5:\"label\";s:6:\"Nights\";s:4:\"name\";s:6:\"nights\";s:4:\"type\";s:6:\"number\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"1\";s:13:\"default_value\";s:1:\"1\";s:11:\"placeholder\";s:16:\"Journey duration\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:3:\"min\";s:1:\"0\";s:3:\"max\";s:0:\"\";s:4:\"step\";s:1:\"1\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:2:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:1;}');
+INSERT INTO `mrc_postmeta` VALUES ('672', '33', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:12:\"journey_type\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:0;}');
+INSERT INTO `mrc_postmeta` VALUES ('673', '85', 'nights', '158');
+INSERT INTO `mrc_postmeta` VALUES ('674', '85', '_nights', 'field_57b094d4743be');
 
 -- ----------------------------
 -- Table structure for mrc_posts
@@ -1289,8 +1298,8 @@ CREATE TABLE `mrc_posts` (
 INSERT INTO `mrc_posts` VALUES ('20', '2', '2016-07-10 03:17:55', '2016-07-10 03:17:55', '', 'Saigon', '', 'publish', 'closed', 'closed', '', 'saigon', '', '', '2016-08-02 13:40:38', '2016-08-02 13:40:38', '', '0', 'http://www.vietcruises.com/?post_type=port&#038;p=20', '0', 'port', '', '0');
 INSERT INTO `mrc_posts` VALUES ('21', '2', '2016-07-10 03:18:06', '2016-07-10 03:18:06', '', 'Hai Phong', '', 'publish', 'closed', 'closed', '', 'hai-phong', '', '', '2016-08-02 13:40:18', '2016-08-02 13:40:18', '', '0', 'http://www.vietcruises.com/?post_type=port&#038;p=21', '0', 'port', '', '0');
 INSERT INTO `mrc_posts` VALUES ('25', '2', '2016-07-10 03:20:53', '2016-07-10 03:20:53', '', 'Vietnam & Campuchia', '', 'publish', 'closed', 'closed', '', 'vietnam-campuchia', '', '', '2016-07-25 08:24:04', '2016-07-25 08:24:04', '', '0', 'http://www.vietcruises.com/?post_type=destination&#038;p=25', '0', 'destination', '', '0');
-INSERT INTO `mrc_posts` VALUES ('26', '2', '2016-07-10 03:21:01', '2016-07-10 03:21:01', '', 'Phnom Penh & Siem Reap', '', 'publish', 'closed', 'closed', '', 'phnom-penh-siem-reap', '', '', '2016-07-25 11:04:15', '2016-07-25 11:04:15', '', '0', 'http://www.vietcruises.com/?post_type=destination&#038;p=26', '0', 'destination', '', '0');
-INSERT INTO `mrc_posts` VALUES ('33', '2', '2016-07-10 09:27:27', '2016-07-10 09:27:27', '', 'Journey Type Detail', '', 'publish', 'closed', 'closed', '', 'acf_journey-type-detail', '', '', '2016-07-30 08:10:45', '2016-07-30 08:10:45', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=33', '0', 'acf', '', '0');
+INSERT INTO `mrc_posts` VALUES ('26', '2', '2016-07-10 03:21:01', '2016-07-10 03:21:01', '', 'Phnom Penh', '', 'publish', 'closed', 'closed', '', 'phnom-penh-siem-reap', '', '', '2016-08-14 15:31:26', '2016-08-14 15:31:26', '', '0', 'http://www.vietcruises.com/?post_type=destination&#038;p=26', '0', 'destination', '', '0');
+INSERT INTO `mrc_posts` VALUES ('33', '2', '2016-07-10 09:27:27', '2016-07-10 09:27:27', '', 'Journey Type Detail', '', 'publish', 'closed', 'closed', '', 'acf_journey-type-detail', '', '', '2016-08-14 15:58:18', '2016-08-14 15:58:18', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=33', '0', 'acf', '', '0');
 INSERT INTO `mrc_posts` VALUES ('37', '2', '2016-07-10 09:30:23', '2016-07-10 09:30:23', '', 'demo journy', '', 'inherit', 'closed', 'closed', '', '36-autosave-v1', '', '', '2016-07-10 09:30:23', '2016-07-10 09:30:23', '', '36', 'http://www.vietcruises.com/uncategorized/36-autosave-v1-37.html', '0', 'revision', '', '0');
 INSERT INTO `mrc_posts` VALUES ('38', '2', '2016-07-10 09:35:11', '2016-07-10 09:35:11', '', 'Ship Infomation', '', 'publish', 'closed', 'closed', '', 'acf_ship-infomation', '', '', '2016-07-25 08:17:18', '2016-07-25 08:17:18', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=38', '0', 'acf', '', '0');
 INSERT INTO `mrc_posts` VALUES ('40', '2', '2016-07-10 09:45:21', '2016-07-10 09:45:21', '', 'Journey detail', '', 'trash', 'closed', 'closed', '', 'acf_journey-detail__trashed', '', '', '2016-07-20 16:52:43', '2016-07-20 16:52:43', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=40', '0', 'acf', '', '0');
@@ -1315,7 +1324,7 @@ INSERT INTO `mrc_posts` VALUES ('80', '1', '2016-07-19 07:45:04', '2016-07-19 07
 INSERT INTO `mrc_posts` VALUES ('81', '1', '2016-07-19 16:16:56', '2016-07-19 16:16:56', '[theme-my-login]', 'Log In', '', 'inherit', 'closed', 'closed', '', '60-revision-v1', '', '', '2016-07-19 16:16:56', '2016-07-19 16:16:56', '', '60', 'http://www.vietcruises.com/uncategorized/60-revision-v1-81.html', '0', 'revision', '', '0');
 INSERT INTO `mrc_posts` VALUES ('82', '1', '2016-07-20 15:23:14', '2016-07-20 15:23:14', '', 'Mekong River', '', 'publish', 'closed', 'closed', '', 'mekong-river', '', '', '2016-07-25 08:18:50', '2016-07-25 08:18:50', '', '0', 'http://www.vietcruises.com/?post_type=river&#038;p=82', '0', 'river', '', '0');
 INSERT INTO `mrc_posts` VALUES ('83', '1', '2016-07-20 17:17:26', '2016-07-20 17:17:26', '', 'Classic Mekong', '', 'inherit', 'closed', 'closed', '', '58-autosave-v1', '', '', '2016-07-20 17:17:26', '2016-07-20 17:17:26', '', '58', 'http://www.vietcruises.com/uncategorized/58-autosave-v1-83.html', '0', 'revision', '', '0');
-INSERT INTO `mrc_posts` VALUES ('85', '1', '2016-07-22 17:26:41', '2016-07-22 17:26:41', 'In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.', 'Mekong Classic', 'There can be no tapestry of river life as fascinating and varied as the River Mekong. Indeed there can be no more striking a cultural contrast as that between the bustling Vietnam delta and the tranquility of Cambodia. We pass from the vibrant French colonial port of Saigon, through the vast delta so rich in human life and endeavour, to travel along the main channel into the rich countryside of Cambodia. With a full day in charming Phnom Penh we then explore remoter waterways as we progress to the great monuments of Angkor.', 'publish', 'closed', 'closed', '', 'mekong-classic', '', '', '2016-08-06 07:15:03', '2016-08-06 07:15:03', '', '0', 'http://www.vietcruises.com/?post_type=journey_type&#038;p=85', '0', 'journey_type', '', '0');
+INSERT INTO `mrc_posts` VALUES ('85', '1', '2016-07-22 17:26:41', '2016-07-22 17:26:41', 'In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.', 'Mekong Classic', 'There can be no tapestry of river life as fascinating and varied as the River Mekong. Indeed there can be no more striking a cultural contrast as that between the bustling Vietnam delta and the tranquility of Cambodia. We pass from the vibrant French colonial port of Saigon, through the vast delta so rich in human life and endeavour, to travel along the main channel into the rich countryside of Cambodia. With a full day in charming Phnom Penh we then explore remoter waterways as we progress to the great monuments of Angkor.', 'publish', 'closed', 'closed', '', 'mekong-classic', '', '', '2016-08-14 16:01:19', '2016-08-14 16:01:19', '', '0', 'http://www.vietcruises.com/?post_type=journey_type&#038;p=85', '0', 'journey_type', '', '0');
 INSERT INTO `mrc_posts` VALUES ('87', '1', '2016-07-24 16:29:04', '2016-07-24 16:29:04', '', 'Season Time Detail', '', 'publish', 'closed', 'closed', '', 'acf_season-time-detail', '', '', '2016-07-25 06:49:45', '2016-07-25 06:49:45', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=87', '5', 'acf', '', '0');
 INSERT INTO `mrc_posts` VALUES ('88', '1', '2016-07-25 08:16:55', '2016-07-25 08:16:55', '', 'Gallery', '', 'publish', 'closed', 'closed', '', 'acf_gallery', '', '', '2016-07-25 16:15:05', '2016-07-25 16:15:05', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=88', '5', 'acf', '', '0');
 INSERT INTO `mrc_posts` VALUES ('89', '1', '2016-07-25 08:24:39', '2016-07-25 08:24:39', '', '498081', '', 'inherit', 'open', 'closed', '', '498081', '', '', '2016-07-25 08:24:39', '2016-07-25 08:24:39', '', '85', 'http://www.vietcruises.com/wp-content/uploads/2016/07/498081.png', '0', 'attachment', 'image/png', '0');
@@ -1327,7 +1336,7 @@ INSERT INTO `mrc_posts` VALUES ('95', '1', '2016-07-26 04:21:35', '2016-07-26 04
 INSERT INTO `mrc_posts` VALUES ('96', '1', '2016-07-26 08:19:44', '2016-07-26 08:19:44', '', 'plus', '', 'inherit', 'open', 'closed', '', 'plus', '', '', '2016-07-26 08:19:44', '2016-07-26 08:19:44', '', '0', 'http://www.vietcruises.com/wp-content/uploads/2016/07/plus.png', '0', 'attachment', 'image/png', '0');
 INSERT INTO `mrc_posts` VALUES ('99', '2', '2016-07-27 07:34:51', '2016-07-27 07:34:51', '', 'Tours info', '', 'publish', 'closed', 'closed', '', 'acf_tours-info', '', '', '2016-08-14 05:55:13', '2016-08-14 05:55:13', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=99', '0', 'acf', '', '0');
 INSERT INTO `mrc_posts` VALUES ('101', '2', '2016-07-27 07:36:24', '2016-07-27 07:36:24', '', 'Addons info', '', 'publish', 'closed', 'closed', '', 'acf_addons-info', '', '', '2016-08-06 08:16:56', '2016-08-06 08:16:56', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=101', '0', 'acf', '', '0');
-INSERT INTO `mrc_posts` VALUES ('102', '2', '2016-07-27 07:38:46', '2016-07-27 07:38:46', 'Language Guides (Cruise portion only) ,Language Guides (Cruise portion only)l . Language Guides (Cruise portion only)', 'Language Guides (Cruise portion only)', '', 'publish', 'closed', 'closed', '', 'language-guides-cruise-portion-only', '', '', '2016-08-14 05:54:09', '2016-08-14 05:54:09', '', '0', 'http://www.vietcruises.com/?post_type=addon&#038;p=102', '0', 'addon', '', '0');
+INSERT INTO `mrc_posts` VALUES ('102', '2', '2016-07-27 07:38:46', '2016-07-27 07:38:46', 'Language Guides', 'Language Guides (Cruise portion only)', '', 'publish', 'closed', 'closed', '', 'language-guides-cruise-portion-only', '', '', '2016-08-14 06:04:53', '2016-08-14 06:04:53', '', '0', 'http://www.vietcruises.com/?post_type=addon&#038;p=102', '0', 'addon', '', '0');
 INSERT INTO `mrc_posts` VALUES ('105', '2', '2016-07-27 07:40:23', '2016-07-27 07:40:23', 'Saigon &amp; Surroundings (InterContinental Asiana) Saigon &amp; Surroundings (InterContinental Asiana) Saigon &amp; Surroundings (InterContinental Asiana)', 'Saigon & Surroundings (InterContinental Asiana)', '', 'publish', 'closed', 'closed', '', 'saigon-surroundings-intercontinental-asiana', '', '', '2016-08-14 05:38:00', '2016-08-14 05:38:00', '', '0', 'http://www.vietcruises.com/?post_type=pretour&#038;p=105', '0', 'tour', '', '0');
 INSERT INTO `mrc_posts` VALUES ('106', '2', '2016-07-27 07:41:16', '2016-07-27 07:41:16', 'Exploring Angkor (Victoria Resort).\\, Exploring Angkor (Victoria Resort)', 'Exploring Angkor (Victoria Resort)', '', 'publish', 'closed', 'closed', '', 'exploring-angkor-victoria-resort', '', '', '2016-08-02 13:46:37', '2016-08-02 13:46:37', '', '0', 'http://www.vietcruises.com/?post_type=posttour&#038;p=106', '0', 'posttour', '', '0');
 INSERT INTO `mrc_posts` VALUES ('109', '2', '2016-07-27 13:41:39', '2016-07-27 13:41:39', '', 'Offers infomation', '', 'publish', 'closed', 'closed', '', 'acf_offers-infomation', '', '', '2016-07-27 14:58:55', '2016-07-27 14:58:55', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=109', '0', 'acf', '', '0');
@@ -1599,7 +1608,7 @@ CREATE TABLE `mrc_tour_journey_type` (
   `tour_id` bigint(20) DEFAULT NULL,
   `journey_type_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mrc_tour_journey_type
@@ -1607,9 +1616,9 @@ CREATE TABLE `mrc_tour_journey_type` (
 INSERT INTO `mrc_tour_journey_type` VALUES ('20', '105', '128');
 INSERT INTO `mrc_tour_journey_type` VALUES ('21', '105', '85');
 INSERT INTO `mrc_tour_journey_type` VALUES ('22', '105', '125');
-INSERT INTO `mrc_tour_journey_type` VALUES ('23', '102', '128');
-INSERT INTO `mrc_tour_journey_type` VALUES ('24', '102', '125');
-INSERT INTO `mrc_tour_journey_type` VALUES ('25', '102', '85');
+INSERT INTO `mrc_tour_journey_type` VALUES ('26', '102', '128');
+INSERT INTO `mrc_tour_journey_type` VALUES ('27', '102', '125');
+INSERT INTO `mrc_tour_journey_type` VALUES ('28', '102', '85');
 
 -- ----------------------------
 -- Table structure for mrc_transactions
@@ -1724,7 +1733,7 @@ INSERT INTO `mrc_usermeta` VALUES ('59', '1', 'closedpostboxes_destination', 'a:
 INSERT INTO `mrc_usermeta` VALUES ('60', '1', 'metaboxhidden_destination', 'a:4:{i:0;s:6:\"acf_40\";i:1;s:6:\"acf_33\";i:2;s:6:\"acf_38\";i:3;s:7:\"slugdiv\";}');
 INSERT INTO `mrc_usermeta` VALUES ('61', '1', 'meta-box-order_destination', 'a:4:{s:15:\"acf_after_title\";s:0:\"\";s:4:\"side\";s:22:\"submitdiv,postimagediv\";s:6:\"normal\";s:46:\"acf_69,wpseo_meta,acf_40,acf_33,acf_38,slugdiv\";s:8:\"advanced\";s:0:\"\";}');
 INSERT INTO `mrc_usermeta` VALUES ('62', '1', 'screen_layout_destination', '2');
-INSERT INTO `mrc_usermeta` VALUES ('63', '1', 'closedpostboxes_journey_type', 'a:3:{i:0;s:10:\"wpseo_meta\";i:1;s:6:\"acf_88\";i:2;s:6:\"acf_33\";}');
+INSERT INTO `mrc_usermeta` VALUES ('63', '1', 'closedpostboxes_journey_type', 'a:4:{i:0;s:10:\"wpseo_meta\";i:1;s:9:\"itinerary\";i:2;s:7:\"include\";i:3;s:6:\"acf_88\";}');
 INSERT INTO `mrc_usermeta` VALUES ('64', '1', 'metaboxhidden_journey_type', 'a:8:{i:0;s:7:\"acf_101\";i:1;s:6:\"acf_90\";i:2;s:7:\"acf_109\";i:3;s:6:\"acf_99\";i:4;s:6:\"acf_87\";i:5;s:6:\"acf_69\";i:6;s:6:\"acf_38\";i:7;s:7:\"slugdiv\";}');
 INSERT INTO `mrc_usermeta` VALUES ('65', '1', 'meta-box-order_journey_type', 'a:4:{s:15:\"acf_after_title\";s:0:\"\";s:4:\"side\";s:9:\"submitdiv\";s:6:\"normal\";s:51:\"acf_33,room_type_price,acf_69,acf_40,acf_38,slugdiv\";s:8:\"advanced\";s:0:\"\";}');
 INSERT INTO `mrc_usermeta` VALUES ('66', '1', 'screen_layout_journey_type', '2');

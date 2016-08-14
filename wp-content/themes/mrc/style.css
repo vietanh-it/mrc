@@ -40,6 +40,28 @@ Text Domain: mrc
     border: 1px solid #e4a611;
 }
 
+/*.journey-detail .nav-bar .right {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*right: 0;*/
+/*}*/
+
+/*.btn-menu-jn, .btn-menu-edit, .btn-menu-info, .btn-menu-delete {*/
+    /*padding: 0;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+/*}*/
+
+/*.btn-menu-info {*/
+    /*right: 15px;*/
+/*}*/
+
+/*.btn-menu-edit {*/
+    /*right: 160px;*/
+/*}*/
+
 @media (min-width: 1200px) {
     .container {
         width: 1170px !important;

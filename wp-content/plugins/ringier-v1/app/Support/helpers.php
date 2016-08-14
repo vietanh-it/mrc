@@ -8,7 +8,7 @@ if (!function_exists('view')) {
     function view($view = null, $data = [], $in_theme = false)
     {
         extract($data);
-        require_once PATH_VIEW . $view . '.view.php';
+        require PATH_VIEW . $view . '.view.php';
     }
 }
 

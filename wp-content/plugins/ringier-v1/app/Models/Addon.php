@@ -61,7 +61,7 @@ class Addon
         }
 
         if (empty($params['post_type'])) {
-            $where .= ' AND p.post_type IN ("addon","pretour","posttour")';
+            $where .= ' AND p.post_type IN ("addon","tour")';
         } else {
             $where .= ' AND p.post_type = ' . $params['post_type'];
         }

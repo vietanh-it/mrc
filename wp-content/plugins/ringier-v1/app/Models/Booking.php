@@ -90,6 +90,7 @@ class Booking
         }
 
         $cart->booking_total = valueOrNull($this->getCartTotal($user_id, $data['journey_id']), 0);
+        $cart->booking_total_text = number_format($cart->booking_total);
 
         return $cart;
     }
@@ -162,7 +163,8 @@ class Booking
             'room_type_single_count' => $room_type_single_count,
             'total_twin'             => $total_twin_guests,
             'total_single'           => $total_single_guests,
-            'total'                  => $this->getCartTotal($user_id, $journey_id)
+            'total'                  => $this->getCartTotal($user_id, $journey_id),
+            'total_text'             => number_format($this->getCartTotal($user_id, $journey_id))
         ];
     }
 

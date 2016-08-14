@@ -290,7 +290,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                             booking_ready = true;
 
                             // TOTAL
-                            $('.booking-total').html(data.data.booking_total);
+                            $('.booking-total').html(data.data.booking_total_text);
                         }
                         else {
                             var html_msg = '<div>';
@@ -365,7 +365,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                         });
 
                         // TOTAL
-                        $('.booking-total').html(data.data.total);
+                        $('.booking-total').html(data.data.total_text);
                     }
                     else {
                         var html_msg = '<div>';
@@ -378,7 +378,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 html_msg += msg + "<br/>";
                             });
                         }
-                        html_msg += "</div>";
+                        html_msg += "</div>";   
                         swal({"title": "Error", "text": html_msg, "type": "error", html: true});
                     }
                 }

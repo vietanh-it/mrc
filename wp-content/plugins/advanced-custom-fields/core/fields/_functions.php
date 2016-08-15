@@ -136,7 +136,6 @@ class acf_field_functions
                     }
 
                 case 'tour':
-                case 'addon':
                     if ($field['name'] == 'journey_type') {
                         $table = $wpdb->prefix . 'tour_journey_type';
                         $query = "SELECT * FROM $table  WHERE tour_id = {$post_id}";
@@ -155,6 +154,18 @@ class acf_field_functions
                         if (!is_array($value) && is_serialized($value)) {
                             $value = unserialize($value);
                         }
+                    }
+                    return $value;
+                case 'addon':
+                    if ($field['name'] == 'journey_type') {
+                        $table = $wpdb->prefix . 'tour_journey_type';
+                        $query = "SELECT * FROM $table  WHERE tour_id = {$post_id}";
+                        $result = $wpdb->get_results($query);
+                        $value = [];
+                        foreach ($result as $v) {
+                            $value[] = $v->journey_type_id;
+                        }
+                        return $value;
                     }
                     return $value;
 
@@ -408,7 +419,6 @@ class acf_field_functions
                     }
                     break;
                 case 'tour':
-                case 'addon':
                     if ($field['name'] == 'journey_type') {
                         $wpdb->delete($wpdb->prefix . 'tour_journey_type', ['tour_id' => $post_id]);
 
@@ -432,6 +442,20 @@ class acf_field_functions
                     // Type for addon
                     if ($post->post_type == 'addon') {
                         $wpdb->update($wpdb->prefix . 'tour_info', ['type' => 'addon'], ['object_id' => $post_id]);
+                    }
+                    break;
+                case 'addon':
+                    if ($field['name'] == 'journey_type') {
+                        $wpdb->delete($wpdb->prefix . 'tour_journey_type', ['tour_id' => $post_id]);
+
+
+                        if (is_array($data[$field['name']])) {
+                            foreach ($data[$field['name']] as $d) {
+                                $wpdb->insert($wpdb->prefix . 'tour_journey_type',
+                                    ['tour_id' => $post_id, 'journey_type_id' => $d]);
+                            }
+                        }
+                        unset($data[$field['name']]);
                     }
                     break;
                 case 'offer':

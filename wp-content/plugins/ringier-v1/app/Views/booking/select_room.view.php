@@ -151,10 +151,6 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
                             <div class="text-center btt-box">
                                 <a href="<?php echo WP_SITEURL . '/journeys' ?>" class="back">Back</a>
-                                <!--<button type="submit">Continue</button>-->
-                                <!--<a href="-->
-                                <?php //echo $journey_detail->permalink . '?step=services-addons'; ?><!--"-->
-                                <?php //echo $journey_detail->permalink . '?step=process&payment_type=atm'; ?>
                                 <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
                                    class="btn btn-primary btn-continue btn-yellow">Continue</a>
                             </div>
@@ -378,7 +374,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 html_msg += msg + "<br/>";
                             });
                         }
-                        html_msg += "</div>";   
+                        html_msg += "</div>";
                         swal({"title": "Error", "text": html_msg, "type": "error", html: true});
                     }
                 }

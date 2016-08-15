@@ -19,6 +19,7 @@ class Addon
     private $_tbl_tour_info;
     private $_tbl_tour_journey_type;
     private $_tbl_addon_options;
+    private $_tbl_cart_addon;
 
     function __construct()
     {
@@ -30,6 +31,7 @@ class Addon
         $this->_tbl_tour_journey_type = $this->_prefix . 'tour_journey_type';
         $this->_tbl_journey_type_info = $this->_prefix . 'journey_type_info';
         $this->_tbl_addon_options = $this->_prefix . 'addon_options';
+        $this->_tbl_cart_addon = $this->_prefix . 'cart_addon';
     }
 
 
@@ -124,4 +126,54 @@ class Addon
 
         return $result;
     }
+
+
+    public function getCartAddon($cart_id, $object_id = 0, $addon_option_id = 0, $type = '')
+    {
+        if (!empty($cart_id)) {
+            $query = "SELECT * FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id}";
+
+            if (!empty($object_id)) {
+                $query .= " AND object_id = {$object_id}";
+            }
+            if (!empty($addon_option_id)) {
+                $query .= " AND addon_option_id = {$addon_option_id}";
+            }
+            if (!empty($type)) {
+                $query .= " AND type = '{$type}'";
+            }
+
+            $result = $this->_wpdb->get_results($query);
+        } else {
+            $result = [];
+        }
+
+        return $result;
+    }
+
+
+    public function switchAddonStatus($cart_id, $object_id)
+    {
+        if (!empty($cart_id) && !empty($object_id)) {
+            $current_status = $this->_wpdb->get_var("SELECT status FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND object_id = {$object_id} LIMIT 1");
+            if ($current_status == 'active') {
+                $next_status = 'inactive';
+            } elseif ($current_status == 'inactive') {
+                $next_status = 'active';
+            } else {
+                // Cart addon null
+                return 'Please choose addon.';
+            }
+
+            $this->_wpdb->update($this->_tbl_cart_addon, ['status' => $next_status], [
+                'cart_id'   => $cart_id,
+                'object_id' => $object_id
+            ]);
+
+            return true;
+        } else {
+            return 'Error occurred, please try again.';
+        }
+    }
+
 }

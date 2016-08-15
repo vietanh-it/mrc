@@ -7,10 +7,6 @@ $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
 // var_dump($journey_detail);
 
-// Add-ons
-$addon_model = \RVN\Models\Addon::init();
-$addon_list = $addon_model->getList(['journey_type_id' => $journey_detail->journey_type_info->ID]);
-
 // Cart detail
 $booking_ctrl = \RVN\Controllers\BookingController::init();
 $booking = \RVN\Models\Booking::init();
@@ -20,7 +16,11 @@ if (empty($cart_info['total'])) {
     $url = WP_SITEURL . strtok($_SERVER["REQUEST_URI"], '?');
     wp_redirect($url);
     exit;
-} ?>
+}
+
+// Add-ons
+$addon_model = \RVN\Models\Addon::init();
+$addon_list = $addon_model->getList(['journey_type_id' => $journey_detail->journey_type_info->ID]); ?>
 
 <div class="journey-detail">
 
@@ -41,9 +41,10 @@ if (empty($cart_info['total'])) {
 
                 <?php
                 if (!empty($addon_list['data'])) {
-                    foreach ($addon_list['data'] as $key => $item) {
-                        view('blocks/item-addon', ['item' => $item]);
-                    }
+                    view('blocks/list-addon', [
+                        'list_addon' => $addon_list['data'],
+                        'cart_id'    => $cart_info['cart_info']->id
+                    ]);
                 } ?>
 
                 <div class="text-center btt-box">

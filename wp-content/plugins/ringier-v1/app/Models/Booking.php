@@ -130,6 +130,7 @@ class Booking
      */
     public function getCartInfo($user_id, $journey_id)
     {
+        $cart_info = $this->_wpdb->get_row("SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id}");
         $query = "SELECT c.id as cart_id, c.journey_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
         $cart = $this->_wpdb->get_results($query);
         $room_type_twin_count = [];
@@ -159,6 +160,7 @@ class Booking
 
         return [
             'cart'                   => $cart,
+            'cart_info'              => $cart_info,
             'room_type_twin_count'   => $room_type_twin_count,
             'room_type_single_count' => $room_type_single_count,
             'total_twin'             => $total_twin_guests,

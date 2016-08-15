@@ -1,6 +1,7 @@
 <?php
 namespace RVN\Controllers;
 
+use RVN\Models\Addon;
 use RVN\Models\Booking;
 
 class BookingController extends _BaseController
@@ -48,6 +49,27 @@ class BookingController extends _BaseController
         }
 
         return valueOrNull($result, []);
+    }
+
+
+    public function ajaxSwitchAddonStatus($data)
+    {
+        $addon_model = Addon::init();
+        $rs = $addon_model->switchAddonStatus($data['cart_id'], $data['object_id']);
+
+        if ($rs == true) {
+            $result = [
+                'status' => 'success',
+                'data'   => 'Saved services for booking successful!'
+            ];
+        } else {
+            $result = [
+                'status' => 'fail',
+                'data'   => $rs
+            ];
+        }
+
+        return $result;
     }
 
 

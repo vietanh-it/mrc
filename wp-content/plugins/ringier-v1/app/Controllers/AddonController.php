@@ -30,4 +30,28 @@ class AddonController extends _BaseController
         return self::$instance;
     }
 
+
+    public function ajaxSaveAddon($data)
+    {
+        $this->validate->rule('required', ['journey_id', 'room_id']);
+
+        if ($this->validate->validate()) {
+            $model = Booking::init();
+            $rs = $model->saveCart($data);
+            if (!empty($rs)) {
+                $result = [
+                    'status' => 'success',
+                    'data'   => $rs
+                ];
+            }
+        } else {
+            $result = [
+                'status' => 'fail',
+                'data'   => $this->validate->errors()
+            ];
+        }
+
+        return valueOrNull($result, []);
+    }
+
 }

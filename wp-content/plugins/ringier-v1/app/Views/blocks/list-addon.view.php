@@ -12,7 +12,14 @@ if (!empty($list_addon)) {
     $cart_id = valueOrNull($cart_id);
 
     $addon_model->switchAddonStatus($cart_id, 105);
-    foreach ($list_addon as $key => $item) { ?>
+    foreach ($list_addon as $key => $item) {
+        $cart_addons = $addon_model->getCartAddon($cart_id, $item->ID);
+        if (!empty($cart_addons)) {
+            $cart_addon_status = $cart_addons[0]->status;
+        } else {
+            $cart_addon_status = 'inactive';
+        }
+        ?>
 
         <!--Single Item-->
         <div class="col-xs-12 col-sm-12">
@@ -171,9 +178,15 @@ if (!empty($list_addon)) {
                                 </div>
                                 <div class="col-xs-12 col-sm-3">
                                     Add this service?
-                                    <a class="add-addon" data-object-id="<?php echo $item->ID; ?>" href="javascript:void(0)">
-                                        Yes, please
-                                    </a>
+                                    <?php if ($cart_addon_status == 'inactive') { ?>
+                                        <a class="add-addon" data-object-id="<?php echo $item->ID; ?>" href="javascript:void(0)">
+                                            Yes, please
+                                        </a>
+                                    <?php } else { ?>
+                                        <a class="add-addon active" data-object-id="<?php echo $item->ID; ?>" href="javascript:void(0)">
+                                            No, thanks
+                                        </a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +230,15 @@ if (!empty($list_addon)) {
 
                             if (data.status == 'success') {
                                 switch_status = true;
-                                console.log(data.data);
+                                $('.booking-total').html(data.data.cart_total_text);
+
+                                // process button
+                                if (data.data.current_status == 'active') {
+                                    console.log(data.data);
+                                    $('[data-object-id="' + object_id + '"]').html('No, thanks').addClass('active');
+                                } else {
+                                    $('[data-object-id="' + object_id + '"]').html('Yes, please').removeClass('active');
+                                }
                             }
                             else {
                                 var html_msg = '<div>';

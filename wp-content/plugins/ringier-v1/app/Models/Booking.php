@@ -15,6 +15,7 @@ class Booking
     private $_prefix;
     private $_tbl_cart;
     private $_tbl_cart_detail;
+    private $_tbl_cart_addon;
     private $_tbl_booking;
     private $_tbl_booking_detail;
 
@@ -30,6 +31,7 @@ class Booking
 
         $this->_tbl_cart = $this->_prefix . 'cart';
         $this->_tbl_cart_detail = $this->_prefix . 'cart_detail';
+        $this->_tbl_cart_addon = $this->_prefix . 'cart_addon';
         $this->_tbl_booking = $this->_prefix . 'booking';
         $this->_tbl_booking_detail = $this->_prefix . 'booking_detail';
     }
@@ -173,9 +175,37 @@ class Booking
 
     public function getCartTotal($user_id, $journey_id)
     {
+        // Cart id
+        $query = "SELECT id FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id}";
+        $cart_id = $this->_wpdb->get_var($query);
+
+        // Room total
         $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
-        $rs = $this->_wpdb->get_var($query);
-        return valueOrNull($rs, 0);
+        $room_total = $this->_wpdb->get_var($query);
+
+        // Addon total
+        $query = "SELECT SUM(total) FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND status = 'active'";
+        $addon_total = $this->_wpdb->get_var($query);
+
+        $final_total = valueOrNull($room_total, 0) + valueOrNull($addon_total, 0);
+
+        return $final_total;
+    }
+
+
+    public function getCartTotalByID($cart_id)
+    {
+        // Room total
+        $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.id = {$cart_id}";
+        $room_total = $this->_wpdb->get_var($query);
+
+        // Addon total
+        $query = "SELECT SUM(total) FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND status = 'active'";
+        $addon_total = $this->_wpdb->get_var($query);
+
+        $final_total = valueOrNull($room_total, 0) + valueOrNull($addon_total, 0);
+
+        return $final_total;
     }
 
 

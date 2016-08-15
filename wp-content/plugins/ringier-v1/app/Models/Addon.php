@@ -162,7 +162,7 @@ class Addon
                 $next_status = 'active';
             } else {
                 // Cart addon null
-                return 'Please choose addon.';
+                return false;
             }
 
             $this->_wpdb->update($this->_tbl_cart_addon, ['status' => $next_status], [
@@ -170,9 +170,15 @@ class Addon
                 'object_id' => $object_id
             ]);
 
-            return true;
+            $booking_model = Booking::init();
+            $cart_total = $booking_model->getCartTotalByID($cart_id);
+            $result['cart_total'] = $cart_total;
+            $result['cart_total_text'] = number_format($cart_total);
+            $result['current_status'] = $next_status;
+
+            return (object)$result;
         } else {
-            return 'Error occurred, please try again.';
+            return false;
         }
     }
 

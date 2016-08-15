@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-14 23:43:08
+Date: 2016-08-15 18:44:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,13 +23,15 @@ CREATE TABLE `mrc_addon_options` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `object_id` bigint(20) DEFAULT NULL,
   `option_name` varchar(500) DEFAULT NULL,
-  `option_price` float DEFAULT NULL,
+  `price` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mrc_addon_options
 -- ----------------------------
+INSERT INTO `mrc_addon_options` VALUES ('1', '102', 'French', '15');
+INSERT INTO `mrc_addon_options` VALUES ('2', '102', 'English', '20');
 
 -- ----------------------------
 -- Table structure for mrc_booking
@@ -92,6 +94,31 @@ INSERT INTO `mrc_cart` VALUES ('1', '1', '131', '2016-08-01 02:38:58', null);
 INSERT INTO `mrc_cart` VALUES ('2', '1', '58', '2016-08-04 08:32:57', null);
 
 -- ----------------------------
+-- Table structure for mrc_cart_addon
+-- ----------------------------
+DROP TABLE IF EXISTS `mrc_cart_addon`;
+CREATE TABLE `mrc_cart_addon` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `cart_id` bigint(20) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `object_id` bigint(20) DEFAULT NULL,
+  `addon_option_id` bigint(20) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `quantity` int(10) unsigned DEFAULT NULL,
+  `price` float unsigned DEFAULT NULL,
+  `total` float unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mrc_cart_addon
+-- ----------------------------
+INSERT INTO `mrc_cart_addon` VALUES ('1', '2', 'active', '102', '1', null, '2', '15', '30');
+INSERT INTO `mrc_cart_addon` VALUES ('2', '2', 'active', '102', '2', null, '1', '20', '20');
+INSERT INTO `mrc_cart_addon` VALUES ('3', '2', 'active', '105', null, 'twin', '2', '10', '20');
+INSERT INTO `mrc_cart_addon` VALUES ('4', '2', 'active', '105', null, 'single', '1', '10', '10');
+
+-- ----------------------------
 -- Table structure for mrc_cart_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `mrc_cart_detail`;
@@ -115,12 +142,7 @@ INSERT INTO `mrc_cart_detail` VALUES ('5', '1', '10', 'twin', '1800', '2', '3600
 INSERT INTO `mrc_cart_detail` VALUES ('6', '1', '6', 'single', '1400', '1', '1400');
 INSERT INTO `mrc_cart_detail` VALUES ('8', '1', '8', 'twin', '2000', '2', '4000');
 INSERT INTO `mrc_cart_detail` VALUES ('9', '1', '7', 'twin', '2000', '2', '4000');
-INSERT INTO `mrc_cart_detail` VALUES ('27', '2', '10', 'single', '1600', '1', '1600');
-INSERT INTO `mrc_cart_detail` VALUES ('28', '2', '12', 'twin', '1440', '2', '2880');
-INSERT INTO `mrc_cart_detail` VALUES ('29', '2', '7', 'single', '1760', '1', '1760');
-INSERT INTO `mrc_cart_detail` VALUES ('32', '2', '6', 'twin', '1200', '2', '2400');
-INSERT INTO `mrc_cart_detail` VALUES ('33', '2', '5', 'single', '1400', '1', '1400');
-INSERT INTO `mrc_cart_detail` VALUES ('34', '2', '8', 'twin', '1600', '2', '3200');
+INSERT INTO `mrc_cart_detail` VALUES ('28', '2', '12', 'single', '1600', '1', '1600');
 INSERT INTO `mrc_cart_detail` VALUES ('35', '2', '4', 'single', '1600', '1', '1600');
 
 -- ----------------------------
@@ -1099,7 +1121,7 @@ INSERT INTO `mrc_postmeta` VALUES ('421', '101', 'field_579864586d640', 'a:15:{s
 INSERT INTO `mrc_postmeta` VALUES ('423', '101', 'position', 'normal');
 INSERT INTO `mrc_postmeta` VALUES ('424', '101', 'layout', 'default');
 INSERT INTO `mrc_postmeta` VALUES ('425', '101', 'hide_on_screen', '');
-INSERT INTO `mrc_postmeta` VALUES ('427', '102', '_edit_lock', '1471192881:1');
+INSERT INTO `mrc_postmeta` VALUES ('427', '102', '_edit_lock', '1471196452:1');
 INSERT INTO `mrc_postmeta` VALUES ('428', '102', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('432', '102', 'single_price', '1');
 INSERT INTO `mrc_postmeta` VALUES ('433', '102', '_single_price', 'field_579864586d640');
@@ -1611,7 +1633,7 @@ CREATE TABLE `mrc_tour_info` (
 -- ----------------------------
 -- Records of mrc_tour_info
 -- ----------------------------
-INSERT INTO `mrc_tour_info` VALUES ('102', 'addon', null, null, '50');
+INSERT INTO `mrc_tour_info` VALUES ('102', 'addon', null, null, null);
 INSERT INTO `mrc_tour_info` VALUES ('105', 'post-tour', '5', '10', '10');
 
 -- ----------------------------

@@ -57,10 +57,10 @@ class BookingController extends _BaseController
         $addon_model = Addon::init();
         $rs = $addon_model->switchAddonStatus($data['cart_id'], $data['object_id']);
 
-        if ($rs == true) {
+        if (!empty($rs)) {
             $result = [
                 'status' => 'success',
-                'data'   => 'Saved services for booking successful!'
+                'data'   => $rs
             ];
         } else {
             $result = [

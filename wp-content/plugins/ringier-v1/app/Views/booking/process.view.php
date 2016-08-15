@@ -8,6 +8,13 @@
 
 if (!empty($_GET['payment_type']) && is_user_logged_in()) {
 
+    global $post;
+    $booking_model = \RVN\Models\Booking::init();
+    $cart_info = $booking_model->getCartInfo(get_current_user_id(), $post->ID);
+
+    $rate = 22222;
+    $cart_info['total'] = $cart_info['total'] * $rate;
+
     $payment_type = $_GET['payment_type'];
     $current_url = WP_SITEURL . (strtok($_SERVER["REQUEST_URI"], '?'));
 
@@ -16,10 +23,10 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'vpc_Merchant'    => 'TESTONEPAY',
             'vpc_AccessCode'  => '6BEB2546',
             'vpc_Version'     => 2,
-            'vpc_MerchTxnRef' => 'user_id_' . date('YmdHis'),
+            'vpc_MerchTxnRef' => get_current_user_id() . '_' . date('YmdHis'),
             'vpc_OrderInfo'   => 'Ticket Booking',
             'vpc_ReturnURL'   => $current_url . '?step=return',
-            'vpc_Amount'      => 10000000,
+            'vpc_Amount'      => $cart_info['total'] * 100,
             'vpc_Command'     => 'pay',
             'vpc_Locale'      => 'en',
             'vpc_TicketNo'    => $_SERVER ['REMOTE_ADDR'],
@@ -65,10 +72,10 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'vpc_Merchant'    => 'ONEPAY',
             'vpc_AccessCode'  => 'D67342C2',
             'vpc_Version'     => 2,
-            'vpc_MerchTxnRef' => 'user_id_' . date('YmdHis'),
+            'vpc_MerchTxnRef' => get_current_user_id() . '_' . date('YmdHis'),
             'vpc_OrderInfo'   => 'Ticket Booking',
             'vpc_ReturnURL'   => $current_url . '?step=return',
-            'vpc_Amount'      => 100,
+            'vpc_Amount'      => $cart_info['total'] * 100,
             'vpc_Command'     => 'pay',
             'vpc_Locale'      => 'vn',
             'vpc_Currency'    => 'VND',

@@ -65,11 +65,35 @@ class BookingController extends _BaseController
         } else {
             $result = [
                 'status' => 'fail',
-                'data'   => $rs
+                'data'   => [$rs]
             ];
         }
 
         return $result;
+    }
+
+
+    public function ajaxSaveAddon($data)
+    {
+        $this->validate->rule('required', ['addon_type', 'action_type', 'object_id']);
+
+        if ($this->validate->validate()) {
+            $model = Addon::init();
+            $rs = $model->saveAddon($data);
+            if (!empty($rs)) {
+                $result = [
+                    'status' => 'success',
+                    'data'   => $rs
+                ];
+            }
+        } else {
+            $result = [
+                'status' => 'fail',
+                'data'   => ['Error occurred, please try again.']
+            ];
+        }
+
+        return valueOrNull($result, []);
     }
 
 

@@ -176,4 +176,10 @@ class Addon
         }
     }
 
+
+    public function saveAddon($data)
+    {
+        return $data;
+    }
+
 }

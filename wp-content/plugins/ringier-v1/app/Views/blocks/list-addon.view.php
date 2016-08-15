@@ -71,12 +71,16 @@ if (!empty($list_addon)) {
                                                     <tr>
                                                         <td><?php echo $v->option_name; ?></td>
                                                         <td>US$<?php echo number_format($v->price); ?></td>
-                                                        <td>
-                                                            <a href="javascript:void(0)" class="action-quantity minus">-</a>
+                                                        <td data-type="addon" data-addon-object-id="<?php echo $v->object_id ?>" data-addon-option="<?php echo $v->id ?>">
+
+                                                            <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
+
                                                             <span style="padding: 0 10px; float: left;" class="option-person">
-                                                            <?php echo valueOrNull($addon->quantity, 0); ?>
-                                                        </span>
-                                                            <a href="javascript:void(0)" class="action-quantity plus">+</a>
+                                                                <?php echo valueOrNull($addon->quantity, 0); ?>
+                                                            </span>
+
+                                                            <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
+
                                                         </td>
                                                         <td>
                                                             US$<?php echo number_format(valueOrNull($addon->total, 0)); ?>
@@ -124,20 +128,32 @@ if (!empty($list_addon)) {
                                             <tr>
                                                 <td>Sharing</td>
                                                 <td>US$<?php echo number_format($item->twin_share_price); ?></td>
-                                                <td>
-                                                    <a class="action-quantity" href="javascript:void(0)">-</a>
-                                                    <span style="float: left; padding: 0 10px;"><?php echo valueOrNull($tour_info_twin->quantity); ?></span>
-                                                    <a href="javascript:void(0)" class="action-quantity">+</a>
+                                                <td data-type="twin-tour" data-addon-object-id="<?php echo $item->ID ?>">
+
+                                                    <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
+
+                                                    <span style="float: left; padding: 0 10px;">
+                                                        <?php echo valueOrNull($tour_info_twin->quantity); ?>
+                                                    </span>
+
+                                                    <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
+
                                                 </td>
                                                 <td>US$<?php echo number_format(valueOrNull($tour_info_twin->total, 0)); ?></td>
                                             </tr>
                                             <tr>
                                                 <td>One Person</td>
                                                 <td>US$<?php echo number_format($item->single_price); ?></td>
-                                                <td>
-                                                    <a class="action-quantity" href="javascript:void(0)">-</a>
-                                                    <span style="float: left; padding: 0 10px;"><?php echo valueOrNull($tour_info_single->quantity); ?></span>
-                                                    <a href="javascript:void(0)" class="action-quantity">+</a>
+                                                <td data-type="single-tour" data-addon-object-id="<?php echo $item->ID ?>">
+
+                                                    <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
+
+                                                    <span style="float: left; padding: 0 10px;">
+                                                        <?php echo valueOrNull($tour_info_single->quantity); ?>
+                                                    </span>
+
+                                                    <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
+
                                                 </td>
                                                 <td>US$<?php echo number_format(valueOrNull($tour_info_single->total, 0)); ?></td>
                                             </tr>
@@ -155,7 +171,7 @@ if (!empty($list_addon)) {
                                 </div>
                                 <div class="col-xs-12 col-sm-3">
                                     Add this service?
-                                    <a class="add-addon" data-addon-id="<?php echo $item->ID; ?>" href="javascript:void(0)">
+                                    <a class="add-addon" data-object-id="<?php echo $item->ID; ?>" href="javascript:void(0)">
                                         Yes, please
                                     </a>
                                 </div>
@@ -174,33 +190,85 @@ if (!empty($list_addon)) {
     <script>
         var $ = jQuery.noConflict();
         $(document).ready(function () {
+            var ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
 
-            // [data-addon-id] click
-            $(document).delegate('[data-addon-id]', 'click', function (e) {
+            var switch_status = true;
+
+            // [data-object-id] click
+            $(document).delegate('[data-object-id]', 'click', function (e) {
                 e.preventDefault();
-                var addon_id = $(this).attr('data-addon-id');
+                var object_id = $(this).attr('data-object-id');
 
-                // Add to cart ajax
+                if (switch_status) {
+                    switch_status = false;
+
+                    // Switch addon status ajax
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_booking',
+                            method: 'SwitchAddonStatus',
+                            object_id: object_id,
+                            cart_id: <?php echo $cart_id ?>
+                        },
+                        success: function (data) {
+
+                            if (data.status == 'success') {
+                                switch_status = true;
+                                console.log(data.data);
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+                        }
+                    }); // end ajax
+                }
+
+            });
+
+            // change quantity
+            $('.action-quantity').on('click', function (e) {
+                var parent = $(this).parent('td');
+
+                var type = parent.attr('data-type'); // addon | single-tour | twin-tour
+                var action_type = $(this).attr('data-action-type'); // minus | plus
+                var object_id = parent.attr('data-addon-object-id');
+                var addon_option = parent.attr('data-addon-option');
+
+                console.log(type, action_type, object_id, addon_option);
+
+                // Save cart addon ajax
                 $.ajax({
                     url: ajax_url,
                     type: 'post',
                     dataType: 'json',
                     data: {
                         action: 'ajax_handler_booking',
-                        method: 'SwitchAddonStatus',
-                        object_id: addon_id
-                    },
-                    beforeSend: function () {
-                        // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
+                        method: 'SaveAddon',
+                        cart_id: <?php echo $cart_id ?>,
+                        object_id: object_id,
+                        addon_option_id: addon_option,
+                        action_type: action_type,
+                        addon_type: type
                     },
                     success: function (data) {
-                        // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
 
                         if (data.status == 'success') {
-                            booking_ready = true;
-
-                            // TOTAL
-                            $('.booking-total').html(data.data.booking_total_text);
+                            switch_status = true;
+                            console.log(data.data);
                         }
                         else {
                             var html_msg = '<div>';
@@ -218,6 +286,7 @@ if (!empty($list_addon)) {
                         }
                     }
                 }); // end ajax
+
             });
 
         });

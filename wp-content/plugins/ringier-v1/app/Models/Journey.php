@@ -178,12 +178,14 @@ class Journey
                 if (($departure <= $high_season_from) && ($arrive >= $high_season_from)) {
                     $current_season = 'high';
                 }
-                
+
                 $object->current_season = $current_season;
 
-                if ($object->journey_type_info->ship_info->room_types) {
+                if (!empty($object->journey_type_info->ship_info->room_types)) {
                     $min_price = 9999999999999999999999999;
                     $promotion = 0;
+                    $list_room_offer = [];
+
                     if($object->journey_type_info->offer_main_info){
                         $offer_main_info = $object->journey_type_info->offer_main_info;
                         $is_offer = false;
@@ -202,29 +204,27 @@ class Journey
                         }
 
                         // lấy promtion và list room đc offer
-                        $list_room = [];
                         if (!empty($object->journey_type_info->offer)) {
                             foreach ($object->journey_type_info->offer as $o) {
-                                $list_room[] = $o->room_type_id;
+                                $list_room_offer[] = $o->room_type_id;
                             }
                         }
-                        foreach ($object->journey_type_info->ship_info->room_types as $k => &$v) {
-                            if (in_array($v->id, $list_room) && !empty($promotion)) {
-                                $v->twin_high_season_price_offer = intval($v->twin_high_season_price) - intval($v->twin_high_season_price) * $promotion / 100;
-                                $v->single_high_season_price_offer = intval($v->single_high_season_price) - intval($v->single_high_season_price) * $promotion / 100;
-                                $v->twin_low_season_price_offer = intval($v->twin_low_season_price) - intval($v->twin_low_season_price) * $promotion / 100;
-                                $v->single_low_season_price_offer = intval($v->single_low_season_price) - intval($v->single_low_season_price) * $promotion / 100;
-                            }
+                    }
+                    foreach ($object->journey_type_info->ship_info->room_types as $k => &$v) {
+                        if (in_array($v->id, $list_room_offer) && !empty($promotion)) {
+                            $v->twin_high_season_price_offer = intval($v->twin_high_season_price) - intval($v->twin_high_season_price) * $promotion / 100;
+                            $v->single_high_season_price_offer = intval($v->single_high_season_price) - intval($v->single_high_season_price) * $promotion / 100;
+                            $v->twin_low_season_price_offer = intval($v->twin_low_season_price) - intval($v->twin_low_season_price) * $promotion / 100;
+                            $v->single_low_season_price_offer = intval($v->single_low_season_price) - intval($v->single_low_season_price) * $promotion / 100;
+                        }
 
-                            if ($current_season == 'low') {
-                                $price_sub = $v->single_low_season_price;
-                            } else {
-                                $price_sub = $v->single_high_season_price;
-                            }
-                            if ($price_sub < $min_price) {
-                                $min_price = $price_sub;
-                            }
-
+                        if ($current_season == 'low') {
+                            $price_sub = $v->single_low_season_price;
+                        } else {
+                            $price_sub = $v->single_high_season_price;
+                        }
+                        if ($price_sub < $min_price) {
+                            $min_price = $price_sub;
                         }
                     }
 

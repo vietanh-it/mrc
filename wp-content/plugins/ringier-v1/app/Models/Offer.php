@@ -45,6 +45,7 @@ class Offer
         return self::$instance;
     }
 
+
     public function getListOffer($params){
         $cacheId = __CLASS__ . 'getListOffer' . serialize($params);
         if (!empty($params['is_cache'])) {
@@ -137,6 +138,7 @@ class Offer
         return $result;
     }
 
+
     public function insertOfferRoomType($offer_id,$journey_id,$room_type_id){
         return $this->_wpdb->insert($this->_tbl_offer_journey,array(
             'offer_id' => $offer_id,
@@ -145,11 +147,13 @@ class Offer
         ));
     }
 
+
     public function deleteOfferRoomType($offer_id){
         return $this->_wpdb->delete($this->_tbl_offer_journey,array(
             'offer_id' => $offer_id,
         ));
     }
+
 
     public function getOfferByJourney($jt_id){
         $rs = array();

@@ -241,6 +241,7 @@ class Journey
         return $result;
     }
 
+
     public function getMonthHaveJourney(){
         $query = ' SELECT DATE_FORMAT(ji.departure,\'%Y-%m\') as month FROM '.$this->_wpdb->posts .' as p INNER JOIN '.$this->_tbl_journey_info .' as ji ON ji.object_id = p.ID WHERE p.post_status = "publish" GROUP BY month' ;
 

@@ -178,7 +178,7 @@ class Journey
                 if (($departure <= $high_season_from) && ($arrive >= $high_season_from)) {
                     $current_season = 'high';
                 }
-
+                
                 $object->current_season = $current_season;
 
                 if ($object->journey_type_info->ship_info->room_types) {

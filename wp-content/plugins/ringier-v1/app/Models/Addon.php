@@ -18,6 +18,7 @@ class Addon
     private $_tbl_journey_type_info;
     private $_tbl_tour_info;
     private $_tbl_tour_journey_type;
+    private $_tbl_addon_options;
 
     function __construct()
     {
@@ -28,6 +29,7 @@ class Addon
         $this->_tbl_tour_info = $this->_prefix . 'tour_info';
         $this->_tbl_tour_journey_type = $this->_prefix . 'tour_journey_type';
         $this->_tbl_journey_type_info = $this->_prefix . 'journey_type_info';
+        $this->_tbl_addon_options = $this->_prefix . 'addon_options';
     }
 
 
@@ -110,6 +112,15 @@ class Addon
         $object = (object)array_merge((array)$object, (array)$post_info);
 
         $result = $object;
+
+        return $result;
+    }
+
+
+    public function getAddonOptions($object_id)
+    {
+        $query = "SELECT * FROM {$this->_tbl_addon_options} WHERE object_id = $object_id";
+        $result = $this->_wpdb->get_results($query);
 
         return $result;
     }

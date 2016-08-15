@@ -10,10 +10,26 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-14 23:23:00
+Date: 2016-08-14 23:43:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for mrc_addon_options
+-- ----------------------------
+DROP TABLE IF EXISTS `mrc_addon_options`;
+CREATE TABLE `mrc_addon_options` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `object_id` bigint(20) DEFAULT NULL,
+  `option_name` varchar(500) DEFAULT NULL,
+  `option_price` float DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mrc_addon_options
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for mrc_booking
@@ -1083,7 +1099,7 @@ INSERT INTO `mrc_postmeta` VALUES ('421', '101', 'field_579864586d640', 'a:15:{s
 INSERT INTO `mrc_postmeta` VALUES ('423', '101', 'position', 'normal');
 INSERT INTO `mrc_postmeta` VALUES ('424', '101', 'layout', 'default');
 INSERT INTO `mrc_postmeta` VALUES ('425', '101', 'hide_on_screen', '');
-INSERT INTO `mrc_postmeta` VALUES ('427', '102', '_edit_lock', '1471167123:1');
+INSERT INTO `mrc_postmeta` VALUES ('427', '102', '_edit_lock', '1471192881:1');
 INSERT INTO `mrc_postmeta` VALUES ('428', '102', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('432', '102', 'single_price', '1');
 INSERT INTO `mrc_postmeta` VALUES ('433', '102', '_single_price', 'field_579864586d640');

@@ -14,8 +14,10 @@ if($journey_type_info){ ?>
                         <?php echo $journey_type_info->post_content ?>
                     </h2>
                     <ul>
-                        <li><b>7 nights 6 days</b></li>
-                        <li><b>Promotion:</b> Save up to 20% on selected dates</li>
+                        <li><b><?php echo $journey_type_info->duration ?></b></li>
+                        <?php if(!empty($journey_type_info->offer_main_info)){ ?>
+                            <li><b>Promotion:</b> Save up to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates</li>
+                        <?php } ?>
                     </ul>
                     <a href="javascript:void(0)" class="btn-show-journey" data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
                     <span>from <span class="price-if">US$1,755</span> pp</span>
@@ -35,7 +37,7 @@ if($journey_type_info){ ?>
                                 <th>Departure date</th>
                                 <th>From - to</th>
                                 <th>Ship</th>
-                                <th>All | Upstream | Downstream</th>
+                                <th><b>All</b> | Upstream | Downstream</th>
                                 <th><b>Price</b></th>
                                 <th> </th>
                             </tr>

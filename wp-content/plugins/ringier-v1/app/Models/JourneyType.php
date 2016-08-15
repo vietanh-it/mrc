@@ -126,7 +126,7 @@ class JourneyType
         return $result;
     }
 
-    public function getInfo($object)
+    public function getInfo($object,$type = '')
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
@@ -158,6 +158,11 @@ class JourneyType
                     $object->map_image = $img[0];
                 }
             }
+
+            // days, nights, duration
+            $object->days = intval($object->nights) + 1;
+            $object->duration = $object->days . " days " . $object->nights . " nights";
+
             // ship_info
             if ($object->ship) {
                 $ship = Ships::init();
@@ -175,6 +180,22 @@ class JourneyType
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($object->ID);
             $object->gallery = $gallery;
+
+            $object->offer_main_info = false;
+            $object->offer = false;
+            if ($type != 'offer') {
+                $objOffer = Offer::init();
+                $offer = $objOffer->getOfferByJourneyType($object->ID);
+                if(!empty($offer)){
+                    $object->offer = $offer;
+                    $object->offer_main_info = $object->offer[0]->offer_info;
+                    $object->offer_main_info = $object->offer[0]->offer_info;
+                    if(!empty($object->offer_main_info->start_date)){
+                        $object->offer_main_info->month_year = date('M Y', strtotime($object->offer_main_info->start_date));
+                    }
+                }
+            }
+
 
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);

@@ -37,7 +37,7 @@ if (!empty($journey_id)) {
                     <p>
                         From <?php echo $jt_info->starting_point; ?>
                         to <?php echo $jt_info->destination_info->post_title; ?>,
-                        <?php echo $journey_detail->duration; ?>,
+                        <?php echo $journey_detail->journey_type_info->duration; ?>,
                         departure on <b><?php echo date('d M Y', strtotime($journey_detail->departure)); ?></b>
                     </p>
                 </div>

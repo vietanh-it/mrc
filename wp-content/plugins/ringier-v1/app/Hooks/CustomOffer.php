@@ -38,9 +38,9 @@ class CustomOffer
     public function show()
     {
         global $post;
-        $Journey = Journey::init();
+        $Journey_type = JourneyType::init();
 
-        $list_journey = $Journey->getJourneyList(['limit' => 10000]);
+        $list_journey_type = $Journey_type->getJourneyTypeList(['limit' => 10000]);
 
         $objOffer = Offer::init();
         $offer_info = $objOffer->getOfferInfo($post);
@@ -74,7 +74,7 @@ class CustomOffer
             if ($offer_info->list_offer_room) {
                 $result = [];
                 foreach ($offer_info->list_offer_room as $data) {
-                    $id = $data->journey_id;
+                    $id = $data->journey_type_id;
                     if (isset($result[$id])) {
                         $result[$id][] = $data;
                     } else {
@@ -89,15 +89,13 @@ class CustomOffer
                         foreach ($v as $k1 => $v1) {
                             $list_room[] = $v1->room_type_id;
                         }
-                        foreach ($list_journey['data'] as $jt) {
-                            $room_types = json_encode($jt->journey_type_info->ship_info->room_types);
-                        }
+
                         ?>
                         <div class="add_journey_type_and_room_type">
                             <select name="journey_type[]" class="journey_type">
                                 <option value=""> --- Select journey type ---</option>
-                                <?php foreach ($list_journey['data'] as $jt) {
-                                    $room_types = json_encode($jt->journey_type_info->ship_info->room_types);
+                                <?php foreach ($list_journey_type['data'] as $jt) {
+                                    $room_types = json_encode($jt->ship_info->room_types);
                                     if ($k == $jt->ID) {
                                         $select = 'selected';
                                     } else {
@@ -107,14 +105,14 @@ class CustomOffer
 
                                     }
                                     echo "<option value='" . $jt->ID . "' 
-            data-ship = '" . $jt->journey_type_info->ship_info->ID . "' 
+            data-ship = '" . $jt->ship_info->ID . "' 
             data-room_types= '" . $room_types . "' " . $select . " > " . $jt->post_title . "</option>";
                                 } ?>
                             </select>
                             <div class="ctn_room_types">
                                 <?php
-                                $journey_info = $Journey->getInfo($k);
-                                $room_types_new = $journey_info->journey_type_info->ship_info->room_types;
+                                $journey_info = $Journey_type->getInfo($k);
+                                $room_types_new = $journey_info->ship_info->room_types;
                                 if ($room_types_new) {
                                     foreach ($room_types_new as $r) {
                                         $check = '';
@@ -138,7 +136,7 @@ class CustomOffer
                 }
 
             } else {
-                echo $this->html($list_journey['data']);
+                echo $this->html($list_journey_type['data']);
             }
 
 
@@ -169,8 +167,8 @@ class CustomOffer
                                 '</div>';
                         });
 
-                        html += ' <p style="color: orange">Please check room type for offer. </p>';
-                        console.log(html);
+                        //html += ' <p style="color: orange">Please check room type for offer. </p>';
+                        //console.log(html);
                         $(this).closest('.add_journey_type_and_room_type').find('.ctn_room_types').html(html);
                     } else {
                         $(this).closest('.add_journey_type_and_room_type').find('.ctn_room_types').html(html);
@@ -178,7 +176,7 @@ class CustomOffer
                 });
 
                 $('.add_journey_type_and_room_type_new a').click(function () {
-                    var data = <?php echo json_encode($list_journey['data']) ?>;
+                    var data = <?php echo json_encode($list_journey_type['data']) ?>;
                     var html = '';
                     if (data) {
                         html += '<div class="add_journey_type_and_room_type">' +
@@ -187,8 +185,8 @@ class CustomOffer
 
                         $.each(data, function (key, value) {
                             html += "<option value='" + value.ID + "'" +
-                                "data-ship = '" + value.journey_type_info.ship_info.ID + "'" +
-                                "data-room_types= '" + JSON.stringify(value.journey_type_info.ship_info.room_types) + "' > " +
+                                "data-ship = '" + value.ship_info.ID + "'" +
+                                "data-room_types= '" + JSON.stringify(value.ship_info.room_types) + "' > " +
                                 value.post_title +
                                 "</option>";
                         });

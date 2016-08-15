@@ -130,7 +130,7 @@ get_header();
                                             <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
                                                 <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
                                             </a>
-                                            <div class="price">  $<?php echo number_format($v->journey_info->min_price_offer) ?></div>
+                                            <div class="price">  $<?php echo !empty($v->journey_type_info->firt_journey->min_price_offer)  ? number_format($v->journey_type_info->firt_journey->min_price_offer) : 0 ?></div>
                                         </div>
                                         <div class="desc">
                                             <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>

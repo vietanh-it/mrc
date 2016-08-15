@@ -134,16 +134,16 @@ jQuery(document).ready(function ($) {
                              text = '<span style="text-decoration: line-through;color: burlywood;">'+value.min_price_fm+'</span>';
                         }
                         var htm_offer = '';
-                        if(value.offer_main_info){
-                            var offer_info = value.offer_main_info.offer_info;
+                        if(value.is_offer){
+                            var offer_info = value.journey_type_info.offer_main_info;
                             var  img_ticket = $('#ctn-list-journey').attr('data-img_ticket');
-                            console.log(offer_info);
                             htm_offer = '<b>'+offer_info.post_title +'<br>'+ offer_info.month_year +' and save '+offer_info.promotion +'%.</b> <img src="'+img_ticket+'"> ';
                         }
 
                         html += '<tr> ' +
                             '<td> <b>' + value.departure_fm +'</b> </td> ' +
-                            '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '+ value.nights +' nights<br> '+htm_offer+'</td> ' +
+                            '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '
+                            + value.journey_type_info.nights +' nights<br> '+htm_offer+'</td> ' +
                             '<td style="text-decoration: underline">' + value.journey_type_info.ship_info.post_title +'</td> ' +
                             '<td> ' + value.navigation + ' </td> ' +
                             '<td> from '+text+' <b style="color: #e4a611">US$'+value.min_price_offer_fm+'</b> pp <br>based on twin cabin </td> ' +

@@ -45,7 +45,6 @@ class Offer
         return self::$instance;
     }
 
-
     public function getListOffer($params){
         $cacheId = __CLASS__ . 'getListOffer' . serialize($params);
         if (!empty($params['is_cache'])) {
@@ -61,9 +60,9 @@ class Offer
             if (!empty($params['order_by'])) {
                 $order_by = $params['order_by'];
             }
-
-            $where = '';
-            $join = '';
+            $today = date("Y-m-d",time());
+            $where = '  AND oi.end_date > "'.$today.'" ';
+            $join = ' INNER JOIN '.$this->_tbl_offer_info .' as oi ON oi.object_id = p.ID ';
 
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
             $join
@@ -72,7 +71,7 @@ class Offer
             ORDER BY $order_by  LIMIT $to, $limit
             ";
 
-            // echo $query;
+             //echo $query;
             $list = $this->_wpdb->get_results($query);
             $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
             if ($list) {
@@ -121,13 +120,13 @@ class Offer
             $object->list_offer_room = $list_offer_room;
 
             if(!empty($list_offer_room[0])){
-                $journey_id = $list_offer_room[0]->journey_id;
-                $Journey = Journey::init();
-                $journey_info = $Journey->getInfo($journey_id,'offer');
+                $journey_type_id = $list_offer_room[0]->journey_type_id;
+                $JourneyType = JourneyType::init();
+                $journey_type_info = $JourneyType->getInfo($journey_type_id,'offer');
 
-                $object->journey_info = $journey_info;
-                if($object->journey_info->min_price){
-                    $object->journey_info->min_price = intval($object->journey_info->min_price) -  intval($object->journey_info->min_price) * $object->promotion / 100;
+                $object->journey_type_info = $journey_type_info;
+                if(!empty($object->journey_type_info->min_price)){
+                    $object->journey_type_info->min_price = intval($object->journey_type_info->min_price) -  intval($object->journey_type_info->min_price) * $object->promotion / 100;
                 }
             }
 
@@ -138,15 +137,13 @@ class Offer
         return $result;
     }
 
-
-    public function insertOfferRoomType($offer_id,$journey_id,$room_type_id){
+    public function insertOfferRoomType($offer_id,$journey_type_id,$room_type_id){
         return $this->_wpdb->insert($this->_tbl_offer_journey,array(
             'offer_id' => $offer_id,
-            'journey_id' => $journey_id,
+            'journey_type_id' => $journey_type_id,
             'room_type_id' => $room_type_id,
         ));
     }
-
 
     public function deleteOfferRoomType($offer_id){
         return $this->_wpdb->delete($this->_tbl_offer_journey,array(
@@ -154,17 +151,15 @@ class Offer
         ));
     }
 
-
-    public function getOfferByJourney($jt_id){
+    public function getOfferByJourneyType($jt_id){
         $rs = array();
-        $query = ' SELECT * FROM '.$this->_tbl_offer_journey . ' WHERE journey_id = '.$jt_id;
+        $query = ' SELECT * FROM '.$this->_tbl_offer_journey . ' WHERE journey_type_id = '.$jt_id .' ';
         $list_jt_have_off = $this->_wpdb->get_results($query);
-
         if($list_jt_have_off){
             foreach ($list_jt_have_off as $v){
                 $offer_info =$this->getOfferInfo($v->offer_id);
                 $v->offer_info = $offer_info;
-                unset($v->journey_id);
+                //unset($v->journey_id);
                 $rs[] = $v;
             }
         }

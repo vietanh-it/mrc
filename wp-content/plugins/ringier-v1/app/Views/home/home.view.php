@@ -78,6 +78,47 @@ get_header();
 
 </div>
 
+<div class="why-us">
+    <div class="container ">
+        <div class="row">
+            <h2 class="col-xs-12 col-sm-12 tile-main white"><a href="<?php echo WP_SITEURL.'/why-us/' ?>">Why us</a>
+                <br> <img src="<?php echo VIEW_URL.'/images/line-white.png' ?>">
+            </h2>
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="box-why">
+                            <img src="<?php echo VIEW_URL .'/images/why-1.png'?>" alt="">
+                            <div class="desc">
+                                <p class="title">The differences</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="box-why">
+                            <img src="<?php echo VIEW_URL .'/images/why-2.png'?>" alt="">
+                            <div class="desc">
+                                <p class="title">Our care</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="box-why">
+                            <img src="<?php echo VIEW_URL .'/images/why-3.png'?>" alt="">
+                            <div class="desc">
+                                <p class="title">Ship owner and partner</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="journey-home">
     <div class="container ">
         <div class="row">
@@ -148,47 +189,6 @@ get_header();
         </div>
     </div>
 <?php } ?>
-
-<div class="why-us">
-    <div class="container ">
-        <div class="row">
-            <h2 class="col-xs-12 col-sm-12 tile-main white"><a href="<?php echo WP_SITEURL.'/why-us/' ?>">Why us</a>
-                <br> <img src="<?php echo VIEW_URL.'/images/line-white.png' ?>">
-            </h2>
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="box-why">
-                            <img src="<?php echo VIEW_URL .'/images/why-1.png'?>" alt="">
-                            <div class="desc">
-                                <p class="title">The differences</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="box-why">
-                            <img src="<?php echo VIEW_URL .'/images/why-2.png'?>" alt="">
-                            <div class="desc">
-                                <p class="title">Our care</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="box-why">
-                            <img src="<?php echo VIEW_URL .'/images/why-3.png'?>" alt="">
-                            <div class="desc">
-                                <p class="title">Ship owner and partner</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="room-home">
     <div class="container ">

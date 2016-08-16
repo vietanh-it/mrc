@@ -12,7 +12,8 @@ global $post;
 
 $journey_model = \RVN\Models\Journey::init();
 
-$journey_model->getJourneySeason($post->ID);
+$room_price = $journey_model->getRoomPrice(1, $post->ID, 'twin');
+var_dump($room_price);
 
 $booking_ctrl = \RVN\Controllers\BookingController::init();
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
@@ -225,7 +226,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                     break;
             }
 
-            if(booking_ready) {
+            if (booking_ready) {
 
                 // Add to cart ajax
                 $.ajax({

@@ -267,7 +267,13 @@ class Journey
 
     public function getRoomPrice($room_id, $journey_id, $type)
     {
+        $journey_season = $this->getJourneySeason($journey_id);
+        $query = "SELECT rt.{$type}_{$journey_season}_season_price FROM {$this->_prefix}rooms r INNER JOIN {$this->_prefix}room_types rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
+        $result = $this->_wpdb->get_var($query);
 
+        // Get journey offer
+
+        return $result;
     }
 
 
@@ -281,10 +287,18 @@ class Journey
         $high_season_from = strtotime($ship->high_season_from);
         $high_season_to = strtotime($ship->high_season_to);
 
-        $start_date = strtotime($journey_info->departure);
-        $end_date = strtotime('+ 5 days', strtotime($journey_info->departure));
+        $departure = strtotime($journey_info->departure);
+        $arrive = strtotime('+ ' . $journey_info->nights . ' days', strtotime($journey_info->departure));
 
+        $season = 'low';
+        if ((($high_season_from <= $departure) && ($departure <= $high_season_to)) or (($high_season_from <= $arrive) && ($high_season_to >= $arrive))) {
+            $season = 'high';
+        }
+        if (($departure <= $high_season_from) && ($arrive >= $high_season_from)) {
+            $season = 'high';
+        }
 
+        return $season;
     }
 
 }

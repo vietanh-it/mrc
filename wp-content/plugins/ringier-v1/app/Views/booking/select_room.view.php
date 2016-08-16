@@ -264,6 +264,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
                 }
 
+                stateroomToggle();
+
                 $(this).attr('data-type', type);
                 $(this).find('.icon-booking').remove();
                 $(this).prepend(icon_html);
@@ -376,6 +378,9 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
                         // TOTAL
                         $('.booking-total').html(data.data.total_text);
+
+                        // Hide stateroom if not selected
+                        stateroomToggle();
                     }
                     else {
                         var html_msg = '<div>';
@@ -396,9 +401,9 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
         }
 
+
         // Button continue
         var btn_continue_ready = true;
-
         $('.btn-continue').on('click', function (e) {
             e.preventDefault();
             var next = $(this).attr('href');
@@ -444,6 +449,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
         });
 
+
         // Toggle stateroom price list
         $('.stateroom-price-toggle').on('click', function (e) {
             e.preventDefault();
@@ -455,4 +461,16 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
             $('.stateroom-price-wrapper').slideToggle();
         });
     });
+
+    function stateroomToggle() {
+        var selectors = $('span[class^="room_type_"]');
+
+        $.each(selectors, function (k, v) {
+            if (parseInt($(v).html()) > 0) {
+                $(v).parents('.bk-box').show();
+            } else {
+                $(v).parents('.bk-box').hide();
+            }
+        });
+    }
 </script>

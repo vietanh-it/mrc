@@ -176,8 +176,10 @@ class MetaboxAddon
     {
         if(!empty($_POST['addon_option_name']) && !empty($_POST['addon_option_price'])){
             $objAddOn = Addon::init();
-            $objAddOn->delete(array('object_id' => $_POST['post_ID']));
-
+            $addon_option = $objAddOn->getAddonOptions($_POST['post_ID']);
+            if(!empty($addon_option)){
+                $objAddOn->delete(array('object_id' => $_POST['post_ID']));
+            }
             foreach ($_POST['addon_option_name'] as $k => $v){
                 $args = array(
                     'object_id' => $_POST['post_ID'],

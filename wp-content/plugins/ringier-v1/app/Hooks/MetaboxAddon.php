@@ -47,22 +47,18 @@ class MetaboxAddon
                 margin-bottom: 5px;
                 position: relative;
             }
-
             .option-box .delete_option_box {
                 position: absolute;
                 top: 10px;
                 right: 10px;
                 font-size: 20px;
             }
-
             .option-box table {
                 width: 100%;
             }
-
             .option-box input {
                 width: 90%;
             }
-
             .add-option-box {
 
             }
@@ -82,17 +78,21 @@ class MetaboxAddon
                                         <p class="label">
                                             <label class="label">Option name:</label>
                                         </p>
-                                        <input type="text" placeholder="Enter option name" name="addon_option_name[]" value="<?php echo $o->option_name ?>">
+                                        <input type="text" placeholder="Enter option name" name="addon_option_name[]"
+                                               value="<?php echo $o->option_name ?>">
                                     </td>
                                     <td>
                                         <p class="label">
                                             <label>Price / 1 person</label>
                                         </p>
-                                        <input type="text" placeholder="Enter price" name="addon_option_price[]" value="<?php echo $o->option_price ?>">
+                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                        <input type="number" placeholder="Enter price" name="addon_option_price[]"
+                                               value="<?php echo $o->option_price ?>">
                                     </td>
                                 </tr>
                             </table>
-                            <a href="javascript:void(0)" class="delete_option_box" title="Delete box"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0)" class="delete_option_box" title="Delete box"><i
+                                    class="fa fa-times-circle-o" aria-hidden="true"></i></a>
                         </div>
                     <?php } ?>
                 </div>
@@ -118,11 +118,13 @@ class MetaboxAddon
                                     <p class="label">
                                         <label>Price / 1 person</label>
                                     </p>
-                                    <input type="text" placeholder="Enter price" name="addon_option_price[]">
+                                    <i class="fa fa-usd" aria-hidden="true"></i>
+                                    <input type="number" placeholder="Enter price" name="addon_option_price[]">
                                 </td>
                             </tr>
                         </table>
-                        <a href="javascript:void(0)" class="delete_option_box" title="Delete box"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="delete_option_box" title="Delete box"><i
+                                class="fa fa-times-circle-o" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
@@ -154,7 +156,8 @@ class MetaboxAddon
                         '<p class="label"> ' +
                         '<label>Price / 1 person</label> ' +
                         '</p> ' +
-                        '<input type="text" placeholder="Enter price" name="addon_option_price[]"> ' +
+                        '<i class="fa fa-usd" aria-hidden="true"></i>' +
+                        '<input type="number" placeholder="Enter price" name="addon_option_price[]"> ' +
                         '</td> ' +
                         '</tr> ' +
                         '</table> ' +
@@ -177,20 +180,21 @@ class MetaboxAddon
 
     public function save()
     {
+        $objAddOn = Addon::init();
+        $addon_option = $objAddOn->getAddonOptions($_POST['post_ID']);
+        if (!empty($addon_option)) {
+            $objAddOn->delete(array('object_id' => $_POST['post_ID']));
+        }
         if (!empty($_POST['addon_option_name']) && !empty($_POST['addon_option_price'])) {
-            $objAddOn = Addon::init();
-            $addon_option = $objAddOn->getAddonOptions($_POST['post_ID']);
-            if (!empty($addon_option)) {
-                $objAddOn->delete(['object_id' => $_POST['post_ID']]);
-            }
             foreach ($_POST['addon_option_name'] as $k => $v) {
-                $args = [
-                    'object_id'    => $_POST['post_ID'],
-                    'option_name'  => $v,
-                    'option_price' => $_POST['addon_option_price'][$k],
-                ];
-
-                $save = $objAddOn->saveAddon($args);
+                if (!empty($v) && !empty($_POST['addon_option_price'][$k])) {
+                    $args = array(
+                        'object_id' => $_POST['post_ID'],
+                        'option_name' => $v,
+                        'option_price' => $_POST['addon_option_price'][$k],
+                    );
+                    $save = $objAddOn->saveAddon($args);
+                }
             }
         }
     }

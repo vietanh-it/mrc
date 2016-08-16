@@ -35,6 +35,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                 </div>
             </div>
             <div class="row">
+
+                <!--Ship map-->
                 <div class="col-xs-12 col-sm-7">
                     <div class="img-ship">
                         <p><?php echo $ship_info->post_title; ?> Deck Plan</p>
@@ -52,111 +54,123 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                         </div>
                     </div>
                 </div>
+
+                <!--Stateroom Price-->
                 <div class="col-xs-12 col-sm-5">
                     <div class="booking-info">
                         <form>
-                            <div class="bk-box " style="padding: 20px 30px">
-                                <span style="text-transform: uppercase;font-weight: bold">Stateroom Prices</span>
-                                (per person, including any discount)
-                            </div>
+                            <div>
+                                <div class="bk-box " style="padding: 20px 30px">
+                                    <span style="text-transform: uppercase;font-weight: bold">Stateroom Prices</span>
+                                    (per person, including any discount)
+                                    <a href="javascript:void(0)" class="stateroom-price-toggle">
+                                        <i class="fa fa-sort-desc"></i>
+                                    </a>
+                                </div>
 
-
-                            <?php foreach ($ship_info->room_types as $key => $room_type) { ?>
-                                <div class="bk-box bk-box-gray">
-                                    <span class="text"><?php echo $room_type->room_type_name ?> Twin Share</span>
-                                    <span class="price">
+                                <div class="stateroom-price-wrapper">
+                                    <?php foreach ($ship_info->room_types as $key => $room_type) { ?>
+                                        <div class="bk-box bk-box-gray">
+                                            <span class="text"><?php echo $room_type->room_type_name ?> Twin Share</span>
+                                            <span class="price">
 
                                                 <?php echo htmlPrice($room_type, 'twin', $current_season); ?>
 
                                         </span>
-                                </div>
+                                        </div>
 
-                                <div class="bk-box ">
+                                        <div class="bk-box ">
                                         <span class="text">
                                             <?php echo $room_type->room_type_name ?> Single Use
                                         </span>
-                                    <span class="price">
+                                            <span class="price">
                                             <span class="big">
                                                 <?php echo htmlPrice($room_type, 'single', $current_season); ?>
                                             </span>
                                         </span>
+                                        </div>
+                                    <?php } ?>
                                 </div>
-                            <?php } ?>
-
-
-                            <div class="bk-box bk-box-2" style="background: #d5b76e;margin-top: 50px">
-                                <span
-                                    style="text-transform: uppercase;font-weight: bold">Your stateroom selection</span>
-                                <span class="price-2">Total: <b>US$<span class="booking-total">0</span></b></span>
                             </div>
 
-                            <?php foreach ($ship_info->room_types as $key => $room_type) {
-                                $twin_price = ($current_season == 'high') ?
-                                    valueOrNull($room_type->twin_high_season_price_offer,
-                                        $room_type->twin_high_season_price) :
-                                    valueOrNull($room_type->twin_low_season_price_offer,
-                                        $room_type->twin_low_season_price);
+                            <div>
+                                <div class="bk-box bk-box-2" style="background: #d5b76e;margin-top: 50px">
+                                <span
+                                    style="text-transform: uppercase;font-weight: bold">Your stateroom selection</span>
+                                    <span class="price-2">Total: <b>US$<span class="booking-total">0</span></b></span>
+                                </div>
 
-                                $single_price = ($current_season == 'high') ?
-                                    valueOrNull($room_type->single_high_season_price_offer,
-                                        $room_type->single_high_season_price) :
-                                    valueOrNull($room_type->single_low_season_price_offer,
-                                        $room_type->single_low_season_price); ?>
+                                <div>
+                                    <?php foreach ($ship_info->room_types as $key => $room_type) {
+                                        $twin_price = ($current_season == 'high') ?
+                                            valueOrNull($room_type->twin_high_season_price_offer,
+                                                $room_type->twin_high_season_price) :
+                                            valueOrNull($room_type->twin_low_season_price_offer,
+                                                $room_type->twin_low_season_price);
 
-                                <div class="bk-box bk-box-2">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-6">
+                                        $single_price = ($current_season == 'high') ?
+                                            valueOrNull($room_type->single_high_season_price_offer,
+                                                $room_type->single_high_season_price) :
+                                            valueOrNull($room_type->single_low_season_price_offer,
+                                                $room_type->single_low_season_price); ?>
+
+                                        <div class="bk-box bk-box-2">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-6">
                                                 <span class="text">
                                                     <?php echo $room_type->room_type_name ?> Twin Share
                                                 </span>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
+                                                </div>
+                                                <div class="col-xs-12 col-sm-3">
                                                 <span class="room_type_<?php echo $room_type->id; ?>_twin"
                                                       data-price="<?php echo $twin_price; ?>">
                                                     0
                                                 </span>
-                                            persons
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
+                                                    persons
+                                                </div>
+                                                <div class="col-xs-12 col-sm-3">
                                                 <span class="price-2">
                                                     <?php echo "US$<b>" . number_format($twin_price) . '</b>'; ?>
                                                 </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div class="bk-box bk-box-gray bk-box-2">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-6">
+                                        <div class="bk-box bk-box-gray bk-box-2">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-6">
                                                 <span class="text"><?php echo $room_type->room_type_name ?>
                                                     Single Use
                                                 </span>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
+                                                </div>
+                                                <div class="col-xs-12 col-sm-3">
                                                 <span class="room_type_<?php echo $room_type->id; ?>_single"
                                                       data-price="<?php echo $single_price; ?>">
                                                     0
                                                 </span>
-                                            persons
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
+                                                    persons
+                                                </div>
+                                                <div class="col-xs-12 col-sm-3">
                                                 <span class="price-2">
                                                 <?php echo "US$<b>" . number_format($single_price) . "</b>"; ?>
                                                 </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+
+                                    <?php } ?>
                                 </div>
 
-                            <?php } ?>
-
-                            <div class="text-center btt-box">
-                                <a href="<?php echo WP_SITEURL . '/journeys' ?>" class="back">Back</a>
-                                <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
-                                   class="btn btn-primary btn-continue btn-yellow">Continue</a>
+                                <div class="text-center btt-box">
+                                    <a href="<?php echo WP_SITEURL . '/journeys' ?>" class="back">Back</a>
+                                    <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
+                                       class="btn btn-primary btn-continue btn-yellow">Continue</a>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -428,6 +442,17 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                 }); // end ajax
             }
 
+        });
+
+        // Toggle stateroom price list
+        $('.stateroom-price-toggle').on('click', function (e) {
+            e.preventDefault();
+            if ($(this).find('i').hasClass('fa-sort-desc')) {
+                $(this).html('<i class="fa fa-sort-up"></i>');
+            } else {
+                $(this).html('<i class="fa fa-sort-desc"></i>');
+            }
+            $('.stateroom-price-wrapper').slideToggle();
         });
     });
 </script>

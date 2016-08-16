@@ -71,6 +71,20 @@ Text Domain: mrc
     text-decoration: none;
 }
 
+.stateroom-price-toggle {
+    float: right;
+}
+
+.stateroom-price-toggle i {
+    color: #333333;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.stateroom-price-toggle:hover i {
+    text-decoration: none;
+}
+
 @media (min-width: 1200px) {
     .container {
         width: 1170px !important;

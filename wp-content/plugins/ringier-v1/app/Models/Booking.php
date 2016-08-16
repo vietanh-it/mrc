@@ -68,14 +68,17 @@ class Booking
         if ($data['type'] == 'none') {
             $this->_wpdb->delete($this->_tbl_cart_detail, ['id' => $cart_item->id]);
         } else {
+            $quantity = $data['type'] == 'twin' ? 2 : 1;
+            $journey_model = Journey::init();
+            $room_price = $journey_model->getRoomPrice($data['room_id'], $data['journey_id'], $data['type']);
 
             if (!empty($cart_item)) {
                 // update cart item
                 $this->_wpdb->update($this->_tbl_cart_detail, [
                     'type'     => $data['type'],
-                    'price'    => $data['price'],
-                    'total'    => $data['total'],
-                    'quantity' => $data['quantity']
+                    'price'    => $room_price,
+                    'total'    => $quantity * $room_price,
+                    'quantity' => $quantity
                 ], ['id' => $cart_item->id]);
             } else {
                 // Create cart item
@@ -83,9 +86,9 @@ class Booking
                     'cart_id'  => $cart->cart_id,
                     'room_id'  => $data['room_id'],
                     'type'     => $data['type'],
-                    'price'    => $data['price'],
-                    'total'    => $data['total'],
-                    'quantity' => $data['quantity']
+                    'price'    => $room_price,
+                    'total'    => $quantity * $room_price,
+                    'quantity' => $quantity
                 ]);
             }
 

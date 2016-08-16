@@ -10,6 +10,10 @@ $user_id = get_current_user_id();
 
 global $post;
 
+$journey_model = \RVN\Models\Journey::init();
+
+$journey_model->getJourneySeason($post->ID);
+
 $booking_ctrl = \RVN\Controllers\BookingController::init();
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $ship_ctrl = \RVN\Controllers\ShipController::init();
@@ -59,6 +63,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                 <div class="col-xs-12 col-sm-5">
                     <div class="booking-info">
                         <form>
+
+                            <!--Price table-->
                             <div>
                                 <div class="bk-box " style="padding: 20px 30px">
                                     <span style="text-transform: uppercase;font-weight: bold">Stateroom Prices</span>
@@ -93,6 +99,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 </div>
                             </div>
 
+
+                            <!--Room booking-->
                             <div>
                                 <div class="bk-box bk-box-2" style="background: #d5b76e;margin-top: 50px">
                                 <span
@@ -176,6 +184,12 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
     </div>
 </div>
 
+<div class="option-dialog" style="display: none;">
+    <a href="javascript:void(0)" class="twin"><img src="<?php echo VIEW_URL . '/images/icon-booking-twin.png'; ?>"> Twin</a> |
+    <a href="javascript:void(0)" class="single"><img src="<?php echo VIEW_URL . '/images/icon-booking-single.png'; ?>"> Single</a> |
+    <a href="javascript:void(0)" class="none"><img src="<?php echo VIEW_URL . '/images/icon-booking-none.png'; ?>"> None</a>
+</div>
+
 <script>
     var ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
     var $ = jQuery.noConflict();
@@ -183,8 +197,81 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
         var booking_ready = true;
 
+
         // Click on roomid
         $(document).delegate('[data-roomid]', 'click', function (e) {
+            var room_id = $(this).attr('data-roomid');
+
+            var top_position = $(this).offset().top - $('.option-dialog').outerHeight() - 20;
+            var left_position = $(this).offset().left - ($('.option-dialog').outerWidth() / 2) + ($(this).width() / 2);
+            $('.option-dialog').css({
+                'top': top_position,
+                'left': left_position
+            }).attr('data-picking-roomid', room_id).fadeIn();
+        });
+
+
+        // Option a href click
+        $(document).delegate('.option-dialog a', 'click', function (e) {
+            var type = $(this).attr('class');
+            var room_id = $(this).parents('.option-dialog').attr('data-picking-roomid');
+
+            switch (type) {
+                case 'twin':
+                    break;
+                case 'single':
+                    break;
+                default:
+                    break;
+            }
+
+            if(booking_ready) {
+
+                // Add to cart ajax
+                $.ajax({
+                    url: ajax_url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        action: 'ajax_handler_booking',
+                        method: 'SaveCart',
+                        room_id: room_id,
+                        type: type,
+                        journey_id: <?php echo $post->ID; ?>
+                    },
+                    success: function (data) {
+
+                        if (data.status == 'success') {
+                            booking_ready = true;
+
+                            // TOTAL
+                            $('.booking-total').html(data.data.booking_total_text);
+                        }
+                        else {
+                            var html_msg = '<div>';
+                            if (data.message) {
+                                $.each(data.message, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            } else if (data.data) {
+                                $.each(data.data, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            }
+                            html_msg += "</div>";
+                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                        }
+
+                    }
+                }); // end ajax
+
+            }
+
+        });
+
+
+        //-- Click on roomid old
+        $(document).delegate('[data-roomidd]', 'click', function (e) {
 
             if (booking_ready) {
                 booking_ready = false;
@@ -323,6 +410,16 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
             }
 
+        });
+
+
+        // Hide option dialog when click on another element
+        $('html').click(function (e) {
+            if (!$(e.target).hasClass('option-dialog') && (!$(e.target).parents('.option-dialog').length)) {
+                if ($('.option-dialog').is(':visible')) {
+                    $('.option-dialog').fadeOut();
+                }
+            }
         });
 
 

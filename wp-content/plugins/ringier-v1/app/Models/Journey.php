@@ -144,14 +144,13 @@ class Journey
 
             // images, permalink
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured','small','full']);
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'small', 'full']);
             $object->permalink = get_permalink($object->ID);
 
             // journey_info
             $query = 'SELECT * FROM ' . $this->_tbl_journey_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
             $object = (object)array_merge((array)$object, (array)$post_info);
-
 
 
             $departure_fm = date("j F Y", strtotime($object->departure));
@@ -165,7 +164,7 @@ class Journey
 
                 // days, nights, duration
                 $departure = date('Y-m-d', strtotime($object->departure));
-                $arrive = date('Y-m-d', strtotime($object->departure) + intval($journey_type_info->nights)*24*60*60);
+                $arrive = date('Y-m-d', strtotime($object->departure) + (intval($journey_type_info->nights) * 24 * 60 * 60));
                 $object->arrive = $arrive;
 
                 $ship_detail = $journey_type_info->ship_info;
@@ -186,7 +185,7 @@ class Journey
                     $promotion = 0;
                     $list_room_offer = [];
 
-                    if($object->journey_type_info->offer_main_info){
+                    if ($object->journey_type_info->offer_main_info) {
                         $offer_main_info = $object->journey_type_info->offer_main_info;
                         $is_offer = false;
                         $offer_start = $offer_main_info->start_date;
@@ -199,7 +198,7 @@ class Journey
                         }
                         //kiem tra xem jouney nay co nằm trong khoang thoi gian có offer k
                         $object->is_offer = $is_offer;
-                        if($is_offer == true){
+                        if ($is_offer == true) {
                             $promotion = $offer_main_info->promotion;
                         }
 
@@ -243,17 +242,49 @@ class Journey
     }
 
 
-    public function getMonthHaveJourney(){
-        $query = ' SELECT DATE_FORMAT(ji.departure,\'%Y-%m\') as month FROM '.$this->_wpdb->posts .' as p INNER JOIN '.$this->_tbl_journey_info .' as ji ON ji.object_id = p.ID WHERE p.post_status = "publish" GROUP BY month' ;
+    public function getMonthHaveJourney()
+    {
+        $query = ' SELECT DATE_FORMAT(ji.departure,\'%Y-%m\') as month FROM ' . $this->_wpdb->posts . ' as p INNER JOIN ' . $this->_tbl_journey_info . ' as ji ON ji.object_id = p.ID WHERE p.post_status = "publish" GROUP BY month';
 
         $result = $this->_wpdb->get_results($query);
-        if($result){
-            foreach ($result as &$v){
-                $v->month = date_format(date_create_from_format("Y-m",$v->month), "m/Y");
+        if ($result) {
+            foreach ($result as &$v) {
+                $v->month = date_format(date_create_from_format("Y-m", $v->month), "m/Y");
             }
         }
 
         return $result;
+    }
+
+
+    public function getRoomInfo($room_id)
+    {
+        $query = "SELECT * FROM {$this->_prefix}rooms r INNER JOIN {$this->_prefix}room_types rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
+        $result = $this->_wpdb->get_row($query);
+
+        return $result;
+    }
+
+    public function getRoomPrice($room_id, $journey_id, $type)
+    {
+
+    }
+
+
+    public function getJourneySeason($journey_id)
+    {
+        $query = "SELECT ji.object_id as journey_id, jti.object_id as journey_type_id, ji.*, jti.* FROM {$this->_tbl_journey_info} ji INNER JOIN {$this->_tbl_journey_type_info} jti ON ji.journey_type = jti.object_id WHERE ji.object_id = {$journey_id}";
+        $journey_info = $this->_wpdb->get_row($query);
+
+        $ship_model = Ships::init();
+        $ship = $ship_model->getShipDetail($journey_info->ship);
+        $high_season_from = strtotime($ship->high_season_from);
+        $high_season_to = strtotime($ship->high_season_to);
+
+        $start_date = strtotime($journey_info->departure);
+        $end_date = strtotime('+ 5 days', strtotime($journey_info->departure));
+
+
     }
 
 }

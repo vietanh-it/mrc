@@ -209,10 +209,18 @@ class JourneyType
         $select = 'SELECT * FROM '.$this->_tbl_journey_type_info .' WHERE object_id  = '.$id;
         $jt_info = $this->_wpdb->get_row($select);
         if(($jt_info)){
-            $this->_wpdb->update($this->_tbl_journey_type_info,$data,array('object_id' => $id));
+            $this->updateJourneyTypeInfo($id,$data);
         }else{
             $this->_wpdb->insert($this->_tbl_journey_type_info,$data);
-
         }
+    }
+
+    public function updateJourneyTypeInfo($id,$data){
+        $result = false;
+        if($id){
+            $result =  $this->_wpdb->update($this->_tbl_journey_type_info,$data,array('object_id' => $id));
+        }
+
+        return $result;
     }
 }

@@ -81,9 +81,18 @@ if($journey_type_info){ ?>
                     <h3 class="title-main">Itinerary</h3>
                     <?php if(!empty($journey_type_info->itinerary)){
                         $itinerary = unserialize($journey_type_info->itinerary);
-                        foreach ($itinerary as $it){ ?>
+                        foreach ($itinerary as $it){
+                            $port_name = '';
+                            if(!empty($it['day_port'])){
+                                $objPort = \RVN\Models\Posts::init();
+                                $port = $objPort->getInfo($it['day_port']);
+                                if(!empty($port)){
+                                    $port_name = $port->post_title;
+                                }
+                            }
+                            ?>
                             <div class="box-day-in">
-                                <div class="day-in">DAY <?php echo $it['day_name'] ?> <?php echo $it['day_port'] ?></div>
+                                <div class="day-in">DAY <?php echo $it['day_name'] ?> <?php echo $port_name?></div>
                                 <p><?php echo apply_filters('the_content',$it['day_content']) ?></p>
                             </div>
                         <?php }

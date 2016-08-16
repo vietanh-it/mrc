@@ -56,6 +56,11 @@ class CustomJourneyType
         global $post;
         $objJourneyType = JourneyType::init();
         $jt_info = $objJourneyType->getInfo($post->ID);
+
+        $objPost = Posts::init();
+        $list_port = $objPost->getList(array(
+            'post_type' => 'port',
+        ));
         ?>
         <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
@@ -71,6 +76,9 @@ class CustomJourneyType
             .box-day input, .box-day textarea {
                 width: 100%;
                 padding: 7px;
+            }
+            .box-day select{
+                width: 100%;
             }
 
             .box-day label {
@@ -99,7 +107,8 @@ class CustomJourneyType
 
         <?php if ($jt_info->itinerary) { ?>
         <div class="ctn-box-day">
-            <?php $list = unserialize($jt_info->itinerary);
+            <?php
+            $list = unserialize($jt_info->itinerary);
             foreach ($list as $v) {
                 //var_dump($v);?>
                 <div class="box-day">
@@ -110,7 +119,15 @@ class CustomJourneyType
                         </div>
                         <div class="form-group">
                             <label for="day_port">Location</label>
-                            <input type="text" class="form-control" placeholder="" name="day_port[]" value="<?php echo $v['day_port']?>">
+                            <select name="day_port[]" class="form-control">
+                                <option value=""> --- Select port --- </option>
+                                <?php if(!empty($list_port['data'])){
+                                    foreach ($list_port['data'] as $p){ ?>
+                                        <option value="<?php echo $p->ID ?>" <?php echo $v['day_port']== $p->ID ? 'selected' :''  ?> ><?php echo $p->post_title ?></option>
+                                    <?php }
+                                } ?>
+                            </select>
+                            <!--<input type="text" class="form-control" placeholder="" name="day_port[]" value="<?php /*echo $v['day_port']*/?>">-->
                         </div>
                         <div class="form-group">
                             <label for="day_content">Content</label>
@@ -142,7 +159,15 @@ class CustomJourneyType
                     </div>
                     <div class="form-group">
                         <label for="day_port">Location</label>
-                        <input type="text" class="form-control" placeholder="" name="day_port[]">
+                        <select name="day_port[]" class="form-control">
+                            <option value=""> --- Select port --- </option>
+                            <?php if(!empty($list_port['data'])){
+                                foreach ($list_port['data'] as $p){ ?>
+                                    <option value="<?php echo $p->ID ?>" ><?php echo $p->post_title ?></option>
+                                <?php }
+                            } ?>
+                        </select>
+                        <!--<input type="text" class="form-control" placeholder="" name="day_port[]">-->
                     </div>
                     <div class="form-group">
                         <label for="day_content">Content</label>
@@ -170,6 +195,8 @@ class CustomJourneyType
         <script>
             var $ = jQuery.noConflict();
             jQuery(document).ready(function ($) {
+                var list_port = <?php echo json_encode($list_port['data']) ?>;
+
                 var html = '<div class="box-day"> ' +
                     '<div class="class-show-all" style="">' +
                     '<div class="form-group"> ' +
@@ -178,7 +205,18 @@ class CustomJourneyType
                     '</div> ' +
                     '<div class="form-group"> ' +
                     '<label for="day_port">Location</label> ' +
-                    '<input type="text" class="form-control"  placeholder="" name="day_port[]"> ' +
+                    '<select name="day_port[]" class="form-control"> ' +
+                    '<option value=""> --- Select port --- </option> ' ;
+
+                if(list_port){
+                    $.each(list_port, function(key, p) {
+                        console.log(p);
+                        html +=' <option value="'+p.ID+'" >'+p.post_title+'</option>';
+                    });
+                }
+
+                    html +='</select>' +
+                    '<!--<input type="text" class="form-control"  placeholder="" name="day_port[]">--> ' +
                     '</div> ' +
                     '<div class="form-group"> ' +
                     '<label for="day_content">Content</label> ' +
@@ -239,26 +277,34 @@ class CustomJourneyType
 
     public function save()
     {
-        if (!empty($_POST['day_name']) && !empty($_POST['day_content'])) {
-            $data = array();
-            foreach ($_POST['day_name'] as $k => $v) {
+        if(!empty($_POST)){
+            $objJourneyType = JourneyType::init();
 
-                $data[] = array(
-                    'day_name' => $v,
-                    'day_port' => $_POST['day_port'][$k],
-                    'day_content' => $_POST['day_content'][$k],
+            if (!empty($_POST['day_name']) && !empty($_POST['day_content'])) {
+                $data = array();
+                foreach ($_POST['day_name'] as $k => $v) {
+                    $data[] = array(
+                        'day_name' => $v,
+                        'day_port' => $_POST['day_port'][$k],
+                        'day_content' => $_POST['day_content'][$k],
+                    );
+                }
+                $args = array(
+                    'itinerary' => serialize($data),
                 );
+                $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], $args);
+            }else{
+                $objJourneyType->updateJourneyTypeInfo($_POST['post_ID'],array(
+                    'itinerary' => '',
+                ));
             }
+
             if(!empty($_POST['include'])){
                 $include = $_POST['include'];
             }else{
                 $include = '';
             }
-
-            $objJourneyType = JourneyType::init();
-
             $args = array(
-                'itinerary' => serialize($data),
                 'include' => $include,
             );
             $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], $args);

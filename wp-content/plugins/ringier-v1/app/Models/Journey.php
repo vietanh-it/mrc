@@ -272,6 +272,23 @@ class Journey
         $result = $this->_wpdb->get_var($query);
 
         // Get journey offer
+        $journey_type = $this->getJourneyOffer($journey_id);
+
+
+        return $result;
+    }
+
+
+    public function getJourneyOffer($journey_id)
+    {
+        $journey_type = $this->getJourneyTypeByJourney($journey_id);
+    }
+
+
+    public function getJourneyTypeByJourney($journey_id)
+    {
+        $query = "SELECT jt.object_id as journey_type_id, jt.*, j.object_id as journey_id, j.* FROM {$this->_tbl_journey_info} j INNER JOIN {$this->_tbl_journey_type_info} jt ON j.journey_type = jt.object_id WHERE j.object_id = {$journey_id}";
+        $result = $this->_wpdb->get_row($query);
 
         return $result;
     }

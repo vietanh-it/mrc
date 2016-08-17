@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-16 12:02:54
+Date: 2016-08-17 10:05:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -84,13 +84,11 @@ CREATE TABLE `mrc_cart` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of mrc_cart
 -- ----------------------------
-INSERT INTO `mrc_cart` VALUES ('1', '1', '131', '2016-08-01 02:38:58', null);
-INSERT INTO `mrc_cart` VALUES ('2', '1', '58', '2016-08-04 08:32:57', null);
 
 -- ----------------------------
 -- Table structure for mrc_cart_addon
@@ -126,23 +124,11 @@ CREATE TABLE `mrc_cart_detail` (
   `quantity` int(11) DEFAULT NULL,
   `total` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of mrc_cart_detail
 -- ----------------------------
-INSERT INTO `mrc_cart_detail` VALUES ('3', '1', '12', 'single', '2000', '1', '2000');
-INSERT INTO `mrc_cart_detail` VALUES ('4', '1', '11', 'single', '2000', '1', '2000');
-INSERT INTO `mrc_cart_detail` VALUES ('5', '1', '10', 'twin', '1800', '2', '3600');
-INSERT INTO `mrc_cart_detail` VALUES ('8', '1', '8', 'twin', '2000', '2', '4000');
-INSERT INTO `mrc_cart_detail` VALUES ('9', '1', '7', 'twin', '2000', '2', '4000');
-INSERT INTO `mrc_cart_detail` VALUES ('27', '2', '10', 'single', '1600', '1', '1600');
-INSERT INTO `mrc_cart_detail` VALUES ('28', '2', '12', 'twin', '1440', '2', '2880');
-INSERT INTO `mrc_cart_detail` VALUES ('29', '2', '7', 'single', '1760', '1', '1760');
-INSERT INTO `mrc_cart_detail` VALUES ('32', '2', '6', 'twin', '1200', '2', '2400');
-INSERT INTO `mrc_cart_detail` VALUES ('33', '2', '5', 'single', '1400', '1', '1400');
-INSERT INTO `mrc_cart_detail` VALUES ('34', '2', '8', 'twin', '1600', '2', '3200');
-INSERT INTO `mrc_cart_detail` VALUES ('35', '2', '4', 'single', '1600', '1', '1600');
 
 -- ----------------------------
 -- Table structure for mrc_commentmeta
@@ -499,7 +485,7 @@ CREATE TABLE `mrc_journey_type_info` (
 -- Records of mrc_journey_type_info
 -- ----------------------------
 INSERT INTO `mrc_journey_type_info` VALUES ('85', 'SG', '5', '26', '65', '158', 'a:2:{i:0;a:3:{s:8:\"day_name\";s:1:\"1\";s:8:\"day_port\";s:2:\"21\";s:11:\"day_content\";s:423:\"Transfer from the InterContinental Asiana Saigon Hotel to the port of My Tho by coach to embark cruise. Please note: Your guide will collect your passports at the meeting point so we can arrange the immigration formalities.\r\n\r\nRegistration Details\r\nINTERCONTINENTAL ASIANA SAIGON HOTEL, Purple Jade Bar (Level One) /\r\n\r\n39 Le Duan, Ben Nghe, Ho Chi Minh City, Vietnam\r\n\r\nTel: (+84) 8 3520 9999\r\n\r\nRegistration is at 10.30am\";}i:1;a:3:{s:8:\"day_name\";s:1:\"2\";s:8:\"day_port\";s:2:\"20\";s:11:\"day_content\";s:318:\"In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.\";}}', 'Cruise Price Includes: Entrance fees, guide services (English language), gratuities to crew, main meals, locally made soft drinks, local beer and local spirits, jugged coffee and selection of teas and tisanes, mineral water. Transfers between the meeting point and the ship at the start and end of a voyage.\r\n\r\nCruise Price Excludes: International flights, port dues (if levied), laundry, all visa costs, fuel surcharges (see terms and conditions), imported beverages such as wines, premium spirits and liqueurs, fancy soft drinks like Perrier, espressos and cappuccinos at bar and tips to tour guides, local guides, bus drivers, boat operators and cyclo drivers.');
-INSERT INTO `mrc_journey_type_info` VALUES ('125', 'Nha Rong', '6', '26', '65', '158', 'a:1:{i:0;a:3:{s:8:\"day_name\";s:1:\"1\";s:8:\"day_port\";s:8:\"PNOMPENH\";s:11:\"day_content\";s:423:\"Transfer from the InterContinental Asiana Saigon Hotel to the port of My Tho by coach to embark cruise. Please note: Your guide will collect your passports at the meeting point so we can arrange the immigration formalities.\r\n\r\nRegistration Details\r\nINTERCONTINENTAL ASIANA SAIGON HOTEL, Purple Jade Bar (Level One) /\r\n\r\n39 Le Duan, Ben Nghe, Ho Chi Minh City, Vietnam\r\n\r\nTel: (+84) 8 3520 9999\r\n\r\nRegistration is at 10.30am\";}}', 'In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.');
+INSERT INTO `mrc_journey_type_info` VALUES ('125', 'Nha Rong', '6', '26', '65', '158', 'a:1:{i:0;a:3:{s:8:\"day_name\";s:1:\"1\";s:8:\"day_port\";s:2:\"21\";s:11:\"day_content\";s:423:\"Transfer from the InterContinental Asiana Saigon Hotel to the port of My Tho by coach to embark cruise. Please note: Your guide will collect your passports at the meeting point so we can arrange the immigration formalities.\r\n\r\nRegistration Details\r\nINTERCONTINENTAL ASIANA SAIGON HOTEL, Purple Jade Bar (Level One) /\r\n\r\n39 Le Duan, Ben Nghe, Ho Chi Minh City, Vietnam\r\n\r\nTel: (+84) 8 3520 9999\r\n\r\nRegistration is at 10.30am\";}}', 'In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.');
 INSERT INTO `mrc_journey_type_info` VALUES ('128', 'Nha Rong', '10', '26', '65', '158', 'a:1:{i:0;a:3:{s:8:\"day_name\";s:1:\"1\";s:8:\"day_port\";s:2:\"SG\";s:11:\"day_content\";s:423:\"Transfer from the InterContinental Asiana Saigon Hotel to the port of My Tho by coach to embark cruise. Please note: Your guide will collect your passports at the meeting point so we can arrange the immigration formalities.\r\n\r\nRegistration Details\r\nINTERCONTINENTAL ASIANA SAIGON HOTEL, Purple Jade Bar (Level One) /\r\n\r\n39 Le Duan, Ben Nghe, Ho Chi Minh City, Vietnam\r\n\r\nTel: (+84) 8 3520 9999\r\n\r\nRegistration is at 10.30am\";}}', 'Cruise Price Includes: Entrance fees, guide services (English language), gratuities to crew, main meals, locally made soft drinks, local beer and local spirits, jugged coffee and selection of teas and tisanes, mineral water. Transfers between the meeting point and the ship at the start and end of a voyage.\r\n\r\nCruise Price Excludes: International flights, port dues (if levied), laundry, all visa costs, fuel surcharges (see terms and conditions), imported beverages such as wines, premium spirits and liqueurs, fancy soft drinks like Perrier, espressos and cappuccinos at bar and tips to tour guides, local guides, bus drivers, boat operators and cyclo drivers.');
 
 -- ----------------------------
@@ -511,16 +497,16 @@ CREATE TABLE `mrc_journey_type_port` (
   `journey_type_id` int(11) DEFAULT NULL,
   `port_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mrc_journey_type_port
 -- ----------------------------
 INSERT INTO `mrc_journey_type_port` VALUES ('80', '128', '20');
-INSERT INTO `mrc_journey_type_port` VALUES ('81', '125', '21');
-INSERT INTO `mrc_journey_type_port` VALUES ('82', '125', '20');
 INSERT INTO `mrc_journey_type_port` VALUES ('83', '85', '21');
 INSERT INTO `mrc_journey_type_port` VALUES ('84', '85', '20');
+INSERT INTO `mrc_journey_type_port` VALUES ('85', '125', '21');
+INSERT INTO `mrc_journey_type_port` VALUES ('86', '125', '20');
 
 -- ----------------------------
 -- Table structure for mrc_journey_type_river
@@ -531,14 +517,14 @@ CREATE TABLE `mrc_journey_type_river` (
   `journey_type_id` int(11) DEFAULT NULL,
   `river_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mrc_journey_type_river
 -- ----------------------------
 INSERT INTO `mrc_journey_type_river` VALUES ('38', '128', '82');
-INSERT INTO `mrc_journey_type_river` VALUES ('39', '125', '82');
 INSERT INTO `mrc_journey_type_river` VALUES ('40', '85', '82');
+INSERT INTO `mrc_journey_type_river` VALUES ('41', '125', '82');
 
 -- ----------------------------
 -- Table structure for mrc_links
@@ -572,6 +558,7 @@ CREATE TABLE `mrc_links` (
 DROP TABLE IF EXISTS `mrc_offer_info`;
 CREATE TABLE `mrc_offer_info` (
   `object_id` int(11) NOT NULL,
+  `journey_type_id` bigint(20) unsigned DEFAULT NULL,
   `promotion` varchar(255) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
@@ -581,7 +568,7 @@ CREATE TABLE `mrc_offer_info` (
 -- ----------------------------
 -- Records of mrc_offer_info
 -- ----------------------------
-INSERT INTO `mrc_offer_info` VALUES ('118', '20', '2016-09-01 00:00:00', '2016-09-30 00:00:00');
+INSERT INTO `mrc_offer_info` VALUES ('118', '85', '20', '2016-09-01 00:00:00', '2016-09-30 00:00:00');
 
 -- ----------------------------
 -- Table structure for mrc_offer_journey
@@ -613,7 +600,7 @@ CREATE TABLE `mrc_options` (
   `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1015 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1019 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of mrc_options
@@ -721,8 +708,8 @@ INSERT INTO `mrc_options` VALUES ('100', 'widget_calendar', 'a:1:{s:12:\"_multiw
 INSERT INTO `mrc_options` VALUES ('101', 'widget_tag_cloud', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('102', 'widget_nav_menu', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('103', 'cron', 'a:11:{i:1469178211;a:0:{}i:1469178232;a:0:{}i:1469178235;a:0:{}i:1471274368;a:1:{s:25:\"wpseo_ping_search_engines\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:2:{s:8:\"schedule\";b:0;s:4:\"args\";a:0:{}}}}i:1471275500;a:1:{s:17:\"crontrol_cron_job\";a:1:{s:32:\"b4fa03ab7143610e27e53b2f40058818\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:1:{s:4:\"code\";s:27:\"add_option(\'test\', time());\";}s:8:\"interval\";i:3600;}}}i:1471277106;a:1:{s:16:\"my_schedule_hook\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1471289383;a:3:{s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1471316197;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1471332585;a:1:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1471837026;a:1:{s:18:\"wpseo_onpage_fetch\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"weekly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:604800;}}}s:7:\"version\";i:2;}', 'yes');
-INSERT INTO `mrc_options` VALUES ('105', '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-4.5.3.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-4.5.3.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-4.5.3-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-4.5.3-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"4.5.3\";s:7:\"version\";s:5:\"4.5.3\";s:11:\"php_version\";s:5:\"5.2.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.4\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1471317422;s:15:\"version_checked\";s:5:\"4.5.3\";s:12:\"translations\";a:0:{}}', 'yes');
-INSERT INTO `mrc_options` VALUES ('109', '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1471317444;s:7:\"checked\";a:1:{s:3:\"mrc\";s:3:\"1.0\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'yes');
+INSERT INTO `mrc_options` VALUES ('105', '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:2:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:7:\"upgrade\";s:8:\"download\";s:57:\"https://downloads.wordpress.org/release/wordpress-4.6.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:57:\"https://downloads.wordpress.org/release/wordpress-4.6.zip\";s:10:\"no_content\";s:68:\"https://downloads.wordpress.org/release/wordpress-4.6-no-content.zip\";s:11:\"new_bundled\";s:69:\"https://downloads.wordpress.org/release/wordpress-4.6-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:3:\"4.6\";s:7:\"version\";s:3:\"4.6\";s:11:\"php_version\";s:5:\"5.2.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.4\";s:15:\"partial_version\";s:0:\"\";}i:1;O:8:\"stdClass\":12:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:57:\"https://downloads.wordpress.org/release/wordpress-4.6.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:57:\"https://downloads.wordpress.org/release/wordpress-4.6.zip\";s:10:\"no_content\";s:68:\"https://downloads.wordpress.org/release/wordpress-4.6-no-content.zip\";s:11:\"new_bundled\";s:69:\"https://downloads.wordpress.org/release/wordpress-4.6-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:3:\"4.6\";s:7:\"version\";s:3:\"4.6\";s:11:\"php_version\";s:5:\"5.2.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.4\";s:15:\"partial_version\";s:0:\"\";s:13:\"support_email\";s:26:\"updatehelp42@wordpress.org\";s:9:\"new_files\";s:1:\"1\";}}s:12:\"last_checked\";i:1471402716;s:15:\"version_checked\";s:5:\"4.5.3\";s:12:\"translations\";a:0:{}}', 'yes');
+INSERT INTO `mrc_options` VALUES ('109', '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1471402718;s:7:\"checked\";a:1:{s:3:\"mrc\";s:3:\"1.0\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'yes');
 INSERT INTO `mrc_options` VALUES ('112', 'can_compress_scripts', '1', 'yes');
 INSERT INTO `mrc_options` VALUES ('153', 'recently_activated', 'a:0:{}', 'yes');
 INSERT INTO `mrc_options` VALUES ('154', 'acf_version', '4.4.8', 'yes');
@@ -738,7 +725,7 @@ INSERT INTO `mrc_options` VALUES ('266', 'wpseo_xml', 'a:21:{s:22:\"disable_auth
 INSERT INTO `mrc_options` VALUES ('267', 'wpseo_flush_rewrite', '1', 'yes');
 INSERT INTO `mrc_options` VALUES ('274', 'widget_theme-my-login', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('275', 'theme_my_login', 'a:4:{s:10:\"enable_css\";b:1;s:10:\"login_type\";s:5:\"email\";s:14:\"active_modules\";a:1:{i:0;s:23:\"recaptcha/recaptcha.php\";}s:7:\"version\";s:5:\"6.4.5\";}', 'yes');
-INSERT INTO `mrc_options` VALUES ('276', 'wpseo_sitemap_1_cache_validator', '24z7r', 'no');
+INSERT INTO `mrc_options` VALUES ('276', 'wpseo_sitemap_1_cache_validator', '2TjZb', 'no');
 INSERT INTO `mrc_options` VALUES ('277', 'wpseo_sitemap_page_cache_validator', '4QHKE', 'no');
 INSERT INTO `mrc_options` VALUES ('280', 'crontrol_schedules', 'a:0:{}', 'yes');
 INSERT INTO `mrc_options` VALUES ('290', 'WPLANG', '', 'yes');
@@ -753,7 +740,7 @@ INSERT INTO `mrc_options` VALUES ('345', 'theme_switched', '', 'yes');
 INSERT INTO `mrc_options` VALUES ('355', 'wpseo_sitemap_revision_cache_validator', 'QUZt', 'no');
 INSERT INTO `mrc_options` VALUES ('356', 'wpseo_sitemap_destination_cache_validator', '53eon', 'no');
 INSERT INTO `mrc_options` VALUES ('357', 'wpseo_sitemap_port_cache_validator', '4yVLU', 'no');
-INSERT INTO `mrc_options` VALUES ('384', 'wpseo_sitemap_journey_type_cache_validator', '24z7A', 'no');
+INSERT INTO `mrc_options` VALUES ('384', 'wpseo_sitemap_journey_type_cache_validator', '2TjZn', 'no');
 INSERT INTO `mrc_options` VALUES ('403', 'wpseo_sitemap_cache_validator_global', '36aDD', 'no');
 INSERT INTO `mrc_options` VALUES ('533', 'user_role_editor', 'a:2:{s:11:\"ure_version\";s:6:\"4.26.3\";s:19:\"ure_hide_pro_banner\";i:1;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('534', 'mrc_backup_user_roles', 'a:5:{s:13:\"administrator\";a:2:{s:4:\"name\";s:13:\"Administrator\";s:12:\"capabilities\";a:69:{s:13:\"switch_themes\";b:1;s:11:\"edit_themes\";b:1;s:16:\"activate_plugins\";b:1;s:12:\"edit_plugins\";b:1;s:10:\"edit_users\";b:1;s:10:\"edit_files\";b:1;s:14:\"manage_options\";b:1;s:17:\"moderate_comments\";b:1;s:17:\"manage_categories\";b:1;s:12:\"manage_links\";b:1;s:12:\"upload_files\";b:1;s:6:\"import\";b:1;s:15:\"unfiltered_html\";b:1;s:10:\"edit_posts\";b:1;s:17:\"edit_others_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:10:\"edit_pages\";b:1;s:4:\"read\";b:1;s:8:\"level_10\";b:1;s:7:\"level_9\";b:1;s:7:\"level_8\";b:1;s:7:\"level_7\";b:1;s:7:\"level_6\";b:1;s:7:\"level_5\";b:1;s:7:\"level_4\";b:1;s:7:\"level_3\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:17:\"edit_others_pages\";b:1;s:20:\"edit_published_pages\";b:1;s:13:\"publish_pages\";b:1;s:12:\"delete_pages\";b:1;s:19:\"delete_others_pages\";b:1;s:22:\"delete_published_pages\";b:1;s:12:\"delete_posts\";b:1;s:19:\"delete_others_posts\";b:1;s:22:\"delete_published_posts\";b:1;s:20:\"delete_private_posts\";b:1;s:18:\"edit_private_posts\";b:1;s:18:\"read_private_posts\";b:1;s:20:\"delete_private_pages\";b:1;s:18:\"edit_private_pages\";b:1;s:18:\"read_private_pages\";b:1;s:12:\"delete_users\";b:1;s:12:\"create_users\";b:1;s:17:\"unfiltered_upload\";b:1;s:14:\"edit_dashboard\";b:1;s:14:\"update_plugins\";b:1;s:14:\"delete_plugins\";b:1;s:15:\"install_plugins\";b:1;s:13:\"update_themes\";b:1;s:14:\"install_themes\";b:1;s:11:\"update_core\";b:1;s:10:\"list_users\";b:1;s:12:\"remove_users\";b:1;s:13:\"promote_users\";b:1;s:18:\"edit_theme_options\";b:1;s:13:\"delete_themes\";b:1;s:6:\"export\";b:1;s:18:\"view_query_monitor\";b:1;s:14:\"ure_edit_roles\";b:1;s:16:\"ure_create_roles\";b:1;s:16:\"ure_delete_roles\";b:1;s:23:\"ure_create_capabilities\";b:1;s:23:\"ure_delete_capabilities\";b:1;s:18:\"ure_manage_options\";b:1;s:15:\"ure_reset_roles\";b:1;}}s:6:\"editor\";a:2:{s:4:\"name\";s:6:\"Editor\";s:12:\"capabilities\";a:34:{s:17:\"moderate_comments\";b:1;s:17:\"manage_categories\";b:1;s:12:\"manage_links\";b:1;s:12:\"upload_files\";b:1;s:15:\"unfiltered_html\";b:1;s:10:\"edit_posts\";b:1;s:17:\"edit_others_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:10:\"edit_pages\";b:1;s:4:\"read\";b:1;s:7:\"level_7\";b:1;s:7:\"level_6\";b:1;s:7:\"level_5\";b:1;s:7:\"level_4\";b:1;s:7:\"level_3\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:17:\"edit_others_pages\";b:1;s:20:\"edit_published_pages\";b:1;s:13:\"publish_pages\";b:1;s:12:\"delete_pages\";b:1;s:19:\"delete_others_pages\";b:1;s:22:\"delete_published_pages\";b:1;s:12:\"delete_posts\";b:1;s:19:\"delete_others_posts\";b:1;s:22:\"delete_published_posts\";b:1;s:20:\"delete_private_posts\";b:1;s:18:\"edit_private_posts\";b:1;s:18:\"read_private_posts\";b:1;s:20:\"delete_private_pages\";b:1;s:18:\"edit_private_pages\";b:1;s:18:\"read_private_pages\";b:1;}}s:6:\"author\";a:2:{s:4:\"name\";s:6:\"Author\";s:12:\"capabilities\";a:10:{s:12:\"upload_files\";b:1;s:10:\"edit_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:4:\"read\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:12:\"delete_posts\";b:1;s:22:\"delete_published_posts\";b:1;}}s:11:\"contributor\";a:2:{s:4:\"name\";s:11:\"Contributor\";s:12:\"capabilities\";a:5:{s:10:\"edit_posts\";b:1;s:4:\"read\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:12:\"delete_posts\";b:1;}}s:10:\"subscriber\";a:2:{s:4:\"name\";s:10:\"Subscriber\";s:12:\"capabilities\";a:2:{s:4:\"read\";b:1;s:7:\"level_0\";b:1;}}}', 'no');
@@ -779,7 +766,7 @@ INSERT INTO `mrc_options` VALUES ('853', 'wpseo_sitemap_addon_cache_validator', 
 INSERT INTO `mrc_options` VALUES ('924', '_site_transient_timeout_browser_fb5ae4c281981ca10a522b6e1bdcd161', '1471076660', 'yes');
 INSERT INTO `mrc_options` VALUES ('925', '_site_transient_browser_fb5ae4c281981ca10a522b6e1bdcd161', 'a:9:{s:8:\"platform\";s:7:\"Windows\";s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"51.0.2704.103\";s:10:\"update_url\";s:28:\"http://www.google.com/chrome\";s:7:\"img_src\";s:49:\"http://s.wordpress.org/images/browsers/chrome.png\";s:11:\"img_src_ssl\";s:48:\"https://wordpress.org/images/browsers/chrome.png\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('946', 'ftp_credentials', 'a:3:{s:8:\"hostname\";s:18:\"vietcruises.com:21\";s:8:\"username\";s:3:\"ftp\";s:15:\"connection_type\";s:3:\"ftp\";}', 'yes');
-INSERT INTO `mrc_options` VALUES ('949', '_site_transient_update_plugins', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1471317442;s:7:\"checked\";a:11:{s:30:\"advanced-custom-fields/acf.php\";s:5:\"4.4.8\";s:38:\"acf-field-type-ringier/acf-ringier.php\";s:5:\"1.0.0\";s:43:\"custom-post-type-ui/custom-post-type-ui.php\";s:5:\"1.3.5\";s:31:\"query-monitor/query-monitor.php\";s:6:\"2.12.0\";s:33:\"ringier-social/ringier-social.php\";s:3:\"1.0\";s:25:\"ringier-v1/ringier-v1.php\";s:3:\"1.0\";s:33:\"theme-my-login/theme-my-login.php\";s:5:\"6.4.5\";s:37:\"user-role-editor/user-role-editor.php\";s:6:\"4.26.3\";s:27:\"wp-pagenavi/wp-pagenavi.php\";s:4:\"2.91\";s:27:\"wp-crontrol/wp-crontrol.php\";s:5:\"1.3.1\";s:24:\"wordpress-seo/wp-seo.php\";s:5:\"3.4.2\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:8:{s:30:\"advanced-custom-fields/acf.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"21367\";s:4:\"slug\";s:22:\"advanced-custom-fields\";s:6:\"plugin\";s:30:\"advanced-custom-fields/acf.php\";s:11:\"new_version\";s:5:\"4.4.8\";s:3:\"url\";s:53:\"https://wordpress.org/plugins/advanced-custom-fields/\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.8.zip\";}s:43:\"custom-post-type-ui/custom-post-type-ui.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"13183\";s:4:\"slug\";s:19:\"custom-post-type-ui\";s:6:\"plugin\";s:43:\"custom-post-type-ui/custom-post-type-ui.php\";s:11:\"new_version\";s:5:\"1.3.5\";s:3:\"url\";s:50:\"https://wordpress.org/plugins/custom-post-type-ui/\";s:7:\"package\";s:68:\"https://downloads.wordpress.org/plugin/custom-post-type-ui.1.3.5.zip\";}s:31:\"query-monitor/query-monitor.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"10302\";s:4:\"slug\";s:13:\"query-monitor\";s:6:\"plugin\";s:31:\"query-monitor/query-monitor.php\";s:11:\"new_version\";s:6:\"2.12.0\";s:3:\"url\";s:44:\"https://wordpress.org/plugins/query-monitor/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/query-monitor.2.12.0.zip\";}s:33:\"theme-my-login/theme-my-login.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"7109\";s:4:\"slug\";s:14:\"theme-my-login\";s:6:\"plugin\";s:33:\"theme-my-login/theme-my-login.php\";s:11:\"new_version\";s:5:\"6.4.5\";s:3:\"url\";s:45:\"https://wordpress.org/plugins/theme-my-login/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/theme-my-login.6.4.5.zip\";}s:37:\"user-role-editor/user-role-editor.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"13697\";s:4:\"slug\";s:16:\"user-role-editor\";s:6:\"plugin\";s:37:\"user-role-editor/user-role-editor.php\";s:11:\"new_version\";s:6:\"4.26.3\";s:3:\"url\";s:47:\"https://wordpress.org/plugins/user-role-editor/\";s:7:\"package\";s:66:\"https://downloads.wordpress.org/plugin/user-role-editor.4.26.3.zip\";}s:27:\"wp-pagenavi/wp-pagenavi.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:3:\"363\";s:4:\"slug\";s:11:\"wp-pagenavi\";s:6:\"plugin\";s:27:\"wp-pagenavi/wp-pagenavi.php\";s:11:\"new_version\";s:4:\"2.91\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/wp-pagenavi/\";s:7:\"package\";s:59:\"https://downloads.wordpress.org/plugin/wp-pagenavi.2.91.zip\";}s:27:\"wp-crontrol/wp-crontrol.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"1426\";s:4:\"slug\";s:11:\"wp-crontrol\";s:6:\"plugin\";s:27:\"wp-crontrol/wp-crontrol.php\";s:11:\"new_version\";s:5:\"1.3.1\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/wp-crontrol/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/wp-crontrol.1.3.1.zip\";}s:24:\"wordpress-seo/wp-seo.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"5899\";s:4:\"slug\";s:13:\"wordpress-seo\";s:6:\"plugin\";s:24:\"wordpress-seo/wp-seo.php\";s:11:\"new_version\";s:5:\"3.4.2\";s:3:\"url\";s:44:\"https://wordpress.org/plugins/wordpress-seo/\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/plugin/wordpress-seo.3.4.2.zip\";}}}', 'yes');
+INSERT INTO `mrc_options` VALUES ('949', '_site_transient_update_plugins', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1471402716;s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:8:{s:30:\"advanced-custom-fields/acf.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"21367\";s:4:\"slug\";s:22:\"advanced-custom-fields\";s:6:\"plugin\";s:30:\"advanced-custom-fields/acf.php\";s:11:\"new_version\";s:5:\"4.4.8\";s:3:\"url\";s:53:\"https://wordpress.org/plugins/advanced-custom-fields/\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.8.zip\";}s:43:\"custom-post-type-ui/custom-post-type-ui.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"13183\";s:4:\"slug\";s:19:\"custom-post-type-ui\";s:6:\"plugin\";s:43:\"custom-post-type-ui/custom-post-type-ui.php\";s:11:\"new_version\";s:5:\"1.3.5\";s:3:\"url\";s:50:\"https://wordpress.org/plugins/custom-post-type-ui/\";s:7:\"package\";s:68:\"https://downloads.wordpress.org/plugin/custom-post-type-ui.1.3.5.zip\";}s:31:\"query-monitor/query-monitor.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"10302\";s:4:\"slug\";s:13:\"query-monitor\";s:6:\"plugin\";s:31:\"query-monitor/query-monitor.php\";s:11:\"new_version\";s:6:\"2.12.0\";s:3:\"url\";s:44:\"https://wordpress.org/plugins/query-monitor/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/query-monitor.2.12.0.zip\";}s:33:\"theme-my-login/theme-my-login.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"7109\";s:4:\"slug\";s:14:\"theme-my-login\";s:6:\"plugin\";s:33:\"theme-my-login/theme-my-login.php\";s:11:\"new_version\";s:5:\"6.4.5\";s:3:\"url\";s:45:\"https://wordpress.org/plugins/theme-my-login/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/theme-my-login.6.4.5.zip\";}s:37:\"user-role-editor/user-role-editor.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"13697\";s:4:\"slug\";s:16:\"user-role-editor\";s:6:\"plugin\";s:37:\"user-role-editor/user-role-editor.php\";s:11:\"new_version\";s:6:\"4.26.3\";s:3:\"url\";s:47:\"https://wordpress.org/plugins/user-role-editor/\";s:7:\"package\";s:66:\"https://downloads.wordpress.org/plugin/user-role-editor.4.26.3.zip\";}s:27:\"wp-pagenavi/wp-pagenavi.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:3:\"363\";s:4:\"slug\";s:11:\"wp-pagenavi\";s:6:\"plugin\";s:27:\"wp-pagenavi/wp-pagenavi.php\";s:11:\"new_version\";s:4:\"2.91\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/wp-pagenavi/\";s:7:\"package\";s:59:\"https://downloads.wordpress.org/plugin/wp-pagenavi.2.91.zip\";}s:27:\"wp-crontrol/wp-crontrol.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"1426\";s:4:\"slug\";s:11:\"wp-crontrol\";s:6:\"plugin\";s:27:\"wp-crontrol/wp-crontrol.php\";s:11:\"new_version\";s:5:\"1.3.1\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/wp-crontrol/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/wp-crontrol.1.3.1.zip\";}s:24:\"wordpress-seo/wp-seo.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"5899\";s:4:\"slug\";s:13:\"wordpress-seo\";s:6:\"plugin\";s:24:\"wordpress-seo/wp-seo.php\";s:11:\"new_version\";s:5:\"3.4.2\";s:3:\"url\";s:44:\"https://wordpress.org/plugins/wordpress-seo/\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/plugin/wordpress-seo.3.4.2.zip\";}}}', 'yes');
 INSERT INTO `mrc_options` VALUES ('950', '_site_transient_timeout_browser_ebee2cb07f407535234173ddc900149d', '1471417161', 'yes');
 INSERT INTO `mrc_options` VALUES ('951', '_site_transient_browser_ebee2cb07f407535234173ddc900149d', 'a:9:{s:8:\"platform\";s:7:\"Windows\";s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"52.0.2743.116\";s:10:\"update_url\";s:28:\"http://www.google.com/chrome\";s:7:\"img_src\";s:49:\"http://s.wordpress.org/images/browsers/chrome.png\";s:11:\"img_src_ssl\";s:48:\"https://wordpress.org/images/browsers/chrome.png\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('970', 'wpseo_sitemap_tour_cache_validator', '2tmtt', 'no');
@@ -803,8 +790,10 @@ INSERT INTO `mrc_options` VALUES ('1002', '_site_transient_timeout_ure_caps_read
 INSERT INTO `mrc_options` VALUES ('1003', '_site_transient_ure_caps_readable', '', 'yes');
 INSERT INTO `mrc_options` VALUES ('1005', '_transient_timeout_ure_public_post_types', '1471275486', 'no');
 INSERT INTO `mrc_options` VALUES ('1006', '_transient_ure_public_post_types', 'a:13:{s:4:\"post\";s:4:\"post\";s:4:\"page\";s:4:\"page\";s:10:\"attachment\";s:10:\"attachment\";s:3:\"acf\";s:3:\"acf\";s:11:\"destination\";s:11:\"destination\";s:4:\"port\";s:4:\"port\";s:4:\"ship\";s:4:\"ship\";s:7:\"journey\";s:7:\"journey\";s:5:\"river\";s:5:\"river\";s:12:\"journey_type\";s:12:\"journey_type\";s:5:\"offer\";s:5:\"offer\";s:5:\"addon\";s:5:\"addon\";s:4:\"tour\";s:4:\"tour\";}', 'no');
-INSERT INTO `mrc_options` VALUES ('1011', '_site_transient_timeout_theme_roots', '1471319243', 'yes');
-INSERT INTO `mrc_options` VALUES ('1012', '_site_transient_theme_roots', 'a:1:{s:3:\"mrc\";s:7:\"/themes\";}', 'yes');
+INSERT INTO `mrc_options` VALUES ('1015', '_transient_timeout_wpseo-dashboard-totals', '1471489118', 'no');
+INSERT INTO `mrc_options` VALUES ('1016', '_transient_wpseo-dashboard-totals', 'a:1:{i:1;a:0:{}}', 'no');
+INSERT INTO `mrc_options` VALUES ('1017', '_site_transient_timeout_theme_roots', '1471404517', 'yes');
+INSERT INTO `mrc_options` VALUES ('1018', '_site_transient_theme_roots', 'a:1:{s:3:\"mrc\";s:7:\"/themes\";}', 'yes');
 
 -- ----------------------------
 -- Table structure for mrc_postmeta
@@ -1029,7 +1018,7 @@ INSERT INTO `mrc_postmeta` VALUES ('294', '58', 'port', '65');
 INSERT INTO `mrc_postmeta` VALUES ('295', '58', '_port', 'field_57821584d9956');
 INSERT INTO `mrc_postmeta` VALUES ('296', '58', 'ship', '65');
 INSERT INTO `mrc_postmeta` VALUES ('297', '58', '_ship', 'field_578214cf89b70');
-INSERT INTO `mrc_postmeta` VALUES ('299', '85', '_edit_lock', '1471320114:1');
+INSERT INTO `mrc_postmeta` VALUES ('299', '85', '_edit_lock', '1471345645:1');
 INSERT INTO `mrc_postmeta` VALUES ('300', '85', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('303', '85', 'navigation', '');
 INSERT INTO `mrc_postmeta` VALUES ('304', '85', '_navigation', 'field_578e02f125463');
@@ -1118,7 +1107,7 @@ INSERT INTO `mrc_postmeta` VALUES ('420', '101', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('423', '101', 'position', 'normal');
 INSERT INTO `mrc_postmeta` VALUES ('424', '101', 'layout', 'default');
 INSERT INTO `mrc_postmeta` VALUES ('425', '101', 'hide_on_screen', '');
-INSERT INTO `mrc_postmeta` VALUES ('427', '102', '_edit_lock', '1471315460:1');
+INSERT INTO `mrc_postmeta` VALUES ('427', '102', '_edit_lock', '1471346782:1');
 INSERT INTO `mrc_postmeta` VALUES ('428', '102', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('432', '102', 'single_price', '1');
 INSERT INTO `mrc_postmeta` VALUES ('433', '102', '_single_price', 'field_579864586d640');
@@ -1149,7 +1138,7 @@ INSERT INTO `mrc_postmeta` VALUES ('471', '109', 'position', 'normal');
 INSERT INTO `mrc_postmeta` VALUES ('472', '109', 'layout', 'default');
 INSERT INTO `mrc_postmeta` VALUES ('473', '109', 'hide_on_screen', '');
 INSERT INTO `mrc_postmeta` VALUES ('481', '109', 'field_5798c5e9b38ba', 'a:15:{s:3:\"key\";s:19:\"field_5798c5e9b38ba\";s:5:\"label\";s:13:\"Promotion (%)\";s:4:\"name\";s:9:\"promotion\";s:4:\"type\";s:6:\"number\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";s:1:\"0\";s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:3:\"min\";s:0:\"\";s:3:\"max\";s:0:\"\";s:4:\"step\";s:0:\"\";s:17:\"conditional_logic\";a:3:{s:6:\"status\";s:1:\"0\";s:5:\"rules\";a:1:{i:0;a:3:{s:5:\"field\";s:4:\"null\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:0:\"\";}}s:8:\"allorany\";s:3:\"all\";}s:8:\"order_no\";i:2;}');
-INSERT INTO `mrc_postmeta` VALUES ('486', '118', '_edit_lock', '1471317415:1');
+INSERT INTO `mrc_postmeta` VALUES ('486', '118', '_edit_lock', '1471403085:1');
 INSERT INTO `mrc_postmeta` VALUES ('487', '118', '_edit_last', '2');
 INSERT INTO `mrc_postmeta` VALUES ('491', '118', 'start_date', '20');
 INSERT INTO `mrc_postmeta` VALUES ('492', '118', '_start_date', 'field_5798b9926a489');
@@ -1162,21 +1151,21 @@ INSERT INTO `mrc_postmeta` VALUES ('498', '118', '_promotion', 'field_5798c5e9b3
 INSERT INTO `mrc_postmeta` VALUES ('502', '109', 'rule', 'a:5:{s:5:\"param\";s:9:\"post_type\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:5:\"offer\";s:8:\"order_no\";i:0;s:8:\"group_no\";i:0;}');
 INSERT INTO `mrc_postmeta` VALUES ('509', '85', 'starting_point', '158');
 INSERT INTO `mrc_postmeta` VALUES ('510', '85', '_starting_point', 'field_57986efd64c65');
-INSERT INTO `mrc_postmeta` VALUES ('511', '125', '_edit_lock', '1471272798:2');
-INSERT INTO `mrc_postmeta` VALUES ('512', '125', '_edit_last', '2');
+INSERT INTO `mrc_postmeta` VALUES ('511', '125', '_edit_lock', '1471331633:1');
+INSERT INTO `mrc_postmeta` VALUES ('512', '125', '_edit_last', '1');
 INSERT INTO `mrc_postmeta` VALUES ('516', '125', 'navigation', '');
 INSERT INTO `mrc_postmeta` VALUES ('517', '125', '_navigation', 'field_578e02f125463');
-INSERT INTO `mrc_postmeta` VALUES ('518', '125', 'starting_point', '');
+INSERT INTO `mrc_postmeta` VALUES ('518', '125', 'starting_point', '158');
 INSERT INTO `mrc_postmeta` VALUES ('519', '125', '_starting_point', 'field_57986efd64c65');
-INSERT INTO `mrc_postmeta` VALUES ('520', '125', 'destination', '');
+INSERT INTO `mrc_postmeta` VALUES ('520', '125', 'destination', '158');
 INSERT INTO `mrc_postmeta` VALUES ('521', '125', '_destination', 'field_578215ef69442');
-INSERT INTO `mrc_postmeta` VALUES ('522', '125', 'river', '');
+INSERT INTO `mrc_postmeta` VALUES ('522', '125', 'river', '158');
 INSERT INTO `mrc_postmeta` VALUES ('523', '125', '_river', 'field_578f9770c8a5c');
-INSERT INTO `mrc_postmeta` VALUES ('524', '125', 'port', '');
+INSERT INTO `mrc_postmeta` VALUES ('524', '125', 'port', '158');
 INSERT INTO `mrc_postmeta` VALUES ('525', '125', '_port', 'field_57821584d9956');
-INSERT INTO `mrc_postmeta` VALUES ('526', '125', 'ship', '');
+INSERT INTO `mrc_postmeta` VALUES ('526', '125', 'ship', '158');
 INSERT INTO `mrc_postmeta` VALUES ('527', '125', '_ship', 'field_578214cf89b70');
-INSERT INTO `mrc_postmeta` VALUES ('528', '125', 'map_image', '');
+INSERT INTO `mrc_postmeta` VALUES ('528', '125', 'map_image', '158');
 INSERT INTO `mrc_postmeta` VALUES ('529', '125', '_map_image', 'field_57963b155cc29');
 INSERT INTO `mrc_postmeta` VALUES ('533', '128', '_edit_lock', '1471273858:2');
 INSERT INTO `mrc_postmeta` VALUES ('534', '128', '_edit_last', '2');
@@ -1286,7 +1275,7 @@ INSERT INTO `mrc_postmeta` VALUES ('673', '85', 'nights', '158');
 INSERT INTO `mrc_postmeta` VALUES ('674', '85', '_nights', 'field_57b094d4743be');
 INSERT INTO `mrc_postmeta` VALUES ('675', '128', 'nights', '');
 INSERT INTO `mrc_postmeta` VALUES ('676', '128', '_nights', 'field_57b094d4743be');
-INSERT INTO `mrc_postmeta` VALUES ('677', '125', 'nights', '');
+INSERT INTO `mrc_postmeta` VALUES ('677', '125', 'nights', '158');
 INSERT INTO `mrc_postmeta` VALUES ('678', '125', '_nights', 'field_57b094d4743be');
 INSERT INTO `mrc_postmeta` VALUES ('679', '170', '_edit_lock', '1471274152:2');
 INSERT INTO `mrc_postmeta` VALUES ('680', '170', '_edit_last', '2');
@@ -1388,7 +1377,7 @@ INSERT INTO `mrc_posts` VALUES ('105', '2', '2016-07-27 07:40:23', '2016-07-27 0
 INSERT INTO `mrc_posts` VALUES ('106', '2', '2016-07-27 07:41:16', '2016-07-27 07:41:16', 'Exploring Angkor (Victoria Resort).\\, Exploring Angkor (Victoria Resort)', 'Exploring Angkor (Victoria Resort)', '', 'publish', 'closed', 'closed', '', 'exploring-angkor-victoria-resort', '', '', '2016-08-02 13:46:37', '2016-08-02 13:46:37', '', '0', 'http://www.vietcruises.com/?post_type=posttour&#038;p=106', '0', 'posttour', '', '0');
 INSERT INTO `mrc_posts` VALUES ('109', '2', '2016-07-27 13:41:39', '2016-07-27 13:41:39', '', 'Offers infomation', '', 'publish', 'closed', 'closed', '', 'acf_offers-infomation', '', '', '2016-07-27 14:58:55', '2016-07-27 14:58:55', '', '0', 'http://www.vietcruises.com/?post_type=acf&#038;p=109', '0', 'acf', '', '0');
 INSERT INTO `mrc_posts` VALUES ('118', '2', '2016-07-27 14:47:54', '2016-07-27 14:47:54', 'Passengers will visit Phnom Penh and will be provided with their own private cyclo*. The Cyclo Centre Phnom Penh which provides the cyclos is a charity that provides basic welfare and medical services to cyclo drivers. In the afternoon, optional excursion (by coach) to the Killing Fields and the Khmer Rouge\'s grim Tuol Sleng or S21 detention centre. This tour is included in the cost of your cruise but must be requested at the time of booking in the comments box.', 'New Year Promotion', '', 'publish', 'closed', 'closed', '', 'new-year-promotion', '', '', '2016-08-15 15:10:22', '2016-08-15 15:10:22', '', '0', 'http://www.vietcruises.com/?post_type=offer&#038;p=118', '0', 'offer', '', '0');
-INSERT INTO `mrc_posts` VALUES ('125', '2', '2016-07-30 07:03:44', '2016-07-30 07:03:44', 'In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.', 'PHNOM PENH AND SIEM REAP', 'There can be no tapestry of river life as fascinating and varied as the River Mekong. Indeed there can be no more striking a cultural contrast as that between the bustling Vietnam delta and the tranquility of Cambodia. We pass from the vibrant French colonial port of Saigon, through the vast delta so rich in human life and endeavour, to travel along the main channel into the rich countryside of Cambodia. With a full day in charming Phnom Penh we then explore remoter waterways as we progress to the great monuments of Angkor.', 'publish', 'closed', 'closed', '', 'phnom-penh-and-siem-reap', '', '', '2016-08-15 14:51:16', '2016-08-15 14:51:16', '', '0', 'http://www.vietcruises.com/?post_type=journey_type&#038;p=125', '0', 'journey_type', '', '0');
+INSERT INTO `mrc_posts` VALUES ('125', '2', '2016-07-30 07:03:44', '2016-07-30 07:03:44', 'In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.', 'PHNOM PENH AND SIEM REAP', 'There can be no tapestry of river life as fascinating and varied as the River Mekong. Indeed there can be no more striking a cultural contrast as that between the bustling Vietnam delta and the tranquility of Cambodia. We pass from the vibrant French colonial port of Saigon, through the vast delta so rich in human life and endeavour, to travel along the main channel into the rich countryside of Cambodia. With a full day in charming Phnom Penh we then explore remoter waterways as we progress to the great monuments of Angkor.', 'publish', 'closed', 'closed', '', 'phnom-penh-and-siem-reap', '', '', '2016-08-16 07:16:12', '2016-08-16 07:16:12', '', '0', 'http://www.vietcruises.com/?post_type=journey_type&#038;p=125', '0', 'journey_type', '', '0');
 INSERT INTO `mrc_posts` VALUES ('128', '2', '2016-07-30 07:11:08', '2016-07-30 07:11:08', 'In the morning passengers will visit Cai Be and its colourful floating market. In the afternoon take an exciting Sampan boat excursion to Sa Dec via Vinh Long, along canals and backwaters and see the local market and the ancient house of Mr, Huyn Thuy Le, the ‘lover’ of Marguerite Duras, a famous French novelist.', 'SAIGON AND PHNOM PENH', 'There can be no tapestry of river life as fascinating and varied as the River Mekong. Indeed there can be no more striking a cultural contrast as that between the bustling Vietnam delta and the tranquility of Cambodia. We pass from the vibrant French colonial port of Saigon, through the vast delta so rich in human life and endeavour, to travel along the main channel into the rich countryside of Cambodia. With a full day in charming Phnom Penh we then explore remoter waterways as we progress to the great monuments of Angkor.', 'publish', 'closed', 'closed', '', 'saigon-and-phnom-penh', '', '', '2016-08-15 14:49:59', '2016-08-15 14:49:59', '', '0', 'http://www.vietcruises.com/?post_type=journey_type&#038;p=128', '0', 'journey_type', '', '0');
 INSERT INTO `mrc_posts` VALUES ('131', '2', '2016-07-31 13:14:44', '2016-07-31 13:14:44', 'Passengers will visit Phnom Penh and will be provided with their own private cyclo*. The Cyclo Centre Phnom Penh which provides the cyclos is a charity that provides basic welfare and medical services to cyclo drivers. In the afternoon, optional excursion (by coach) to the Killing Fields and the Khmer Rouge\'s grim Tuol Sleng or S21 detention centre. This tour is included in the cost of your cruise but must be requested at the time of booking in the comments box.', 'Classic Mekong 2', '', 'publish', 'closed', 'closed', '', 'classic-mekong-2', '', '', '2016-08-02 13:39:03', '2016-08-02 13:39:03', '', '0', 'http://local.mrc.com/?post_type=journey&#038;p=131', '0', 'journey', '', '0');
 INSERT INTO `mrc_posts` VALUES ('135', '2', '2016-07-31 13:19:46', '2016-07-31 13:19:46', '', 'Offers', '', 'publish', 'closed', 'closed', '', 'offers', '', '', '2016-07-31 13:20:15', '2016-07-31 13:20:15', '', '0', 'http://local.mrc.com/?page_id=135', '0', 'page', '', '0');
@@ -1551,7 +1540,7 @@ CREATE TABLE `mrc_ship_info` (
 -- ----------------------------
 -- Records of mrc_ship_info
 -- ----------------------------
-INSERT INTO `mrc_ship_info` VALUES ('65', 'mekong_princess.jpg', '<ul>\r\n 	<li>Build 2012 in Saigon</li>\r\n 	<li>Length: 138.61ft / 42.25m</li>\r\n 	<li>Beam: 28.50ft / 8.70m</li>\r\n 	<li>Draught: 3ft / 90cm</li>\r\n 	<li>Berths: 32 pax</li>\r\n</ul>', '<ul>\r\n 	<li>10 main deck and 6 upper deck staterooms</li>\r\n 	<li>Air-conditioned panorama dining room</li>\r\n 	<li>Spacious, open-air lounge</li>\r\n 	<li>Observation deck</li>\r\n 	<li>Lounge bar</li>\r\n 	<li>24hrs hospitality bar</li>\r\n 	<li>Fair-trade Shop</li>\r\n 	<li>Guest relation desk</li>\r\n 	<li>Library with contemporary and classic literature</li>\r\n</ul>', '<ul>\r\n 	<li>Local master chef heading an experienced international culinary team</li>\r\n 	<li>Semi-buffet breakfast, Semi-buffet lunch, and seated theme dinners</li>\r\n 	<li>Daily lean &amp; light menu options</li>\r\n 	<li>Complimentary coffee, water, tea, soft drinks, local beer, local spirits, juices</li>\r\n 	<li>Extensive wine list with premium wines</li>\r\n 	<li>Series of cultural performances, educational talks, cooking classes, and ship tour</li>\r\n 	<li>Welcome drink on arrival</li>\r\n 	<li>Welcome cocktail</li>\r\n 	<li>Farewell Reception</li>\r\n 	<li>Theme dinners</li>\r\n 	<li>Lounge bar</li>\r\n 	<li>24hrs hospitality bar</li>\r\n 	<li>Onboard bakery with daily freshly baked breads and rolls</li>\r\n</ul>', '<ul>\r\n 	<li>Admissions</li>\r\n 	<li>Shoe cleaning after excursions</li>\r\n 	<li>Bottled drinking water</li>\r\n 	<li>Cold towel service after excursions</li>\r\n 	<li>Refreshing drink following excursions</li>\r\n 	<li>Full-size motor coach on all excursions</li>\r\n 	<li>1st aid trained assistant guide to follow all tours and excursions</li>\r\n</ul>', '<ul>\r\n 	<li>All onboard crew is trained and certified as per international marine standards (VIRES)</li>\r\n 	<li>Fire alarm system in all cabins, public areas and back areas</li>\r\n 	<li>Fire fighting system in all ship areas</li>\r\n 	<li>Expert marine superintendant</li>\r\n 	<li>24 hrs watch on duty</li>\r\n 	<li>Certified hygiene standards for all areas (Johnson &amp; Diversey)</li>\r\n</ul>', '<ul>\r\n 	<li>Captain</li>\r\n 	<li>River Pilot</li>\r\n 	<li>First Officer</li>\r\n 	<li>Chief Engineer</li>\r\n 	<li>1st Engineer</li>\r\n 	<li>Electrician</li>\r\n 	<li>Bosun &amp; nautical crew</li>\r\n 	<li>Ship manager</li>\r\n 	<li>Housekeeping</li>\r\n 	<li>Dining</li>\r\n 	<li>Bar keeper</li>\r\n 	<li>Chefs</li>\r\n 	<li>Local tour guides</li>\r\n</ul>', '<ul>\r\n 	<li>Guest relation desk</li>\r\n 	<li>Shop, supporting fair trade</li>\r\n 	<li>Library with contemporary and classic literature</li>\r\n 	<li>Wireless internet in all public areas</li>\r\n</ul>', '2016-07-25 00:00:00', '2016-07-31 00:00:00');
+INSERT INTO `mrc_ship_info` VALUES ('65', 'mekong_princess.jpg', '<ul>\r\n 	<li>Build 2012 in Saigon</li>\r\n 	<li>Length: 138.61ft / 42.25m</li>\r\n 	<li>Beam: 28.50ft / 8.70m</li>\r\n 	<li>Draught: 3ft / 90cm</li>\r\n 	<li>Berths: 32 pax</li>\r\n</ul>', '<ul>\r\n 	<li>10 main deck and 6 upper deck staterooms</li>\r\n 	<li>Air-conditioned panorama dining room</li>\r\n 	<li>Spacious, open-air lounge</li>\r\n 	<li>Observation deck</li>\r\n 	<li>Lounge bar</li>\r\n 	<li>24hrs hospitality bar</li>\r\n 	<li>Fair-trade Shop</li>\r\n 	<li>Guest relation desk</li>\r\n 	<li>Library with contemporary and classic literature</li>\r\n</ul>', '<ul>\r\n 	<li>Local master chef heading an experienced international culinary team</li>\r\n 	<li>Semi-buffet breakfast, Semi-buffet lunch, and seated theme dinners</li>\r\n 	<li>Daily lean &amp; light menu options</li>\r\n 	<li>Complimentary coffee, water, tea, soft drinks, local beer, local spirits, juices</li>\r\n 	<li>Extensive wine list with premium wines</li>\r\n 	<li>Series of cultural performances, educational talks, cooking classes, and ship tour</li>\r\n 	<li>Welcome drink on arrival</li>\r\n 	<li>Welcome cocktail</li>\r\n 	<li>Farewell Reception</li>\r\n 	<li>Theme dinners</li>\r\n 	<li>Lounge bar</li>\r\n 	<li>24hrs hospitality bar</li>\r\n 	<li>Onboard bakery with daily freshly baked breads and rolls</li>\r\n</ul>', '<ul>\r\n 	<li>Admissions</li>\r\n 	<li>Shoe cleaning after excursions</li>\r\n 	<li>Bottled drinking water</li>\r\n 	<li>Cold towel service after excursions</li>\r\n 	<li>Refreshing drink following excursions</li>\r\n 	<li>Full-size motor coach on all excursions</li>\r\n 	<li>1st aid trained assistant guide to follow all tours and excursions</li>\r\n</ul>', '<ul>\r\n 	<li>All onboard crew is trained and certified as per international marine standards (VIRES)</li>\r\n 	<li>Fire alarm system in all cabins, public areas and back areas</li>\r\n 	<li>Fire fighting system in all ship areas</li>\r\n 	<li>Expert marine superintendant</li>\r\n 	<li>24 hrs watch on duty</li>\r\n 	<li>Certified hygiene standards for all areas (Johnson &amp; Diversey)</li>\r\n</ul>', '<ul>\r\n 	<li>Captain</li>\r\n 	<li>River Pilot</li>\r\n 	<li>First Officer</li>\r\n 	<li>Chief Engineer</li>\r\n 	<li>1st Engineer</li>\r\n 	<li>Electrician</li>\r\n 	<li>Bosun &amp; nautical crew</li>\r\n 	<li>Ship manager</li>\r\n 	<li>Housekeeping</li>\r\n 	<li>Dining</li>\r\n 	<li>Bar keeper</li>\r\n 	<li>Chefs</li>\r\n 	<li>Local tour guides</li>\r\n</ul>', '<ul>\r\n 	<li>Guest relation desk</li>\r\n 	<li>Shop, supporting fair trade</li>\r\n 	<li>Library with contemporary and classic literature</li>\r\n 	<li>Wireless internet in all public areas</li>\r\n</ul>', '2016-07-25 00:00:00', '2016-09-30 00:48:10');
 
 -- ----------------------------
 -- Table structure for mrc_termmeta

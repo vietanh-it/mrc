@@ -63,11 +63,10 @@ class Booking
         $user_id = get_current_user_id();
 
         // Get cart or create
-        $cart = $this->getCartItems($user_id, $data['journey_id']);
-        $cart = array_shift($cart);
+        $cart = $this->getCart($user_id, $data['journey_id']);
 
         // Get cart items
-        $cart_item = $this->getCartDetail($cart->cart_id, $data['room_id']);
+        $cart_item = $this->getCartDetail($cart->id, $data['room_id']);
 
         // Get room info
         $journey_model = Journey::init();
@@ -75,8 +74,7 @@ class Booking
 
         if ($data['type'] == 'none') {
             $this->_wpdb->delete($this->_tbl_cart_detail, ['id' => $cart_item->id]);
-            $cart = $this->getCartItems($user_id, $data['journey_id']);
-            $cart = array_shift($cart);
+            $cart = $this->getCart($user_id, $data['journey_id']);
 
             $cart->type = 'none';
             $cart->booking_icon = '';
@@ -95,7 +93,7 @@ class Booking
             } else {
                 // Create cart item
                 $this->_wpdb->insert($this->_tbl_cart_detail, [
-                    'cart_id'      => $cart->cart_id,
+                    'cart_id'      => $cart->id,
                     'room_id'      => $room_info->room_id,
                     'room_type_id' => $room_info->room_type_id,
                     'type'         => $data['type'],
@@ -104,11 +102,13 @@ class Booking
                     'quantity'     => $quantity
                 ]);
             }
-            $cart = $this->getCartItems($user_id, $data['journey_id']);
-            $cart = array_shift($cart);
+            $cart = $this->getCart($user_id, $data['journey_id']);
             $cart->booking_icon = $this->getBookingIcon($data['type']);
         }
 
+        $room_type_count = $this->getRoomTypeBookingCount($cart->id, $room_info->room_type_id);
+
+        $cart->room_type_count = $room_type_count;
         $cart->room_id = $room_info->room_id;
         $cart->room_info = $room_info;
         $cart->booking_total = valueOrNull($this->getCartTotal($user_id, $data['journey_id']), 0);
@@ -132,6 +132,32 @@ class Booking
                 break;
         }
         return $icon;
+    }
+
+
+    /**
+     * Get or create cart
+     *
+     * @param $user_id
+     * @param $journey_id
+     * @return array|null|object|void
+     */
+    public function getCart($user_id, $journey_id)
+    {
+        $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id}";
+        $cart = $this->_wpdb->get_row($query);
+        if (empty($cart)) {
+            $this->_wpdb->insert($this->_tbl_cart, [
+                'user_id'    => $user_id,
+                'journey_id' => $journey_id,
+                'created_at' => current_time('mysql'),
+                'updated_at' => current_time('mysql')
+            ]);
+
+            $cart = $this->_wpdb->get_row($query);
+        }
+
+        return $cart;
     }
 
 
@@ -293,6 +319,27 @@ class Booking
     {
         $booked_room = $this->getBookedRoom($journey_id);
         return in_array($room_id, $booked_room);
+    }
+
+
+    public function getRoomTypeBookingCount($cart_id, $room_type_id)
+    {
+        $query = "SELECT type, COUNT(room_type_id) as quantity FROM {$this->_tbl_cart_detail} WHERE cart_id = {$cart_id} AND room_type_id = {$room_type_id} GROUP BY type";
+        $rs = $this->_wpdb->get_results($query);
+
+        $result = [
+            'twin'   => 0,
+            'single' => 0
+        ];
+        if (!empty($rs)) {
+            foreach ($rs as $key => $item) {
+                $result[$item->type] = $item->quantity;
+            }
+        }
+
+        $result['twin'] = $result['twin'] * 2;
+
+        return $result;
     }
 
 }

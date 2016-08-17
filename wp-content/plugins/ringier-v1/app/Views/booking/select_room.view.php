@@ -218,6 +218,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
             if (booking_ready) {
                 booking_ready = false;
+                switch_loading(true);
 
                 // Add to cart ajax
                 $.ajax({
@@ -231,7 +232,11 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                         type: type,
                         journey_id: <?php echo $post->ID; ?>
                     },
+                    beforeSend: function () {
+                        $('.option-dialog').fadeOut();
+                    },
                     success: function (data) {
+                        switch_loading(false);
 
                         if (data.status == 'success') {
                             booking_ready = true;
@@ -245,13 +250,6 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 var room_type_select = ".room_type_" + data.data.room_info.room_type_id + "_" + data.data.type;
                                 $(room_type_select).parents('.bk-box').show();
 
-                                // Edit quantity
-                                var current_quantity = parseInt($(room_type_select).html());
-                                if (data.data.type == 'twin') {
-                                    $(room_type_select).html(current_quantity + 2);
-                                } else {
-                                    $(room_type_select).html(current_quantity + 1);
-                                }
                             } else {
                                 // Remove icon
                                 $('[data-roomid="' + data.data.room_id + '"]').find('.icon-booking').remove();
@@ -263,21 +261,22 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                         $(v).parents('.bk-box').hide();
                                     }
                                 });
+                            }
 
-                                // Edit quantity
-                                current_quantity = parseInt($(room_type_select).html());
-                                var old_rt_select = room_type_select + "_" + old_type;
-                                if (old_type == 'twin') {
-                                    var new_quantity = current_quantity - 2;
-                                } else {
-                                    new_quantity = current_quantity - 1;
-                                }
 
-                                if (new_quantity < 0) {
-                                    new_quantity = 0;
-                                }
+                            // Edit quantity
+                            // --twin
+                            if (data.data.room_type_count.twin > 0) {
+                                $(".room_type_" + data.data.room_info.room_type_id + "_twin").html(data.data.room_type_count.twin);
+                            } else {
+                                $(".room_type_" + data.data.room_info.room_type_id + "_twin").parents('.bk-box').hide();
+                            }
 
-                                $(old_rt_select).html(new_quantity);
+                            // --single
+                            if (data.data.room_type_count.single > 0) {
+                                $(".room_type_" + data.data.room_info.room_type_id + "_single").html(data.data.room_type_count.single);
+                            } else {
+                                $(".room_type_" + data.data.room_info.room_type_id + "_single").parents('.bk-box').hide();
                             }
 
                             // TOTAL

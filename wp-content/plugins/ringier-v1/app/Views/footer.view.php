@@ -134,6 +134,13 @@
 </footer>
 
 
+<div class="loading-wrapper" style="display: none;">
+    <div class="loading-overlay">
+        <i class="fa fa-spin fa-refresh"></i>
+    </div>
+</div>
+
+
 <div id="fb-root"></div>
 <?php wp_footer(); ?>
 </body>

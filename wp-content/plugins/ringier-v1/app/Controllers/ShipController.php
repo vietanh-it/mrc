@@ -46,6 +46,13 @@ class ShipController extends _BaseController
         view('ship/list', compact('params', 'list_ship'));
     }
 
+    public function detailShip($id){
+        $objShip = Ships::init();
+        $ship_detail = $objShip->getShipDetail($id);
+
+        view('ship/detail', compact('ship_detail'));
+    }
+
     public function ajaxGetRoomInfo($data)
     {
         $model = Ships::init();

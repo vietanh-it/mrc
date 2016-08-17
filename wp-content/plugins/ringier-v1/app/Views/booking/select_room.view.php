@@ -100,7 +100,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 <div class="bk-box bk-box-2" style="background: #d5b76e;margin-top: 50px">
                                 <span
                                     style="text-transform: uppercase;font-weight: bold">Your stateroom selection</span>
-                                    <span class="price-2">Total: <b>US$<span class="booking-total">0</span></b></span>
+                                    <span class="price-2">Total: <b>US$<span class="stateroom-booking-total">0</span></b></span>
                                 </div>
 
                                 <div>
@@ -281,6 +281,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
                             // TOTAL
                             $('.booking-total').html(data.data.booking_total_text);
+                            $('.stateroom-booking-total').html(data.data.stateroom_booking_total_text);
                         }
                         else {
                             var html_msg = '<div>';
@@ -367,6 +368,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
                         // TOTAL
                         $('.booking-total').html(data.data.total_text);
+                        $('.stateroom-booking-total').html(data.data.stateroom_total_text);
 
                         // Hide stateroom if not selected
                         stateroomToggle();

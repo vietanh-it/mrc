@@ -108,13 +108,19 @@ class Addon
         $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'small', 'full']);
         $object->permalink = get_permalink($object->ID);
 
-        if($object->post_type = 'tour'){
+        if ($object->post_type = 'tour') {
             $query = 'SELECT * FROM ' . $this->_tbl_tour_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
+
+            // Default value
+            $post_info->length = valueOrNull($post_info->length, 0);
+            $post_info->twin_share_price = valueOrNull($post_info->twin_share_price, 0);
+            $post_info->single_price = valueOrNull($post_info->single_price, 0);
+
             $object = (object)array_merge((array)$object, (array)$post_info);
         }
 
-        if($object->post_type = 'addon'){
+        if ($object->post_type = 'addon') {
             $addon_option = $this->getAddonOptions($object->ID);
             $object->addon_option = $addon_option;
         }
@@ -192,17 +198,18 @@ class Addon
     public function saveAddon($data)
     {
         $insert = false;
-        if($data['object_id']){
-            $insert = $this->_wpdb->insert($this->_tbl_addon_options,$data);
+        if ($data['object_id']) {
+            $insert = $this->_wpdb->insert($this->_tbl_addon_options, $data);
         }
 
         return $insert;
     }
 
-    public function delete($data){
+    public function delete($data)
+    {
         $result = false;
-        if($data['object_id']){
-            $result =$this->_wpdb->delete($this->_tbl_addon_options,array('object_id' => $data['object_id']));
+        if ($data['object_id']) {
+            $result = $this->_wpdb->delete($this->_tbl_addon_options, ['object_id' => $data['object_id']]);
         }
 
         return $result;

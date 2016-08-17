@@ -8,11 +8,15 @@
  */
 
 if (!empty($list_addon)) {
+    var_dump($list_addon);
     $addon_model = \RVN\Models\Addon::init();
-    $cart_id = valueOrNull($cart_id);
+    $cart_id = valueOrNull($cart_id, 0);
 
-    $addon_model->switchAddonStatus($cart_id, 105);
     foreach ($list_addon as $key => $item) {
+        if ($item->type == 'addon' && empty($item->addon_option)) {
+            break;
+        }
+
         $cart_addons = $addon_model->getCartAddon($cart_id, $item->ID);
         if (!empty($cart_addons)) {
             $cart_addon_status = $cart_addons[0]->status;
@@ -35,8 +39,6 @@ if (!empty($list_addon)) {
                             echo 'POST-CRUISE EXTENTIONS';
                             break;
                         case 'addon':
-                            echo 'CRUISE ADDON';
-                            break;
                         default:
                             echo 'CRUISE ADDON';
                             break;

@@ -114,6 +114,8 @@ class Booking
         $cart->room_info = $room_info;
         $cart->booking_total = valueOrNull($this->getCartTotal($user_id, $data['journey_id']), 0);
         $cart->booking_total_text = number_format($cart->booking_total);
+        $cart->stateroom_booking_total = valueOrNull($this->getCartTotal($user_id, $data['journey_id'], false), 0);
+        $cart->stateroom_booking_total_text = number_format($cart->stateroom_booking_total);
 
         return $cart;
     }
@@ -237,6 +239,9 @@ class Booking
         $total_twin_guests = array_sum($room_type_twin_count);
         $total_single_guests = array_sum($room_type_single_count);
 
+        $total = $this->getCartTotal($user_id, $journey_id);
+        $stateroom_total = $this->getCartTotal($user_id, $journey_id, false);
+
         return [
             'cart'                   => $cart,
             'cart_info'              => $cart_info,
@@ -244,13 +249,15 @@ class Booking
             'room_type_single_count' => $room_type_single_count,
             'total_twin'             => $total_twin_guests,
             'total_single'           => $total_single_guests,
-            'total'                  => $this->getCartTotal($user_id, $journey_id),
-            'total_text'             => number_format($this->getCartTotal($user_id, $journey_id))
+            'total'                  => $total,
+            'total_text'             => number_format($total),
+            'stateroom_total'        => $stateroom_total,
+            'stateroom_total_text'   => number_format($stateroom_total)
         ];
     }
 
 
-    public function getCartTotal($user_id, $journey_id)
+    public function getCartTotal($user_id, $journey_id, $with_addon = true)
     {
         // Cart id
         $query = "SELECT id FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id}";
@@ -265,9 +272,13 @@ class Booking
         $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
         $room_total = $this->_wpdb->get_var($query);
 
-        // Addon total
-        $query = "SELECT SUM(total) FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND status = 'active'";
-        $addon_total = $this->_wpdb->get_var($query);
+        if ($with_addon) {
+            // Addon total
+            $query = "SELECT SUM(total) FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND status = 'active'";
+            $addon_total = $this->_wpdb->get_var($query);
+        } else {
+            $addon_total = 0;
+        }
 
         $final_total = valueOrNull($room_total, 0) + valueOrNull($addon_total, 0);
 

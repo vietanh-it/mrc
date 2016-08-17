@@ -259,29 +259,85 @@ class Journey
 
     public function getRoomInfo($room_id)
     {
-        $query = "SELECT * FROM {$this->_prefix}rooms r INNER JOIN {$this->_prefix}room_types rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
+        $query = "SELECT r.id as room_id, r.*, rt.* FROM {$this->_prefix}rooms r INNER JOIN {$this->_prefix}room_types rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
         $result = $this->_wpdb->get_row($query);
 
         return $result;
     }
 
+
     public function getRoomPrice($room_id, $journey_id, $type)
     {
+        // Only type twin & single acceptable
+        if (!in_array($type, ['twin', 'single'])) {
+            return 0;
+        }
+
         $journey_season = $this->getJourneySeason($journey_id);
-        $query = "SELECT rt.{$type}_{$journey_season}_season_price FROM {$this->_prefix}rooms r INNER JOIN {$this->_prefix}room_types rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
-        $result = $this->_wpdb->get_var($query);
+        $query = "SELECT rt.{$type}_{$journey_season}_season_price as raw_price, rt.id as room_type_id FROM {$this->_prefix}rooms r INNER JOIN {$this->_prefix}room_types rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
+        $result = $this->_wpdb->get_row($query);
 
-        // Get journey offer
-        $journey_type = $this->getJourneyOffer($journey_id);
+        if (!empty($result)) {
+            $price = $result->raw_price;
 
+            // Get journey offer
+            $offer = $this->getJourneyOffer($journey_id, $result->room_type_id);
 
-        return $result;
+            // Price - offer(%)
+            $price = $price - (($price * $offer) / 100);
+
+            return $price;
+        } else {
+            return 0;
+        }
     }
 
 
-    public function getJourneyOffer($journey_id)
+    public function getJourneyOffer($journey_id, $room_type_id)
     {
-        $journey_type = $this->getJourneyTypeByJourney($journey_id);
+        if (!empty($journey_id) && !empty($room_type_id)) {
+            $journey_type = $this->getJourneyTypeByJourney($journey_id);
+
+            $query = "SELECT * FROM {$this->_prefix}offer_info oi INNER JOIN {$this->_prefix}offer_journey oj ON oi.object_id = oj.offer_id WHERE oj.journey_type_id = {$journey_type->journey_type_id} AND oj.room_type_id = {$room_type_id}";
+            $result = $this->_wpdb->get_row($query);
+            $promotion = 0;
+
+            if (!empty($result)) {
+
+                // Check if promotion start date & end date is suitable
+                $journey = $this->getJourneyInfoByID($journey_id);
+                $departure = strtotime($journey->departure);
+                $arrive = strtotime('+ ' . $journey->nights . ' days', $departure);
+
+                $offer_start = strtotime($result->start_date);
+                $offer_end = strtotime($result->end_date);
+
+                // offer start <= departure <= offer end
+                if (($offer_start <= $departure) && ($departure <= $offer_end)) {
+                    $promotion = $result->promotion;
+                }
+
+                // offer start <= arrive <= offer end
+                if (($offer_start <= $arrive) && ($arrive <= $offer_end)) {
+                    $promotion = $result->promotion;
+                }
+            }
+
+            if (is_numeric($promotion)) {
+                return intval($promotion);
+            }
+        }
+
+        return false;
+    }
+
+
+    public function getJourneyInfoByID($journey_id)
+    {
+        $query = "SELECT j.object_id as journey_id, j.*, jt.object_id as journey_type_id, jt.* FROM {$this->_tbl_journey_info} j INNER JOIN {$this->_tbl_journey_type_info} jt ON j.journey_type = jt.object_id WHERE j.object_id = {$journey_id}";
+        $result = $this->_wpdb->get_row($query);
+
+        return $result;
     }
 
 

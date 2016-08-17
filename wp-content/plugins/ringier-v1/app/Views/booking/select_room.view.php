@@ -9,12 +9,6 @@
 $user_id = get_current_user_id();
 
 global $post;
-
-$journey_model = \RVN\Models\Journey::init();
-
-$room_price = $journey_model->getRoomPrice(1, $post->ID, 'twin');
-var_dump($room_price);
-
 $booking_ctrl = \RVN\Controllers\BookingController::init();
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $ship_ctrl = \RVN\Controllers\ShipController::init();
@@ -217,16 +211,13 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
             var type = $(this).attr('class');
             var room_id = $(this).parents('.option-dialog').attr('data-picking-roomid');
 
-            switch (type) {
-                case 'twin':
-                    break;
-                case 'single':
-                    break;
-                default:
-                    break;
-            }
+            var old_type = $('[data-roomid="' + room_id + '"]').attr('data-type');
+
+            // update current
+            $('[data-roomid="' + room_id + '"]').attr('data-type', type);
 
             if (booking_ready) {
+                booking_ready = false;
 
                 // Add to cart ajax
                 $.ajax({
@@ -245,6 +236,50 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                         if (data.status == 'success') {
                             booking_ready = true;
 
+                            if (data.data.type != 'none') {
+                                // Icon
+                                $('[data-roomid="' + data.data.room_id + '"]').find('.icon-booking').remove();
+                                $('[data-roomid="' + data.data.room_id + '"]').prepend(data.data.booking_icon);
+
+                                // Show room type
+                                var room_type_select = ".room_type_" + data.data.room_info.room_type_id + "_" + data.data.type;
+                                $(room_type_select).parents('.bk-box').show();
+
+                                // Edit quantity
+                                var current_quantity = parseInt($(room_type_select).html());
+                                if (data.data.type == 'twin') {
+                                    $(room_type_select).html(current_quantity + 2);
+                                } else {
+                                    $(room_type_select).html(current_quantity + 1);
+                                }
+                            } else {
+                                // Remove icon
+                                $('[data-roomid="' + data.data.room_id + '"]').find('.icon-booking').remove();
+
+                                // Hide room type
+                                room_type_select = "room_type_" + data.data.room_info.room_type_id;
+                                $.each($('span[class^="' + room_type_select + '"]'), function (k, v) {
+                                    if ($(v).html() <= 0) {
+                                        $(v).parents('.bk-box').hide();
+                                    }
+                                });
+
+                                // Edit quantity
+                                current_quantity = parseInt($(room_type_select).html());
+                                var old_rt_select = room_type_select + "_" + old_type;
+                                if (old_type == 'twin') {
+                                    var new_quantity = current_quantity - 2;
+                                } else {
+                                    new_quantity = current_quantity - 1;
+                                }
+
+                                if (new_quantity < 0) {
+                                    new_quantity = 0;
+                                }
+
+                                $(old_rt_select).html(new_quantity);
+                            }
+
                             // TOTAL
                             $('.booking-total').html(data.data.booking_total_text);
                         }
@@ -263,149 +298,6 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                             swal({"title": "Error", "text": html_msg, "type": "error", html: true});
                         }
 
-                    }
-                }); // end ajax
-
-            }
-
-        });
-
-
-        //-- Click on roomid old
-        $(document).delegate('[data-roomidd]', 'click', function (e) {
-
-            if (booking_ready) {
-                booking_ready = false;
-
-                var room_id = $(this).attr('data-roomid');
-                var room_type_id = $(this).attr('data-roomtypeid');
-                var current_type = $(this).attr('data-type');
-                var current_room_type = ".room_type_" + room_type_id;
-
-                if (current_type == 'twin') {
-                    // SINGLE
-                    var quantity = 1;
-
-                    // Icon
-                    var type = 'single';
-                    var icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="<?php echo VIEW_URL ?>/images/icon-booking-single.png">';
-
-                    // Twin quantity
-                    var twin_quantity = parseInt($(current_room_type + "_twin").html());
-                    if (twin_quantity > 0) {
-                        twin_quantity = twin_quantity - 2;
-                    } else {
-                        twin_quantity = 0;
-                    }
-                    $(current_room_type + "_twin").html(twin_quantity);
-
-                    // Single quantity
-                    current_room_type += "_" + type;
-                    var current_quantity = parseInt($(current_room_type).html());
-                    $(current_room_type).html(current_quantity + 1);
-
-                } else if (current_type == 'single') {
-                    // NONE
-                    quantity = 0;
-
-                    type = 'none';
-                    icon_html = '';
-
-                    // Twin quantity
-                    twin_quantity = parseInt($(current_room_type + "_twin").html());
-                    if (twin_quantity > 0) {
-                        twin_quantity = twin_quantity - 2;
-                    } else {
-                        twin_quantity = 0;
-                    }
-                    $(current_room_type + "_twin").html(twin_quantity);
-
-                    // Single quantity
-                    var single_quantity = parseInt($(current_room_type + "_single").html());
-                    if (single_quantity > 0) {
-                        single_quantity = single_quantity - 1;
-                    } else {
-                        single_quantity = 0;
-                    }
-                    $(current_room_type + "_single").html(single_quantity);
-
-                } else {
-                    // TWIN
-                    quantity = 2;
-
-                    type = 'twin';
-                    icon_html = '<img class="icon-booking" style="position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -14px; margin-left: -18px;" src="<?php echo VIEW_URL ?>/images/icon-booking-twin.png">';
-
-                    // Single quantity
-                    single_quantity = parseInt($(current_room_type + "_single").html());
-                    if (single_quantity > 0) {
-                        single_quantity = single_quantity - 1;
-                    } else {
-                        single_quantity = 0;
-                    }
-                    $(current_room_type + "_single").html(single_quantity);
-
-                    // Twin quantity
-                    current_room_type += "_" + type;
-                    current_quantity = parseInt($(current_room_type).html());
-                    $(current_room_type).html(current_quantity + 2);
-
-                }
-
-                stateroomToggle();
-
-                $(this).attr('data-type', type);
-                $(this).find('.icon-booking').remove();
-                $(this).prepend(icon_html);
-
-                var price = $(current_room_type).attr('data-price');
-
-                if (!price) {
-                    price = 0;
-                }
-
-
-                // Add to cart ajax
-                $.ajax({
-                    url: ajax_url,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        action: 'ajax_handler_booking',
-                        method: 'SaveCart',
-                        room_id: room_id,
-                        type: type,
-                        price: price,
-                        journey_id: <?php echo $post->ID; ?>,
-                        total: price * quantity,
-                        quantity: quantity
-                    },
-                    beforeSend: function () {
-                        // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
-                    },
-                    success: function (data) {
-                        // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
-
-                        if (data.status == 'success') {
-                            booking_ready = true;
-
-                            // TOTAL
-                            $('.booking-total').html(data.data.booking_total_text);
-                        }
-                        else {
-                            var html_msg = '<div>';
-                            if (data.message) {
-                                $.each(data.message, function (k_msg, msg) {
-                                    html_msg += msg + "<br/>";
-                                });
-                            } else if (data.data) {
-                                $.each(data.data, function (k_msg, msg) {
-                                    html_msg += msg + "<br/>";
-                                });
-                            }
-                            html_msg += "</div>";
-                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                        }
                     }
                 }); // end ajax
 

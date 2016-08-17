@@ -30,7 +30,7 @@ class BookingController extends _BaseController
 
     public function ajaxSaveCart($data)
     {
-        $this->validate->rule('required', ['journey_id', 'room_id']);
+        $this->validate->rule('required', ['journey_id', 'room_id', 'type']);
 
         if ($this->validate->validate()) {
             $model = Booking::init();
@@ -44,7 +44,7 @@ class BookingController extends _BaseController
         } else {
             $result = [
                 'status' => 'fail',
-                'data'   => $this->validate->errors()
+                'data'   => ['Error occurred, please try again.']
             ];
         }
 

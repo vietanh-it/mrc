@@ -77,7 +77,7 @@ if (!empty($list_addon)) {
                                                     $addon_total += valueOrNull($addon->total, 0); ?>
                                                     <tr>
                                                         <td><?php echo $v->option_name; ?></td>
-                                                        <td>US$<?php echo number_format($v->price); ?></td>
+                                                        <td>US$<?php echo !empty($v->price) ? number_format($v->price) : 0; ?></td>
                                                         <td data-type="addon" data-addon-object-id="<?php echo $v->object_id ?>" data-addon-option="<?php echo $v->id ?>">
 
                                                             <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
@@ -118,8 +118,13 @@ if (!empty($list_addon)) {
                                             $tour_info_single = array_shift($tour_info_single);
                                         }
 
-                                        $tour_total = valueOrNull($tour_info_twin->total,
-                                                0) + valueOrNull($tour_info_single->total, 0); ?>
+                                        $tour_total = 0;
+                                        if (!empty($tour_info_twin->total)) {
+                                            $tour_total += $tour_info_twin->total;
+                                        }
+                                        if (!empty($tour_info_single->total)) {
+                                            $tour_total += $tour_info_single->total;
+                                        } ?>
 
                                         <!--Tour-->
                                         <table class="table">
@@ -140,13 +145,13 @@ if (!empty($list_addon)) {
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
 
                                                     <span style="float: left; padding: 0 10px;">
-                                                        <?php echo valueOrNull($tour_info_twin->quantity); ?>
+                                                        <?php echo !empty($tour_info_twin->quantity) ? ($tour_info_twin->quantity) : 0; ?>
                                                     </span>
 
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
 
                                                 </td>
-                                                <td>US$<?php echo number_format(valueOrNull($tour_info_twin->total, 0)); ?></td>
+                                                <td>US$<?php echo !empty($tour_info_twin->total) ? number_format(valueOrNull($tour_info_twin->total, 0)) : 0; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>One Person</td>
@@ -156,13 +161,13 @@ if (!empty($list_addon)) {
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
 
                                                     <span style="float: left; padding: 0 10px;">
-                                                        <?php echo valueOrNull($tour_info_single->quantity); ?>
+                                                        <?php echo !empty($tour_info_single->quantity) ? valueOrNull($tour_info_single->quantity) : 0; ?>
                                                     </span>
 
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
 
                                                 </td>
-                                                <td>US$<?php echo number_format(valueOrNull($tour_info_single->total, 0)); ?></td>
+                                                <td>US$<?php echo !empty($tour_info_single->total) ? number_format(valueOrNull($tour_info_single->total, 0)) : 0; ?></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" style="text-align: right;padding-right: 10%">

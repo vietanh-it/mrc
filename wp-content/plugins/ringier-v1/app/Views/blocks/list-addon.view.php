@@ -8,7 +8,6 @@
  */
 
 if (!empty($list_addon)) {
-    var_dump($list_addon);
     $addon_model = \RVN\Models\Addon::init();
     $cart_id = valueOrNull($cart_id, 0);
 

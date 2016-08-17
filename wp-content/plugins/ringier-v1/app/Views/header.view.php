@@ -39,6 +39,13 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
+<?php $page_name = get_query_var('pagename');
+$post_type = '';
+if(is_single()){
+    global $post;
+    $post_type = $post->post_type;
+}
+?>
 
 <header>
     <div class="top-bar">
@@ -107,13 +114,18 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/ships/' ?>" title="">SHIPs </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/offers/' ?>" title="">OFFERS </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/resources/' ?>" title="">RESOURCEs </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
+                            <li class="<?php echo is_home() ? 'active':'' ?>"><a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
+                            <li class="<?php echo (!empty($page_name) && $page_name == 'whuy-us') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'ships') or $post_type=='ship') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/ships/' ?> " title="">SHIPs </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'journeys') or $post_type == 'journey' or $post_type == 'journey_type') ? 'active':'' ?>">< a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'offers') or $post_type == 'offer') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/offers/' ?>" title="">OFFERS </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'resources') or $post_type == 'resource') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/resources/' ?>" title="">RESOURCEs </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'news') or $post_type == 'new') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
                         </ul>
                     </div>
                 </div>

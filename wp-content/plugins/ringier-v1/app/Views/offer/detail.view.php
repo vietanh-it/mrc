@@ -18,6 +18,32 @@ get_header();
                 <p><b>End date : </b> <?php echo date('d M Y', strtotime($offer_info->end_date))  ?></p>
             </div>
         </div>
+        <?php if(!empty($list_journey_type_related['data'])){ ?>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <h3 class="title-related">Journeys have this offer</h3>
+
+                    <div class="row">
+                        <?php foreach ($list_journey_type_related['data'] as $v){ ?>
+                            <div class="col-xs-12 col-sm-2">
+                                <div class="related">
+                                    <div class="images">
+                                        <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                                            <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>">
+                                        </a>
+                                    </div>
+                                    <div class="title">
+                                        <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                                            <?php echo $v->post_title ?>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
 

@@ -1,6 +1,7 @@
 <?php
 namespace RVN\Controllers;
 
+use RVN\Models\JourneyType;
 use RVN\Models\Offer;
 use RVN\Models\Posts;
 use RVN\Models\Ships;
@@ -39,7 +40,13 @@ class OfferController extends _BaseController
         $objOffer = Offer::init();
         $offer_info = $objOffer->getOfferInfo($id);
 
+        $objJourneyType = JourneyType::init();
+        $list_journey_type_related = $objJourneyType->getJourneyTypeList(
+            array('offer_id' => $id)
+        );
 
-        return view('offer/detail', compact('offer_info'));
+       // var_dump($list_journey_type_related);
+
+        return view('offer/detail', compact('offer_info','list_journey_type_related'));
     }
 }

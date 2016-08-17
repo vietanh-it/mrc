@@ -96,12 +96,17 @@ class JourneyType
                     $where .= ' AND jtp.port_id = ' . $port->ID;
                 }
             }
+            if(!empty($params['offer_id'])){
+                $join .= ' INNER JOIN ' . $this->_tbl_offer_journey . ' as oj ON oj.journey_type_id = p.ID';
+                $where .= ' AND oj.offer_id = ' . intval($params['offer_id']);
+            }
 
 
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
             $join
             WHERE p.post_type = 'journey_type' AND p.post_status='publish'
-            $where          
+            $where  
+            GROUP BY p.ID
             ORDER BY $order_by  LIMIT $to, $limit
             ";
 

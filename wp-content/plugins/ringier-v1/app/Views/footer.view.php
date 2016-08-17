@@ -61,10 +61,10 @@
                     <div class="col-xs-12 col-sm-3">
                         <h4>Company information</h4>
                         <ul>
-                            <li><a href="#" title=""> About Us </a></li>
-                            <li><a href="#" title=""> Contact Us</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/about-us'; ?>" title=""> About Us </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/contact-us'; ?>" title=""> Contact Us</a></li>
                             <li><a href="#" title=""> Media Centre</a></li>
-                            <li><a href="#" title=""> FAQ</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/faq'; ?>" title=""> FAQ</a></li>
                             <li><a href="#" title=""> Partner</a></li>
                         </ul>
                     </div>
@@ -83,7 +83,7 @@
                         <h4>Journey</h4>
                         <ul>
                             <li><a href="#" title="">Destination</a></li>
-                            <li><a href="#" title="">Before you go</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/before-you-go'; ?>" title="">Before you go</a></li>
                             <li><a href="#" title=""> Manage my journey</a></li>
                             <li><a href="#" title=""> Travel information</a></li>
                             <li><a href="#" title=""> Services</a></li>
@@ -118,13 +118,13 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">&copy; <?php echo date('Y'); ?> Mekong River Cruise.</div>
                         <div class="col-xs-12 col-sm-6 text-right">
-                            <a href="#" title="">
+                            <a href="<?php echo WP_SITEURL . '/terms-of-use'; ?>" title="">
                                 Terms of Use
                             </a> |
-                            <a href="#" title="">
+                            <a href="<?php echo WP_SITEURL . '/privacy-policy'; ?>" title="">
                                 Privacy Policy
                             </a> |
-                            <a href="#" title="">Site Map</a>
+                            <a href="<?php echo WP_SITEURL . '/sitemap'; ?>" title="">Site Map</a>
                         </div>
                     </div>
                 </div>

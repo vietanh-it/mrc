@@ -9,10 +9,7 @@ get_header();
             <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
         </h1>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-            <div class="row">
-
-
-            </div>
+            <?php the_content() ?>
         </div>
     </div>
 </div>

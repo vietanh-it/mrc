@@ -140,11 +140,16 @@ jQuery(document).ready(function ($) {
                             htm_offer = '<b>'+offer_info.post_title +'<br>'+ offer_info.month_year +' and save '+offer_info.promotion +'%.</b> <img src="'+img_ticket+'"> ';
                         }
 
-                        html += '<tr> ' +
+                        var class_navi = 'downstream';
+                        if(value.navigation == 'upstream'){
+                            class_navi = 'upstream';
+                        }
+
+                        html += '<tr class="'+class_navi+'"> ' +
                             '<td> <b>' + value.departure_fm +'</b> </td> ' +
                             '<td> '+ value.journey_type_info.destination_info.post_title +'<br> '
                             + value.journey_type_info.nights +' nights<br> '+htm_offer+'</td> ' +
-                            '<td style="text-decoration: underline">' + value.journey_type_info.ship_info.post_title +'</td> ' +
+                            '<td style="text-decoration: underline"> <a href="'+value.journey_type_info.ship_info.permalink+'" target="_blank" style="color: rgb(84, 84, 84);">' + value.journey_type_info.ship_info.post_title +'</a></td> ' +
                             '<td> ' + value.navigation + ' </td> ' +
                             '<td> from '+text+' <b style="color: #e4a611">US$'+value.min_price_offer_fm+'</b> pp <br>based on twin cabin </td> ' +
                             '<td> <a href="' + value.permalink +'" class="bnt-jn">Select</a>' +
@@ -164,6 +169,27 @@ jQuery(document).ready(function ($) {
                 }, 500);
             }
         })
+    });
+
+    $('.order-navigation').click(function () {
+       var obj = $(this);
+        var navigation = obj.attr('data-navigation');
+        $('.order-navigation').removeClass('active');
+        obj.addClass('active');
+        switch (navigation){
+            case 'all':
+                $('tr.upstream').fadeIn();
+                $('tr.downstream').fadeIn();
+                break;
+            case 'upstream':
+                $('tr.upstream').fadeIn();
+                $('tr.downstream').fadeOut();
+                break;
+            case 'downstream':
+                $('tr.downstream').fadeIn();
+                $('tr.upstream').fadeOut();
+                break;
+        }
     });
 
     var is_active_menu  = false;

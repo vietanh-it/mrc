@@ -1130,6 +1130,13 @@ footer ul li{
     text-transform: none;
     color: slategrey;
 }
+.order-navigation,.order-navigation:focus, .order-navigation:active {
+    color: rgb(84, 84, 84);
+    text-decoration: none;
+}
+.order-navigation.active{
+    font-weight: bold;
+}
 
 
 @media (min-width: 1200px){

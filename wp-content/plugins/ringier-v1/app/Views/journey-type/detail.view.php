@@ -37,7 +37,7 @@ if($journey_type_info){ ?>
                                 <th>Departure date</th>
                                 <th>From - to</th>
                                 <th>Ship</th>
-                                <th><b>All</b> | Upstream | Downstream</th>
+                                <th><a href="javascript:void(0)" class="order-navigation active" data-navigation="all">All</a> | <a href="javascript:void(0)" class="order-navigation" data-navigation="upstream">Upstream</a> | <a href="javascript:void(0)" class="order-navigation" data-navigation="downstream">Downstream</a></th>
                                 <th><b>Price</b></th>
                                 <th> </th>
                             </tr>

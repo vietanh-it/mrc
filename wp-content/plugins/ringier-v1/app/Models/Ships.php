@@ -52,6 +52,7 @@ class Ships
             $result->map = VIEW_URL . '/images/ship_maps/' . $result->map;
             $result->rooms = $this->getShipRooms($ship_id);
             $result->room_types = $this->getShipRoomTypes($ship_id);
+            $result->permalink = get_permalink($result->ID);
 
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($result->ID);

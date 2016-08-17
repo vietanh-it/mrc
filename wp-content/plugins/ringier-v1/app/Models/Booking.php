@@ -103,6 +103,7 @@ class Booking
                 ]);
             }
             $cart = $this->getCart($user_id, $data['journey_id']);
+            $cart->type = $data['type'];
             $cart->booking_icon = $this->getBookingIcon($data['type']);
         }
 

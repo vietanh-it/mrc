@@ -115,7 +115,7 @@ if(is_single()){
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li class="<?php echo is_home() ? 'active':'' ?>"><a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
-                            <li class="<?php echo (!empty($page_name) && $page_name == 'whuy-us') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
+                            <li class="<?php echo (!empty($page_name) && $page_name == 'why-us') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
 
                             <li class="<?php echo ((!empty($page_name) && $page_name == 'ships') or $post_type=='ship') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/ships/' ?> " title="">SHIPs </a></li>
 

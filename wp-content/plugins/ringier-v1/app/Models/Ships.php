@@ -7,6 +7,8 @@
  */
 namespace RVN\Models;
 
+use RVN\Library\Images;
+
 class Ships
 {
     private static $instance;
@@ -53,6 +55,8 @@ class Ships
             $result->rooms = $this->getShipRooms($ship_id);
             $result->room_types = $this->getShipRoomTypes($ship_id);
             $result->permalink = get_permalink($result->ID);
+            $objImages = Images::init();
+            $result->images = $objImages->getPostImages($result->ID, ['thumbnail', 'featured', 'full','small']);
 
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($result->ID);

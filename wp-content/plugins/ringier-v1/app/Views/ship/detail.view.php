@@ -1,12 +1,15 @@
 <?php
 $ship_detail = !empty($ship_detail) ? $ship_detail : array();
 get_header();
-//var_dump($ship_detail);
 ?>
 <div class="journey-detail">
     <div class="container container-big">
         <div class="row">
             <div class="col-xs-12 col-sm-4 list-img-left">
+
+                <h3 class="title-main">Image</h3>
+                <a href="<?php echo $ship_detail->images->small ?>" class="fancybox"><img src="<?php echo $ship_detail->images->small ?>" alt=""></a>
+
                 <h3 class="title-main">Map</h3>
                 <a href="<?php echo $ship_detail->map ?>" class="fancybox"><img src="<?php echo $ship_detail->map ?>" alt=""></a>
 

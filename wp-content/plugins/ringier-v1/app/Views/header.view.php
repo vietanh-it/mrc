@@ -119,7 +119,7 @@ if(is_single()){
 
                             <li class="<?php echo ((!empty($page_name) && $page_name == 'ships') or $post_type=='ship') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/ships/' ?> " title="">SHIPs </a></li>
 
-                            <li class="<?php echo ((!empty($page_name) && $page_name == 'journeys') or $post_type == 'journey' or $post_type == 'journey_type') ? 'active':'' ?>">< a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'journeys') or $post_type == 'journey' or $post_type == 'journey_type') ? 'active' : '' ?>" ><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
 
                             <li class="<?php echo ((!empty($page_name) && $page_name == 'offers') or $post_type == 'offer') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/offers/' ?>" title="">OFFERS </a></li>
 

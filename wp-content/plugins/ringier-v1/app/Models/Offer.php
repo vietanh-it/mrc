@@ -126,7 +126,7 @@ class Offer
 
                 $object->journey_type_info = $journey_type_info;
                 if(!empty($object->journey_type_info->min_price)){
-                    $object->journey_type_info->min_price = intval($object->journey_type_info->min_price) -  intval($object->journey_type_info->min_price) * $object->promotion / 100;
+                    $object->journey_type_info->min_price_offer = intval($object->journey_type_info->min_price) -  intval($object->journey_type_info->min_price) * $object->promotion / 100;
                 }
             }
 

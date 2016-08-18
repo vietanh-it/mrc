@@ -1,6 +1,12 @@
 <?php
 get_header();
 $journey_type_info =  !empty($journey_type_info) ? $journey_type_info : $journey_type_info = '';
+$journey_min_price =  !empty($journey_min_price) ? $journey_min_price : $journey_min_price = '';
+
+$min_price = $journey_min_price->min_price;
+if(!empty($journey_min_price->min_price_offer)){
+    $min_price =  $journey_min_price->min_price_offer;
+}
 if($journey_type_info){ ?>
 
     <div class="journey-detail">
@@ -20,7 +26,7 @@ if($journey_type_info){ ?>
                         <?php } ?>
                     </ul>
                     <a href="javascript:void(0)" class="btn-show-journey" data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
-                    <span>from <span class="price-if">US$1,755</span> pp</span>
+                    <span>from <span class="price-if"><?php echo number_format($min_price) ?></span> pp</span>
                 </div>
             </div>
 

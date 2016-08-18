@@ -119,16 +119,15 @@ class Offer
             $list_offer_room =$this->_wpdb->get_results($query_2);
             $object->list_offer_room = $list_offer_room;
 
+            $min_price= 0;
             if(!empty($list_offer_room[0])){
                 $journey_type_id = $list_offer_room[0]->journey_type_id;
-                $JourneyType = JourneyType::init();
-                $journey_type_info = $JourneyType->getInfo($journey_type_id,'offer');
+                /*$JourneyType = JourneyType::init();
+                $journey_type_info = $JourneyType->getInfo($journey_type_id,'offer');*/
 
-                $object->journey_type_info = $journey_type_info;
-                if(!empty($object->journey_type_info->min_price)){
-                    $object->journey_type_info->min_price_offer = intval($object->journey_type_info->min_price) -  intval($object->journey_type_info->min_price) * $object->promotion / 100;
-                }
+                $object->journey_type_id = $journey_type_id;
             }
+            $object->min_price = $min_price;
 
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);

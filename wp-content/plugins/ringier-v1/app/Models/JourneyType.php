@@ -201,9 +201,49 @@ class JourneyType
                 }
             }
 
-
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
+        }
+
+        return $result;
+    }
+
+    public function getJourneyMinPrice($journey_type_id,$type = ''){
+        $result = false;
+        $objJourney = Journey::init();
+        $list_journey = $objJourney->getJourneyList(array(
+            'journey_type_id' => $journey_type_id,
+            'limit' => 9999,
+        ));
+        if(!empty($list_journey['data'])){
+            $min_price = 99999999999999999;
+            $journey_min_price = array();
+
+            if($type == 'offer'){
+                foreach ($list_journey['data'] as $journey){
+                    if(!empty($journey->is_offer)){
+                        $min_price_journey = $journey->min_price_offer;
+                        if($min_price_journey < $min_price){
+                            $min_price = $min_price_journey;
+                            $journey_min_price = $journey;
+                        }
+                    }
+                }
+            }else{
+                foreach ($list_journey['data'] as $journey){
+                    $min_price_journey = $journey->min_price;
+                    if(!empty($journey->min_price_offer)){
+                        $min_price_journey = $journey->min_price_offer;
+                    }
+                    if($min_price_journey < $min_price){
+                        $min_price = $min_price_journey;
+                        $journey_min_price = $journey;
+                    }
+                }
+            }
+
+            $result = $journey_min_price;
+
         }
 
         return $result;

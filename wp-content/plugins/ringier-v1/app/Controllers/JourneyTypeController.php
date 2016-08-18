@@ -1,6 +1,7 @@
 <?php
 namespace RVN\Controllers;
 
+use RVN\Models\Journey;
 use RVN\Models\JourneyType;
 use RVN\Models\Posts;
 use RVN\Models\Addon;
@@ -48,7 +49,15 @@ class JourneyTypeController extends _BaseController
                 'limit'           => 6,
             ]);
 
-        return view('journey-type/detail', compact('journey_type_info', 'list_add_on'));
+        $journey_min_price = $this->getJourneyMinPrice($journey_id);
+
+        return view('journey-type/detail', compact('journey_type_info', 'list_add_on','journey_min_price'));
+    }
+
+    public function getJourneyMinPrice($journey_id,$type = ''){
+        $journeyType = JourneyType::init();
+
+        return $journeyType->getJourneyMinPrice($journey_id,$type);
     }
 
 }

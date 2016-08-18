@@ -164,7 +164,18 @@ get_header();
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                     <div class="row">
                         <div class="owl-carousel-2">
-                            <?php foreach ($list_offer['data'] as $v) {
+                            <?php
+                            $JourneyType = \RVN\Controllers\JourneyTypeController::init();
+                            foreach ($list_offer['data'] as $v) {
+
+                                $min_price = 0;
+                                if(!empty($v->journey_type_id)){
+                                    $journey_min_price = $JourneyType->getJourneyMinPrice($v->journey_type_id,'offer');
+                                    if(!empty($journey_min_price) && !empty($journey_min_price->min_price_offer)){
+                                        $min_price =  $journey_min_price->min_price_offer;
+                                    }
+                                }
+
                                 ?>
                                 <div class="col-xs-12 col-sm-12">
                                     <div class="box-journey box-white">
@@ -172,7 +183,7 @@ get_header();
                                             <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
                                                 <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
                                             </a>
-                                            <div class="price"> $<?php echo !empty($v->journey_type_info->firt_journey->min_price_offer) ? number_format($v->journey_type_info->firt_journey->min_price_offer) : 0 ?></div>
+                                            <div class="price"> $<?php echo  number_format($min_price) ?></div>
                                         </div>
                                         <div class="desc">
                                             <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>

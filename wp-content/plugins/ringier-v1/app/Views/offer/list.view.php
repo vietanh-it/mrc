@@ -1,6 +1,8 @@
 <?php
 get_header();
-$list_offer = $list_offer ? $list_offer : array(); ?>
+$list_offer = !empty($list_offer) ? $list_offer : array();
+$JourneyType = \RVN\Controllers\JourneyTypeController::init();
+?>
 
 
 <?php if($list_offer['data']){ ?>
@@ -12,14 +14,23 @@ $list_offer = $list_offer ? $list_offer : array(); ?>
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row">
                     <?php foreach ($list_offer['data'] as $v){
+
+                        $min_price = 0;
+                        if(!empty($v->journey_type_id)){
+                            $journey_min_price = $JourneyType->getJourneyMinPrice($v->journey_type_id,'offer');
+                            if(!empty($journey_min_price) && !empty($journey_min_price->min_price_offer)){
+                                $min_price =  $journey_min_price->min_price_offer;
+                            }
+                        }
+
                         ?>
                         <div class="col-xs-12 col-sm-4">
                             <div class="box-journey box-white">
-                                <div class="image" style="position: ">
+                                <div class="image" style="position: relative">
                                     <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
                                         <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
                                     </a>
-                                    <div class="price">  $<?php echo !empty(($v->journey_type_info->min_price_offer)) ? number_format($v->journey_type_info->min_price_offer) : 0?></div>
+                                    <div class="price">  $<?php echo number_format($min_price) ?></div>
                                 </div>
                                 <div style="border: 1px solid #ccc">
                                     <div class="desc">

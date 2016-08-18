@@ -156,6 +156,7 @@ class Journey
             $departure_fm = date("j F Y", strtotime($object->departure));
             $object->departure_fm = $departure_fm;
 
+            $object->is_offer = false;
             // journey_type_info
             if (!empty($object->journey_type)) {
                 $journeyType = JourneyType::init();

@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 128.199.181.115 MRC
-Source Server Version : 50713
-Source Host           : 128.199.181.115:3306
+Source Server         : [127.0.0.1 - LOCAL]
+Source Server Version : 50505
+Source Host           : localhost:3306
 Source Database       : a_mrc
 
 Target Server Type    : MYSQL
-Target Server Version : 50713
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-18 11:06:02
+Date: 2016-08-18 11:37:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -85,7 +85,7 @@ CREATE TABLE `mrc_cart` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of mrc_cart
@@ -94,6 +94,7 @@ INSERT INTO `mrc_cart` VALUES ('1', '1', '131', '2016-08-17 05:47:22', '2016-08-
 INSERT INTO `mrc_cart` VALUES ('2', '4', '131', '2016-08-17 12:40:51', '2016-08-17 12:40:51');
 INSERT INTO `mrc_cart` VALUES ('3', '5', '58', '2016-08-17 13:53:07', '2016-08-17 13:53:07');
 INSERT INTO `mrc_cart` VALUES ('4', '1', '170', '2016-08-17 14:15:40', '2016-08-17 14:15:40');
+INSERT INTO `mrc_cart` VALUES ('5', '1', '58', '2016-08-18 04:36:24', '2016-08-18 04:36:24');
 
 -- ----------------------------
 -- Table structure for mrc_cart_addon
@@ -622,7 +623,7 @@ CREATE TABLE `mrc_options` (
   `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1190 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1200 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of mrc_options
@@ -659,7 +660,7 @@ INSERT INTO `mrc_options` VALUES ('29', 'rewrite_rules', 'a:247:{s:19:\"sitemap_
 INSERT INTO `mrc_options` VALUES ('30', 'hack_file', '0', 'yes');
 INSERT INTO `mrc_options` VALUES ('31', 'blog_charset', 'UTF-8', 'yes');
 INSERT INTO `mrc_options` VALUES ('32', 'moderation_keys', '', 'no');
-INSERT INTO `mrc_options` VALUES ('33', 'active_plugins', 'a:11:{i:0;s:31:\"query-monitor/query-monitor.php\";i:1;s:38:\"acf-field-type-ringier/acf-ringier.php\";i:2;s:30:\"advanced-custom-fields/acf.php\";i:3;s:43:\"custom-post-type-ui/custom-post-type-ui.php\";i:4;s:29:\"nginx-helper/nginx-helper.php\";i:5;s:25:\"ringier-v1/ringier-v1.php\";i:6;s:33:\"theme-my-login/theme-my-login.php\";i:7;s:37:\"user-role-editor/user-role-editor.php\";i:8;s:24:\"wordpress-seo/wp-seo.php\";i:9;s:27:\"wp-crontrol/wp-crontrol.php\";i:10;s:27:\"wp-pagenavi/wp-pagenavi.php\";}', 'yes');
+INSERT INTO `mrc_options` VALUES ('33', 'active_plugins', 'a:10:{i:0;s:31:\"query-monitor/query-monitor.php\";i:1;s:38:\"acf-field-type-ringier/acf-ringier.php\";i:2;s:30:\"advanced-custom-fields/acf.php\";i:3;s:43:\"custom-post-type-ui/custom-post-type-ui.php\";i:4;s:25:\"ringier-v1/ringier-v1.php\";i:5;s:33:\"theme-my-login/theme-my-login.php\";i:6;s:37:\"user-role-editor/user-role-editor.php\";i:7;s:24:\"wordpress-seo/wp-seo.php\";i:8;s:27:\"wp-crontrol/wp-crontrol.php\";i:9;s:27:\"wp-pagenavi/wp-pagenavi.php\";}', 'yes');
 INSERT INTO `mrc_options` VALUES ('34', 'category_base', '', 'yes');
 INSERT INTO `mrc_options` VALUES ('35', 'ping_sites', 'http://rpc.pingomatic.com/', 'yes');
 INSERT INTO `mrc_options` VALUES ('36', 'comment_max_links', '2', 'yes');
@@ -761,7 +762,7 @@ INSERT INTO `mrc_options` VALUES ('356', 'wpseo_sitemap_destination_cache_valida
 INSERT INTO `mrc_options` VALUES ('357', 'wpseo_sitemap_port_cache_validator', '4yVLU', 'no');
 INSERT INTO `mrc_options` VALUES ('384', 'wpseo_sitemap_journey_type_cache_validator', '4Op8j', 'no');
 INSERT INTO `mrc_options` VALUES ('403', 'wpseo_sitemap_cache_validator_global', '36aDD', 'no');
-INSERT INTO `mrc_options` VALUES ('533', 'user_role_editor', 'a:2:{s:11:\"ure_version\";s:6:\"4.26.3\";s:19:\"ure_hide_pro_banner\";i:1;}', 'yes');
+INSERT INTO `mrc_options` VALUES ('533', 'user_role_editor', 'a:2:{s:11:\"ure_version\";s:4:\"4.27\";s:19:\"ure_hide_pro_banner\";i:1;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('534', 'mrc_backup_user_roles', 'a:5:{s:13:\"administrator\";a:2:{s:4:\"name\";s:13:\"Administrator\";s:12:\"capabilities\";a:69:{s:13:\"switch_themes\";b:1;s:11:\"edit_themes\";b:1;s:16:\"activate_plugins\";b:1;s:12:\"edit_plugins\";b:1;s:10:\"edit_users\";b:1;s:10:\"edit_files\";b:1;s:14:\"manage_options\";b:1;s:17:\"moderate_comments\";b:1;s:17:\"manage_categories\";b:1;s:12:\"manage_links\";b:1;s:12:\"upload_files\";b:1;s:6:\"import\";b:1;s:15:\"unfiltered_html\";b:1;s:10:\"edit_posts\";b:1;s:17:\"edit_others_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:10:\"edit_pages\";b:1;s:4:\"read\";b:1;s:8:\"level_10\";b:1;s:7:\"level_9\";b:1;s:7:\"level_8\";b:1;s:7:\"level_7\";b:1;s:7:\"level_6\";b:1;s:7:\"level_5\";b:1;s:7:\"level_4\";b:1;s:7:\"level_3\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:17:\"edit_others_pages\";b:1;s:20:\"edit_published_pages\";b:1;s:13:\"publish_pages\";b:1;s:12:\"delete_pages\";b:1;s:19:\"delete_others_pages\";b:1;s:22:\"delete_published_pages\";b:1;s:12:\"delete_posts\";b:1;s:19:\"delete_others_posts\";b:1;s:22:\"delete_published_posts\";b:1;s:20:\"delete_private_posts\";b:1;s:18:\"edit_private_posts\";b:1;s:18:\"read_private_posts\";b:1;s:20:\"delete_private_pages\";b:1;s:18:\"edit_private_pages\";b:1;s:18:\"read_private_pages\";b:1;s:12:\"delete_users\";b:1;s:12:\"create_users\";b:1;s:17:\"unfiltered_upload\";b:1;s:14:\"edit_dashboard\";b:1;s:14:\"update_plugins\";b:1;s:14:\"delete_plugins\";b:1;s:15:\"install_plugins\";b:1;s:13:\"update_themes\";b:1;s:14:\"install_themes\";b:1;s:11:\"update_core\";b:1;s:10:\"list_users\";b:1;s:12:\"remove_users\";b:1;s:13:\"promote_users\";b:1;s:18:\"edit_theme_options\";b:1;s:13:\"delete_themes\";b:1;s:6:\"export\";b:1;s:18:\"view_query_monitor\";b:1;s:14:\"ure_edit_roles\";b:1;s:16:\"ure_create_roles\";b:1;s:16:\"ure_delete_roles\";b:1;s:23:\"ure_create_capabilities\";b:1;s:23:\"ure_delete_capabilities\";b:1;s:18:\"ure_manage_options\";b:1;s:15:\"ure_reset_roles\";b:1;}}s:6:\"editor\";a:2:{s:4:\"name\";s:6:\"Editor\";s:12:\"capabilities\";a:34:{s:17:\"moderate_comments\";b:1;s:17:\"manage_categories\";b:1;s:12:\"manage_links\";b:1;s:12:\"upload_files\";b:1;s:15:\"unfiltered_html\";b:1;s:10:\"edit_posts\";b:1;s:17:\"edit_others_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:10:\"edit_pages\";b:1;s:4:\"read\";b:1;s:7:\"level_7\";b:1;s:7:\"level_6\";b:1;s:7:\"level_5\";b:1;s:7:\"level_4\";b:1;s:7:\"level_3\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:17:\"edit_others_pages\";b:1;s:20:\"edit_published_pages\";b:1;s:13:\"publish_pages\";b:1;s:12:\"delete_pages\";b:1;s:19:\"delete_others_pages\";b:1;s:22:\"delete_published_pages\";b:1;s:12:\"delete_posts\";b:1;s:19:\"delete_others_posts\";b:1;s:22:\"delete_published_posts\";b:1;s:20:\"delete_private_posts\";b:1;s:18:\"edit_private_posts\";b:1;s:18:\"read_private_posts\";b:1;s:20:\"delete_private_pages\";b:1;s:18:\"edit_private_pages\";b:1;s:18:\"read_private_pages\";b:1;}}s:6:\"author\";a:2:{s:4:\"name\";s:6:\"Author\";s:12:\"capabilities\";a:10:{s:12:\"upload_files\";b:1;s:10:\"edit_posts\";b:1;s:20:\"edit_published_posts\";b:1;s:13:\"publish_posts\";b:1;s:4:\"read\";b:1;s:7:\"level_2\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:12:\"delete_posts\";b:1;s:22:\"delete_published_posts\";b:1;}}s:11:\"contributor\";a:2:{s:4:\"name\";s:11:\"Contributor\";s:12:\"capabilities\";a:5:{s:10:\"edit_posts\";b:1;s:4:\"read\";b:1;s:7:\"level_1\";b:1;s:7:\"level_0\";b:1;s:12:\"delete_posts\";b:1;}}s:10:\"subscriber\";a:2:{s:4:\"name\";s:10:\"Subscriber\";s:12:\"capabilities\";a:2:{s:4:\"read\";b:1;s:7:\"level_0\";b:1;}}}', 'no');
 INSERT INTO `mrc_options` VALUES ('535', 'ure_tasks_queue', 'a:0:{}', 'yes');
 INSERT INTO `mrc_options` VALUES ('547', 'ure_role_additional_options_values', 'a:1:{s:9:\"moderator\";a:0:{}}', 'yes');
@@ -778,9 +779,9 @@ INSERT INTO `mrc_options` VALUES ('946', 'ftp_credentials', 'a:3:{s:8:\"hostname
 INSERT INTO `mrc_options` VALUES ('970', 'wpseo_sitemap_tour_cache_validator', '2tmtt', 'no');
 INSERT INTO `mrc_options` VALUES ('978', '_site_transient_timeout_browser_aa7adcc5662813180f8b2225f232c91f', '1471877747', 'yes');
 INSERT INTO `mrc_options` VALUES ('979', '_site_transient_browser_aa7adcc5662813180f8b2225f232c91f', 'a:9:{s:8:\"platform\";s:7:\"Windows\";s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"52.0.2743.116\";s:10:\"update_url\";s:28:\"http://www.google.com/chrome\";s:7:\"img_src\";s:49:\"http://s.wordpress.org/images/browsers/chrome.png\";s:11:\"img_src_ssl\";s:48:\"https://wordpress.org/images/browsers/chrome.png\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;}', 'yes');
-INSERT INTO `mrc_options` VALUES ('994', '_transient_timeout_plugin_slugs', '1471579072', 'no');
-INSERT INTO `mrc_options` VALUES ('995', '_transient_plugin_slugs', 'a:11:{i:0;s:30:\"advanced-custom-fields/acf.php\";i:1;s:38:\"acf-field-type-ringier/acf-ringier.php\";i:2;s:43:\"custom-post-type-ui/custom-post-type-ui.php\";i:3;s:29:\"nginx-helper/nginx-helper.php\";i:4;s:31:\"query-monitor/query-monitor.php\";i:5;s:25:\"ringier-v1/ringier-v1.php\";i:6;s:33:\"theme-my-login/theme-my-login.php\";i:7;s:37:\"user-role-editor/user-role-editor.php\";i:8;s:27:\"wp-pagenavi/wp-pagenavi.php\";i:9;s:27:\"wp-crontrol/wp-crontrol.php\";i:10;s:24:\"wordpress-seo/wp-seo.php\";}', 'no');
-INSERT INTO `mrc_options` VALUES ('1021', '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1471492860;s:7:\"checked\";a:1:{s:3:\"mrc\";s:3:\"1.0\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'yes');
+INSERT INTO `mrc_options` VALUES ('994', '_transient_timeout_plugin_slugs', '1471581143', 'no');
+INSERT INTO `mrc_options` VALUES ('995', '_transient_plugin_slugs', 'a:11:{i:0;s:30:\"advanced-custom-fields/acf.php\";i:1;s:38:\"acf-field-type-ringier/acf-ringier.php\";i:2;s:43:\"custom-post-type-ui/custom-post-type-ui.php\";i:3;s:31:\"query-monitor/query-monitor.php\";i:4;s:33:\"ringier-social/ringier-social.php\";i:5;s:25:\"ringier-v1/ringier-v1.php\";i:6;s:33:\"theme-my-login/theme-my-login.php\";i:7;s:37:\"user-role-editor/user-role-editor.php\";i:8;s:27:\"wp-pagenavi/wp-pagenavi.php\";i:9;s:27:\"wp-crontrol/wp-crontrol.php\";i:10;s:24:\"wordpress-seo/wp-seo.php\";}', 'no');
+INSERT INTO `mrc_options` VALUES ('1021', '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1471494737;s:7:\"checked\";a:1:{s:3:\"mrc\";s:3:\"1.0\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'no');
 INSERT INTO `mrc_options` VALUES ('1042', '_site_transient_timeout_browser_e8c12107d072a476eb340cc45332b98b', '1471997146', 'yes');
 INSERT INTO `mrc_options` VALUES ('1043', '_site_transient_browser_e8c12107d072a476eb340cc45332b98b', 'a:9:{s:8:\"platform\";s:9:\"Macintosh\";s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"52.0.2743.116\";s:10:\"update_url\";s:28:\"http://www.google.com/chrome\";s:7:\"img_src\";s:49:\"http://s.wordpress.org/images/browsers/chrome.png\";s:11:\"img_src_ssl\";s:48:\"https://wordpress.org/images/browsers/chrome.png\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('1057', 'wpseo_sitemap_category_cache_validator', 'dsF7', 'no');
@@ -793,71 +794,18 @@ INSERT INTO `mrc_options` VALUES ('1153', '_site_transient_timeout_browser_dd353
 INSERT INTO `mrc_options` VALUES ('1154', '_site_transient_browser_dd353d93091d1d2447c202894a041eaa', 'a:9:{s:8:\"platform\";s:9:\"Macintosh\";s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"52.0.2743.116\";s:10:\"update_url\";s:28:\"http://www.google.com/chrome\";s:7:\"img_src\";s:49:\"http://s.wordpress.org/images/browsers/chrome.png\";s:11:\"img_src_ssl\";s:48:\"https://wordpress.org/images/browsers/chrome.png\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;}', 'yes');
 INSERT INTO `mrc_options` VALUES ('1168', '_site_transient_timeout_browser_41c67ec5c381dc40422c8370e1bdf783', '1472083436', 'yes');
 INSERT INTO `mrc_options` VALUES ('1169', '_site_transient_browser_41c67ec5c381dc40422c8370e1bdf783', 'a:9:{s:8:\"platform\";s:5:\"Linux\";s:4:\"name\";s:13:\"Mobile Safari\";s:7:\"version\";s:6:\"537.36\";s:10:\"update_url\";s:0:\"\";s:7:\"img_src\";s:0:\"\";s:11:\"img_src_ssl\";s:0:\"\";s:15:\"current_version\";s:0:\"\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;}', 'yes');
-INSERT INTO `mrc_options` VALUES ('1173', '_site_transient_timeout_theme_roots', '1471494414', 'yes');
-INSERT INTO `mrc_options` VALUES ('1174', '_site_transient_theme_roots', 'a:1:{s:3:\"mrc\";s:7:\"/themes\";}', 'yes');
 INSERT INTO `mrc_options` VALUES ('1175', '_site_transient_timeout_poptags_40cd750bba9870f18aada2478b24840a', '1471503423', 'yes');
 INSERT INTO `mrc_options` VALUES ('1176', '_site_transient_poptags_40cd750bba9870f18aada2478b24840a', 'a:100:{s:6:\"widget\";a:3:{s:4:\"name\";s:6:\"widget\";s:4:\"slug\";s:6:\"widget\";s:5:\"count\";s:4:\"5981\";}s:4:\"post\";a:3:{s:4:\"name\";s:4:\"Post\";s:4:\"slug\";s:4:\"post\";s:5:\"count\";s:4:\"3695\";}s:6:\"plugin\";a:3:{s:4:\"name\";s:6:\"plugin\";s:4:\"slug\";s:6:\"plugin\";s:5:\"count\";s:4:\"3648\";}s:5:\"admin\";a:3:{s:4:\"name\";s:5:\"admin\";s:4:\"slug\";s:5:\"admin\";s:5:\"count\";s:4:\"3163\";}s:5:\"posts\";a:3:{s:4:\"name\";s:5:\"posts\";s:4:\"slug\";s:5:\"posts\";s:5:\"count\";s:4:\"2824\";}s:9:\"shortcode\";a:3:{s:4:\"name\";s:9:\"shortcode\";s:4:\"slug\";s:9:\"shortcode\";s:5:\"count\";s:4:\"2439\";}s:7:\"sidebar\";a:3:{s:4:\"name\";s:7:\"sidebar\";s:4:\"slug\";s:7:\"sidebar\";s:5:\"count\";s:4:\"2240\";}s:6:\"google\";a:3:{s:4:\"name\";s:6:\"google\";s:4:\"slug\";s:6:\"google\";s:5:\"count\";s:4:\"2110\";}s:7:\"twitter\";a:3:{s:4:\"name\";s:7:\"twitter\";s:4:\"slug\";s:7:\"twitter\";s:5:\"count\";s:4:\"2070\";}s:4:\"page\";a:3:{s:4:\"name\";s:4:\"page\";s:4:\"slug\";s:4:\"page\";s:5:\"count\";s:4:\"2060\";}s:6:\"images\";a:3:{s:4:\"name\";s:6:\"images\";s:4:\"slug\";s:6:\"images\";s:5:\"count\";s:4:\"2009\";}s:8:\"comments\";a:3:{s:4:\"name\";s:8:\"comments\";s:4:\"slug\";s:8:\"comments\";s:5:\"count\";s:4:\"1949\";}s:5:\"image\";a:3:{s:4:\"name\";s:5:\"image\";s:4:\"slug\";s:5:\"image\";s:5:\"count\";s:4:\"1883\";}s:11:\"woocommerce\";a:3:{s:4:\"name\";s:11:\"woocommerce\";s:4:\"slug\";s:11:\"woocommerce\";s:5:\"count\";s:4:\"1814\";}s:8:\"facebook\";a:3:{s:4:\"name\";s:8:\"Facebook\";s:4:\"slug\";s:8:\"facebook\";s:5:\"count\";s:4:\"1717\";}s:3:\"seo\";a:3:{s:4:\"name\";s:3:\"seo\";s:4:\"slug\";s:3:\"seo\";s:5:\"count\";s:4:\"1600\";}s:9:\"wordpress\";a:3:{s:4:\"name\";s:9:\"wordpress\";s:4:\"slug\";s:9:\"wordpress\";s:5:\"count\";s:4:\"1559\";}s:6:\"social\";a:3:{s:4:\"name\";s:6:\"social\";s:4:\"slug\";s:6:\"social\";s:5:\"count\";s:4:\"1428\";}s:7:\"gallery\";a:3:{s:4:\"name\";s:7:\"gallery\";s:4:\"slug\";s:7:\"gallery\";s:5:\"count\";s:4:\"1337\";}s:5:\"links\";a:3:{s:4:\"name\";s:5:\"links\";s:4:\"slug\";s:5:\"links\";s:5:\"count\";s:4:\"1293\";}s:5:\"email\";a:3:{s:4:\"name\";s:5:\"email\";s:4:\"slug\";s:5:\"email\";s:5:\"count\";s:4:\"1252\";}s:7:\"widgets\";a:3:{s:4:\"name\";s:7:\"widgets\";s:4:\"slug\";s:7:\"widgets\";s:5:\"count\";s:4:\"1123\";}s:5:\"pages\";a:3:{s:4:\"name\";s:5:\"pages\";s:4:\"slug\";s:5:\"pages\";s:5:\"count\";s:4:\"1110\";}s:6:\"jquery\";a:3:{s:4:\"name\";s:6:\"jquery\";s:4:\"slug\";s:6:\"jquery\";s:5:\"count\";s:4:\"1014\";}s:9:\"ecommerce\";a:3:{s:4:\"name\";s:9:\"ecommerce\";s:4:\"slug\";s:9:\"ecommerce\";s:5:\"count\";s:4:\"1009\";}s:5:\"media\";a:3:{s:4:\"name\";s:5:\"media\";s:4:\"slug\";s:5:\"media\";s:5:\"count\";s:4:\"1008\";}s:5:\"video\";a:3:{s:4:\"name\";s:5:\"video\";s:4:\"slug\";s:5:\"video\";s:5:\"count\";s:3:\"942\";}s:5:\"login\";a:3:{s:4:\"name\";s:5:\"login\";s:4:\"slug\";s:5:\"login\";s:5:\"count\";s:3:\"932\";}s:7:\"content\";a:3:{s:4:\"name\";s:7:\"content\";s:4:\"slug\";s:7:\"content\";s:5:\"count\";s:3:\"926\";}s:3:\"rss\";a:3:{s:4:\"name\";s:3:\"rss\";s:4:\"slug\";s:3:\"rss\";s:5:\"count\";s:3:\"919\";}s:4:\"ajax\";a:3:{s:4:\"name\";s:4:\"AJAX\";s:4:\"slug\";s:4:\"ajax\";s:5:\"count\";s:3:\"919\";}s:10:\"responsive\";a:3:{s:4:\"name\";s:10:\"responsive\";s:4:\"slug\";s:10:\"responsive\";s:5:\"count\";s:3:\"862\";}s:10:\"javascript\";a:3:{s:4:\"name\";s:10:\"javascript\";s:4:\"slug\";s:10:\"javascript\";s:5:\"count\";s:3:\"849\";}s:10:\"buddypress\";a:3:{s:4:\"name\";s:10:\"buddypress\";s:4:\"slug\";s:10:\"buddypress\";s:5:\"count\";s:3:\"807\";}s:8:\"security\";a:3:{s:4:\"name\";s:8:\"security\";s:4:\"slug\";s:8:\"security\";s:5:\"count\";s:3:\"800\";}s:10:\"e-commerce\";a:3:{s:4:\"name\";s:10:\"e-commerce\";s:4:\"slug\";s:10:\"e-commerce\";s:5:\"count\";s:3:\"794\";}s:7:\"youtube\";a:3:{s:4:\"name\";s:7:\"youtube\";s:4:\"slug\";s:7:\"youtube\";s:5:\"count\";s:3:\"777\";}s:5:\"share\";a:3:{s:4:\"name\";s:5:\"Share\";s:4:\"slug\";s:5:\"share\";s:5:\"count\";s:3:\"771\";}s:5:\"photo\";a:3:{s:4:\"name\";s:5:\"photo\";s:4:\"slug\";s:5:\"photo\";s:5:\"count\";s:3:\"767\";}s:4:\"spam\";a:3:{s:4:\"name\";s:4:\"spam\";s:4:\"slug\";s:4:\"spam\";s:5:\"count\";s:3:\"766\";}s:4:\"feed\";a:3:{s:4:\"name\";s:4:\"feed\";s:4:\"slug\";s:4:\"feed\";s:5:\"count\";s:3:\"755\";}s:4:\"link\";a:3:{s:4:\"name\";s:4:\"link\";s:4:\"slug\";s:4:\"link\";s:5:\"count\";s:3:\"749\";}s:8:\"category\";a:3:{s:4:\"name\";s:8:\"category\";s:4:\"slug\";s:8:\"category\";s:5:\"count\";s:3:\"721\";}s:9:\"analytics\";a:3:{s:4:\"name\";s:9:\"analytics\";s:4:\"slug\";s:9:\"analytics\";s:5:\"count\";s:3:\"716\";}s:5:\"embed\";a:3:{s:4:\"name\";s:5:\"embed\";s:4:\"slug\";s:5:\"embed\";s:5:\"count\";s:3:\"702\";}s:3:\"css\";a:3:{s:4:\"name\";s:3:\"CSS\";s:4:\"slug\";s:3:\"css\";s:5:\"count\";s:3:\"699\";}s:6:\"photos\";a:3:{s:4:\"name\";s:6:\"photos\";s:4:\"slug\";s:6:\"photos\";s:5:\"count\";s:3:\"697\";}s:4:\"form\";a:3:{s:4:\"name\";s:4:\"form\";s:4:\"slug\";s:4:\"form\";s:5:\"count\";s:3:\"697\";}s:6:\"slider\";a:3:{s:4:\"name\";s:6:\"slider\";s:4:\"slug\";s:6:\"slider\";s:5:\"count\";s:3:\"693\";}s:6:\"search\";a:3:{s:4:\"name\";s:6:\"search\";s:4:\"slug\";s:6:\"search\";s:5:\"count\";s:3:\"679\";}s:6:\"custom\";a:3:{s:4:\"name\";s:6:\"custom\";s:4:\"slug\";s:6:\"custom\";s:5:\"count\";s:3:\"667\";}s:9:\"slideshow\";a:3:{s:4:\"name\";s:9:\"slideshow\";s:4:\"slug\";s:9:\"slideshow\";s:5:\"count\";s:3:\"648\";}s:5:\"stats\";a:3:{s:4:\"name\";s:5:\"stats\";s:4:\"slug\";s:5:\"stats\";s:5:\"count\";s:3:\"625\";}s:6:\"button\";a:3:{s:4:\"name\";s:6:\"button\";s:4:\"slug\";s:6:\"button\";s:5:\"count\";s:3:\"625\";}s:4:\"menu\";a:3:{s:4:\"name\";s:4:\"menu\";s:4:\"slug\";s:4:\"menu\";s:5:\"count\";s:3:\"616\";}s:5:\"theme\";a:3:{s:4:\"name\";s:5:\"theme\";s:4:\"slug\";s:5:\"theme\";s:5:\"count\";s:3:\"606\";}s:9:\"dashboard\";a:3:{s:4:\"name\";s:9:\"dashboard\";s:4:\"slug\";s:9:\"dashboard\";s:5:\"count\";s:3:\"603\";}s:7:\"comment\";a:3:{s:4:\"name\";s:7:\"comment\";s:4:\"slug\";s:7:\"comment\";s:5:\"count\";s:3:\"601\";}s:4:\"tags\";a:3:{s:4:\"name\";s:4:\"tags\";s:4:\"slug\";s:4:\"tags\";s:5:\"count\";s:3:\"598\";}s:10:\"categories\";a:3:{s:4:\"name\";s:10:\"categories\";s:4:\"slug\";s:10:\"categories\";s:5:\"count\";s:3:\"590\";}s:6:\"mobile\";a:3:{s:4:\"name\";s:6:\"mobile\";s:4:\"slug\";s:6:\"mobile\";s:5:\"count\";s:3:\"586\";}s:10:\"statistics\";a:3:{s:4:\"name\";s:10:\"statistics\";s:4:\"slug\";s:10:\"statistics\";s:5:\"count\";s:3:\"575\";}s:3:\"ads\";a:3:{s:4:\"name\";s:3:\"ads\";s:4:\"slug\";s:3:\"ads\";s:5:\"count\";s:3:\"573\";}s:6:\"editor\";a:3:{s:4:\"name\";s:6:\"editor\";s:4:\"slug\";s:6:\"editor\";s:5:\"count\";s:3:\"562\";}s:4:\"user\";a:3:{s:4:\"name\";s:4:\"user\";s:4:\"slug\";s:4:\"user\";s:5:\"count\";s:3:\"562\";}s:5:\"users\";a:3:{s:4:\"name\";s:5:\"users\";s:4:\"slug\";s:5:\"users\";s:5:\"count\";s:3:\"546\";}s:4:\"list\";a:3:{s:4:\"name\";s:4:\"list\";s:4:\"slug\";s:4:\"list\";s:5:\"count\";s:3:\"543\";}s:12:\"social-media\";a:3:{s:4:\"name\";s:12:\"social media\";s:4:\"slug\";s:12:\"social-media\";s:5:\"count\";s:3:\"540\";}s:7:\"plugins\";a:3:{s:4:\"name\";s:7:\"plugins\";s:4:\"slug\";s:7:\"plugins\";s:5:\"count\";s:3:\"526\";}s:12:\"contact-form\";a:3:{s:4:\"name\";s:12:\"contact form\";s:4:\"slug\";s:12:\"contact-form\";s:5:\"count\";s:3:\"525\";}s:6:\"simple\";a:3:{s:4:\"name\";s:6:\"simple\";s:4:\"slug\";s:6:\"simple\";s:5:\"count\";s:3:\"520\";}s:9:\"affiliate\";a:3:{s:4:\"name\";s:9:\"affiliate\";s:4:\"slug\";s:9:\"affiliate\";s:5:\"count\";s:3:\"518\";}s:9:\"multisite\";a:3:{s:4:\"name\";s:9:\"multisite\";s:4:\"slug\";s:9:\"multisite\";s:5:\"count\";s:3:\"518\";}s:7:\"picture\";a:3:{s:4:\"name\";s:7:\"picture\";s:4:\"slug\";s:7:\"picture\";s:5:\"count\";s:3:\"516\";}s:7:\"contact\";a:3:{s:4:\"name\";s:7:\"contact\";s:4:\"slug\";s:7:\"contact\";s:5:\"count\";s:3:\"489\";}s:3:\"api\";a:3:{s:4:\"name\";s:3:\"api\";s:4:\"slug\";s:3:\"api\";s:5:\"count\";s:3:\"479\";}s:9:\"marketing\";a:3:{s:4:\"name\";s:9:\"marketing\";s:4:\"slug\";s:9:\"marketing\";s:5:\"count\";s:3:\"472\";}s:4:\"shop\";a:3:{s:4:\"name\";s:4:\"shop\";s:4:\"slug\";s:4:\"shop\";s:5:\"count\";s:3:\"472\";}s:8:\"pictures\";a:3:{s:4:\"name\";s:8:\"pictures\";s:4:\"slug\";s:8:\"pictures\";s:5:\"count\";s:3:\"464\";}s:3:\"url\";a:3:{s:4:\"name\";s:3:\"url\";s:4:\"slug\";s:3:\"url\";s:5:\"count\";s:3:\"461\";}s:10:\"navigation\";a:3:{s:4:\"name\";s:10:\"navigation\";s:4:\"slug\";s:10:\"navigation\";s:5:\"count\";s:3:\"453\";}s:4:\"html\";a:3:{s:4:\"name\";s:4:\"html\";s:4:\"slug\";s:4:\"html\";s:5:\"count\";s:3:\"446\";}s:6:\"events\";a:3:{s:4:\"name\";s:6:\"events\";s:4:\"slug\";s:6:\"events\";s:5:\"count\";s:3:\"441\";}s:10:\"newsletter\";a:3:{s:4:\"name\";s:10:\"newsletter\";s:4:\"slug\";s:10:\"newsletter\";s:5:\"count\";s:3:\"435\";}s:8:\"tracking\";a:3:{s:4:\"name\";s:8:\"tracking\";s:4:\"slug\";s:8:\"tracking\";s:5:\"count\";s:3:\"428\";}s:8:\"calendar\";a:3:{s:4:\"name\";s:8:\"calendar\";s:4:\"slug\";s:8:\"calendar\";s:5:\"count\";s:3:\"428\";}s:4:\"meta\";a:3:{s:4:\"name\";s:4:\"meta\";s:4:\"slug\";s:4:\"meta\";s:5:\"count\";s:3:\"426\";}s:10:\"shortcodes\";a:3:{s:4:\"name\";s:10:\"shortcodes\";s:4:\"slug\";s:10:\"shortcodes\";s:5:\"count\";s:3:\"425\";}s:5:\"flash\";a:3:{s:4:\"name\";s:5:\"flash\";s:4:\"slug\";s:5:\"flash\";s:5:\"count\";s:3:\"422\";}s:4:\"news\";a:3:{s:4:\"name\";s:4:\"News\";s:4:\"slug\";s:4:\"news\";s:5:\"count\";s:3:\"415\";}s:3:\"tag\";a:3:{s:4:\"name\";s:3:\"tag\";s:4:\"slug\";s:3:\"tag\";s:5:\"count\";s:3:\"415\";}s:11:\"advertising\";a:3:{s:4:\"name\";s:11:\"advertising\";s:4:\"slug\";s:11:\"advertising\";s:5:\"count\";s:3:\"411\";}s:6:\"upload\";a:3:{s:4:\"name\";s:6:\"upload\";s:4:\"slug\";s:6:\"upload\";s:5:\"count\";s:3:\"408\";}s:9:\"thumbnail\";a:3:{s:4:\"name\";s:9:\"thumbnail\";s:4:\"slug\";s:9:\"thumbnail\";s:5:\"count\";s:3:\"407\";}s:7:\"sharing\";a:3:{s:4:\"name\";s:7:\"sharing\";s:4:\"slug\";s:7:\"sharing\";s:5:\"count\";s:3:\"406\";}s:6:\"paypal\";a:3:{s:4:\"name\";s:6:\"paypal\";s:4:\"slug\";s:6:\"paypal\";s:5:\"count\";s:3:\"406\";}s:8:\"lightbox\";a:3:{s:4:\"name\";s:8:\"lightbox\";s:4:\"slug\";s:8:\"lightbox\";s:5:\"count\";s:3:\"405\";}s:7:\"profile\";a:3:{s:4:\"name\";s:7:\"profile\";s:4:\"slug\";s:7:\"profile\";s:5:\"count\";s:3:\"404\";}s:8:\"linkedin\";a:3:{s:4:\"name\";s:8:\"linkedin\";s:4:\"slug\";s:8:\"linkedin\";s:5:\"count\";s:3:\"401\";}s:12:\"notification\";a:3:{s:4:\"name\";s:12:\"notification\";s:4:\"slug\";s:12:\"notification\";s:5:\"count\";s:3:\"401\";}}', 'yes');
-INSERT INTO `mrc_options` VALUES ('1178', '_site_transient_update_plugins', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1471492859;s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:9:{s:30:\"advanced-custom-fields/acf.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"21367\";s:4:\"slug\";s:22:\"advanced-custom-fields\";s:6:\"plugin\";s:30:\"advanced-custom-fields/acf.php\";s:11:\"new_version\";s:5:\"4.4.8\";s:3:\"url\";s:53:\"https://wordpress.org/plugins/advanced-custom-fields/\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.8.zip\";}s:43:\"custom-post-type-ui/custom-post-type-ui.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"13183\";s:4:\"slug\";s:19:\"custom-post-type-ui\";s:6:\"plugin\";s:43:\"custom-post-type-ui/custom-post-type-ui.php\";s:11:\"new_version\";s:5:\"1.3.5\";s:3:\"url\";s:50:\"https://wordpress.org/plugins/custom-post-type-ui/\";s:7:\"package\";s:68:\"https://downloads.wordpress.org/plugin/custom-post-type-ui.1.3.5.zip\";}s:29:\"nginx-helper/nginx-helper.php\";O:8:\"stdClass\":7:{s:2:\"id\";s:5:\"35073\";s:4:\"slug\";s:12:\"nginx-helper\";s:6:\"plugin\";s:29:\"nginx-helper/nginx-helper.php\";s:11:\"new_version\";s:5:\"1.9.7\";s:3:\"url\";s:43:\"https://wordpress.org/plugins/nginx-helper/\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/plugin/nginx-helper.1.9.7.zip\";s:14:\"upgrade_notice\";s:83:\"Remove timestamp if cron or wp-cli #114 - by samedwards\nFixed notices and warnings.\";}s:31:\"query-monitor/query-monitor.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"10302\";s:4:\"slug\";s:13:\"query-monitor\";s:6:\"plugin\";s:31:\"query-monitor/query-monitor.php\";s:11:\"new_version\";s:6:\"2.12.0\";s:3:\"url\";s:44:\"https://wordpress.org/plugins/query-monitor/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/query-monitor.2.12.0.zip\";}s:33:\"theme-my-login/theme-my-login.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"7109\";s:4:\"slug\";s:14:\"theme-my-login\";s:6:\"plugin\";s:33:\"theme-my-login/theme-my-login.php\";s:11:\"new_version\";s:5:\"6.4.5\";s:3:\"url\";s:45:\"https://wordpress.org/plugins/theme-my-login/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/theme-my-login.6.4.5.zip\";}s:37:\"user-role-editor/user-role-editor.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"13697\";s:4:\"slug\";s:16:\"user-role-editor\";s:6:\"plugin\";s:37:\"user-role-editor/user-role-editor.php\";s:11:\"new_version\";s:6:\"4.26.3\";s:3:\"url\";s:47:\"https://wordpress.org/plugins/user-role-editor/\";s:7:\"package\";s:66:\"https://downloads.wordpress.org/plugin/user-role-editor.4.26.3.zip\";}s:27:\"wp-pagenavi/wp-pagenavi.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:3:\"363\";s:4:\"slug\";s:11:\"wp-pagenavi\";s:6:\"plugin\";s:27:\"wp-pagenavi/wp-pagenavi.php\";s:11:\"new_version\";s:4:\"2.91\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/wp-pagenavi/\";s:7:\"package\";s:59:\"https://downloads.wordpress.org/plugin/wp-pagenavi.2.91.zip\";}s:27:\"wp-crontrol/wp-crontrol.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"1426\";s:4:\"slug\";s:11:\"wp-crontrol\";s:6:\"plugin\";s:27:\"wp-crontrol/wp-crontrol.php\";s:11:\"new_version\";s:5:\"1.3.1\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/wp-crontrol/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/wp-crontrol.1.3.1.zip\";}s:24:\"wordpress-seo/wp-seo.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"5899\";s:4:\"slug\";s:13:\"wordpress-seo\";s:6:\"plugin\";s:24:\"wordpress-seo/wp-seo.php\";s:11:\"new_version\";s:5:\"3.4.2\";s:3:\"url\";s:44:\"https://wordpress.org/plugins/wordpress-seo/\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/plugin/wordpress-seo.3.4.2.zip\";}}}', 'yes');
 INSERT INTO `mrc_options` VALUES ('1179', 'rt_wp_nginx_helper_global_options', 'a:18:{s:9:\"log_level\";s:4:\"INFO\";s:12:\"log_filesize\";i:5;s:12:\"enable_purge\";i:0;s:10:\"enable_map\";i:0;s:10:\"enable_log\";i:0;s:12:\"enable_stamp\";i:0;s:21:\"purge_homepage_on_new\";i:1;s:22:\"purge_homepage_on_edit\";i:1;s:21:\"purge_homepage_on_del\";i:1;s:20:\"purge_archive_on_new\";i:1;s:21:\"purge_archive_on_edit\";i:1;s:20:\"purge_archive_on_del\";i:1;s:28:\"purge_archive_on_new_comment\";i:0;s:32:\"purge_archive_on_deleted_comment\";i:0;s:17:\"purge_page_on_mod\";i:1;s:25:\"purge_page_on_new_comment\";i:1;s:29:\"purge_page_on_deleted_comment\";i:1;s:12:\"purge_method\";s:11:\"get_request\";}', 'yes');
 INSERT INTO `mrc_options` VALUES ('1180', 'rt_wp_nginx_helper_options', 'a:18:{s:9:\"log_level\";s:4:\"INFO\";s:12:\"log_filesize\";i:5;s:12:\"enable_purge\";i:0;s:10:\"enable_map\";i:0;s:10:\"enable_log\";i:0;s:12:\"enable_stamp\";i:0;s:21:\"purge_homepage_on_new\";i:1;s:22:\"purge_homepage_on_edit\";i:1;s:21:\"purge_homepage_on_del\";i:1;s:20:\"purge_archive_on_new\";i:1;s:21:\"purge_archive_on_edit\";i:1;s:20:\"purge_archive_on_del\";i:1;s:28:\"purge_archive_on_new_comment\";i:0;s:32:\"purge_archive_on_deleted_comment\";i:0;s:17:\"purge_page_on_mod\";i:1;s:25:\"purge_page_on_new_comment\";i:1;s:29:\"purge_page_on_deleted_comment\";i:1;s:12:\"purge_method\";s:11:\"get_request\";}', 'yes');
-INSERT INTO `mrc_options` VALUES ('1182', '_transient_timeout_wpseo-dashboard-totals', '1471579159', 'no');
+INSERT INTO `mrc_options` VALUES ('1182', '_transient_timeout_wpseo-dashboard-totals', '1471581164', 'no');
 INSERT INTO `mrc_options` VALUES ('1183', '_transient_wpseo-dashboard-totals', 'a:1:{i:1;a:0:{}}', 'no');
 INSERT INTO `mrc_options` VALUES ('1185', 'db_upgraded', '', 'yes');
-INSERT INTO `mrc_options` VALUES ('1187', '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:57:\"https://downloads.wordpress.org/release/wordpress-4.6.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:57:\"https://downloads.wordpress.org/release/wordpress-4.6.zip\";s:10:\"no_content\";s:68:\"https://downloads.wordpress.org/release/wordpress-4.6-no-content.zip\";s:11:\"new_bundled\";s:69:\"https://downloads.wordpress.org/release/wordpress-4.6-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:3:\"4.6\";s:7:\"version\";s:3:\"4.6\";s:11:\"php_version\";s:5:\"5.2.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.4\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1471492861;s:15:\"version_checked\";s:3:\"4.6\";s:12:\"translations\";a:0:{}}', 'yes');
-INSERT INTO `mrc_options` VALUES ('1188', 'can_compress_scripts', '1', 'no');
-
--- ----------------------------
--- Table structure for mrc_post_info
--- ----------------------------
-DROP TABLE IF EXISTS `mrc_post_info`;
-CREATE TABLE `mrc_post_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `object_id` int(11) NOT NULL,
-  `countries` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of mrc_post_info
--- ----------------------------
-INSERT INTO `mrc_post_info` VALUES ('1', '26', 'a:5:{i:0;s:2:\"af\";i:1;s:2:\"al\";i:2;s:2:\"as\";i:3;s:2:\"kh\";i:4;s:2:\"vn\";}');
-INSERT INTO `mrc_post_info` VALUES ('2', '25', 'a:2:{i:0;s:2:\"kh\";i:1;s:2:\"vn\";}');
-
--- ----------------------------
--- Table structure for mrc_post_photos
--- ----------------------------
-DROP TABLE IF EXISTS `mrc_post_photos`;
-CREATE TABLE `mrc_post_photos` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) unsigned DEFAULT NULL,
-  `user_id` bigint(10) unsigned DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `images` text,
-  `is_featured` tinyint(1) DEFAULT '0',
-  `ordering` tinyint(4) unsigned DEFAULT '0',
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of mrc_post_photos
--- ----------------------------
-INSERT INTO `mrc_post_photos` VALUES ('10', '82', '1', null, 'a:6:{s:9:\"file_name\";s:28:\"15060186950_d7d43bcab8_k.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/1/2016/07/25\";s:4:\"path\";s:50:\"/var/www/mrc/wp-content/uploads/users/1/2016/07/25\";s:8:\"original\";s:28:\"15060186950_d7d43bcab8_k.jpg\";s:9:\"thumbnail\";s:28:\"15060186950_d7d43bcab8_k.jpg\";s:8:\"featured\";s:28:\"15060186950_d7d43bcab8_k.jpg\";}', '1', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('11', '20', '1', null, 'a:6:{s:9:\"file_name\";s:12:\"IMG_0410.JPG\";s:3:\"url\";s:38:\"/wp-content/uploads/users/1/2016/07/25\";s:4:\"path\";s:50:\"/var/www/mrc/wp-content/uploads/users/1/2016/07/25\";s:8:\"original\";s:12:\"img_0410.jpg\";s:9:\"thumbnail\";s:12:\"img_0410.jpg\";s:8:\"featured\";s:12:\"img_0410.jpg\";}', '1', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('12', '25', '1', null, 'a:6:{s:9:\"file_name\";s:10:\"498081.png\";s:3:\"url\";s:38:\"/wp-content/uploads/users/1/2016/07/25\";s:4:\"path\";s:50:\"/var/www/mrc/wp-content/uploads/users/1/2016/07/25\";s:8:\"original\";s:12:\"498081-1.png\";s:9:\"thumbnail\";s:12:\"498081-1.png\";s:8:\"featured\";s:12:\"498081-1.png\";}', '1', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('28', '21', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"bg-1.png\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:8:\"bg-1.png\";s:9:\"thumbnail\";s:16:\"bg-1_150x150.png\";s:8:\"featured\";s:16:\"bg-1_600x600.png\";s:5:\"small\";s:16:\"bg-1_485x360.png\";}', '1', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('29', '21', '2', null, 'a:7:{s:9:\"file_name\";s:54:\"Phnom-Penh-Extension-Header-shutterstock_142484584.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:54:\"phnom-penh-extension-header-shutterstock_142484584.jpg\";s:9:\"thumbnail\";s:62:\"phnom-penh-extension-header-shutterstock_142484584_150x150.jpg\";s:8:\"featured\";s:62:\"phnom-penh-extension-header-shutterstock_142484584_600x600.jpg\";s:5:\"small\";s:62:\"phnom-penh-extension-header-shutterstock_142484584_485x360.jpg\";}', '0', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('30', '65', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"bg-1.png\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:10:\"bg-1-1.png\";s:9:\"thumbnail\";s:18:\"bg-1-1_150x150.png\";s:8:\"featured\";s:18:\"bg-1-1_600x600.png\";s:5:\"small\";s:18:\"bg-1-1_485x360.png\";}', '1', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('31', '65', '2', null, 'a:7:{s:9:\"file_name\";s:67:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_Copy.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:67:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy.jpg\";s:9:\"thumbnail\";s:75:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy_150x150.jpg\";s:8:\"featured\";s:75:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy_600x600.jpg\";s:5:\"small\";s:75:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy_485x360.jpg\";}', '0', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('32', '65', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"3221.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:8:\"3221.jpg\";s:9:\"thumbnail\";s:16:\"3221_150x150.jpg\";s:8:\"featured\";s:16:\"3221_600x600.jpg\";s:5:\"small\";s:16:\"3221_485x360.jpg\";}', '0', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('33', '128', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"3221.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:10:\"3221-1.jpg\";s:9:\"thumbnail\";s:18:\"3221-1_150x150.jpg\";s:8:\"featured\";s:18:\"3221-1_600x600.jpg\";s:5:\"small\";s:18:\"3221-1_485x360.jpg\";}', '1', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('34', '128', '2', null, 'a:7:{s:9:\"file_name\";s:67:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_Copy.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:69:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-1.jpg\";s:9:\"thumbnail\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-1_150x150.jpg\";s:8:\"featured\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-1_600x600.jpg\";s:5:\"small\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-1_485x360.jpg\";}', '0', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('35', '125', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"3221.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:10:\"3221-2.jpg\";s:9:\"thumbnail\";s:18:\"3221-2_150x150.jpg\";s:8:\"featured\";s:18:\"3221-2_600x600.jpg\";s:5:\"small\";s:18:\"3221-2_485x360.jpg\";}', '1', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('36', '125', '2', null, 'a:7:{s:9:\"file_name\";s:16:\"Phnom-Penh-4.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:16:\"phnom-penh-4.jpg\";s:9:\"thumbnail\";s:24:\"phnom-penh-4_150x150.jpg\";s:8:\"featured\";s:24:\"phnom-penh-4_600x600.jpg\";s:5:\"small\";s:24:\"phnom-penh-4_485x360.jpg\";}', '0', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('37', '125', '2', null, 'a:7:{s:9:\"file_name\";s:54:\"Phnom-Penh-Extension-Header-shutterstock_142484584.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:56:\"phnom-penh-extension-header-shutterstock_142484584-1.jpg\";s:9:\"thumbnail\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-1_150x150.jpg\";s:8:\"featured\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-1_600x600.jpg\";s:5:\"small\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-1_485x360.jpg\";}', '0', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('38', '85', '2', null, 'a:7:{s:9:\"file_name\";s:67:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_Copy.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:69:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-2.jpg\";s:9:\"thumbnail\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-2_150x150.jpg\";s:8:\"featured\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-2_600x600.jpg\";s:5:\"small\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-2_485x360.jpg\";}', '1', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('39', '85', '2', null, 'a:7:{s:9:\"file_name\";s:54:\"Phnom-Penh-Extension-Header-shutterstock_142484584.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:56:\"phnom-penh-extension-header-shutterstock_142484584-2.jpg\";s:9:\"thumbnail\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-2_150x150.jpg\";s:8:\"featured\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-2_600x600.jpg\";s:5:\"small\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-2_485x360.jpg\";}', '0', '0', null);
-INSERT INTO `mrc_post_photos` VALUES ('40', '85', '2', null, 'a:7:{s:9:\"file_name\";s:16:\"Phnom-Penh-4.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:18:\"phnom-penh-4-1.jpg\";s:9:\"thumbnail\";s:26:\"phnom-penh-4-1_150x150.jpg\";s:8:\"featured\";s:26:\"phnom-penh-4-1_600x600.jpg\";s:5:\"small\";s:26:\"phnom-penh-4-1_485x360.jpg\";}', '0', '0', null);
+INSERT INTO `mrc_options` VALUES ('1194', '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:57:\"https://downloads.wordpress.org/release/wordpress-4.6.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:57:\"https://downloads.wordpress.org/release/wordpress-4.6.zip\";s:10:\"no_content\";s:68:\"https://downloads.wordpress.org/release/wordpress-4.6-no-content.zip\";s:11:\"new_bundled\";s:69:\"https://downloads.wordpress.org/release/wordpress-4.6-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:3:\"4.6\";s:7:\"version\";s:3:\"4.6\";s:11:\"php_version\";s:5:\"5.2.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.4\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1471494713;s:15:\"version_checked\";s:3:\"4.6\";s:12:\"translations\";a:0:{}}', 'no');
+INSERT INTO `mrc_options` VALUES ('1195', '_site_transient_timeout_theme_roots', '1471496514', 'no');
+INSERT INTO `mrc_options` VALUES ('1196', '_site_transient_theme_roots', 'a:1:{s:3:\"mrc\";s:7:\"/themes\";}', 'no');
+INSERT INTO `mrc_options` VALUES ('1197', 'can_compress_scripts', '1', 'no');
+INSERT INTO `mrc_options` VALUES ('1199', '_site_transient_update_plugins', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1471494742;s:7:\"checked\";a:11:{s:30:\"advanced-custom-fields/acf.php\";s:5:\"4.4.8\";s:38:\"acf-field-type-ringier/acf-ringier.php\";s:5:\"1.0.0\";s:43:\"custom-post-type-ui/custom-post-type-ui.php\";s:5:\"1.3.5\";s:31:\"query-monitor/query-monitor.php\";s:6:\"2.12.0\";s:33:\"ringier-social/ringier-social.php\";s:3:\"1.0\";s:25:\"ringier-v1/ringier-v1.php\";s:3:\"1.0\";s:33:\"theme-my-login/theme-my-login.php\";s:5:\"6.4.5\";s:37:\"user-role-editor/user-role-editor.php\";s:4:\"4.27\";s:27:\"wp-pagenavi/wp-pagenavi.php\";s:4:\"2.91\";s:27:\"wp-crontrol/wp-crontrol.php\";s:5:\"1.3.1\";s:24:\"wordpress-seo/wp-seo.php\";s:5:\"3.4.2\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:8:{s:30:\"advanced-custom-fields/acf.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"21367\";s:4:\"slug\";s:22:\"advanced-custom-fields\";s:6:\"plugin\";s:30:\"advanced-custom-fields/acf.php\";s:11:\"new_version\";s:5:\"4.4.8\";s:3:\"url\";s:53:\"https://wordpress.org/plugins/advanced-custom-fields/\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.8.zip\";}s:43:\"custom-post-type-ui/custom-post-type-ui.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"13183\";s:4:\"slug\";s:19:\"custom-post-type-ui\";s:6:\"plugin\";s:43:\"custom-post-type-ui/custom-post-type-ui.php\";s:11:\"new_version\";s:5:\"1.3.5\";s:3:\"url\";s:50:\"https://wordpress.org/plugins/custom-post-type-ui/\";s:7:\"package\";s:68:\"https://downloads.wordpress.org/plugin/custom-post-type-ui.1.3.5.zip\";}s:31:\"query-monitor/query-monitor.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"10302\";s:4:\"slug\";s:13:\"query-monitor\";s:6:\"plugin\";s:31:\"query-monitor/query-monitor.php\";s:11:\"new_version\";s:6:\"2.12.0\";s:3:\"url\";s:44:\"https://wordpress.org/plugins/query-monitor/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/query-monitor.2.12.0.zip\";}s:33:\"theme-my-login/theme-my-login.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"7109\";s:4:\"slug\";s:14:\"theme-my-login\";s:6:\"plugin\";s:33:\"theme-my-login/theme-my-login.php\";s:11:\"new_version\";s:5:\"6.4.5\";s:3:\"url\";s:45:\"https://wordpress.org/plugins/theme-my-login/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/theme-my-login.6.4.5.zip\";}s:37:\"user-role-editor/user-role-editor.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:5:\"13697\";s:4:\"slug\";s:16:\"user-role-editor\";s:6:\"plugin\";s:37:\"user-role-editor/user-role-editor.php\";s:11:\"new_version\";s:4:\"4.27\";s:3:\"url\";s:47:\"https://wordpress.org/plugins/user-role-editor/\";s:7:\"package\";s:59:\"https://downloads.wordpress.org/plugin/user-role-editor.zip\";}s:27:\"wp-pagenavi/wp-pagenavi.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:3:\"363\";s:4:\"slug\";s:11:\"wp-pagenavi\";s:6:\"plugin\";s:27:\"wp-pagenavi/wp-pagenavi.php\";s:11:\"new_version\";s:4:\"2.91\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/wp-pagenavi/\";s:7:\"package\";s:59:\"https://downloads.wordpress.org/plugin/wp-pagenavi.2.91.zip\";}s:27:\"wp-crontrol/wp-crontrol.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"1426\";s:4:\"slug\";s:11:\"wp-crontrol\";s:6:\"plugin\";s:27:\"wp-crontrol/wp-crontrol.php\";s:11:\"new_version\";s:5:\"1.3.1\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/wp-crontrol/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/wp-crontrol.1.3.1.zip\";}s:24:\"wordpress-seo/wp-seo.php\";O:8:\"stdClass\":6:{s:2:\"id\";s:4:\"5899\";s:4:\"slug\";s:13:\"wordpress-seo\";s:6:\"plugin\";s:24:\"wordpress-seo/wp-seo.php\";s:11:\"new_version\";s:5:\"3.4.2\";s:3:\"url\";s:44:\"https://wordpress.org/plugins/wordpress-seo/\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/plugin/wordpress-seo.3.4.2.zip\";}}}', 'no');
 
 -- ----------------------------
 -- Table structure for mrc_postmeta
@@ -1658,28 +1606,57 @@ INSERT INTO `mrc_posts` VALUES ('228', '5', '2016-08-17 14:40:37', '0000-00-00 0
 INSERT INTO `mrc_posts` VALUES ('229', '1', '2016-08-18 03:56:51', '0000-00-00 00:00:00', '', 'Auto Draft', '', 'auto-draft', 'open', 'open', '', '', '', '', '2016-08-18 03:56:51', '0000-00-00 00:00:00', '', '0', 'http://www.vietcruises.com/?p=229', '0', 'post', '', '0');
 
 -- ----------------------------
--- Table structure for mrc_room_types
+-- Table structure for mrc_post_info
 -- ----------------------------
-DROP TABLE IF EXISTS `mrc_room_types`;
-CREATE TABLE `mrc_room_types` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `ship_id` int(10) unsigned DEFAULT NULL,
-  `room_type_name` varchar(500) DEFAULT NULL,
-  `twin_high_season_price` float unsigned DEFAULT NULL,
-  `single_high_season_price` float DEFAULT NULL,
-  `twin_low_season_price` float DEFAULT NULL,
-  `single_low_season_price` float DEFAULT NULL,
-  `deck_plan` varchar(255) DEFAULT NULL,
+DROP TABLE IF EXISTS `mrc_post_info`;
+CREATE TABLE `mrc_post_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `object_id` int(11) NOT NULL,
+  `countries` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of mrc_room_types
+-- Records of mrc_post_info
 -- ----------------------------
-INSERT INTO `mrc_room_types` VALUES ('1', '65', 'Saigon Suite', '1400', '2800', '1200', '2400', 'Main Deck');
-INSERT INTO `mrc_room_types` VALUES ('2', '65', 'Apsara Suite', '2400', '2800', '2000', '2200', 'Upper Deck');
-INSERT INTO `mrc_room_types` VALUES ('3', '65', 'Tonle Suite', '2200', '2400', '1800', '2000', 'Upper Deck');
-INSERT INTO `mrc_room_types` VALUES ('4', '65', 'Angkor Suite', '1800', '2000', '1500', '1600', 'Upper Deck');
+INSERT INTO `mrc_post_info` VALUES ('1', '26', 'a:5:{i:0;s:2:\"af\";i:1;s:2:\"al\";i:2;s:2:\"as\";i:3;s:2:\"kh\";i:4;s:2:\"vn\";}');
+INSERT INTO `mrc_post_info` VALUES ('2', '25', 'a:2:{i:0;s:2:\"kh\";i:1;s:2:\"vn\";}');
+
+-- ----------------------------
+-- Table structure for mrc_post_photos
+-- ----------------------------
+DROP TABLE IF EXISTS `mrc_post_photos`;
+CREATE TABLE `mrc_post_photos` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` bigint(20) unsigned DEFAULT NULL,
+  `user_id` bigint(10) unsigned DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `images` text,
+  `is_featured` tinyint(1) DEFAULT '0',
+  `ordering` tinyint(4) unsigned DEFAULT '0',
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mrc_post_photos
+-- ----------------------------
+INSERT INTO `mrc_post_photos` VALUES ('10', '82', '1', null, 'a:6:{s:9:\"file_name\";s:28:\"15060186950_d7d43bcab8_k.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/1/2016/07/25\";s:4:\"path\";s:50:\"/var/www/mrc/wp-content/uploads/users/1/2016/07/25\";s:8:\"original\";s:28:\"15060186950_d7d43bcab8_k.jpg\";s:9:\"thumbnail\";s:28:\"15060186950_d7d43bcab8_k.jpg\";s:8:\"featured\";s:28:\"15060186950_d7d43bcab8_k.jpg\";}', '1', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('11', '20', '1', null, 'a:6:{s:9:\"file_name\";s:12:\"IMG_0410.JPG\";s:3:\"url\";s:38:\"/wp-content/uploads/users/1/2016/07/25\";s:4:\"path\";s:50:\"/var/www/mrc/wp-content/uploads/users/1/2016/07/25\";s:8:\"original\";s:12:\"img_0410.jpg\";s:9:\"thumbnail\";s:12:\"img_0410.jpg\";s:8:\"featured\";s:12:\"img_0410.jpg\";}', '1', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('12', '25', '1', null, 'a:6:{s:9:\"file_name\";s:10:\"498081.png\";s:3:\"url\";s:38:\"/wp-content/uploads/users/1/2016/07/25\";s:4:\"path\";s:50:\"/var/www/mrc/wp-content/uploads/users/1/2016/07/25\";s:8:\"original\";s:12:\"498081-1.png\";s:9:\"thumbnail\";s:12:\"498081-1.png\";s:8:\"featured\";s:12:\"498081-1.png\";}', '1', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('28', '21', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"bg-1.png\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:8:\"bg-1.png\";s:9:\"thumbnail\";s:16:\"bg-1_150x150.png\";s:8:\"featured\";s:16:\"bg-1_600x600.png\";s:5:\"small\";s:16:\"bg-1_485x360.png\";}', '1', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('29', '21', '2', null, 'a:7:{s:9:\"file_name\";s:54:\"Phnom-Penh-Extension-Header-shutterstock_142484584.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:54:\"phnom-penh-extension-header-shutterstock_142484584.jpg\";s:9:\"thumbnail\";s:62:\"phnom-penh-extension-header-shutterstock_142484584_150x150.jpg\";s:8:\"featured\";s:62:\"phnom-penh-extension-header-shutterstock_142484584_600x600.jpg\";s:5:\"small\";s:62:\"phnom-penh-extension-header-shutterstock_142484584_485x360.jpg\";}', '0', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('30', '65', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"bg-1.png\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:10:\"bg-1-1.png\";s:9:\"thumbnail\";s:18:\"bg-1-1_150x150.png\";s:8:\"featured\";s:18:\"bg-1-1_600x600.png\";s:5:\"small\";s:18:\"bg-1-1_485x360.png\";}', '1', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('31', '65', '2', null, 'a:7:{s:9:\"file_name\";s:67:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_Copy.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:67:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy.jpg\";s:9:\"thumbnail\";s:75:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy_150x150.jpg\";s:8:\"featured\";s:75:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy_600x600.jpg\";s:5:\"small\";s:75:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy_485x360.jpg\";}', '0', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('32', '65', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"3221.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:8:\"3221.jpg\";s:9:\"thumbnail\";s:16:\"3221_150x150.jpg\";s:8:\"featured\";s:16:\"3221_600x600.jpg\";s:5:\"small\";s:16:\"3221_485x360.jpg\";}', '0', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('33', '128', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"3221.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:10:\"3221-1.jpg\";s:9:\"thumbnail\";s:18:\"3221-1_150x150.jpg\";s:8:\"featured\";s:18:\"3221-1_600x600.jpg\";s:5:\"small\";s:18:\"3221-1_485x360.jpg\";}', '1', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('34', '128', '2', null, 'a:7:{s:9:\"file_name\";s:67:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_Copy.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:69:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-1.jpg\";s:9:\"thumbnail\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-1_150x150.jpg\";s:8:\"featured\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-1_600x600.jpg\";s:5:\"small\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-1_485x360.jpg\";}', '0', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('35', '125', '2', null, 'a:7:{s:9:\"file_name\";s:8:\"3221.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:10:\"3221-2.jpg\";s:9:\"thumbnail\";s:18:\"3221-2_150x150.jpg\";s:8:\"featured\";s:18:\"3221-2_600x600.jpg\";s:5:\"small\";s:18:\"3221-2_485x360.jpg\";}', '1', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('36', '125', '2', null, 'a:7:{s:9:\"file_name\";s:16:\"Phnom-Penh-4.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:16:\"phnom-penh-4.jpg\";s:9:\"thumbnail\";s:24:\"phnom-penh-4_150x150.jpg\";s:8:\"featured\";s:24:\"phnom-penh-4_600x600.jpg\";s:5:\"small\";s:24:\"phnom-penh-4_485x360.jpg\";}', '0', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('37', '125', '2', null, 'a:7:{s:9:\"file_name\";s:54:\"Phnom-Penh-Extension-Header-shutterstock_142484584.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:56:\"phnom-penh-extension-header-shutterstock_142484584-1.jpg\";s:9:\"thumbnail\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-1_150x150.jpg\";s:8:\"featured\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-1_600x600.jpg\";s:5:\"small\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-1_485x360.jpg\";}', '0', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('38', '85', '2', null, 'a:7:{s:9:\"file_name\";s:67:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_Copy.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:69:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-2.jpg\";s:9:\"thumbnail\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-2_150x150.jpg\";s:8:\"featured\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-2_600x600.jpg\";s:5:\"small\";s:77:\"18-an-lam-saigon-river-private-residences-ho-chi-minh-city_copy-2_485x360.jpg\";}', '1', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('39', '85', '2', null, 'a:7:{s:9:\"file_name\";s:54:\"Phnom-Penh-Extension-Header-shutterstock_142484584.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:56:\"phnom-penh-extension-header-shutterstock_142484584-2.jpg\";s:9:\"thumbnail\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-2_150x150.jpg\";s:8:\"featured\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-2_600x600.jpg\";s:5:\"small\";s:64:\"phnom-penh-extension-header-shutterstock_142484584-2_485x360.jpg\";}', '0', '0', null);
+INSERT INTO `mrc_post_photos` VALUES ('40', '85', '2', null, 'a:7:{s:9:\"file_name\";s:16:\"Phnom-Penh-4.jpg\";s:3:\"url\";s:38:\"/wp-content/uploads/users/2/2016/08/02\";s:4:\"path\";s:80:\"C:\\Users\\Administrator\\Dropbox\\project\\mrc/wp-content/uploads/users/2/2016/08/02\";s:8:\"original\";s:18:\"phnom-penh-4-1.jpg\";s:9:\"thumbnail\";s:26:\"phnom-penh-4-1_150x150.jpg\";s:8:\"featured\";s:26:\"phnom-penh-4-1_600x600.jpg\";s:5:\"small\";s:26:\"phnom-penh-4-1_485x360.jpg\";}', '0', '0', null);
 
 -- ----------------------------
 -- Table structure for mrc_rooms
@@ -1713,6 +1690,30 @@ INSERT INTO `mrc_rooms` VALUES ('11', '3', '207', '49.6%', '67.2%', '7%', '7.6%'
 INSERT INTO `mrc_rooms` VALUES ('12', '3', '208', '49.6%', '76.5%', '7%', '7.5%');
 
 -- ----------------------------
+-- Table structure for mrc_room_types
+-- ----------------------------
+DROP TABLE IF EXISTS `mrc_room_types`;
+CREATE TABLE `mrc_room_types` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `ship_id` int(10) unsigned DEFAULT NULL,
+  `room_type_name` varchar(500) DEFAULT NULL,
+  `twin_high_season_price` float unsigned DEFAULT NULL,
+  `single_high_season_price` float DEFAULT NULL,
+  `twin_low_season_price` float DEFAULT NULL,
+  `single_low_season_price` float DEFAULT NULL,
+  `deck_plan` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mrc_room_types
+-- ----------------------------
+INSERT INTO `mrc_room_types` VALUES ('1', '65', 'Saigon Suite', '1400', '2800', '1200', '2400', 'Main Deck');
+INSERT INTO `mrc_room_types` VALUES ('2', '65', 'Apsara Suite', '2400', '2800', '2000', '2200', 'Upper Deck');
+INSERT INTO `mrc_room_types` VALUES ('3', '65', 'Tonle Suite', '2200', '2400', '1800', '2000', 'Upper Deck');
+INSERT INTO `mrc_room_types` VALUES ('4', '65', 'Angkor Suite', '1800', '2000', '1500', '1600', 'Upper Deck');
+
+-- ----------------------------
 -- Table structure for mrc_ship_info
 -- ----------------------------
 DROP TABLE IF EXISTS `mrc_ship_info`;
@@ -1735,6 +1736,43 @@ CREATE TABLE `mrc_ship_info` (
 -- Records of mrc_ship_info
 -- ----------------------------
 INSERT INTO `mrc_ship_info` VALUES ('65', 'mekong_princess.jpg', '<ul>\r\n 	<li>Build 2012 in Saigon</li>\r\n 	<li>Length: 138.61ft / 42.25m</li>\r\n 	<li>Beam: 28.50ft / 8.70m</li>\r\n 	<li>Draught: 3ft / 90cm</li>\r\n 	<li>Berths: 32 pax</li>\r\n</ul>', '<ul>\r\n 	<li>10 main deck and 6 upper deck staterooms</li>\r\n 	<li>Air-conditioned panorama dining room</li>\r\n 	<li>Spacious, open-air lounge</li>\r\n 	<li>Observation deck</li>\r\n 	<li>Lounge bar</li>\r\n 	<li>24hrs hospitality bar</li>\r\n 	<li>Fair-trade Shop</li>\r\n 	<li>Guest relation desk</li>\r\n 	<li>Library with contemporary and classic literature</li>\r\n</ul>', '<ul>\r\n 	<li>Local master chef heading an experienced international culinary team</li>\r\n 	<li>Semi-buffet breakfast, Semi-buffet lunch, and seated theme dinners</li>\r\n 	<li>Daily lean &amp; light menu options</li>\r\n 	<li>Complimentary coffee, water, tea, soft drinks, local beer, local spirits, juices</li>\r\n 	<li>Extensive wine list with premium wines</li>\r\n 	<li>Series of cultural performances, educational talks, cooking classes, and ship tour</li>\r\n 	<li>Welcome drink on arrival</li>\r\n 	<li>Welcome cocktail</li>\r\n 	<li>Farewell Reception</li>\r\n 	<li>Theme dinners</li>\r\n 	<li>Lounge bar</li>\r\n 	<li>24hrs hospitality bar</li>\r\n 	<li>Onboard bakery with daily freshly baked breads and rolls</li>\r\n</ul>', '<ul>\r\n 	<li>Admissions</li>\r\n 	<li>Shoe cleaning after excursions</li>\r\n 	<li>Bottled drinking water</li>\r\n 	<li>Cold towel service after excursions</li>\r\n 	<li>Refreshing drink following excursions</li>\r\n 	<li>Full-size motor coach on all excursions</li>\r\n 	<li>1st aid trained assistant guide to follow all tours and excursions</li>\r\n</ul>', '<ul>\r\n 	<li>All onboard crew is trained and certified as per international marine standards (VIRES)</li>\r\n 	<li>Fire alarm system in all cabins, public areas and back areas</li>\r\n 	<li>Fire fighting system in all ship areas</li>\r\n 	<li>Expert marine superintendant</li>\r\n 	<li>24 hrs watch on duty</li>\r\n 	<li>Certified hygiene standards for all areas (Johnson &amp; Diversey)</li>\r\n</ul>', '<ul>\r\n 	<li>Captain</li>\r\n 	<li>River Pilot</li>\r\n 	<li>First Officer</li>\r\n 	<li>Chief Engineer</li>\r\n 	<li>1st Engineer</li>\r\n 	<li>Electrician</li>\r\n 	<li>Bosun &amp; nautical crew</li>\r\n 	<li>Ship manager</li>\r\n 	<li>Housekeeping</li>\r\n 	<li>Dining</li>\r\n 	<li>Bar keeper</li>\r\n 	<li>Chefs</li>\r\n 	<li>Local tour guides</li>\r\n</ul>', '<ul>\r\n 	<li>Guest relation desk</li>\r\n 	<li>Shop, supporting fair trade</li>\r\n 	<li>Library with contemporary and classic literature</li>\r\n 	<li>Wireless internet in all public areas</li>\r\n</ul>', '2016-07-25 00:00:00', '2016-07-31 00:00:00');
+
+-- ----------------------------
+-- Table structure for mrc_termmeta
+-- ----------------------------
+DROP TABLE IF EXISTS `mrc_termmeta`;
+CREATE TABLE `mrc_termmeta` (
+  `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `term_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `term_id` (`term_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of mrc_termmeta
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for mrc_terms
+-- ----------------------------
+DROP TABLE IF EXISTS `mrc_terms`;
+CREATE TABLE `mrc_terms` (
+  `term_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `slug` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `term_group` bigint(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`term_id`),
+  KEY `slug` (`slug`(191)),
+  KEY `name` (`name`(191))
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of mrc_terms
+-- ----------------------------
+INSERT INTO `mrc_terms` VALUES ('1', 'Uncategorized', 'uncategorized', '0');
 
 -- ----------------------------
 -- Table structure for mrc_term_relationships
@@ -1774,43 +1812,6 @@ CREATE TABLE `mrc_term_taxonomy` (
 -- Records of mrc_term_taxonomy
 -- ----------------------------
 INSERT INTO `mrc_term_taxonomy` VALUES ('1', '1', 'category', '', '0', '0');
-
--- ----------------------------
--- Table structure for mrc_termmeta
--- ----------------------------
-DROP TABLE IF EXISTS `mrc_termmeta`;
-CREATE TABLE `mrc_termmeta` (
-  `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `term_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `term_id` (`term_id`),
-  KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of mrc_termmeta
--- ----------------------------
-
--- ----------------------------
--- Table structure for mrc_terms
--- ----------------------------
-DROP TABLE IF EXISTS `mrc_terms`;
-CREATE TABLE `mrc_terms` (
-  `term_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `slug` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `term_group` bigint(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`term_id`),
-  KEY `slug` (`slug`(191)),
-  KEY `name` (`name`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of mrc_terms
--- ----------------------------
-INSERT INTO `mrc_terms` VALUES ('1', 'Uncategorized', 'uncategorized', '0');
 
 -- ----------------------------
 -- Table structure for mrc_tour_info
@@ -1890,26 +1891,6 @@ CREATE TABLE `mrc_transactions` (
 -- Records of mrc_transactions
 -- ----------------------------
 INSERT INTO `mrc_transactions` VALUES ('1', '65176', '50000', '0', '', '', 'pay', 'vn', 'Marrybaby_Day_65176_20160628073815', 'TESTRINGIER', 'Mua ve MarryBaby Day 2016', '', '1100000105', '1', '2C10E3B5E4BFB08464FF63665F52BA97', 'VC', 'N', 'Z', 'Unsupported', '422157', 'ACC', '20160628', 'E', '3DS', '0', '2016-06-28 14:38:56');
-
--- ----------------------------
--- Table structure for mrc_user_info
--- ----------------------------
-DROP TABLE IF EXISTS `mrc_user_info`;
-CREATE TABLE `mrc_user_info` (
-  `user_id` bigint(20) NOT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `nationality` varchar(255) DEFAULT NULL,
-  `avatar` varchar(255) DEFAULT NULL,
-  `gender` varchar(255) DEFAULT NULL,
-  `birth_year` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `update_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of mrc_user_info
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for mrc_usermeta
@@ -2013,7 +1994,7 @@ INSERT INTO `mrc_usermeta` VALUES ('91', '3', 'closedpostboxes_dashboard', 'a:1:
 INSERT INTO `mrc_usermeta` VALUES ('92', '3', 'metaboxhidden_dashboard', 'a:0:{}');
 INSERT INTO `mrc_usermeta` VALUES ('93', '1', 'closedpostboxes_dashboard', 'a:1:{i:0;s:17:\"dashboard_primary\";}');
 INSERT INTO `mrc_usermeta` VALUES ('94', '1', 'metaboxhidden_dashboard', 'a:1:{i:0;s:17:\"dashboard_primary\";}');
-INSERT INTO `mrc_usermeta` VALUES ('95', '1', 'session_tokens', 'a:8:{s:64:\"5e8fd0301b98659bf05759f5d946e0a434a633ebaa3c405d582c8e672a61b06b\";a:4:{s:10:\"expiration\";i:1472012192;s:2:\"ip\";s:9:\"127.0.0.1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1470802592;}s:64:\"7c40005d1adc172c6b7ab6c62643283b444d6e88eaa82931047122303a08c444\";a:4:{s:10:\"expiration\";i:1471496639;s:2:\"ip\";s:13:\"118.69.111.11\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471323839;}s:64:\"6eb3f2a7b50be24e058d3ac335b7014f0b8e2f32180f3a0c1f398ef566227982\";a:4:{s:10:\"expiration\";i:1471504616;s:2:\"ip\";s:13:\"118.69.111.11\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471331816;}s:64:\"09c4bc9cac200f47a10fcf138a6e5ab3fc08b0a30914520239bd83f508f14c71\";a:4:{s:10:\"expiration\";i:1471518470;s:2:\"ip\";s:14:\"113.161.68.139\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471345670;}s:64:\"cf1ee171276f04265ba3ca85e6a89607881b3e5bd1ad835788560d46e1c203a7\";a:4:{s:10:\"expiration\";i:1471535213;s:2:\"ip\";s:14:\"115.79.244.131\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471362413;}s:64:\"f8bfa0adbe10973284e3b00a4112fc714d6c117b2a24b1458994e36a56f16b94\";a:4:{s:10:\"expiration\";i:1471605518;s:2:\"ip\";s:13:\"118.69.111.11\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471432718;}s:64:\"6f9bf3c326d632f9a2e0fb4a6dfe364766ae5525cffc88b109cc468f35fbf9c1\";a:4:{s:10:\"expiration\";i:1471651436;s:2:\"ip\";s:14:\"171.232.49.227\";s:2:\"ua\";s:137:\"Mozilla/5.0 (Linux; Android 5.0.1; GT-I9500 Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36\";s:5:\"login\";i:1471478636;}s:64:\"f784e17e2b046b9d7c0d7377f4bd088d314c873d31c7fbc0a9565175a2958a1a\";a:4:{s:10:\"expiration\";i:1471665375;s:2:\"ip\";s:13:\"118.69.111.11\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471492575;}}');
+INSERT INTO `mrc_usermeta` VALUES ('95', '1', 'session_tokens', 'a:9:{s:64:\"5e8fd0301b98659bf05759f5d946e0a434a633ebaa3c405d582c8e672a61b06b\";a:4:{s:10:\"expiration\";i:1472012192;s:2:\"ip\";s:9:\"127.0.0.1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1470802592;}s:64:\"7c40005d1adc172c6b7ab6c62643283b444d6e88eaa82931047122303a08c444\";a:4:{s:10:\"expiration\";i:1471496639;s:2:\"ip\";s:13:\"118.69.111.11\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471323839;}s:64:\"6eb3f2a7b50be24e058d3ac335b7014f0b8e2f32180f3a0c1f398ef566227982\";a:4:{s:10:\"expiration\";i:1471504616;s:2:\"ip\";s:13:\"118.69.111.11\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471331816;}s:64:\"09c4bc9cac200f47a10fcf138a6e5ab3fc08b0a30914520239bd83f508f14c71\";a:4:{s:10:\"expiration\";i:1471518470;s:2:\"ip\";s:14:\"113.161.68.139\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471345670;}s:64:\"cf1ee171276f04265ba3ca85e6a89607881b3e5bd1ad835788560d46e1c203a7\";a:4:{s:10:\"expiration\";i:1471535213;s:2:\"ip\";s:14:\"115.79.244.131\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471362413;}s:64:\"f8bfa0adbe10973284e3b00a4112fc714d6c117b2a24b1458994e36a56f16b94\";a:4:{s:10:\"expiration\";i:1471605518;s:2:\"ip\";s:13:\"118.69.111.11\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471432718;}s:64:\"6f9bf3c326d632f9a2e0fb4a6dfe364766ae5525cffc88b109cc468f35fbf9c1\";a:4:{s:10:\"expiration\";i:1471651436;s:2:\"ip\";s:14:\"171.232.49.227\";s:2:\"ua\";s:137:\"Mozilla/5.0 (Linux; Android 5.0.1; GT-I9500 Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36\";s:5:\"login\";i:1471478636;}s:64:\"f784e17e2b046b9d7c0d7377f4bd088d314c873d31c7fbc0a9565175a2958a1a\";a:4:{s:10:\"expiration\";i:1471665375;s:2:\"ip\";s:13:\"118.69.111.11\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471492575;}s:64:\"1ea6fc18c920e64981cdb1a811daeb97cf65cc17c0f8700d3c75de0ff54d216f\";a:4:{s:10:\"expiration\";i:1471666857;s:2:\"ip\";s:9:\"127.0.0.1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36\";s:5:\"login\";i:1471494057;}}');
 INSERT INTO `mrc_usermeta` VALUES ('96', '2', 'closedpostboxes_offer', 'a:1:{i:0;s:10:\"wpseo_meta\";}');
 INSERT INTO `mrc_usermeta` VALUES ('97', '2', 'metaboxhidden_offer', 'a:9:{i:0;s:7:\"acf_101\";i:1;s:6:\"acf_69\";i:2;s:6:\"acf_90\";i:3;s:6:\"acf_33\";i:4;s:6:\"acf_38\";i:5;s:6:\"acf_99\";i:6;s:6:\"acf_88\";i:7;s:6:\"acf_87\";i:8;s:7:\"slugdiv\";}');
 INSERT INTO `mrc_usermeta` VALUES ('98', '2', 'meta-box-order_ship', 'a:4:{s:15:\"acf_after_title\";s:0:\"\";s:4:\"side\";s:22:\"submitdiv,postimagediv\";s:6:\"normal\";s:82:\"room_info,acf_87,acf_101,acf_69,acf_90,acf_33,acf_109,acf_38,acf_99,acf_88,slugdiv\";s:8:\"advanced\";s:0:\"\";}');
@@ -2045,7 +2026,7 @@ INSERT INTO `mrc_usermeta` VALUES ('125', '1', 'closedpostboxes_pretour', 'a:1:{
 INSERT INTO `mrc_usermeta` VALUES ('126', '1', 'metaboxhidden_pretour', 'a:9:{i:0;s:7:\"acf_101\";i:1;s:6:\"acf_69\";i:2;s:6:\"acf_90\";i:3;s:6:\"acf_33\";i:4;s:7:\"acf_109\";i:5;s:6:\"acf_38\";i:6;s:6:\"acf_88\";i:7;s:6:\"acf_87\";i:8;s:7:\"slugdiv\";}');
 INSERT INTO `mrc_usermeta` VALUES ('127', '1', 'meta-box-order_pretour', 'a:4:{s:15:\"acf_after_title\";s:0:\"\";s:4:\"side\";s:22:\"submitdiv,postimagediv\";s:6:\"normal\";s:83:\"acf_101,acf_69,acf_90,acf_33,acf_109,acf_38,acf_99,wpseo_meta,acf_88,acf_87,slugdiv\";s:8:\"advanced\";s:0:\"\";}');
 INSERT INTO `mrc_usermeta` VALUES ('128', '1', 'screen_layout_pretour', '2');
-INSERT INTO `mrc_usermeta` VALUES ('129', '1', 'mrc_yoast_notifications', 'a:3:{i:0;a:2:{s:7:\"message\";s:158:\"<a href=\"https://yoa.st/onpageindexerror\" target=\"_blank\">Your homepage cannot be indexed by search engines</a>. This is very bad for SEO and should be fixed.\";s:7:\"options\";a:8:{s:4:\"type\";s:5:\"error\";s:2:\"id\";s:23:\"wpseo-dismiss-onpageorg\";s:5:\"nonce\";N;s:8:\"priority\";d:0.5;s:9:\"data_json\";a:0:{}s:13:\"dismissal_key\";N;s:12:\"capabilities\";s:14:\"manage_options\";s:16:\"capability_check\";s:3:\"all\";}}i:1;a:2:{s:7:\"message\";s:169:\"Don\'t miss your crawl errors: <a href=\"http://www.vietcruises.com/wp-admin/admin.php?page=wpseo_search_console&tab=settings\">connect with Google Search Console here</a>.\";s:7:\"options\";a:8:{s:4:\"type\";s:7:\"warning\";s:2:\"id\";s:17:\"wpseo-dismiss-gsc\";s:5:\"nonce\";N;s:8:\"priority\";d:0.5;s:9:\"data_json\";a:0:{}s:13:\"dismissal_key\";N;s:12:\"capabilities\";s:14:\"manage_options\";s:16:\"capability_check\";s:3:\"all\";}}i:2;a:2:{s:7:\"message\";s:154:\"Yoast SEO has been updated to version 3.4.2. <a href=\"http://www.vietcruises.com/wp-admin/admin.php?page=wpseo_dashboard&intro=1\">Find out what\'s new!</a>\";s:7:\"options\";a:8:{s:4:\"type\";s:7:\"updated\";s:2:\"id\";s:19:\"wpseo-dismiss-about\";s:5:\"nonce\";N;s:8:\"priority\";d:0.5;s:9:\"data_json\";a:0:{}s:13:\"dismissal_key\";N;s:12:\"capabilities\";s:14:\"manage_options\";s:16:\"capability_check\";s:3:\"all\";}}}');
+INSERT INTO `mrc_usermeta` VALUES ('129', '1', 'mrc_yoast_notifications', 'a:3:{i:0;a:2:{s:7:\"message\";s:158:\"<a href=\"https://yoa.st/onpageindexerror\" target=\"_blank\">Your homepage cannot be indexed by search engines</a>. This is very bad for SEO and should be fixed.\";s:7:\"options\";a:8:{s:4:\"type\";s:5:\"error\";s:2:\"id\";s:23:\"wpseo-dismiss-onpageorg\";s:5:\"nonce\";N;s:8:\"priority\";d:0.5;s:9:\"data_json\";a:0:{}s:13:\"dismissal_key\";N;s:12:\"capabilities\";s:14:\"manage_options\";s:16:\"capability_check\";s:3:\"all\";}}i:1;a:2:{s:7:\"message\";s:163:\"Don\'t miss your crawl errors: <a href=\"http://local.mrc.com/wp-admin/admin.php?page=wpseo_search_console&tab=settings\">connect with Google Search Console here</a>.\";s:7:\"options\";a:8:{s:4:\"type\";s:7:\"warning\";s:2:\"id\";s:17:\"wpseo-dismiss-gsc\";s:5:\"nonce\";N;s:8:\"priority\";d:0.5;s:9:\"data_json\";a:0:{}s:13:\"dismissal_key\";N;s:12:\"capabilities\";s:14:\"manage_options\";s:16:\"capability_check\";s:3:\"all\";}}i:2;a:2:{s:7:\"message\";s:148:\"Yoast SEO has been updated to version 3.4.2. <a href=\"http://local.mrc.com/wp-admin/admin.php?page=wpseo_dashboard&intro=1\">Find out what\'s new!</a>\";s:7:\"options\";a:8:{s:4:\"type\";s:7:\"updated\";s:2:\"id\";s:19:\"wpseo-dismiss-about\";s:5:\"nonce\";N;s:8:\"priority\";d:0.5;s:9:\"data_json\";a:0:{}s:13:\"dismissal_key\";N;s:12:\"capabilities\";s:14:\"manage_options\";s:16:\"capability_check\";s:3:\"all\";}}}');
 INSERT INTO `mrc_usermeta` VALUES ('130', '1', 'closedpostboxes_addon', 'a:1:{i:0;s:10:\"wpseo_meta\";}');
 INSERT INTO `mrc_usermeta` VALUES ('131', '1', 'metaboxhidden_addon', 'a:9:{i:0;s:6:\"acf_69\";i:1;s:6:\"acf_90\";i:2;s:6:\"acf_33\";i:3;s:7:\"acf_109\";i:4;s:6:\"acf_38\";i:5;s:6:\"acf_99\";i:6;s:6:\"acf_88\";i:7;s:6:\"acf_87\";i:8;s:7:\"slugdiv\";}');
 INSERT INTO `mrc_usermeta` VALUES ('132', '1', 'closedpostboxes_posttour', 'a:1:{i:0;s:10:\"wpseo_meta\";}');
@@ -2137,3 +2118,23 @@ INSERT INTO `mrc_users` VALUES ('2', 'vosydao88@gmail.com', '$P$B5zOeDKQ6uasN6bD
 INSERT INTO `mrc_users` VALUES ('3', 'mrc_mod@gmail.com', '$P$BnigPYFl7pDr8lIaKYfh5bzvMTqIC01', 'mrc_modgmail-com', 'mrc_mod@gmail.com', '', '2016-07-22 03:34:35', '', '0', 'Moderator');
 INSERT INTO `mrc_users` VALUES ('4', 'dinhdong.tran@gmail.com', '$P$Btb.L3Ixzgz3aEzKFyfIsxbFcY4t.G0', 'dinhdong-trangmail-com', 'dinhdong.tran@gmail.com', '', '2016-07-31 19:07:56', '1469992077:$P$BG4nQtAau6g0IA4S.BYGGqtj3a8usP/', '0', 'Đình Đông Trần');
 INSERT INTO `mrc_users` VALUES ('5', 'phong.ha', '$P$Bsa//wsXegi9m/jYo7J1mvDur6PQaX/', 'phong-ha', 'phong.ha@indochinapartnertravel.com', '', '2016-08-17 13:48:44', '1471441724:$P$BUUUR.fNYmLkB1BYrG54n90SNYm0Jo0', '0', 'Phong Ha');
+
+-- ----------------------------
+-- Table structure for mrc_user_info
+-- ----------------------------
+DROP TABLE IF EXISTS `mrc_user_info`;
+CREATE TABLE `mrc_user_info` (
+  `user_id` bigint(20) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `nationality` varchar(255) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `birth_year` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mrc_user_info
+-- ----------------------------

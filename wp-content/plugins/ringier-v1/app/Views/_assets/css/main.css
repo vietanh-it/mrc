@@ -525,7 +525,6 @@ nav ul.navbar-nav li.active a{
 }
 .connect-email{
     position: relative;
-    overflow: hidden;
     width: 400px;
 }
 .connect-email button{
@@ -537,7 +536,7 @@ nav ul.navbar-nav li.active a{
     border-left: 1px solid #ccc;
     top: 0;
     background: none;
-    font-size: 25px;
+    font-size: 23px;
 }
 .social-icon{
     padding-left: 0;

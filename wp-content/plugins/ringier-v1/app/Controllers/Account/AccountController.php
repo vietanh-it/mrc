@@ -10,6 +10,9 @@ class AccountController extends _BaseController
     protected function __construct()
     {
         parent::__construct();
+
+        add_action("wp_ajax_ajax_handler_account", [$this, "ajaxHandler"]);
+        add_action("wp_ajax_nopriv_ajax_handler_account", [$this, "ajaxHandler"]);
     }
 
     public static function init()
@@ -50,6 +53,38 @@ class AccountController extends _BaseController
     {
 
         return view('account/profile',compact('template','profileuser'));
+    }
+
+    public function ajaxConnectEmail($data){
+
+        if($data['c_email']){
+            if(is_email($data['c_email'])){
+
+                $args= array(
+                    'email' => $data['c_email'],
+                    'name' => !empty($data['c_name']) ? $data['c_name'] : $data['c_email'],
+                );
+                //add to sendy
+                //
+
+                $result = array(
+                    'status' => 'success',
+                    'message' => 'Connect email success.',
+                );
+            }else{
+                $result = array(
+                    'status' => 'error',
+                    'message' => array('Email not email.'),
+                );
+            }
+        }else{
+            $result = array(
+                'status' => 'error',
+                'message' => array('Please enter your email.'),
+            );
+        }
+
+        return $result;
     }
 }
 

@@ -9,6 +9,8 @@
 
                         <form class="connect-email">
                             <input type="email" class="form-control" name="c_email" placeholder="Your email address">
+                            <input type="hidden" name="action" value="ajax_handler_account">
+                            <input type="hidden" name="method" value="ConnectEmail">
                             <button type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
                         </form>
                     </div>

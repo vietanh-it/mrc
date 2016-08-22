@@ -66,7 +66,8 @@ class Addon
 
         if (empty($params['post_type'])) {
             $where .= ' AND p.post_type IN ("addon","tour")';
-        } else {
+        }
+        else {
             $where .= ' AND p.post_type = ' . $params['post_type'];
         }
 
@@ -156,7 +157,8 @@ class Addon
             }
 
             $result = $this->_wpdb->get_results($query);
-        } else {
+        }
+        else {
             $result = [];
         }
 
@@ -170,9 +172,11 @@ class Addon
             $current_status = $this->_wpdb->get_var("SELECT status FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND object_id = {$object_id} LIMIT 1");
             if ($current_status == 'active') {
                 $next_status = 'inactive';
-            } elseif ($current_status == 'inactive') {
+            }
+            elseif ($current_status == 'inactive') {
                 $next_status = 'active';
-            } else {
+            }
+            else {
                 // Cart addon null
                 return false;
             }
@@ -189,7 +193,8 @@ class Addon
             $result['current_status'] = $next_status;
 
             return (object)$result;
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -197,12 +202,70 @@ class Addon
 
     public function saveAddon($data)
     {
-        $insert = false;
-        if ($data['object_id']) {
-            $insert = $this->_wpdb->insert($this->_tbl_addon_options, $data);
+        $cart_id = $data['cart_id'];
+        $object_id = $data['object_id'];
+        $action_type = $data['action_type'];
+        $addon_type = $data['addon_type'];
+        $twin_single = '';
+        $tour_addon = '';
+
+        // Process addon type
+        if ($addon_type == 'addon') {
+            $tour_addon = $addon_type;
+        }
+        else {
+            $arr = explode('-', $addon_type);
+            if (!empty($arr)) {
+                $twin_single = $arr[0];
+                $tour_addon = $arr[1];
+            }
+            else {
+                return false;
+            }
         }
 
-        return $insert;
+        $query = "SELECT * FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND object_id = {$object_id}";
+        $cart_addon = $this->_wpdb->get_row($query);
+
+        if (empty($cart_addon)) {
+            // Create cart addon
+            $cart_addon = [
+                'status'    => 'inactive',
+                'cart_id'   => $data['cart_id'],
+                'object_id' => $data['object_id'],
+                'quantity'  => 1
+            ];
+
+            if (!empty($data['addon_option_id'])) {
+                $cart_addon['addon_option_id'] = $data['addon_option_id'];
+            }
+
+
+            if (!empty($data['type']) && $data['type'] == 'twin') {
+                $cart_addon['type'] = valueOrNull($data['type']);
+                $cart_addon['quantity'] = 2;
+            }
+
+            $this->_wpdb->insert($this->_tbl_cart_addon, $cart_addon);
+        }
+        else {
+            // Update current cart addon
+
+            if ($tour_addon == 'tour') {
+                // quantity
+                if ($twin_single == 'twin') {
+                    $quantity = 2;
+                }
+                elseif ($twin_single == 'single') {
+                    $quantity = 1;
+                }
+            }
+            elseif ($tour_addon == 'addon') {
+
+            }
+        }
+
+        return $cart_addon;
     }
 
     public function delete($data)

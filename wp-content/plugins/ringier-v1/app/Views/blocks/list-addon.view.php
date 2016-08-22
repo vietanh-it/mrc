@@ -28,6 +28,7 @@ if (!empty($list_addon)) {
         <div class="col-xs-12 col-sm-12">
             <div class="booking-addon">
 
+                <!--Title-->
                 <div class="title">
                     <?php
                     switch (strtolower($item->type)) {
@@ -43,17 +44,23 @@ if (!empty($list_addon)) {
                             break;
                     } ?>
                 </div>
+
                 <div class="row">
+
+                    <!--Image-->
                     <div class="col-xs-12 col-sm-3">
                         <div class="images">
                             <img src="<?php echo $item->images->small; ?>" alt="<?php echo $item->post_title; ?>">
                         </div>
                     </div>
+
+                    <!--Options-->
                     <div class="col-xs-12 col-sm-9">
                         <div class="desc">
                             <p><b><?php echo $item->post_title; ?></b></p>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-9">
+
                                     <?php if ($item->type == 'addon') {
                                         $addon_options = $addon_model->getAddonOptions($item->ID); ?>
 
@@ -70,15 +77,20 @@ if (!empty($list_addon)) {
 
                                             <tbody>
 
-                                            <?php if (!empty($addon_options)) {
-                                                $addon_total = 0;
+                                            <?php $addon_total = 0;
+                                            if (!empty($addon_options)) {
+
                                                 foreach ($addon_options as $k => $v) {
+                                                    // Cart addon
                                                     $addon = $addon_model->getCartAddon($cart_id, $v->object_id, $v->id);
                                                     $addon = array_shift($addon);
+
+                                                    // Addon options total
                                                     $addon_total += valueOrNull($addon->total, 0); ?>
+
                                                     <tr>
                                                         <td><?php echo $v->option_name; ?></td>
-                                                        <td>US$<?php echo !empty($v->price) ? number_format($v->price) : 0; ?></td>
+                                                        <td>US$<?php echo !empty($v->option_price) ? number_format($v->option_price) : 0; ?></td>
                                                         <td data-type="addon" data-addon-object-id="<?php echo $v->object_id ?>" data-addon-option="<?php echo $v->id ?>">
 
                                                             <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
@@ -94,6 +106,7 @@ if (!empty($list_addon)) {
                                                             US$<?php echo number_format(valueOrNull($addon->total, 0)); ?>
                                                         </td>
                                                     </tr>
+
                                                 <?php }
                                             } ?>
 

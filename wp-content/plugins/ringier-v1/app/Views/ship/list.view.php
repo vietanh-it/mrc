@@ -1,7 +1,7 @@
 <?php
 
 get_header();
-$list_ship = $list_ship ? $list_ship : array();
+$list_ship = !empty($list_ship) ? $list_ship : array();
 
 ?>
 
@@ -31,6 +31,10 @@ $list_ship = $list_ship ? $list_ship : array();
                             </div>
                         </div>
                     <?php }
+                    if (function_exists('wp_pagenavi')) wp_pagenavi(array(
+                        'before' => '  <div class="wrap-pagination">',
+                        'after' => '</div>'
+                    ));
                 } ?>
             </div>
         </div>

@@ -30,6 +30,7 @@ class JourneyTypeController extends _BaseController
     {
         $page = get_query_var('paged');
         $args['limit'] = 6;
+        $args['is_paging'] = 1;
         $args['page'] = $page ? $page : 1;
         $journey = JourneyType::init();
         $list_journey_type = $journey->getJourneyTypeList($args);

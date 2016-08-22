@@ -87,7 +87,19 @@ class Offer
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
 
+        if(!empty($params['is_paging'])) {
+            $this->_set_paging($result['data'], $result['total'], $params['limit'], $params['page']);
+        }
+
         return $result;
+    }
+
+    private function _set_paging($data, $total, $limit, $page){
+        global $wp_query;
+        $wp_query->posts = $data;
+        $wp_query->is_paged = ($page >= 1) ? true : false;
+        $wp_query->found_posts = $total;
+        $wp_query->max_num_pages = ceil($total / $limit);
     }
 
 

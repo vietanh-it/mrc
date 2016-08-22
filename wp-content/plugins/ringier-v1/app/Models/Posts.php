@@ -44,7 +44,7 @@ class Posts {
         $args_default = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'posts_per_page' => 20,
+            'posts_per_page' => 24,
             'paged' => 1,
             'orderby' => 'ID',
             'order'   => 'DESC',
@@ -87,7 +87,7 @@ class Posts {
             //set_cache_tag($cacheId, 'getPostBy');
         }
 
-        if($args['is_paging']) {
+        if(!empty($args['is_paging'])) {
             $this->_set_paging($result['data'], $result['total'], $args['posts_per_page'], $args['paged']);
         }
 
@@ -112,6 +112,7 @@ class Posts {
             $objImages = Images::init();
             $post->images = $objImages->getPostImages($post->ID, ['thumbnail', 'featured','small','full']);
             $post->permalink = get_permalink($post->ID);
+            if(empty($post->post_excerpt )) $post->post_excerpt = cut_string_by_char(150,strip_tags($post->post_content));
 
             $query = 'SELECT * FROM ' . $this->_table_post_info . ' as pi 
             WHERE pi.object_id = ' . $post->ID;
@@ -142,20 +143,6 @@ class Posts {
         $wp_query->is_paged = ($page >= 1) ? true : false;
         $wp_query->found_posts = $total;
         $wp_query->max_num_pages = ceil($total / $limit);
-    }
-
-    public function getPostBySlug($slug,$post_type){
-        $args = array(
-            'name' => $slug,
-            'post_type' => $post_type,
-            'numberposts' => 1
-        );
-        $my_posts = get_posts($args);
-        if($my_posts[0]){
-            $my_posts = array_shift($my_posts);
-        }
-
-        return $my_posts;
     }
 
 }

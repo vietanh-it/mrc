@@ -42,7 +42,12 @@ $JourneyType = \RVN\Controllers\JourneyTypeController::init();
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
+                    <?php }
+                    if (function_exists('wp_pagenavi')) wp_pagenavi(array(
+                        'before' => '  <div class="wrap-pagination">',
+                        'after' => '</div>'
+                    ));
+                    ?>
                 </div>
             </div>
         </div>

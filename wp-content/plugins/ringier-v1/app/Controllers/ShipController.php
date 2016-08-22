@@ -39,8 +39,14 @@ class ShipController extends _BaseController
 
     public function listShip(){
         $post = Posts::init();
+        $page = get_query_var("paged");
+        if(empty($page)) $page =1;
+
         $list_ship = $post->getList([
             'post_type' => 'ship',
+            'posts_per_page' => '6',
+            'is_paging' => 1,
+            'paged' => $page,
         ]);
 
         view('ship/list', compact('params', 'list_ship'));

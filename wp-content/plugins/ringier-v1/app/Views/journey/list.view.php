@@ -12,7 +12,7 @@ get_header();
 
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
             <div class="row">
-                <?php if($list_journey['data']){
+                <?php if(!empty($list_journey['data'])){
                     foreach ($list_journey['data'] as $v){
                         //var_dump($v);
                         ?>
@@ -55,8 +55,13 @@ get_header();
                             </div>
                         </div>
                     <?php }
-                }else{ ?>
-                    <div class="col-xs-12 col-sm-12" style="    margin: 0 0 20px;">No result match found</div>
+                    if (function_exists('wp_pagenavi')) wp_pagenavi(array(
+                        'before' => '  <div class="wrap-pagination">',
+                        'after' => '</div>'
+                    ));
+                }
+                else{ ?>
+                    <div class="col-xs-12 col-sm-12" style="margin: 0 0 20px;">No result match found</div>
                 <?php } ?>
             </div>
         </div>

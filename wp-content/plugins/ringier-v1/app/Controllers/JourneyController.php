@@ -45,6 +45,13 @@ class JourneyController extends _BaseController
 
     public function journeyList($args = [])
     {
+        $page = get_query_var("paged");
+        if(empty($page)) $page =1;
+
+        $args['page'] = $page;
+        $args['limit'] = 6;
+        $args['is_paging'] = 1;
+
         $journey = Journey::init();
         $list_journey = $journey->getJourneyList($args);
 

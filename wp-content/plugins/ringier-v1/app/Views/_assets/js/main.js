@@ -219,6 +219,73 @@ jQuery(document).ready(function ($) {
             swal({'title': 'Warning', "text": 'Please choose one of the options', "type": "warning", html: true});
         }
     });
+
+    $('.connect-email').validate({
+        ignore: [],
+        rules: {
+            c_email: {
+                required : true,
+                email:true
+            }
+        },
+        messages: {
+            c_email: {
+                required : 'Please enter your email',
+                email: 'Email not email'
+            }
+        },
+        errorPlacement: function (error, element) {
+            element.attr('data-original-title', error.text())
+                .attr('data-toggle', 'tooltip')
+                .attr('data-placement', 'top');
+            $(element).tooltip('show');
+        },
+        unhighlight: function (element) {
+            $(element)
+                .removeAttr('data-toggle')
+                .removeAttr('data-original-title')
+                .removeAttr('data-placement')
+                .removeClass('error');
+            $(element).unbind("tooltip");
+        },
+        submitHandler: function (form) {
+            var objfrm = $(form);
+            $.ajax({
+                type: "post",
+                url: ajaxurl,
+                dataType: 'json',
+                data: objfrm.serialize(),
+                beforeSend: function () {
+                    $('input, button[type=submit]', objfrm).attr('disabled', true).css({'opacity': '0.5'});
+                },
+                success: function (data) {
+                    $('input, button[type=submit]', objfrm).attr('disabled', false).css({'opacity': 1});
+                    if (data.status =='success') {
+                        swal({
+                            "title": "Success",
+                            "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
+                            "type": "success",
+                            html: true
+                        });
+                        objfrm.trigger("reset");
+                    }
+                    else {
+                        var result = data.message;
+                        var htmlErrors = "";
+                        if (result.length > 0) {
+                            htmlErrors += "<ul style='color: red'>";
+                            for (var i = 0; i < result.length; i++) {
+                                htmlErrors += "<li>" + result[i] + "</li>";
+                            }
+                            htmlErrors += "</ul>";
+                        }
+                        swal({"title": "Error", "text": htmlErrors, "type": "error", html: true});
+                    }
+                }
+            });
+            return false;
+        }
+    });
 });
 
 function switch_loading(is_loading) {

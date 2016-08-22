@@ -1,20 +1,20 @@
 <?php
 
 get_header();
-$list_journey_type = !empty($list_journey_type) ? $list_journey_type : array();
+$list_post = !empty($list_post) ? $list_post : array();
 
-view('journey/quick-search');
 ?>
 
 <div class="container">
     <div class="row">
-        <h1 class="col-xs-12 col-sm-12 tile-main">All Journeys
+        <h1 class="col-xs-12 col-sm-12 tile-main"><?php the_title() ?>
             <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
         </h1>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
             <div class="row">
-                <?php if($list_journey_type['data']){
-                    foreach ($list_journey_type['data'] as $v){
+                <?php if(!empty($list_post['data'])){
+                    foreach ($list_post['data'] as $v){
+
                         ?>
                         <div class="col-xs-12 col-sm-4">
                             <div class="box-journey">
@@ -26,7 +26,7 @@ view('journey/quick-search');
                                 <div class="desc">
                                     <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
                                     <p><?php echo cut_string_by_char($v->post_excerpt,150) ?></p>
-                                    <a href="<?php echo $v->permalink ?>" class="explore" title="">Explore</a>
+                                    <a href="<?php echo $v->permalink ?>" class="explore" title="Read more">Read more</a>
                                 </div>
                             </div>
                         </div>
@@ -35,9 +35,7 @@ view('journey/quick-search');
                         'before' => '  <div class="wrap-pagination">',
                         'after' => '</div>'
                     ));
-                } else { ?>
-                    <div class="col-xs-12 col-sm-12" style="    margin: 0 0 20px;">No result match found</div>
-                <?php } ?>
+                } ?>
             </div>
         </div>
     </div>

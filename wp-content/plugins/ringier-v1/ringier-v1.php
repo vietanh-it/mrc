@@ -52,4 +52,5 @@ function mrcLoad()
     \RVN\Controllers\ShipController::init();
     \RVN\Controllers\JourneyController::init();
     \RVN\Controllers\BookingController::init();
+    \RVN\Controllers\Account\AccountController::init();
 }

@@ -27,10 +27,16 @@ class OfferController extends _BaseController
         return self::$instance;
     }
 
-    public function offerList(){
+    public function offerList($argc = array()){
 
         $objOffer = Offer::init();
-        $argc = array('limit' => 6);
+
+        $page = get_query_var("paged");
+        if(empty($page)) $page =1;
+
+        $argc['page'] = $page;
+        $argc['limit'] = 6;
+        $argc['is_paging'] = 1;
         $list_offer = $objOffer->getListOffer($argc);
 
         view('offer/list', compact('params', 'list_offer'));

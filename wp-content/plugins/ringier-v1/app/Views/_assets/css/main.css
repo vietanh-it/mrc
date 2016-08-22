@@ -525,7 +525,6 @@ nav ul.navbar-nav li.active a{
 }
 .connect-email{
     position: relative;
-    overflow: hidden;
     width: 400px;
 }
 .connect-email button{
@@ -537,7 +536,7 @@ nav ul.navbar-nav li.active a{
     border-left: 1px solid #ccc;
     top: 0;
     background: none;
-    font-size: 25px;
+    font-size: 23px;
 }
 .social-icon{
     padding-left: 0;
@@ -1138,6 +1137,33 @@ footer ul li{
     font-weight: bold;
 }
 
+.wrap-pagination{
+    text-align: center;
+    float: left;
+    width: 100%;
+    margin: 20px 0 30px;
+}
+
+.wrap-pagination .wp-pagenavi .pages{
+    display: none;
+}
+.wrap-pagination .wp-pagenavi .current{
+    background: #e4a611;
+    border: 1px solid #e4a611;
+    color: white;
+}
+.wrap-pagination .wp-pagenavi a{
+    color: #e4a611;
+}
+.wrap-pagination .wp-pagenavi a:hover{
+    background: #e4a611;
+    border: 1px solid #e4a611;
+    color: white;
+}
+.wrap-pagination .wp-pagenavi a, .wrap-pagination .wp-pagenavi span{
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+}
 
 @media (min-width: 1200px){
 

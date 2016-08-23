@@ -224,49 +224,148 @@ class Addon
             }
         }
 
+        // Quantity
+        if ($twin_single == 'twin') {
+            $quantity = 2;
+        }
+        else {
+            $quantity = 1;
+        }
+
+        // Price
+        $price = $this->getAddonPrice([
+            'object_id'       => $data['object_id'],
+            'addon_option_id' => $data['addon_option_id'],
+            'twin_single'     => $twin_single
+        ]);
+
         $query = "SELECT * FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND object_id = {$object_id}";
+        if (!empty($data['addon_option_id'])) {
+            $query .= " AND addon_option_id = {$data['addon_option_id']}";
+        }
+        elseif (!empty($twin_single)) {
+            $query .= " AND type = '{$twin_single}'";
+        }
+
         $cart_addon = $this->_wpdb->get_row($query);
 
         if (empty($cart_addon)) {
-            // Create cart addon
-            $cart_addon = [
-                'status'    => 'inactive',
-                'cart_id'   => $data['cart_id'],
-                'object_id' => $data['object_id'],
-                'quantity'  => 1
-            ];
 
-            if (!empty($data['addon_option_id'])) {
-                $cart_addon['addon_option_id'] = $data['addon_option_id'];
+            // Create cart if action is plus not minus
+            if ($action_type == 'plus') {
+
+                // Cart addon data
+                $cart_addon = [
+                    'status'    => $data['addon_status'],
+                    'cart_id'   => $data['cart_id'],
+                    'object_id' => $data['object_id'],
+                    'price'     => $price,
+                    'quantity'  => $quantity,
+                    'total'     => $price * $quantity
+                ];
+
+                // Addon Option Id for 'addon'
+                if (!empty($data['addon_option_id'])) {
+                    $cart_addon['addon_option_id'] = $data['addon_option_id'];
+                }
+
+                // Type for 'tour'
+                if (!empty($twin_single)) {
+                    $cart_addon['type'] = $twin_single;
+                }
+
+                $this->_wpdb->insert($this->_tbl_cart_addon, $cart_addon);
+            }
+            else {
+                // return for frontend
+                $cart_addon = [
+                    'status'    => $data['addon_status'],
+                    'cart_id'   => $data['cart_id'],
+                    'object_id' => $data['object_id'],
+                    'quantity'  => 0,
+                    'total'     => 0
+                ];
             }
 
-
-            if (!empty($data['type']) && $data['type'] == 'twin') {
-                $cart_addon['type'] = valueOrNull($data['type']);
-                $cart_addon['quantity'] = 2;
-            }
-
-            $this->_wpdb->insert($this->_tbl_cart_addon, $cart_addon);
         }
         else {
-            // Update current cart addon
 
-            if ($tour_addon == 'tour') {
-                // quantity
-                if ($twin_single == 'twin') {
-                    $quantity = 2;
-                }
-                elseif ($twin_single == 'single') {
-                    $quantity = 1;
-                }
-            }
-            elseif ($tour_addon == 'addon') {
+            // Update cart addon
+            switch ($action_type) {
+                case 'minus':
+                    $quantity_update = $cart_addon->quantity - $quantity;
+                    if ($quantity_update <= 0) {
+                        $quantity_update = 0;
+                        $this->_wpdb->delete($this->_tbl_cart_addon, ['id' => $cart_addon->id]);
+                    }
+                    else {
+                        $this->_wpdb->update($this->_tbl_cart_addon, [
+                            'quantity' => $quantity_update,
+                            'price'    => $price,
+                            'total'    => $price * $quantity_update
+                        ], ['id' => $cart_addon->id]);
+                    }
+                    break;
+                case 'plus':
+                    $quantity_update = $cart_addon->quantity + $quantity;
 
+                    $this->_wpdb->update($this->_tbl_cart_addon, [
+                        'quantity' => $quantity_update,
+                        'price'    => $price,
+                        'total'    => $price * $quantity_update
+                    ], ['id' => $cart_addon->id]);
+                    break;
+                default:
+                    $quantity_update = $cart_addon->quantity;
+                    break;
             }
+
+            $cart_addon->quantity = $quantity_update;
+            $cart_addon->total = $price * $quantity_update;
         }
+
+        $cart = $this->_wpdb->get_row("SELECT * FROM {$this->_prefix}cart WHERE id = {$cart_id}");
+        $booking = Booking::init();
+        $cart_addon->cart_total = number_format($booking->getCartTotal($cart->user_id, $cart->journey_id, true));
 
         return $cart_addon;
     }
+
+
+    /**
+     * Get Addon Price
+     *
+     * @param array $params object_id, addon_option_id, twin_single
+     * @return int|null
+     */
+    public function getAddonPrice($params = [])
+    {
+        $query = "SELECT * FROM {$this->_tbl_tour_info} t";
+
+        // Addon hoặc Tour
+        if (!empty($params['addon_option_id'])) {
+            $query .= " INNER JOIN {$this->_tbl_addon_options} ao ON t.object_id = ao.object_id WHERE ao.id = {$params['addon_option_id']}";
+            $result = $this->_wpdb->get_row($query);
+            $price = valueOrNull($result->option_price, 0);
+        }
+        elseif (!empty($params['twin_single'])) {
+            $query .= " WHERE t.object_id = {$params['object_id']}";
+            $result = $this->_wpdb->get_row($query);
+
+            if ($params['twin_single'] == 'twin') {
+                $price = valueOrNull($result->twin_share_price, 0);
+            }
+            else {
+                $price = valueOrNull($result->single_price, 0);
+            }
+        }
+        else {
+            $price = 0;
+        }
+
+        return $price;
+    }
+
 
     public function delete($data)
     {

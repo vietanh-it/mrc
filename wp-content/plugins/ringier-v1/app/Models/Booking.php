@@ -78,7 +78,8 @@ class Booking
 
             $cart->type = 'none';
             $cart->booking_icon = '';
-        } else {
+        }
+        else {
             $quantity = $data['type'] == 'twin' ? 2 : 1;
             $room_price = $journey_model->getRoomPrice($data['room_id'], $data['journey_id'], $data['type']);
 
@@ -90,7 +91,8 @@ class Booking
                     'total'    => $quantity * $room_price,
                     'quantity' => $quantity
                 ], ['id' => $cart_item->id]);
-            } else {
+            }
+            else {
                 // Create cart item
                 $this->_wpdb->insert($this->_tbl_cart_detail, [
                     'cart_id'      => $cart->id,
@@ -227,7 +229,8 @@ class Booking
                         $room_type_twin_count[$item->room_type_id] = valueOrNull($room_type_twin_count[$item->room_type_id],
                             0);
                         $room_type_twin_count[$item->room_type_id] += 2;
-                    } elseif ($item->type == 'single') {
+                    }
+                    elseif ($item->type == 'single') {
                         $room_type_single_count[$item->room_type_id] = valueOrNull($room_type_single_count[$item->room_type_id],
                             0);
                         $room_type_single_count[$item->room_type_id] += 1;
@@ -276,7 +279,8 @@ class Booking
             // Addon total
             $query = "SELECT SUM(total) FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND status = 'active'";
             $addon_total = $this->_wpdb->get_var($query);
-        } else {
+        }
+        else {
             $addon_total = 0;
         }
 

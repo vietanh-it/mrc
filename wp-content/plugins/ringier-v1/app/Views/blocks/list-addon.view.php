@@ -19,7 +19,8 @@ if (!empty($list_addon)) {
         $cart_addons = $addon_model->getCartAddon($cart_id, $item->ID);
         if (!empty($cart_addons)) {
             $cart_addon_status = $cart_addons[0]->status;
-        } else {
+        }
+        else {
             $cart_addon_status = 'inactive';
         }
         ?>
@@ -65,7 +66,7 @@ if (!empty($list_addon)) {
                                         $addon_options = $addon_model->getAddonOptions($item->ID); ?>
 
                                         <!--Addon-->
-                                        <table class="table">
+                                        <table class="table" data-item-id="<?php echo $item->ID; ?>" data-status="<?php echo $cart_addon_status; ?>">
                                             <thead>
                                             <tr>
                                                 <th>Option</th>
@@ -103,7 +104,7 @@ if (!empty($list_addon)) {
 
                                                         </td>
                                                         <td>
-                                                            US$<?php echo number_format(valueOrNull($addon->total, 0)); ?>
+                                                            US$<span class="addon-subtotal"><?php echo number_format(valueOrNull($addon->total, 0)); ?></span>
                                                         </td>
                                                     </tr>
 
@@ -114,12 +115,17 @@ if (!empty($list_addon)) {
                                                 <td colspan="3" style="text-align: right;padding-right: 10%">
                                                     <b>Total</b>
                                                 </td>
-                                                <td><b>US$<?php echo number_format($addon_total); ?></b></td>
+                                                <td>
+                                                    <b>
+                                                        US$<span class="addon-total"><?php echo number_format($addon_total); ?></span>
+                                                    </b>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
 
-                                    <?php } else {
+                                    <?php }
+                                    else {
                                         // Twin
                                         $tour_info_twin = $addon_model->getCartAddon($cart_id, $item->ID, 0, 'twin');
                                         if (!empty($tour_info_twin)) {
@@ -141,7 +147,7 @@ if (!empty($list_addon)) {
                                         } ?>
 
                                         <!--Tour-->
-                                        <table class="table">
+                                        <table class="table" data-item-id="<?php echo $item->ID; ?>" data-status="<?php echo $cart_addon_status; ?>">
                                             <thead>
                                             <tr>
                                                 <th>Option</th>
@@ -165,7 +171,9 @@ if (!empty($list_addon)) {
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
 
                                                 </td>
-                                                <td>US$<?php echo !empty($tour_info_twin->total) ? number_format(valueOrNull($tour_info_twin->total, 0)) : 0; ?></td>
+                                                <td>
+                                                    US$<span class="addon-subtotal"><?php echo !empty($tour_info_twin->total) ? number_format(valueOrNull($tour_info_twin->total, 0)) : 0; ?></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>One Person</td>
@@ -181,13 +189,18 @@ if (!empty($list_addon)) {
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
 
                                                 </td>
-                                                <td>US$<?php echo !empty($tour_info_single->total) ? number_format(valueOrNull($tour_info_single->total, 0)) : 0; ?></td>
+                                                <td>US$<span class="addon-subtotal"><?php echo !empty($tour_info_single->total) ? number_format(valueOrNull($tour_info_single->total, 0)) : 0; ?></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" style="text-align: right;padding-right: 10%">
                                                     <b>Total</b>
                                                 </td>
-                                                <td><b>US$<?php echo number_format($tour_total); ?></b></td>
+                                                <td>
+                                                    <b>
+                                                        US$<span class="addon-total"><?php echo number_format($tour_total); ?></span>
+                                                    </b>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -201,7 +214,8 @@ if (!empty($list_addon)) {
                                         <a class="add-addon" data-object-id="<?php echo $item->ID; ?>" href="javascript:void(0)">
                                             Yes, please
                                         </a>
-                                    <?php } else { ?>
+                                    <?php }
+                                    else { ?>
                                         <a class="add-addon active" data-object-id="<?php echo $item->ID; ?>" href="javascript:void(0)">
                                             No, thanks
                                         </a>
@@ -233,6 +247,7 @@ if (!empty($list_addon)) {
 
                 if (switch_status) {
                     switch_status = false;
+                    switch_loading(true);
 
                     // Switch addon status ajax
                     $.ajax({
@@ -253,11 +268,13 @@ if (!empty($list_addon)) {
 
                                 // process button
                                 if (data.data.current_status == 'active') {
-                                    console.log(data.data);
                                     $('[data-object-id="' + object_id + '"]').html('No, thanks').addClass('active');
                                 } else {
                                     $('[data-object-id="' + object_id + '"]').html('Yes, please').removeClass('active');
                                 }
+
+                                $('[data-item-id="' + object_id + '"]').attr('data-status', data.data.current_status);
+                                switch_loading(false);
                             }
                             else {
                                 var html_msg = '<div>';
@@ -281,14 +298,13 @@ if (!empty($list_addon)) {
 
             // change quantity
             $('.action-quantity').on('click', function (e) {
+                var current_element = $(this);
                 var parent = $(this).parent('td');
 
                 var type = parent.attr('data-type'); // addon | single-tour | twin-tour
                 var action_type = $(this).attr('data-action-type'); // minus | plus
                 var object_id = parent.attr('data-addon-object-id');
                 var addon_option = parent.attr('data-addon-option');
-
-                console.log(type, action_type, object_id, addon_option);
 
                 // Save cart addon ajax
                 $.ajax({
@@ -302,13 +318,25 @@ if (!empty($list_addon)) {
                         object_id: object_id,
                         addon_option_id: addon_option,
                         action_type: action_type,
-                        addon_type: type
+                        addon_type: type,
+                        addon_status: parent.parents('table').attr('data-status')
                     },
                     success: function (data) {
 
                         if (data.status == 'success') {
                             switch_status = true;
-                            console.log(data.data);
+
+                            // Quantity
+                            parent.find('span').html(data.data.quantity);
+
+                            // Subtotal
+                            parent.parent('tr').find('.addon-subtotal').html(data.data.total);
+
+                            // Addon total
+                            getAddonTotal(parent.parents('table').attr('data-item-id'));
+
+                            // Cart total
+                            $('.booking-total').html(data.data.cart_total);
                         }
                         else {
                             var html_msg = '<div>';
@@ -330,6 +358,18 @@ if (!empty($list_addon)) {
             });
 
         });
+
+        function getAddonTotal(item_id) {
+            var table = $('table[data-item-id="' + item_id + '"]');
+            var subtotal_elements = table.find('.addon-subtotal');
+            var total = 0;
+
+            $.each(subtotal_elements, function (k, v) {
+                total += parseFloat($(v).html());
+            });
+
+            table.find('.addon-total').html(total);
+        }
     </script>
 
 <?php }

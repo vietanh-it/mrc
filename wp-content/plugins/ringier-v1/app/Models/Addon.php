@@ -267,6 +267,7 @@ class Addon
                 // Addon Option Id for 'addon'
                 if (!empty($data['addon_option_id'])) {
                     $cart_addon['addon_option_id'] = $data['addon_option_id'];
+                    $cart_addon['type'] = 'addon';
                 }
 
                 // Type for 'tour'

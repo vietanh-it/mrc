@@ -9,6 +9,7 @@ global $post;
 $m_booking = \RVN\Models\Booking::init();
 $m_ship = \RVN\Models\Ships::init();
 $cart_detail = $m_booking->getCartInfo($user_id, $post->ID);
+var_dump($cart_detail['cart_addon']);
 
 // get_header();
 global $post;
@@ -73,6 +74,7 @@ global $post;
                                     <b>Total:<span class="color-main" style="font-size: 17px"> US$<?php echo number_format($stateroom_total); ?></span></b>
                                 </td>
                             </tr>
+
                             </tbody>
                         </table>
 

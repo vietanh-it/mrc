@@ -47,6 +47,7 @@ global $post;
                                     $stateroom_total += $v->total;
 
                                     $room_info = $m_ship->getRoomInfo($v->room_id);
+
                                     $room_size = '';
                                     if ($v->type == 'single') {
                                         $room_size = 'Single Use';
@@ -59,7 +60,7 @@ global $post;
                                     ?>
 
                                     <tr>
-                                        <td><?php echo $room_info->deck_plan . ' ' . $room_info->room_type_name . ' ' . $room_size; ?></td>
+                                        <td><?php echo $room_info->room_type_name . ' ' . $room_size . ' - Room ' . $room_info->room_name; ?></td>
                                         <td><?php echo $quantity; ?></td>
                                         <td class="text-right color-main">US$<?php echo number_format($v->total); ?></td>
                                     </tr>
@@ -128,8 +129,10 @@ global $post;
                                       value="I need vegetable food and need visa application support."></textarea>
 
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">I have read and agree to the terms &
-                                                                       conditions</label>
+                                <label>
+                                    <input id="agree_terms" type="checkbox" value="1" checked>
+                                    I have read and agree to the terms & conditions
+                                </label>
                             </div>
 
                             <div class="text-center btt-box">

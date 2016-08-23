@@ -5,32 +5,17 @@
 // }
 $user_id = get_current_user_id();
 
+global $post;
+$m_booking = \RVN\Models\Booking::init();
+$m_ship = \RVN\Models\Ships::init();
+$cart_detail = $m_booking->getCartInfo($user_id, $post->ID);
+
 // get_header();
 global $post;
 ?>
 <div class="journey-detail">
 
-    <div class="nav-bar">
-        <div class="container container-big">
-            <div class="row">
-                <div class="col-xs-12 col-sm-5">
-                    <h3 class="title-main white">CLASSIC MEKONG</h3>
-                    <p>From Saigon to Siem Reap, 7 nights, departure on <b>14 July 2016</b></p>
-                </div>
-                <div class="col-xs-12 col-sm-7 right">
-                    <span class="total-price">Total: US$<span class="booking-total">0</span></span>
-                    <a href="javascript:void(0)" class="btn-menu-jn"><img
-                            src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class=""></a>
-                    <span class="ctn-btn-action" style="display: none;">
-                            <a href="#" class="btn-menu-edit">
-                                <img src="<?php echo VIEW_URL . '/images/icon-edit.png' ?>"><br>See journey detail</a><a href="#" class="btn-menu-info">
-                            <img src="<?php echo VIEW_URL . '/images/icon-info.png' ?>"><br>Edit journey</a><a href="#" class="btn-menu-delete">
-                            <img src="<?php echo VIEW_URL . '/images/icon-delete.png' ?>"><br>Delete</a>
-                        </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php view('blocks/booking-topbar', ['journey_id' => $post->ID]); ?>
 
     <div class="content-booking content-booking-review">
         <div class="container container-big">
@@ -54,14 +39,37 @@ global $post;
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Upper Deck Twin Sharing</td>
-                                <td>2</td>
-                                <td class="text-right color-main">US$650.00</td>
-                            </tr>
+
+                            <?php
+                            $stateroom_total = 0;
+                            if (!empty($cart_detail['cart'])) {
+                                foreach ($cart_detail['cart'] as $k => $v) {
+                                    $stateroom_total += $v->total;
+
+                                    $room_info = $m_ship->getRoomInfo($v->room_id);
+                                    $room_size = '';
+                                    if ($v->type == 'single') {
+                                        $room_size = 'Single Use';
+                                        $quantity = 1;
+                                    }
+                                    else {
+                                        $room_size = 'Twin Sharing';
+                                        $quantity = 2;
+                                    }
+                                    ?>
+
+                                    <tr>
+                                        <td><?php echo $room_info->deck_plan . ' ' . $room_info->room_type_name . ' ' . $room_size; ?></td>
+                                        <td><?php echo $quantity; ?></td>
+                                        <td class="text-right color-main">US$<?php echo number_format($v->total); ?></td>
+                                    </tr>
+
+                                <?php }
+                            } ?>
+
                             <tr>
                                 <td colspan="3" class="text-right">
-                                    <b>Total:<span class="color-main" style="font-size: 17px"> US$0.0</span></b>
+                                    <b>Total:<span class="color-main" style="font-size: 17px"> US$<?php echo number_format($stateroom_total); ?></span></b>
                                 </td>
                             </tr>
                             </tbody>

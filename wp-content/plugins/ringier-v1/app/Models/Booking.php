@@ -245,9 +245,14 @@ class Booking
         $total = $this->getCartTotal($user_id, $journey_id);
         $stateroom_total = $this->getCartTotal($user_id, $journey_id, false);
 
+        // Cart addon
+        $m_addon = Addon::init();
+        $cart_addon = $m_addon->getCartAddon($cart_info->id);
+
         return [
             'cart'                   => $cart,
             'cart_info'              => $cart_info,
+            'cart_addon'             => $cart_addon,
             'room_type_twin_count'   => $room_type_twin_count,
             'room_type_single_count' => $room_type_single_count,
             'total_twin'             => $total_twin_guests,

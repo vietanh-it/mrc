@@ -14,6 +14,7 @@ $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $ship_ctrl = \RVN\Controllers\ShipController::init();
 
 $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
+$journey_type_info = $journey_detail->journey_type_info;
 $ship_info = $journey_detail->journey_type_info->ship_info;
 $current_season = $journey_detail->current_season;
 
@@ -70,7 +71,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 </div>
 
                                 <div class="stateroom-price-wrapper">
-                                    <?php foreach ($ship_info->room_types as $key => $room_type) { ?>
+                                    <?php foreach ($journey_type_info->room_price as $key => $room_type) { ?>
                                         <div class="bk-box bk-box-gray">
                                             <span class="text"><?php echo $room_type->room_type_name ?> Twin Share</span>
                                             <span class="price">
@@ -104,7 +105,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 </div>
 
                                 <div>
-                                    <?php foreach ($ship_info->room_types as $key => $room_type) {
+                                    <?php foreach ($journey_type_info->room_price  as $key => $room_type) {
                                         $twin_price = ($current_season == 'high') ?
                                             valueOrNull($room_type->twin_high_season_price_offer,
                                                 $room_type->twin_high_season_price) :

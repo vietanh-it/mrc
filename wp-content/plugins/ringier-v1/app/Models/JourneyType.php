@@ -200,6 +200,9 @@ class JourneyType
             $gallery = $objGallery->getGalleryBy($object->ID);
             $object->gallery = $gallery;
 
+            $room_price = $this->getJourneyTypePrice($object->ID);
+            $object->room_price = $room_price;
+
             $object->offer_main_info = false;
             $object->offer = false;
             if ($type != 'offer') {

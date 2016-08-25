@@ -278,7 +278,9 @@ class Journey
         }
 
         $journey_season = $this->getJourneySeason($journey_id);
-        $query = "SELECT rt.{$type}_{$journey_season}_season_price as raw_price, rt.id as room_type_id FROM {$this->_prefix}rooms r INNER JOIN {$this->_prefix}room_types rt ON r.room_type_id = rt.id WHERE r.id = {$room_id}";
+        $query = "SELECT rt.{$type}_{$journey_season}_season_price as raw_price, rt.id as room_type_id FROM {$this->_prefix}rooms r
+ INNER JOIN {$this->_prefix}journey_type_price rt ON r.room_type_id = rt.id 
+WHERE r.id = {$room_id}";
         $result = $this->_wpdb->get_row($query);
 
         if (!empty($result)) {

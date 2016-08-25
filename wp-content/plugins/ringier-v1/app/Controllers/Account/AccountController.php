@@ -64,7 +64,8 @@ class AccountController extends _BaseController
                     'email' => $data['c_email'],
                     'name' => !empty($data['c_name']) ? $data['c_name'] : $data['c_email'],
                 );
-                //add to sendy
+                //TODO :  add to sendy
+
                 //
 
                 $result = array(

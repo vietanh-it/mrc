@@ -62,7 +62,8 @@ class JourneyType
         $cacheId = __CLASS__ . 'getJourneyTypeList' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        } else {
+        }
+        else {
             $result = false;
         }
         if ($result == false) {
@@ -98,7 +99,7 @@ class JourneyType
                     $where .= ' AND jtp.port_id = ' . $port->ID;
                 }
             }
-            if(!empty($params['offer_id'])){
+            if (!empty($params['offer_id'])) {
                 $join .= ' INNER JOIN ' . $this->_tbl_offer_journey . ' as oj ON oj.journey_type_id = p.ID';
                 $where .= ' AND oj.offer_id = ' . intval($params['offer_id']);
             }
@@ -130,14 +131,15 @@ class JourneyType
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
 
-        if(!empty($params['is_paging'])) {
+        if (!empty($params['is_paging'])) {
             $this->_set_paging($result['data'], $result['total'], $params['limit'], $params['page']);
         }
 
         return $result;
     }
 
-    private function _set_paging($data, $total, $limit, $page){
+    private function _set_paging($data, $total, $limit, $page)
+    {
         global $wp_query;
         $wp_query->posts = $data;
         $wp_query->is_paged = ($page >= 1) ? true : false;
@@ -145,11 +147,12 @@ class JourneyType
         $wp_query->max_num_pages = ceil($total / $limit);
     }
 
-    public function getInfo($object,$type = '')
+    public function getInfo($object, $type = '')
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
-        } else {
+        }
+        else {
             $cacheId = __CLASS__ . 'getInfo' . $object->ID;
         }
 
@@ -162,7 +165,7 @@ class JourneyType
 
             // images, permalink
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'full','small']);
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'full', 'small']);
             $object->permalink = get_permalink($object->ID);
 
             // tbl journey_type_info
@@ -171,9 +174,9 @@ class JourneyType
             $post_info = $this->_wpdb->get_row($query);
             $object = (object)array_merge((array)$object, (array)$post_info);
 
-            if(!empty($object->map_image)){
-                $img = wp_get_attachment_image_src($object->map_image,'small');
-                if($img){
+            if (!empty($object->map_image)) {
+                $img = wp_get_attachment_image_src($object->map_image, 'small');
+                if ($img) {
                     $object->map_image = $img[0];
                 }
             }
@@ -191,7 +194,7 @@ class JourneyType
             }
 
             $objPost = Posts::init();
-            if($object->destination){
+            if ($object->destination) {
                 $destination = $objPost->getInfo($object->destination);
                 $object->destination_info = $destination;
             }
@@ -208,11 +211,11 @@ class JourneyType
             if ($type != 'offer') {
                 $objOffer = Offer::init();
                 $offer = $objOffer->getOfferByJourneyType($object->ID);
-                if(!empty($offer)){
+                if (!empty($offer)) {
                     $object->offer = $offer;
                     $object->offer_main_info = $object->offer[0]->offer_info;
                     $object->offer_main_info = $object->offer[0]->offer_info;
-                    if(!empty($object->offer_main_info->start_date)){
+                    if (!empty($object->offer_main_info->start_date)) {
                         $object->offer_main_info->month_year = date('M Y', strtotime($object->offer_main_info->start_date));
                     }
                 }
@@ -225,34 +228,36 @@ class JourneyType
         return $result;
     }
 
-    public function getJourneyMinPrice($journey_type_id,$type = ''){
+    public function getJourneyMinPrice($journey_type_id, $type = '')
+    {
         $result = false;
         $objJourney = Journey::init();
-        $list_journey = $objJourney->getJourneyList(array(
+        $list_journey = $objJourney->getJourneyList([
             'journey_type_id' => $journey_type_id,
-            'limit' => 9999,
-        ));
-        if(!empty($list_journey['data'])){
+            'limit'           => 9999,
+        ]);
+        if (!empty($list_journey['data'])) {
             $min_price = 99999999999999999;
-            $journey_min_price = array();
+            $journey_min_price = [];
 
-            if($type == 'offer'){
-                foreach ($list_journey['data'] as $journey){
-                    if(!empty($journey->is_offer)){
+            if ($type == 'offer') {
+                foreach ($list_journey['data'] as $journey) {
+                    if (!empty($journey->is_offer)) {
                         $min_price_journey = $journey->min_price_offer;
-                        if($min_price_journey < $min_price){
+                        if ($min_price_journey < $min_price) {
                             $min_price = $min_price_journey;
                             $journey_min_price = $journey;
                         }
                     }
                 }
-            }else{
-                foreach ($list_journey['data'] as $journey){
+            }
+            else {
+                foreach ($list_journey['data'] as $journey) {
                     $min_price_journey = $journey->min_price;
-                    if(!empty($journey->min_price_offer)){
+                    if (!empty($journey->min_price_offer)) {
                         $min_price_journey = $journey->min_price_offer;
                     }
-                    if($min_price_journey < $min_price){
+                    if ($min_price_journey < $min_price) {
                         $min_price = $min_price_journey;
                         $journey_min_price = $journey;
                     }
@@ -266,50 +271,56 @@ class JourneyType
         return $result;
     }
 
-    public function saveJourneyTypeInfo($id,$data){
+    public function saveJourneyTypeInfo($id, $data)
+    {
 
-        $select = 'SELECT * FROM '.$this->_tbl_journey_type_info .' WHERE object_id  = '.$id;
+        $select = 'SELECT * FROM ' . $this->_tbl_journey_type_info . ' WHERE object_id  = ' . $id;
         $jt_info = $this->_wpdb->get_row($select);
-        if(($jt_info)){
-            $this->updateJourneyTypeInfo($id,$data);
-        }else{
-            $this->_wpdb->insert($this->_tbl_journey_type_info,$data);
+        if (($jt_info)) {
+            $this->updateJourneyTypeInfo($id, $data);
+        }
+        else {
+            $this->_wpdb->insert($this->_tbl_journey_type_info, $data);
         }
     }
 
-    public function updateJourneyTypeInfo($id,$data){
+    public function updateJourneyTypeInfo($id, $data)
+    {
         $result = false;
-        if($id){
-            $result =  $this->_wpdb->update($this->_tbl_journey_type_info,$data,array('object_id' => $id));
+        if ($id) {
+            $result = $this->_wpdb->update($this->_tbl_journey_type_info, $data, ['object_id' => $id]);
         }
 
         return $result;
     }
 
-    public function getJourneyTypePrice($journey_type_id){
-        $select = 'SELECT jtp.*,rt.* FROM '.$this->_tbl_journey_type_price .' jtp
-         INNER JOIN  '.$this->_tbl_room_types .' as rt ON jtp.room_type_id = rt.id 
-         WHERE jtp.journey_type_id  = '.$journey_type_id ;
+    public function getJourneyTypePrice($journey_type_id)
+    {
+        $select = 'SELECT jtp.*,rt.* FROM ' . $this->_tbl_journey_type_price . ' jtp
+         INNER JOIN  ' . $this->_tbl_room_types . ' as rt ON jtp.room_type_id = rt.id 
+         WHERE jtp.journey_type_id  = ' . $journey_type_id;
 
         $result = $this->_wpdb->get_results($select);
 
         return $result;
     }
 
-    public function saveJourneyTypePrice($data){
+    public function saveJourneyTypePrice($data)
+    {
         $result = false;
-        if(!empty($data['journey_type_id'])){
+        if (!empty($data['journey_type_id'])) {
 
-            $result = $this->_wpdb->insert($this->_tbl_journey_type_price,$data);
+            $result = $this->_wpdb->insert($this->_tbl_journey_type_price, $data);
         }
 
         return $result;
     }
 
-    public function deleteJourneyTypePrice($journey_type_id){
+    public function deleteJourneyTypePrice($journey_type_id)
+    {
         $result = false;
-        if(!empty($journey_type_id)){
-            $result = $this->_wpdb->delete($this->_tbl_journey_type_price,array('journey_type_id' => $journey_type_id));
+        if (!empty($journey_type_id)) {
+            $result = $this->_wpdb->delete($this->_tbl_journey_type_price, ['journey_type_id' => $journey_type_id]);
 
         }
 

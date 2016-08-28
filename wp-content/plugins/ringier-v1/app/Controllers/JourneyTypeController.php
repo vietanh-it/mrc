@@ -52,13 +52,14 @@ class JourneyTypeController extends _BaseController
 
         $journey_min_price = $this->getJourneyMinPrice($journey_id);
 
-        return view('journey-type/detail', compact('journey_type_info', 'list_add_on','journey_min_price'));
+        return view('journey-type/detail', compact('journey_type_info', 'list_add_on', 'journey_min_price'));
     }
 
-    public function getJourneyMinPrice($journey_id,$type = ''){
+    public function getJourneyMinPrice($journey_id, $type = '')
+    {
         $journeyType = JourneyType::init();
 
-        return $journeyType->getJourneyMinPrice($journey_id,$type);
+        return $journeyType->getJourneyMinPrice($journey_id, $type);
     }
 
 }

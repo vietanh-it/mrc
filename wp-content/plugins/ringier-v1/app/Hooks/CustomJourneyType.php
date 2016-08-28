@@ -1,9 +1,11 @@
 <?php
 namespace RVN\Hooks;
 
+use RVN\Controllers\ShipController;
 use RVN\Library\CPTColumns;
 use RVN\Models\JourneyType;
 use RVN\Models\Posts;
+use RVN\Models\Ships;
 
 class CustomJourneyType
 {
@@ -30,6 +32,7 @@ class CustomJourneyType
     {
         add_meta_box('itinerary', 'ITINERARY', [$this, 'show'], 'journey_type', 'normal', 'high');
         add_meta_box('include', 'WHAT’S INCLUDED', [$this, 'show_include'], 'journey_type', 'normal', 'high');
+        add_meta_box('ship_price', 'Ship and Room Price', [$this, 'show_ship'], 'journey_type', 'normal', 'high');
     }
 
 
@@ -210,7 +213,6 @@ class CustomJourneyType
 
                 if(list_port){
                     $.each(list_port, function(key, p) {
-                        console.log(p);
                         html +=' <option value="'+p.ID+'" >'+p.post_title+'</option>';
                     });
                 }
@@ -275,8 +277,144 @@ class CustomJourneyType
         <?php
     }
 
+    public function show_ship(){
+        global $post;
+        $objShip = Ships::init();
+        $objJourneyType = JourneyType::init();
+        $objPost = Posts::init();
+
+        $list_Ship = $objPost->getList(array(
+            'posts_per_page' => 100,
+            'post_type' => 'ship',
+        ));
+
+        $current_ship_id = 0;
+        $current_list_room_type = $objJourneyType->getJourneyTypePrice($post->ID);
+        if(!empty($current_list_room_type)){
+            $first_current_list_room_type = $current_list_room_type[0];
+            $current_ship_id = $first_current_list_room_type->ship_id;
+        }
+        ?>
+        <style>
+            .box-room_type{
+                padding: 20px;
+                border: 1px solid #ccc;
+                margin-top: 10px;
+                background: #faf7f2;
+            }
+            .box-room_type h5{
+                font-weight: bold;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            .box-room_type h3{
+                font-weight: bold;
+                color: #ccaf0b;
+                text-align: center;
+                margin-top: 0;
+                font-size: 15px;
+                margin-bottom: 0;
+            }
+            .box-room_type .box-price-room label{
+                margin-top: 10px;
+                display: block;
+            }
+            .box-room_type .box-price-room{
+                width: 40%;
+                padding: 20px;
+                display: inline-block;
+            }
+        </style>
+        <div class="acf_postbox ">
+            <div class="field field_type-post_object">
+                <p class="label"><label for="ship_id">Ship</label></p>
+                <select class="post_object ship_id" name="ship_id" id="ship_id" >
+                    <option value="" data-is_current = '0' > --- Select ship --- </option>
+                    <?php if(!empty($list_Ship['data'])){
+                        foreach ($list_Ship['data'] as $ship){
+                            $ship_room_type = $objShip->getShipRoomTypes($ship->ID);
+                            ?>
+                            <option value="<?php echo $ship->ID ?>" data-ship_room='<?php echo json_encode($ship_room_type) ?>' data-is_current="<?php echo ($current_ship_id == $ship->ID) ? 1 : 0 ?>" <?php echo ($current_ship_id == $ship->ID) ? 'selected' : '' ?>> <?php echo $ship->post_title ?> </option>
+                        <?php }
+                    } ?>
+                </select>
+            </div>
+
+            <div class="field field_type-post_object list_room_type">
+                <?php if(!empty($current_list_room_type)){
+                    foreach ($current_list_room_type as $v){ ?>
+                        <div class="box-room_type">
+                            <h3>Room Type : <?php echo $v->room_type_name ?></h3>
+                            <div class="box-price-room" >
+                                <h5>High Season Price: (1 day)</h5>
+                                <label>Twin sharing ($):</label>
+                                <input type="number" name="twin_high_season_price[]" value="<?php echo $v->twin_high_season_price ?>">
+                                <label>Single use ($):</label>
+                                <input type="number" name="single_high_season_price[]" value="<?php echo $v->single_high_season_price ?>">
+                                </div>
+                             <div class="box-price-room" >
+                                <h5>Low Season Price: (1 day)</h5>
+                                <label>Twin sharing ($):</label>
+                                <input type="number" name="twin_low_season_price[]" value="<?php echo $v->twin_low_season_price ?>">
+                                <label>Single use ($):</label>
+                                <input type="number" name="single_low_season_price[]" value="<?php echo $v->single_low_season_price ?>">
+                                </div>
+                            <input type="hidden" name="room_type_id[]" value="<?php echo $v->id ?>">
+                            </div>
+                    <?php }
+                }  ?>
+            </div>
+        </div>
+
+
+        <script>
+            var $ = jQuery.noConflict();
+            jQuery(document).ready(function ($) {
+                var html_room_type_current = $('.list_room_type').html();
+                $(document).delegate('.ship_id', 'change', function () {
+                    var obj = $(this);
+                    var html_room_type =   '';
+                    var ship_room =  obj.find('option:selected').attr('data-ship_room');
+                    var is_current =  obj.find('option:selected').attr('data-is_current');
+                    if(is_current == 0){
+                        if(ship_room){
+                            ship_room = JSON.parse(ship_room);
+                            $.each(ship_room, function (key, value) {
+                                html_room_type += '<div class="box-room_type">' +
+                                    '<h3>Room Type : '+value.room_type_name+'</h3> ' +
+                                    '<div class="box-price-room" >' +
+                                    '<h5>High Season Price: (1 day)</h5>' +
+                                    '<label>Twin sharing ($):</label>' +
+                                    '<input type="number" name="twin_high_season_price[]" value=""> ' +
+                                    '<label>Single use ($):</label>' +
+                                    '<input type="number" name="single_high_season_price[]" value="">' +
+                                    '</div>' +
+                                    ' <div class="box-price-room" >' +
+                                    '<h5>Low Season Price: (1 day)</h5>' +
+                                    '<label>Twin sharing ($):</label>' +
+                                    '<input type="number" name="twin_low_season_price[]" value=""> ' +
+                                    '<label>Single use ($):</label>' +
+                                    '<input type="number" name="single_low_season_price[]" value=""> ' +
+                                    '</div>' +
+                                    '<input type="hidden" name="room_type_id[]" value="'+value.id+'"> ' +
+                                    '</div>';
+                            });
+                        }
+                    }else {
+                        html_room_type = html_room_type_current;
+                    }
+
+                    $('.list_room_type').html(html_room_type);
+                })
+            });
+        </script>
+        <?php
+
+    }
+
     public function save()
     {
+        //var_dump($_POST);
         if(!empty($_POST)){
             $objJourneyType = JourneyType::init();
 
@@ -308,6 +446,30 @@ class CustomJourneyType
                 'include' => $include,
             );
             $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], $args);
+
+            if(!empty($_POST['ship_id'])){
+
+                $ship_id = $_POST['ship_id'];
+                $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], array('ship'=> $ship_id));
+
+                if(!empty($_POST['room_type_id']) && !empty($_POST['twin_high_season_price']) && !empty($_POST['single_high_season_price']) && !empty($_POST['twin_low_season_price']) && !empty($_POST['single_low_season_price'])){
+
+                    $objJourneyType->deleteJourneyTypePrice($_POST['post_ID']);
+
+                    foreach ($_POST['room_type_id'] as $kr => $room_type_id){
+                        $args_room_price = array(
+                            'journey_type_id' => $_POST['post_ID'],
+                            'room_type_id' => $room_type_id,
+                            'twin_high_season_price' => $_POST['twin_high_season_price'][$kr],
+                            'single_high_season_price' => $_POST['single_high_season_price'][$kr],
+                            'twin_low_season_price' => $_POST['twin_low_season_price'][$kr],
+                            'single_low_season_price' => $_POST['single_low_season_price'][$kr],
+                        );
+
+                        $objJourneyType->saveJourneyTypePrice($args_room_price);
+                    }
+                }
+            }
         }
 
     }

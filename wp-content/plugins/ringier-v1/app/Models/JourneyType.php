@@ -24,6 +24,7 @@ class JourneyType
     private $_tbl_offer_journey;
     private $_tbl_offer_info;
     private $_tbl_journey_type_port;
+    private $_tbl_journey_type_price;
 
     /**
      * Users constructor.
@@ -42,6 +43,7 @@ class JourneyType
         $this->_tbl_offer_journey = $this->_prefix . 'offer_journey';
         $this->_tbl_offer_info = $this->_prefix . 'offer_info';
         $this->_tbl_journey_type_port = $this->_prefix . 'journey_type_port';
+        $this->_tbl_journey_type_price = $this->_prefix . 'journey_type_price';
 
     }
 
@@ -198,6 +200,9 @@ class JourneyType
             $gallery = $objGallery->getGalleryBy($object->ID);
             $object->gallery = $gallery;
 
+            $room_price = $this->getJourneyTypePrice($object->ID);
+            $object->room_price = $room_price;
+
             $object->offer_main_info = false;
             $object->offer = false;
             if ($type != 'offer') {
@@ -276,6 +281,36 @@ class JourneyType
         $result = false;
         if($id){
             $result =  $this->_wpdb->update($this->_tbl_journey_type_info,$data,array('object_id' => $id));
+        }
+
+        return $result;
+    }
+
+    public function getJourneyTypePrice($journey_type_id){
+        $select = 'SELECT jtp.*,rt.* FROM '.$this->_tbl_journey_type_price .' jtp
+         INNER JOIN  '.$this->_tbl_room_types .' as rt ON jtp.room_type_id = rt.id 
+         WHERE jtp.journey_type_id  = '.$journey_type_id ;
+
+        $result = $this->_wpdb->get_results($select);
+
+        return $result;
+    }
+
+    public function saveJourneyTypePrice($data){
+        $result = false;
+        if(!empty($data['journey_type_id'])){
+
+            $result = $this->_wpdb->insert($this->_tbl_journey_type_price,$data);
+        }
+
+        return $result;
+    }
+
+    public function deleteJourneyTypePrice($journey_type_id){
+        $result = false;
+        if(!empty($journey_type_id)){
+            $result = $this->_wpdb->delete($this->_tbl_journey_type_price,array('journey_type_id' => $journey_type_id));
+
         }
 
         return $result;

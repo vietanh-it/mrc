@@ -26,8 +26,8 @@ class CustomShips
 
     public function __construct()
     {
-        add_action('add_meta_boxes', [$this, 'addRoomType']);
-        add_action('save_post', [$this, 'save']);
+        //add_action('add_meta_boxes', [$this, 'addRoomType']);
+        //add_action('save_post', [$this, 'save']);
     }
 
 

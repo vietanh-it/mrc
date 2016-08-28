@@ -242,12 +242,12 @@ class Booking
         $total_twin_guests = array_sum($room_type_twin_count);
         $total_single_guests = array_sum($room_type_single_count);
 
-        $total = $this->getCartTotal($user_id, $journey_id);
+        $total = $this->getCartTotal($user_id, $journey_id, true);
         $stateroom_total = $this->getCartTotal($user_id, $journey_id, false);
 
         // Cart addon
         $m_addon = Addon::init();
-        $cart_addon = $m_addon->getCartAddon($cart_info->id);
+        $cart_addon = $m_addon->getCartAddon($cart_info->id, 0, 0, '', 'active');
 
         return [
             'cart'                   => $cart,
@@ -361,6 +361,17 @@ class Booking
         $result['twin'] = $result['twin'] * 2;
 
         return $result;
+    }
+
+
+    public function saveAdditionalInformation($cart_id, $additional_information)
+    {
+        $this->_wpdb->update($this->_tbl_cart, ['additional_information' => $additional_information], ['id' => $cart_id]);
+
+        return [
+            'status' => 'success',
+            'data'   => true
+        ];
     }
 
 }

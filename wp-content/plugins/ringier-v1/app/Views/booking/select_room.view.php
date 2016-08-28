@@ -124,12 +124,12 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                                     <?php echo $room_type->room_type_name ?> Twin Share
                                                 </span>
                                                 </div>
-                                                <div class="col-xs-12 col-sm-3">
+                                                <div class="col-xs-12 col-sm-3" style="white-space: nowrap">
                                                 <span class="room_type_<?php echo $room_type->id; ?>_twin"
                                                       data-price="<?php echo $twin_price; ?>">
                                                     0
                                                 </span>
-                                                    persons
+                                                    persons <span style="padding-left: 10px;">x</span>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-3">
                                                 <span class="price-2">
@@ -146,12 +146,12 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                                     Single Use
                                                 </span>
                                                 </div>
-                                                <div class="col-xs-12 col-sm-3">
+                                                <div class="col-xs-12 col-sm-3" style="white-space: nowrap">
                                                 <span class="room_type_<?php echo $room_type->id; ?>_single"
                                                       data-price="<?php echo $single_price; ?>">
                                                     0
                                                 </span>
-                                                    persons
+                                                    persons <span style="padding-left: 10px;">x</span>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-3">
                                                 <span class="price-2">

@@ -41,7 +41,8 @@ class BookingController extends _BaseController
                     'data'   => $rs
                 ];
             }
-        } else {
+        }
+        else {
             $result = [
                 'status' => 'fail',
                 'data'   => ['Error occurred, please try again.']
@@ -62,7 +63,8 @@ class BookingController extends _BaseController
                 'status' => 'success',
                 'data'   => $rs
             ];
-        } else {
+        }
+        else {
             $result = [
                 'status' => 'fail',
                 'data'   => [$rs]
@@ -86,7 +88,8 @@ class BookingController extends _BaseController
                     'data'   => $rs
                 ];
             }
-        } else {
+        }
+        else {
             $result = [
                 'status' => 'fail',
                 'data'   => ['Error occurred, please try again.']
@@ -107,7 +110,8 @@ class BookingController extends _BaseController
                 'status' => 'success',
                 'data'   => $rs
             ];
-        } else {
+        }
+        else {
             return [
                 'status' => 'fail',
                 'data'   => ['Please select room to continue.']
@@ -129,6 +133,18 @@ class BookingController extends _BaseController
     {
         $model = Booking::init();
         $rs = $model->getCartInfo($data['user_id'], $data['journey_id']);
+
+        return [
+            'status' => 'success',
+            'data'   => $rs
+        ];
+    }
+
+
+    public function ajaxSaveAdditionalInformation($data)
+    {
+        $model = Booking::init();
+        $rs = $model->saveAdditionalInformation($data['cart_id'], $data['additional_information']);
 
         return [
             'status' => 'success',

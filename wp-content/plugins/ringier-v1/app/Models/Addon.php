@@ -141,10 +141,10 @@ class Addon
     }
 
 
-    public function getCartAddon($cart_id, $object_id = 0, $addon_option_id = 0, $type = '')
+    public function getCartAddon($cart_id, $object_id = 0, $addon_option_id = 0, $type = '', $status = 'inactive')
     {
         if (!empty($cart_id)) {
-            $query = "SELECT * FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id}";
+            $query = "SELECT * FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND status = '{$status}'";
 
             if (!empty($object_id)) {
                 $query .= " AND object_id = {$object_id}";

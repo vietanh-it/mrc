@@ -18,7 +18,8 @@ if (!empty($journey_id)) {
     if (is_user_logged_in()) {
         $user_id = get_current_user_id();
         $cart_detail = $modelBooking->getCartInfo($user_id, $journey_detail->ID);
-    } else {
+    }
+    else {
         $user_id = false;
         $cart_detail = [
             'cart'                   => null,

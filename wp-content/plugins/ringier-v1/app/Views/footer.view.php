@@ -106,7 +106,7 @@
                         <img src="<?php echo VIEW_URL . '/images/verify-web.png' ?>" alt="">
                         <br/><br/>
                         MEKONG RIVER CRUISER LIMITED <br/>
-                        Add: No. 11.O, Mieu Noi Residential Area, Ward 3, Binh Thanh District, HCMC, Vietnam <br/>
+                        Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam <br/>
                         Tel: +84 8 3514 6033 <br/>
                     </div>
 

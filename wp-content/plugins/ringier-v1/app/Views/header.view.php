@@ -36,12 +36,13 @@
 
 <!--[if lt IE 10]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
+                                                                                                                       your browser</a> to improve your experience.
+</p>
 <![endif]-->
 
 <?php $page_name = get_query_var('pagename');
 $post_type = '';
-if(is_single()){
+if (is_single()) {
     global $post;
     $post_type = $post->post_type;
 }
@@ -54,15 +55,18 @@ if(is_single()){
                 <div class="col-xs-12 col-sm-6">
                     <ul class="top-info">
                         <li><a href="#"> <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer a
-                                Friend</a></li>
+                                                                                                             Friend</a>
+                        </li>
                         <li><a href="#"> Media Centre </a></li>
                         <li><a href="#"> Q&A </a></li>
-                        <li><a href="#"> Terms and Conditions </a></li>
+                        <li><a href="<?php echo WP_SITEURL; ?>/terms-of-use"> Terms and Conditions </a></li>
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <ul class="top-info text-right">
-                        <li><a href="#"> <img src="<?php echo VIEW_URL.'/images/icon-date-2.png' ?>" style="margin-top: -3px;margin-right: 5px" alt=""> Your booking</a></li>
+                        <li><a href="#">
+                                <img src="<?php echo VIEW_URL . '/images/icon-date-2.png' ?>" style="margin-top: -3px;margin-right: 5px" alt=""> Your booking</a>
+                        </li>
                         <?php if (!is_user_logged_in()) { ?>
                             <li class="sign-up">
                                 <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>">
@@ -74,7 +78,8 @@ if(is_single()){
                                     Sign up
                                 </a>
                             </li>
-                        <?php } else {
+                        <?php }
+                        else {
                             $objUser = \RVN\Models\Users::init();
                             $user_info = $objUser->getUserInfo(get_current_user_id());
                             ?>
@@ -114,18 +119,25 @@ if(is_single()){
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="<?php echo is_home() ? 'active':'' ?>"><a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
-                            <li class="<?php echo (!empty($page_name) && $page_name == 'why-us') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
+                            <li class="<?php echo is_home() ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
+                            <li class="<?php echo (!empty($page_name) && $page_name == 'why-us') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
 
-                            <li class="<?php echo ((!empty($page_name) && $page_name == 'ships') or $post_type=='ship') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/ships/' ?> " title="">SHIPs </a></li>
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'ships') or $post_type == 'ship') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/ships/' ?> " title="">SHIPs </a></li>
 
-                            <li class="<?php echo ((!empty($page_name) && $page_name == 'journeys') or $post_type == 'journey' or $post_type == 'journey_type') ? 'active' : '' ?>" ><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'journeys') or $post_type == 'journey' or $post_type == 'journey_type') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
 
-                            <li class="<?php echo ((!empty($page_name) && $page_name == 'offers') or $post_type == 'offer') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/offers/' ?>" title="">OFFERS </a></li>
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'offers') or $post_type == 'offer') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/offers/' ?>" title="">OFFERS </a></li>
 
-                            <li class="<?php echo ((!empty($page_name) && $page_name == 'resources') or $post_type == 'resource') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/resources/' ?>" title="">RESOURCEs </a></li>
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'resources') or $post_type == 'resource') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/resources/' ?>" title="">RESOURCEs </a></li>
 
-                            <li class="<?php echo ((!empty($page_name) && $page_name == 'news') or $post_type == 'new') ? 'active':'' ?>"><a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'news') or $post_type == 'new') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
                         </ul>
                     </div>
                 </div>
@@ -133,7 +145,8 @@ if(is_single()){
                     <div class="action-contact">
                         <a href="#" title="">
                             <img src="<?php echo VIEW_URL . '/images/icon-headphone.png' ?>">
-                            <div class="right-icon"><span class="top">1-800-304-9616</span><br><span class="bot">or contact our agent</span>
+                            <div class="right-icon">
+                                <span class="top">1-800-304-9616</span><br><span class="bot">or contact our agent</span>
                             </div>
                         </a>
                     </div>

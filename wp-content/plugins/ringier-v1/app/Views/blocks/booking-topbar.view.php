@@ -49,10 +49,10 @@ if (!empty($journey_id)) {
                         <img src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class="">
                     </a>
                     <span class="ctn-btn-action" style="display: none;">
-                        <a href="<?php echo $journey_detail->permalink; ?>" class="btn-menu-edit">
+                        <a href="<?php echo $journey_detail->journey_type_info->permalink; ?>" class="btn-menu-edit">
                             <img src="<?php echo VIEW_URL . '/images/icon-edit.png' ?>">
                             <br>See journey detail
-                        </a><a href="<?php echo $journey_detail->journey_type_info->permalink; ?>" class="btn-menu-info">
+                        </a><a href="<?php echo $journey_detail->permalink; ?>" class="btn-menu-info">
                             <img src="<?php echo VIEW_URL . '/images/icon-info.png' ?>">
                             <br>Edit journey
                         </a><a href="javascript:void(0)" class="btn-menu-delete">

@@ -47,7 +47,8 @@ class Journey
         $cacheId = __CLASS__ . 'getJourneyList' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        } else {
+        }
+        else {
             $result = false;
         }
         if ($result == false) {
@@ -121,7 +122,7 @@ class Journey
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
 
-        if(!empty($params['is_paging'])) {
+        if (!empty($params['is_paging'])) {
             $this->_set_paging($result['data'], $result['total'], $params['limit'], $params['page']);
         }
 
@@ -134,7 +135,8 @@ class Journey
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
-        } else {
+        }
+        else {
             $cacheId = __CLASS__ . 'getInfo' . $object->ID;
         }
 
@@ -214,7 +216,8 @@ class Journey
 
                         if ($current_season == 'low') {
                             $price_sub = $v->single_low_season_price;
-                        } else {
+                        }
+                        else {
                             $price_sub = $v->single_high_season_price;
                         }
                         if ($price_sub < $min_price) {
@@ -237,7 +240,8 @@ class Journey
     }
 
 
-    private function _set_paging($data, $total, $limit, $page){
+    private function _set_paging($data, $total, $limit, $page)
+    {
         global $wp_query;
         $wp_query->posts = $data;
         $wp_query->is_paged = ($page >= 1) ? true : false;
@@ -278,9 +282,13 @@ class Journey
         }
 
         $journey_season = $this->getJourneySeason($journey_id);
-        $query = "SELECT rt.{$type}_{$journey_season}_season_price as raw_price, rt.id as room_type_id FROM {$this->_prefix}rooms r
- INNER JOIN {$this->_prefix}journey_type_price rt ON r.room_type_id = rt.id 
-WHERE r.id = {$room_id}";
+        // $query = "SELECT rt.{$type}_{$journey_season}_season_price as raw_price, rt.id as room_type_id FROM {$this->_prefix}rooms r
+        // INNER JOIN {$this->_prefix}journey_type_price rt ON r.room_type_id = rt.id
+// WHERE r.id = {$room_id}";
+        $journey = $this->getJourneyInfoByID($journey_id);
+        $room = $this->getRoomInfo($room_id);
+
+        $query = "SELECT jtp.{$type}_{$journey_season}_season_price as raw_price, jtp.room_type_id as room_type_id FROM {$this->_prefix}journey_type_price jtp WHERE journey_type_id = {$journey->journey_type_id} AND room_type_id = {$room->room_type_id}";
         $result = $this->_wpdb->get_row($query);
 
         if (!empty($result)) {
@@ -293,7 +301,8 @@ WHERE r.id = {$room_id}";
             $price = $price - (($price * $offer) / 100);
 
             return $price;
-        } else {
+        }
+        else {
             return 0;
         }
     }

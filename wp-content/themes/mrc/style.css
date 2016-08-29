@@ -135,6 +135,10 @@ Text Domain: mrc
     margin-top: -52px;
 }
 
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    top: 2px;
+}
+
 @media (min-width: 1200px) {
     .container {
         width: 1170px !important;

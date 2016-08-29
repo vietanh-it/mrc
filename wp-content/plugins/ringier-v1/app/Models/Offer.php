@@ -79,6 +79,7 @@ class Offer
                     $value = $this->getOfferInfo($value);
                 }
             }
+
             $result = [
                 'data'  => $list,
                 'total' => $total,

@@ -247,7 +247,12 @@ class Booking
 
         // Cart addon
         $m_addon = Addon::init();
-        $cart_addon = $m_addon->getCartAddon($cart_info->id, 0, 0, '', 'active');
+        if (!empty($cart_info)) {
+            $cart_addon = $m_addon->getCartAddon($cart_info->id, 0, 0, '', 'active');
+        }
+        else {
+            $cart_addon = null;
+        }
 
         return [
             'cart'                   => $cart,

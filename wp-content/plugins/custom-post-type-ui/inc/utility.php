@@ -288,6 +288,7 @@ function cptui_get_post_type_exists( $slug = '', $data = array() ) {
  */
 function cptui_products_sidebar() {
 
+	return '';
 	echo '<div class="wdspromos">';
 
 	cptui_newsletter_form();

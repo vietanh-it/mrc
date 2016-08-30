@@ -18,7 +18,7 @@ class Journey
     private $_tbl_journey_info;
     private $_tbl_journey_type_info;
     private $_tbl_journey_type_port;
-    private $_tbl_journey_type_river;
+    private $_tbl_journey_series_info;
 
     function __construct()
     {
@@ -29,6 +29,7 @@ class Journey
         $this->_tbl_journey_info = $this->_prefix . 'journey_info';
         $this->_tbl_journey_type_info = $this->_prefix . 'journey_type_info';
         $this->_tbl_journey_type_port = $this->_prefix . 'journey_type_port';
+        $this->_tbl_journey_series_info = $this->_prefix . 'journey_series_info';
     }
 
 
@@ -55,7 +56,7 @@ class Journey
             $page = (empty($params['page'])) ? 1 : intval($params['page']);
             $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
             $to = ($page - 1) * $limit;
-            $order_by = "  p.post_date DESC ";
+            $order_by = "  ji.departure";
             if (!empty($params['order_by'])) {
                 $order_by = $params['order_by'];
             }
@@ -64,9 +65,6 @@ class Journey
             $join = '';
 
             $objPost = Posts::init();
-            $join .= ' INNER JOIN ' . $this->_tbl_journey_info . ' as ji ON ji.object_id = p.ID
-                       INNER JOIN ' . $this->_tbl_journey_type_info . ' as jti ON jti.object_id = ji.journey_type';
-
 
             if (!empty($params['_ship'])) {
                 $ship = $objPost->getPostBySlug($params['_ship'], 'ship');
@@ -89,7 +87,7 @@ class Journey
             }
 
             if (!empty($params['journey_type_id'])) {
-                $where .= " AND ji.journey_type = " . $params['journey_type_id'];
+                $where .= " AND jsi.journey_type_id = " . $params['journey_type_id'];
             }
 
             if (!empty($params['_month'])) {
@@ -97,9 +95,11 @@ class Journey
                 $where .= " AND DATE_FORMAT(ji.departure,'%Y-%m') = '" . $month . "'";
             }
 
-            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
+            $query = "SELECT SQL_CALC_FOUND_ROWS ji.journey_code, ji.journey_series_id, ji.departure,ji.navigation,jsi.object_id, jsi.journey_type_id, jsi.prefix FROM " . $this->_tbl_journey_info . " as ji
+            INNER JOIN ". $this->_tbl_journey_series_info ." as jsi ON jsi.object_id = ji.journey_series_id
+            INNER JOIN ". $this->_tbl_journey_type_info ." as jti ON jti.object_id = jsi.journey_type_id
             $join
-            WHERE p.post_type = 'journey' AND p.post_status='publish'
+            WHERE 1=1
             $where          
             ORDER BY $order_by  LIMIT $to, $limit
             ";
@@ -133,49 +133,41 @@ class Journey
 
     public function getInfo($object, $type = '')
     {
-        if (is_numeric($object)) {
+        if (is_string($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
         }
         else {
-            $cacheId = __CLASS__ . 'getInfo' . $object->ID;
+            $cacheId = __CLASS__ . 'getInfo' . $object->journey_code;
         }
 
         $result = wp_cache_get($cacheId);
         if ($result == false) {
 
-            // Post
-            if (is_numeric($object)) {
-                $object = get_post($object);
+            if (is_string($object)) {
+                $query = 'SELECT ji*, jsi.* FROM ' . $this->_tbl_journey_info . ' as ji
+                INNER JOIN ' . $this->_tbl_journey_series_info . ' as jsi ON jsi.object_id = ji.journey_series_id
+                WHERE journey_code =  "'. $object .'"';
+                $object = $this->_wpdb->get_row($query);
+            }
+            $object->permalink = '';
+
+            if (!empty($object->journey_type_id)) {
+                $journeyType = JourneyType::init();
+                $journey_type_info = $journeyType->getInfo($object->journey_type_id);
+                $object->journey_type_info = $journey_type_info;
             }
 
-            // images, permalink
-            $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'small', 'full']);
-            $object->permalink = get_permalink($object->ID);
-
-            // journey_info
-            $query = 'SELECT * FROM ' . $this->_tbl_journey_info . ' WHERE object_id = ' . $object->ID;
-            $post_info = $this->_wpdb->get_row($query);
-            $object = (object)array_merge((array)$object, (array)$post_info);
-
-
-            $departure_fm = date("j F Y", strtotime($object->departure));
-            $object->departure_fm = $departure_fm;
-
+            $current_season = $this->getJourneySeason($object->journey_code);
+            $object->current_season = $current_season;
             $object->is_offer = false;
-            // journey_type_info
-            if (!empty($object->journey_type)) {
-                $journeyType = JourneyType::init();
-                $journey_type_info = $journeyType->getInfo($object->journey_type);
-                $object->journey_type_info = $journey_type_info;
 
+            if(!empty($journey_type_info)){
                 // days, nights, duration
+                $departure_fm = date("j F Y", strtotime($object->departure));
+                $object->departure_fm = $departure_fm;
                 $departure = date('Y-m-d', strtotime($object->departure));
                 $arrive = date('Y-m-d', strtotime($object->departure) + (intval($journey_type_info->nights) * 24 * 60 * 60));
                 $object->arrive = $arrive;
-
-                $current_season = $this->getJourneySeason($object->ID);
-                $object->current_season = $current_season;
 
                 if (!empty($journey_type_info->room_price)) {
                     $min_price = 9999999999999999999999999;
@@ -252,7 +244,8 @@ class Journey
 
     public function getMonthHaveJourney()
     {
-        $query = ' SELECT DATE_FORMAT(ji.departure,\'%Y-%m\') as month FROM ' . $this->_wpdb->posts . ' as p INNER JOIN ' . $this->_tbl_journey_info . ' as ji ON ji.object_id = p.ID WHERE p.post_status = "publish" GROUP BY month';
+        $query = ' SELECT DATE_FORMAT(ji.departure,\'%Y-%m\') as month
+                  FROM ' . $this->_tbl_journey_info . ' as ji  GROUP BY month';
 
         $result = $this->_wpdb->get_results($query);
         if ($result) {
@@ -356,18 +349,24 @@ class Journey
     }
 
 
-    public function getJourneyTypeByJourney($journey_id)
+    public function getJourneyTypeByJourney($journey_code)
     {
-        $query = "SELECT jt.object_id as journey_type_id, jt.*, j.object_id as journey_id, j.* FROM {$this->_tbl_journey_info} j INNER JOIN {$this->_tbl_journey_type_info} jt ON j.journey_type = jt.object_id WHERE j.object_id = {$journey_id}";
+        $query = "SELECT jt.*,j.* FROM {$this->_tbl_journey_info} j
+ INNER JOIN {$this->_tbl_journey_series_info} jsi ON j.journey_series_id = jsi.object_id
+ INNER JOIN {$this->_tbl_journey_type_info} jt ON  jsi.journey_type_id = jt.object_id
+  WHERE j.journey_code = '{$journey_code}'";
         $result = $this->_wpdb->get_row($query);
 
         return $result;
     }
 
 
-    public function getJourneySeason($journey_id)
+    public function getJourneySeason($journey_code)
     {
-        $query = "SELECT ji.object_id as journey_id, jti.object_id as journey_type_id, ji.*, jti.* FROM {$this->_tbl_journey_info} ji INNER JOIN {$this->_tbl_journey_type_info} jti ON ji.journey_type = jti.object_id WHERE ji.object_id = {$journey_id}";
+        $query = "SELECT  ji.*,jsi.*, jti.* FROM {$this->_tbl_journey_info} ji 
+INNER JOIN {$this->_tbl_journey_series_info} jsi ON jsi.object_id = ji.journey_series_id
+INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.object_id
+ WHERE ji.journey_code = '{$journey_code}'";
         $journey_info = $this->_wpdb->get_row($query);
 
         $ship_model = Ships::init();

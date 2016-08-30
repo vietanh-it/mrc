@@ -14,7 +14,7 @@ $JourneyType = \RVN\Controllers\JourneyTypeController::init();
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row">
                     <?php foreach ($list_offer['data'] as $v){
-
+                        var_dump($v);
                         $min_price = 0;
                         if(!empty($v->journey_type_id)){
                             $journey_min_price = $JourneyType->getJourneyMinPrice($v->journey_type_id,'offer');

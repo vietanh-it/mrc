@@ -21,19 +21,19 @@ get_header();
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-4">
                                         <div class="images">
-                                            <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
-                                                <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>">
+                                            <a href="<?php echo $v->permalink ?>" title="<?php echo $v->journey_type_info->post_title ?>">
+                                                <img src="<?php echo $v->journey_type_info->images->small ?>" alt="<?php echo $v->journey_type_info->post_title ?>">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="desc">
-                                            <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>" class="title">
-                                                <?php echo $v->post_title ?>
+                                            <a href="<?php echo $v->permalink ?>" title="<?php echo $v->journey_type_info->post_title ?>" class="title">
+                                                <?php echo $v->journey_type_info->post_title ?>
                                             </a>
                                             <p><?php
-                                                if(!empty($v->post_content)){
-                                                    $content = strip_tags($v->post_content);
+                                                if(!empty($v->journey_type_info->post_excerpt)){
+                                                    $content = strip_tags($v->journey_type_info->post_excerpt);
                                                     echo cut_string_by_char($content,200);
                                                 }
                                                 ?>

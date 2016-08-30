@@ -132,7 +132,6 @@ class Offer
             $list_offer_room =$this->_wpdb->get_results($query_2);
             $object->list_offer_room = $list_offer_room;
 
-            $min_price= 0;
             if(!empty($list_offer_room[0])){
                 $journey_type_id = $list_offer_room[0]->journey_type_id;
                 /*$JourneyType = JourneyType::init();
@@ -140,7 +139,6 @@ class Offer
 
                 $object->journey_type_id = $journey_type_id;
             }
-            $object->min_price = $min_price;
 
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);

@@ -122,7 +122,7 @@ class Offer
             // images, permalink
             $objImages = Images::init();
             $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured','small','full']);
-            $object->permalink = get_permalink($object->ID);
+            $object->permalink = '#';
 
             $query = 'SELECT * FROM ' . $this->_tbl_offer_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
@@ -134,10 +134,9 @@ class Offer
 
             if(!empty($list_offer_room[0])){
                 $journey_type_id = $list_offer_room[0]->journey_type_id;
-                /*$JourneyType = JourneyType::init();
-                $journey_type_info = $JourneyType->getInfo($journey_type_id,'offer');*/
-
                 $object->journey_type_id = $journey_type_id;
+
+                $object->permalink = get_permalink($journey_type_id);
             }
 
             $result = $object;

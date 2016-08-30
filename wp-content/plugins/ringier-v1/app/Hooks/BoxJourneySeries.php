@@ -226,9 +226,9 @@ class BoxJourneySeries
                                 var html = singleJourneySeries(prefix,number,navigation,new_departure);
                                 $('.item-wrapper').append(html);
 
-                                $(this).attr('data-number',(parseInt(number) + 1))
                             }
                         });
+                        $(this).attr('data-number',(parseInt(number) + 1))
                     }
                 });
 

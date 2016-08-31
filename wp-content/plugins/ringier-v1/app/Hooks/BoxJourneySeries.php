@@ -8,8 +8,10 @@
 
 namespace RVN\Hooks;
 
+use RVN\Models\Journey;
 use RVN\Models\JourneySeries;
 use RVN\Models\JourneyType;
+use RVN\Models\Posts;
 
 class BoxJourneySeries
 {
@@ -43,6 +45,7 @@ class BoxJourneySeries
     {
         global $post;
         $objJourneyType = JourneyType::init();
+        $objJourney = Journey::init();
         $list_journey_type = $objJourneyType->getJourneyTypeList(array(
             'limit' => 10000,
         ));
@@ -116,7 +119,7 @@ class BoxJourneySeries
                         <?php if($list_journey_type['data']){
                             foreach ($list_journey_type['data'] as $jt){
                                 ?>
-                                <option value="<?php echo $jt->ID ?>" data-duration="<?php echo $jt->nights ?>" <?php echo (!empty($journey_series_info->journey_type_id) && $journey_series_info->journey_type_id == $jt->ID) ? 'selected': '' ?>><?php echo $jt->post_title ?></option>
+                                <option value="<?php echo $jt->ID  ?>" data-duration="<?php echo $jt->nights ?>" <?php echo (!empty($journey_series_info->journey_type_id) && $journey_series_info->journey_type_id == $jt->ID) ? 'selected': '' ?>><?php echo $jt->post_title ?></option>
                             <?php }
                         } ?>
                     </select>
@@ -135,7 +138,7 @@ class BoxJourneySeries
                 <h3>Journey Series</h3>
                 <!--Single Journey-->
                 <?php
-                $journey_list = $objJourneySeries->getJourneyDetail($post->ID);
+                $journey_list = $objJourney->getJourneyDetailByJourneySeries($post->ID);
                 $number = 2;
                 if(!empty($journey_list)){
                     foreach ($journey_list as $j){
@@ -160,10 +163,12 @@ class BoxJourneySeries
                                     <option value="downstream" <?php echo $j->navigation == 'downstream' ? 'selected' : '' ?> >Downstream</option>
                                 </select>
                             </div>
-                            <a href="javascript:void(0)" class="delete_journey"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                            <input type="hidden" name="journey_id[]" value="<?php echo $j->object_id ?>">
+                            <a href="javascript:void(0)" class="delete_journey" data-journey="<?php echo $j->object_id ?>"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                         </div>
                     <?php }
-                }else{ ?>
+                }else{
+                    ?>
                     <div class="single-journey">
                         <div class="form-group">
                             <label>Journey Code:</label>
@@ -181,9 +186,13 @@ class BoxJourneySeries
                                 <option value="downstream">Downstream</option>
                             </select>
                         </div>
-                        <a href="javascript:void(0)" class="delete_journey"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                        <input type="hidden" name="journey_id[]" value="0">
+                        <a href="javascript:void(0)" class="delete_journey" data-journey="0"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                     </div>
                 <?php } ?>
+
+            </div>
+            <div class="list-journey-remove">
 
             </div>
 
@@ -222,10 +231,9 @@ class BoxJourneySeries
                                 var new_departure = '';
                                 if(data){
                                     new_departure = data;
+                                    var html = singleJourneySeries(prefix,number,navigation,new_departure);
+                                    $('.item-wrapper').append(html);
                                 }
-                                var html = singleJourneySeries(prefix,number,navigation,new_departure);
-                                $('.item-wrapper').append(html);
-
                             }
                         });
                         $(this).attr('data-number',(parseInt(number) + 1))
@@ -234,6 +242,10 @@ class BoxJourneySeries
 
                 $(document).delegate(".delete_journey", "click", function() {
                     var obj = $(this);
+                    var journey_id = obj.attr('data-journey');
+                    if(journey_id != 0){
+                        $('.list-journey-remove').append('<input type="hidden" name="journey_remove[]" value="'+journey_id+'">');
+                    }
                     obj.closest('.single-journey').remove();
                 });
                 $(document).delegate(".datepicker", "hover", function() {
@@ -304,7 +316,8 @@ class BoxJourneySeries
 
                 html +='</select>' +
                     '</div>' +
-                    '<a href="javascript:void(0)" class="delete_journey"><i class="fa fa-times-circle" aria-hidden="true"></i></a>' +
+                    '<input type="hidden" name="journey_id[]" value="0">' +
+                    '<a href="javascript:void(0)" class="delete_journey" data-journey="0"><i class="fa fa-times-circle" aria-hidden="true"></i></a>' +
                     '</div>';
 
                 return html;
@@ -319,6 +332,7 @@ class BoxJourneySeries
     {
         if(!empty($_POST['prefix']) && !empty($_POST['journey_type'])) {
             $objJourneySeries = JourneySeries::init();
+            $objJourney = Journey::init();
             $data_journey_series_info = array(
                 'object_id' => $_POST['post_ID'],
                 'journey_type_id' => $_POST['journey_type'],
@@ -327,15 +341,36 @@ class BoxJourneySeries
             $objJourneySeries->saveJourneySeriesInfo($data_journey_series_info);
 
             if(!empty($_POST['journey-code'])){
-                $objJourneySeries->deleteJourneyDetail($_POST['post_ID']);
+                $objJourney->deleteJourneyDetail($_POST['post_ID']);
+                if(!empty($_POST['journey_remove']) && is_array($_POST['journey_remove'])){
+                    foreach ($_POST['journey_remove'] as $jr){
+                        $objJourney->deleteJourney($jr);
+                    }
+                }
                 foreach ($_POST['journey-code'] as $k => $code){
+                    $journey_id = $_POST['journey_id'][$k];
+
+                    if($journey_id == 0){
+                        $args_post = array(
+                            'post_title' => $_POST['prefix'].$code,
+                            'post_name' => sanitize_title($_POST['prefix'].$code),
+                            'post_author' => get_current_user_id(),
+                            'post_status' => 'publish',
+                            'post_type' => 'journey',
+                            'post_date' => current_time('mysql')
+                        );
+                        $journey_id = $objJourney->insertJourney($args_post);
+                    }
+
                     $argc = array(
+                        'object_id' =>$journey_id,
                         'journey_series_id' =>$_POST['post_ID'],
                         'journey_code' => $_POST['prefix'].$code,
                         'departure' => $_POST['departure'][$k],
                         'navigation' =>$_POST['navigation'][$k],
                     );
-                    $objJourneySeries->insertJourneyDetail($argc);
+
+                    $objJourney->insertJourneyDetail($argc);
                 }
             }
         }

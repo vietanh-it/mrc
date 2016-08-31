@@ -58,36 +58,9 @@ class JourneySeries
             }else{
                 $result = $this->_wpdb->insert($this->_tbl_journey_series_info,$data);
             }
-
         }
 
         return $result;
-    }
-
-
-    public function insertJourneyDetail($data){
-        $result = false;
-        if($data['journey_series_id']){
-            $result = $this->_wpdb->insert($this->_tbl_journey_detail,$data);
-        }
-
-        return $result;
-    }
-
-    public function deleteJourneyDetail($journey_series_id){
-        $result= false;
-
-        if($journey_series_id){
-            $result = $this->_wpdb->delete($this->_tbl_journey_detail,array('journey_series_id'=>$journey_series_id));
-        }
-
-        return $result;
-    }
-
-    public function getJourneyDetail($journey_series_id){
-        $select = "SELECT * FROM ".$this->_tbl_journey_detail.' WHERE journey_series_id = '.$journey_series_id;
-
-        return $this->_wpdb->get_results($select);
     }
 
 }

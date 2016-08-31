@@ -34,7 +34,7 @@ if (!empty($journey_id)) {
         <div class="container container-big">
             <div class="row">
                 <div class="col-xs-12 col-sm-5">
-                    <h3 class="title-main white"><?php echo $journey_detail->post_title; ?></h3>
+                    <h3 class="title-main white"><?php echo $jt_info->post_title; ?></h3>
                     <p>
                         From <?php echo $jt_info->starting_point; ?>
                         to <?php echo $jt_info->destination_info->post_title; ?>,

@@ -159,4 +159,30 @@ class Posts {
         return $my_posts;
     }
 
+    /**
+     * Lay bai viet nhap
+     *
+     * @param $user_id
+     * @param $post_type
+     * @return array|null|object|void|\WP_Post
+     */
+    public function getPostDraft($user_id, $post_type)
+    {
+        $query = "SELECT * FROM " . $this->_wpdb->posts . " WHERE post_status='auto-draft' AND post_author=$user_id AND post_type='" . $post_type . "'";
+        $result = $this->_wpdb->get_row($query);
+        if (empty($result)) {
+            $post_id = wp_insert_post(
+                array(
+                    'post_title' => 'Auto Draft',
+                    'post_author' => $user_id,
+                    'post_status' => 'auto-draft',
+                    'post_type' => $post_type,
+                    'post_date' => current_time('mysql')
+                )
+            );
+            $result = get_post($post_id);
+        }
+        return $result;
+    }
+
 }

@@ -362,7 +362,7 @@ class Journey
 
     public function getJourneyTypeByJourney($journey_id)
     {
-        $query = "SELECT jt.*,j.* FROM {$this->_tbl_journey_info} j
+        $query = "SELECT jsi.*,jt.*,j.* FROM {$this->_tbl_journey_info} j
  INNER JOIN {$this->_tbl_journey_series_info} jsi ON j.journey_series_id = jsi.object_id
  INNER JOIN {$this->_tbl_journey_type_info} jt ON  jsi.journey_type_id = jt.object_id
   WHERE j.object_id = '{$journey_id}'";

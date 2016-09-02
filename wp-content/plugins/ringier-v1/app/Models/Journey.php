@@ -56,7 +56,7 @@ class Journey
             $page = (empty($params['page'])) ? 1 : intval($params['page']);
             $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
             $to = ($page - 1) * $limit;
-            $order_by = "  p.post_date DESC ";
+            $order_by = "  ji.departure ASC ";
             if (!empty($params['order_by'])) {
                 $order_by = $params['order_by'];
             }
@@ -67,6 +67,7 @@ class Journey
             $objPost = Posts::init();
             $join .= ' INNER JOIN ' . $this->_tbl_journey_info . ' as ji ON ji.object_id = p.ID
                        INNER JOIN ' . $this->_tbl_journey_series_info . ' as jsi ON jsi.object_id = ji.journey_series_id
+                       INNER JOIN ' . $this->_wpdb->posts . ' as pjs ON jsi.object_id = pjs.ID
                        INNER JOIN ' . $this->_tbl_journey_type_info . ' as jti ON jti.object_id = jsi.journey_type_id';
 
             if (!empty($params['_ship'])) {
@@ -100,7 +101,7 @@ class Journey
 
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
             $join
-            WHERE p.post_type = 'journey' AND p.post_status='publish'
+            WHERE p.post_type = 'journey' AND p.post_status='publish' AND pjs.post_status = 'publish' 
             $where          
             ORDER BY $order_by  LIMIT $to, $limit
             ";

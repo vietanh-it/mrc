@@ -36,7 +36,7 @@ class JourneySeries
 
 
     public function getListJourneySeries(){
-        $select = "SELECT * FROM ".$this->_tbl_journey_series_info;
+        $select = "SELECT jsi.* FROM ".$this->_tbl_journey_series_info ." as jsi INNER JOIN ".$this->_wpdb->posts ." as p ON p.ID = jsi.object_id WHERE p.post_status = 'publish'";
 
         return $this->_wpdb->get_results($select);
     }

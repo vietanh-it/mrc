@@ -55,17 +55,23 @@ if (is_single()) {
                 <div class="col-xs-12 col-sm-6">
                     <ul class="top-info">
                         <li><a href="#form-refer-friend" class="refer-friend"> <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer a Friend</a>
-                            <form id="form-refer-friend" style="display: none">
-                                <div class="form-group">
-                                    <label for="email_friend">Friend email:</label>
-                                    <input type="email" value="" name="email_friend" id="email_friend" placeholder="" class="form-control">
-                                </div>
-                                <div class="form-group text-center">
-                                    <input type="hidden" name="action" value="ajax_handler_account">
-                                    <input type="hidden" name="method" value="ReferFriend">
-                                    <button type="submit" class="btn">Send refer</button>
-                                </div>
-                            </form>
+                            <?php if(is_user_logged_in()){ ?>
+                                <form id="form-refer-friend" style="display: none">
+                                    <div class="form-group">
+                                        <label for="email_friend">Friend email:</label>
+                                        <input type="email" value="" name="email_friend" id="email_friend" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <input type="hidden" name="action" value="ajax_handler_account">
+                                        <input type="hidden" name="method" value="ReferFriend">
+                                        <button type="submit" class="btn">Send refer</button>
+                                    </div>
+                                </form>
+                             <?php }else{ ?>
+                                <form id="form-refer-friend" style="display: none">
+                                    Please <a href="<?php echo wp_login_url(get_permalink()); ?>" title="sign in">Sign in</a> or   <a href="<?php echo wp_registration_url(); ?>">Sign up</a> to refer friend.
+                                </form>
+                            <?php } ?>
                         </li>
                         <li><a href="#"> Media Centre </a></li>
                         <li><a href="#"> Q&A </a></li>

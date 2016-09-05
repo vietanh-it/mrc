@@ -48,6 +48,7 @@ function mrcLoad()
     RVN\Hooks\Users::init();
     RVN\Hooks\MetaboxAddon::init();
     RVN\Hooks\BoxJourneySeries::init();
+    RVN\Hooks\CustomQA::init();
 
     // call ajax
     \RVN\Controllers\ShipController::init();

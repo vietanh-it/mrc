@@ -47,4 +47,11 @@ class PageController extends _BaseController
 
         view('page/list-post',compact('list_post'));
     }
+
+    public function pageQA(){
+        global  $post;
+
+        $list_qa = get_post_meta($post->ID,'list_qa',true);
+        view('page/qa',compact('list_qa'));
+    }
 }

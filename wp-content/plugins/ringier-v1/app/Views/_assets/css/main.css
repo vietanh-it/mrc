@@ -1179,6 +1179,18 @@ footer ul li{
 .fancybox-lock .fancybox-overlay{
     z-index: 9999999;
 }
+.box-qa {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+}
+.box-qa .question{
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.box-qa .answer{
+
+}
 
 @media (min-width: 1200px){
 

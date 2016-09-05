@@ -19,9 +19,11 @@ $list_qa = !empty($list_qa) ? $list_qa : array();
                 foreach ($list_qa_new as $v){ ?>
                     <div class="box-qa">
                         <div class="question">
-                            <?php echo $v['question'] ?>
+                            <a href="javascript:void(0)" class="show-answer">
+                                <?php echo $v['question'] ?>
+                            </a>
                         </div>
-                        <div class="answer">
+                        <div class="answer" style="display: none">
                             <?php echo apply_filters('the_content',$v['answer']) ?>
                         </div>
                     </div>

@@ -365,6 +365,11 @@ jQuery(document).ready(function ($) {
             });
         }
     });
+
+    $('.show-answer').click(function () {
+       var obj  = $(this);
+        obj.closest('.box-qa').find('.answer').fadeIn();
+    });
 });
 
 function switch_loading(is_loading) {

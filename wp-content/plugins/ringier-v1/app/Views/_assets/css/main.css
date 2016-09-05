@@ -1184,12 +1184,19 @@ footer ul li{
     padding-bottom: 30px;
     border-bottom: 1px solid #ccc;
 }
-.box-qa .question{
+.box-qa .question a{
     font-weight: bold;
-    margin-bottom: 15px;
+    color: black;
+}
+.box-qa .question a:hover{
+    color: #e4a611;
+    text-decoration: none;
+}
+.box-qa .question a:active,.box-qa .question a:focus{
+    text-decoration: none;
 }
 .box-qa .answer{
-
+    margin-top: 15px;
 }
 
 @media (min-width: 1200px){

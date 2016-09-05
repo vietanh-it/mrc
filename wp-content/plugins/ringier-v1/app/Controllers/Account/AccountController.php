@@ -87,6 +87,44 @@ class AccountController extends _BaseController
 
         return $result;
     }
+
+    public function ajaxReferFriend($data){
+        if(is_user_logged_in()){
+            if($data['email_friend']){
+                if(is_email($data['email_friend'])){
+                    $email = $data['email_friend'];
+                    $code = md5(time()).'_'.get_current_user_id();
+
+
+                    $result = array(
+                        'status' => 'success',
+                        'message' => 'Connect email success.',
+                    );
+                }else{
+                    $result = array(
+                        'status' => 'error',
+                        'message' => array('Email not email.'),
+                    );
+                }
+            }else{
+                $result = array(
+                    'status' => 'error',
+                    'message' => array('Please enter your email.'),
+                );
+            }
+        }else{
+            $result = array(
+                'status' => 'error',
+                'message' => array('Please login or register.'),
+            );
+        }
+
+
+        return $result;
+
+    }
+    
+    
 }
 
 ?>

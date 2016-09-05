@@ -244,7 +244,7 @@ class BoxJourneySeries
                         closeOnConfirm: false },
                         function(){
                             obj.closest('.journey-main').addClass('journey-main-empty');
-                            $('.journey-disable').remove();
+                            $('.journey-disable .delete_journey').click();
                             obj.remove();
                             $('.btn-add-new-item').attr('data-number',2);
                             swal.close();
@@ -397,6 +397,8 @@ class BoxJourneySeries
                 'prefix' => $_POST['prefix'],
             );
             $objJourneySeries->saveJourneySeriesInfo($data_journey_series_info);
+            $journey_type = get_post($_POST['journey_type']);
+
 
             if(!empty($_POST['journey-code'])){
                 $objJourney->deleteJourneyDetail($_POST['post_ID']);
@@ -410,8 +412,8 @@ class BoxJourneySeries
 
                     if($journey_id == 0){
                         $args_post = array(
-                            'post_title' => $_POST['prefix'].$code,
-                            'post_name' => sanitize_title($_POST['prefix'].$code),
+                            'post_title' => $_POST['prefix'].$code .' - '.$journey_type->post_title,
+                            'post_name' => $journey_type->post_name .'-'.sanitize_title($_POST['prefix'].$code),
                             'post_author' => get_current_user_id(),
                             'post_status' => 'publish',
                             'post_type' => 'journey',

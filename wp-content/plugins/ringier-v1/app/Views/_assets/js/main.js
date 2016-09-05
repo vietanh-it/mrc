@@ -286,6 +286,85 @@ jQuery(document).ready(function ($) {
             return false;
         }
     });
+
+
+    var flag_alert = true;
+    $('.refer-friend').fancybox({
+        helpers: {
+            title: {
+                type: 'over'
+            },
+            overlay: {
+                speedOut: 0
+            }
+        },
+        padding: 10,
+        beforeShow : function () {
+        },
+        afterLoad : function(){
+            flag_alert = false;
+            $('#form-refer-friend').on("hover",function(){
+                var obj = $(this);
+                obj.validate({
+                    ignore: [],
+                    rules: {
+                        email_friend: {
+                            required : true,
+                            email:true
+                        }
+                    },
+                    messages: {
+                        email_friend: {
+                            required : 'Please enter your email',
+                            email: 'Email not email'
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if(element.attr('name') == "cate_favourite") {
+                            element.parent().attr('data-original-title', error.text())
+                                .attr('data-toggle', 'tooltip')
+                                .attr('data-placement', 'top');
+                            $(element).parent().tooltip('show');
+                        }
+                        else{
+                            element.attr('data-original-title', error.text())
+                                .attr('data-toggle', 'tooltip')
+                                .attr('data-placement', 'top');
+                            $(element).tooltip('show');
+                        }
+
+                    },
+                    unhighlight: function (element) {
+                        $(element)
+                            .removeAttr('data-toggle')
+                            .removeAttr('data-original-title')
+                            .removeAttr('data-placement')
+                            .removeClass('error');
+                        $(element).unbind("tooltip");
+                    },
+                    submitHandler: function(form) {
+                        $.ajax({
+                            type: "post",
+                            url: ajaxurl,
+                            dataType: 'json',
+                            data: objfrm.serialize(),
+                            beforeSend: function () {
+                                $('input, button[type=submit]', obj).attr('disabled', true).css({'opacity': '0.5'});
+                            },
+                            success: function (data) {
+                                $('input, button[type=submit]', obj).attr('disabled', false).css({'opacity': '1'});
+                                if(data.status == "success"){
+                                    flag_alert = true;
+                                    parent.jQuery.fancybox.close();
+                                }
+                            }
+                        });
+                        return false;
+                    }
+                });
+            });
+        }
+    });
 });
 
 function switch_loading(is_loading) {

@@ -1164,6 +1164,21 @@ footer ul li{
     border: 1px solid #ccc;
     padding: 10px 15px;
 }
+#form-refer-friend{
+    background: white;
+    padding: 20px;
+    width: 500px;
+    border: 1px solid #e4a611;
+}
+#form-refer-friend .btn{
+    background: #e4a611;
+    border: 1px solid #e4a611;
+    color: white;
+    text-transform: uppercase;
+}
+.fancybox-lock .fancybox-overlay{
+    z-index: 9999999;
+}
 
 @media (min-width: 1200px){
 

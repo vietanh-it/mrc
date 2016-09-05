@@ -14,7 +14,7 @@ if (empty($_GET['step'])) {
 } elseif ($_GET['step'] == 'process') {
     view('booking/process');
 } elseif ($_GET['step'] == 'return') {
-    view('booking/return');
+    view('booking/return.backup');
 } else {
     // Redirect to step select room
     $url = WP_SITEURL . strtok($_SERVER["REQUEST_URI"], '?');

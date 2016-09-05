@@ -166,7 +166,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 </div>
 
                                 <div class="text-center btt-box">
-                                    <a href="<?php echo WP_SITEURL . '/journeys' ?>" class="back">Back</a>
+                                    <!--<a href="--><?php //echo WP_SITEURL . '/journeys' ?><!--" class="back">Back</a>-->
+                                    <a href="<?php echo $journey_type_info->permalink; ?>" class="back">Back</a>
                                     <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
                                        class="btn btn-primary btn-continue btn-yellow">Continue</a>
                                 </div>

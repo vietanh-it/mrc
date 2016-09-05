@@ -12,7 +12,7 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
     $booking_model = \RVN\Models\Booking::init();
     $cart_info = $booking_model->getCartInfo(get_current_user_id(), $post->ID);
 
-    $rate = 22222;
+    $rate = 10;
     $cart_info['total'] = $cart_info['total'] * $rate;
 
     $payment_type = $_GET['payment_type'];

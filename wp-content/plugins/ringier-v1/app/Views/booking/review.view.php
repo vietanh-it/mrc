@@ -155,7 +155,7 @@ global $post;
                                 <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>
 
                                 <a href="<?php echo $url . '?step=services-addons' ?>" class="back">Back</a>
-                                <a href="<?php echo $url . '?step=process&payment_type=credit_card' ?>" class="btn-main btn-pay">Pay Deposit</a>
+                                <a href="<?php echo $url . '?step=process&payment_type=atm' ?>" class="btn-main btn-pay">Pay Deposit</a>
                             </div>
                         </div>
                     </div>
@@ -173,51 +173,56 @@ global $post;
         $('.btn-pay').on('click', function (e) {
             e.preventDefault();
 
-            var url = $(this).attr('href');
-            if (!$('#agree_terms').is(':checked')) {
-                swal({
-                    title: 'Please agree terms & conditions',
-                    type: 'error'
-                });
-            } else {
-                switch_loading(true);
+            var is_move = confirm('You will be moved to payment page to finish booking, are you sure?');
+            if (is_move) {
+                var url = $(this).attr('href');
+                if (!$('#agree_terms').is(':checked')) {
+                    swal({
+                        title: 'Please agree terms & conditions',
+                        type: 'error'
+                    });
+                } else {
+                    switch_loading(true);
 
-                // Save cart addtional information ajax
-                $.ajax({
-                    url: ajax_url,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        action: 'ajax_handler_booking',
-                        method: 'SaveAdditionalInformation',
-                        cart_id: <?php echo $cart_detail['cart_info']->id; ?>,
-                        additional_information: $('#additional_information').html()
-                    },
-                    success: function (data) {
-                        switch_loading(false);
+                    // Save cart addtional information ajax
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_booking',
+                            method: 'SaveAdditionalInformation',
+                            cart_id: <?php echo $cart_detail['cart_info']->id; ?>,
+                            additional_information: $('#additional_information').html()
+                        },
+                        success: function (data) {
+                            switch_loading(false);
 
-                        if (data.status == 'success') {
-                            window.location.href = url;
-                        }
-                        else {
-                            var html_msg = '<div>';
-                            if (data.message) {
-                                $.each(data.message, function (k_msg, msg) {
-                                    html_msg += msg + "<br/>";
-                                });
-                            } else if (data.data) {
-                                $.each(data.data, function (k_msg, msg) {
-                                    html_msg += msg + "<br/>";
-                                });
+                            if (data.status == 'success') {
+                                window.location.href = url;
                             }
-                            html_msg += "</div>";
-                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
                         }
-                    }
-                }); // end ajax
+                    }); // end ajax
 
-                // window.location.href = url;
+                    // window.location.href = url;
+                }
+
             }
+
         });
     });
 </script>

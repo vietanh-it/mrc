@@ -18,6 +18,7 @@ class Booking
     private $_tbl_cart_addon;
     private $_tbl_booking;
     private $_tbl_booking_detail;
+    private $_tbl_transactions;
 
 
     /**
@@ -34,6 +35,7 @@ class Booking
         $this->_tbl_cart_addon = $this->_prefix . 'cart_addon';
         $this->_tbl_booking = $this->_prefix . 'booking';
         $this->_tbl_booking_detail = $this->_prefix . 'booking_detail';
+        $this->_tbl_transactions = $this->_prefix . 'transactions';
     }
 
 
@@ -175,7 +177,8 @@ class Booking
      */
     public function getCartItems($user_id, $journey_id)
     {
-        $query = "SELECT c.id as cart_id, c.journey_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
+        $select = "c.id as cart_id, c.journey_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.room_id, cd.type, cd.price, cd.quantity, cd.total";
+        $query = "SELECT {$select} FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
         $cart = $this->_wpdb->get_results($query);
         if (empty($cart)) {
             $this->_wpdb->insert($this->_tbl_cart, [
@@ -377,6 +380,28 @@ class Booking
             'status' => 'success',
             'data'   => true
         ];
+    }
+
+
+    public function finishBooking($user_id, $journey_id, $params)
+    {
+        $cart = $this->getCartItems($user_id, $journey_id);
+        var_dump($cart);
+        $save_transaction = $this->saveTransaction($params);
+    }
+
+
+    public function saveTransaction($params)
+    {
+        $result = false;
+        if (!empty($params['vpc_TransactionNo'])) {
+            $query = "SELECT * FROM {$this->_tbl_transactions} WHERE vpc_TransactionNo = '{$params['vpc_TransactionNo']}'";
+            if (empty($this->_wpdb->get_row($query))) {
+                $result = $this->_wpdb->insert($this->_tbl_transactions, $params);
+            }
+        }
+
+        return $result;
     }
 
 }

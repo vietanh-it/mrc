@@ -22,6 +22,9 @@ $list_qa = !empty($list_qa) ? $list_qa : array();
                             <a href="javascript:void(0)" class="show-answer">
                                 <?php echo $v['question'] ?>
                             </a>
+                            <a href="javascript:void(0)" class="hide-answer">
+                                <?php echo $v['question'] ?>
+                            </a>
                         </div>
                         <div class="answer" style="display: none">
                             <?php echo apply_filters('the_content',$v['answer']) ?>

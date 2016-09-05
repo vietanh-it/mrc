@@ -369,6 +369,15 @@ jQuery(document).ready(function ($) {
     $('.show-answer').click(function () {
        var obj  = $(this);
         obj.closest('.box-qa').find('.answer').fadeIn();
+        obj.closest('.box-qa').find('.hide-answer').css('display','block');
+        obj.css('display','none');
+    });
+
+    $('.hide-answer').click(function () {
+        var obj  = $(this);
+        obj.closest('.box-qa').find('.answer').fadeOut();
+        obj.closest('.box-qa').find('.show-answer').css('display','block');
+        obj.css('display','none');
     });
 });
 

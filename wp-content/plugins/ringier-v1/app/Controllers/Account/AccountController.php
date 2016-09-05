@@ -95,10 +95,14 @@ class AccountController extends _BaseController
                     $email = $data['email_friend'];
                     $code = md5(time()).'_'.get_current_user_id();
 
+                    $url = wp_registration_url().'/?email='.$email.'&code='.$code;
+
+                    // TODO: send mail
 
                     $result = array(
                         'status' => 'success',
                         'message' => 'Connect email success.',
+                        //'url' => $url,
                     );
                 }else{
                     $result = array(

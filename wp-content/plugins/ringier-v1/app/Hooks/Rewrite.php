@@ -41,7 +41,7 @@ class Rewrite {
         if (is_singular()) {
             $post = end($links);
             $postId = $post['id'];
-
+ 
             $postObject = get_post($postId);
 
             switch ($postObject->post_type) {

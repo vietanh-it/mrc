@@ -389,7 +389,7 @@ class BoxJourneySeries
     public function save()
     {
         global $post;
-        if($post->post_type == 'journey_series') {
+        if(!empty($post) && $post->post_type == 'journey_series') {
             if(!empty($_POST['prefix']) && !empty($_POST['journey_type'])) {
                 $objJourneySeries = JourneySeries::init();
                 $objJourney = Journey::init();

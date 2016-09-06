@@ -416,7 +416,7 @@ class CustomJourneyType
     {
         //var_dump($_POST);
         global $post;
-        if($post->post_type == 'journey_type') {
+        if(!empty($post) && $post->post_type == 'journey_type') {
             if(!empty($_POST)){
                 $objJourneyType = JourneyType::init();
 

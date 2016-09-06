@@ -238,7 +238,7 @@ class CustomOffer
     public function save()
     {
         global $post;
-        if($post->post_type == 'offer') {
+        if(!empty($post) && $post->post_type == 'offer') {
             $objOffer = Offer::init();
             if (!empty($_POST['room_type'])) {
                 $objOffer->deleteOfferRoomType($_POST['post_ID']);

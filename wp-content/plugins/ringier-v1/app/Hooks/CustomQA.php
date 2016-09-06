@@ -204,7 +204,7 @@ class CustomQA
     public function save()
     {
         global $post;
-        if($post->post_type == 'page') {
+        if(!empty($post) && $post->post_type == 'page') {
             if(!empty($_POST)){
                 if(!empty($_POST['question'] && !empty($_POST['answer']))){
                     $args = array();

@@ -181,7 +181,7 @@ class MetaboxAddon
     public function save()
     {
         global $post;
-        if($post->post_type == 'addon') {
+        if(!empty($post) && $post->post_type == 'addon') {
             if(!empty($_POST)){
                 $objAddOn = Addon::init();
                 $addon_option = $objAddOn->getAddonOptions($_POST['post_ID']);

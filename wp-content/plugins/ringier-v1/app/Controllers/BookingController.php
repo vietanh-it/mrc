@@ -144,7 +144,7 @@ class BookingController extends _BaseController
     public function ajaxSaveAdditionalInformation($data)
     {
         $model = Booking::init();
-        $rs = $model->saveAdditionalInformation($data['cart_id'], $data['additional_information']);
+        $rs = $model->saveAdditionalInformation($data['cart_id'], $data['additional_information'], $data['billing_address']);
 
         return [
             'status' => 'success',

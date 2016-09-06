@@ -15,6 +15,20 @@ $cart_detail = $m_booking->getCartInfo($user_id, $post->ID);
 // get_header();
 global $post;
 ?>
+<style>
+    .b-addr-showing {
+        display: block;
+    }
+
+    .b-addr-hidden {
+        display: none;
+    }
+
+    .btn-edit-address {
+        color: #333333;
+    }
+</style>
+
 <div class="journey-detail">
 
     <?php view('blocks/booking-topbar', ['journey_id' => $post->ID]); ?>
@@ -28,7 +42,7 @@ global $post;
                     </p>
                 </div>
             </div>
-            <form>
+            <form id="review_form">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <b class="title color-main">Stateroom</b>
@@ -132,17 +146,30 @@ global $post;
                     </div>
                     <div class="col-xs-12 col-sm-6">
                         <div class="info-bk">
-                            <b class="title">Billing address</b>
-                            <p style="padding-top: 7px">280 Luong Dinh Cua, An Phu Ward, District 2, HCMC, Vietnam</p>
+                            <div>
+                                <label for="billing_address" class="title">
+                                    <b>Billing address</b>
+                                    <a href="javascript:void(0)" class="pull-right btn-edit-address">EDIT</a>
+                                </label>
+                                <p class="b-addr-showing"></p>
+                                <div class="b-addr-hidden">
+                                    <input type="text" name="billing_address" id="billing_address" class="form-control">
+                                    <a href="javascript:void(0)" class="btn btn-main btn-change-bill-addr" style="margin-top: 15px;">Confirm</a>
+                                </div>
+                            </div>
 
 
-                            <b class="title" style="margin: 30px 0 10px">Payment method</b>
+                            <label class="title" style="margin: 30px 0 10px">
+                                <b>Payment method</b>
+                            </label>
                             <div class="radio">
                                 <label><input type="radio" name="payment_method" checked>Credit Card</label>
                             </div>
 
-                            <b class="title" style="margin: 30px 0 10px">Additional information</b>
-                            <textarea class="form-control" rows="5" name="comment" id="additional_information">I need vegetable food and need visa application support.</textarea>
+                            <label class="title" style="margin: 30px 0 10px">
+                                <b>Additional information</b>
+                            </label>
+                            <textarea class="form-control" rows="5" name="comment" id="additional_information" placeholder="Additional information"></textarea>
 
                             <div class="checkbox">
                                 <label>
@@ -160,6 +187,8 @@ global $post;
                         </div>
                     </div>
                 </div>
+
+                <input type="hidden" name="billing_address" value="">
             </form>
         </div>
     </div>
@@ -172,6 +201,7 @@ global $post;
 
         $('.btn-pay').on('click', function (e) {
             e.preventDefault();
+
 
             var is_move = confirm('You will be moved to payment page to finish booking, are you sure?');
             if (is_move) {
@@ -193,7 +223,8 @@ global $post;
                             action: 'ajax_handler_booking',
                             method: 'SaveAdditionalInformation',
                             cart_id: <?php echo $cart_detail['cart_info']->id; ?>,
-                            additional_information: $('#additional_information').html()
+                            additional_information: $('#additional_information').html(),
+                            billing_address: $('#billing_address').val()
                         },
                         success: function (data) {
                             switch_loading(false);
@@ -223,6 +254,40 @@ global $post;
 
             }
 
+        });
+
+
+        $('.btn-edit-address').on('click', function (e) {
+            $('.b-addr-showing').hide();
+            $('.b-addr-hidden').fadeIn();
+        });
+
+
+        $('.btn-change-bill-addr').on('click', function (e) {
+            $('.b-addr-showing').html($('#billing_address').val());
+
+            $('.b-addr-hidden').hide();
+            $('.b-addr-showing').fadeIn();
+        });
+
+
+        $('#billing_address').on('keyup keypress', function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                $('.b-addr-showing').html($('#billing_address').val());
+
+                $('.b-addr-hidden').hide();
+                $('.b-addr-showing').fadeIn();
+            }
+        });
+
+
+        $('#review_form').on('keyup keypress', function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
         });
     });
 </script>

@@ -245,7 +245,7 @@ class Booking
     public function getCartTotal($user_id, $journey_id, $with_addon = true)
     {
         // Cart id
-        $query = "SELECT id FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id}";
+        $query = "SELECT id FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id} AND status = 'cart'";
         $cart_id = $this->_wpdb->get_var($query);
 
         // Total = 0 if cart is empty
@@ -254,7 +254,7 @@ class Booking
         }
 
         // Room total
-        $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
+        $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id} AND c.status = 'cart'";
         $room_total = $this->_wpdb->get_var($query);
 
         if ($with_addon) {
@@ -343,9 +343,12 @@ class Booking
     }
 
 
-    public function saveAdditionalInformation($cart_id, $additional_information)
+    public function saveAdditionalInformation($cart_id, $additional_information, $billing_address)
     {
-        $this->_wpdb->update($this->_tbl_cart, ['additional_information' => $additional_information], ['id' => $cart_id]);
+        $this->_wpdb->update($this->_tbl_cart, [
+            'additional_information' => $additional_information,
+            'billing_address'        => $billing_address
+        ], ['id' => $cart_id]);
 
         return [
             'status' => 'success',
@@ -356,8 +359,27 @@ class Booking
 
     public function finishBooking($user_id, $journey_id, $params)
     {
-        $cart = $this->getCartItems($user_id, $journey_id);
+        // Transaction
+        $params['user_id'] = $user_id;
+        $params['total'] = $this->getCartTotal($user_id, $journey_id);
         $save_transaction = $this->saveTransaction($params);
+
+        if ($save_transaction) {
+            $this->_wpdb->update($this->_tbl_cart, ['status' => 'before-you-go']);
+
+            $result = [
+                'status' => 'success',
+                'data'   => ''
+            ];
+        }
+        else {
+            $result = [
+                'status' => 'fail',
+                'data'   => ''
+            ];
+        }
+
+        return $result;
     }
 
 
@@ -367,7 +389,10 @@ class Booking
         if (!empty($params['vpc_TransactionNo'])) {
             $query = "SELECT * FROM {$this->_tbl_transactions} WHERE vpc_TransactionNo = '{$params['vpc_TransactionNo']}'";
             if (empty($this->_wpdb->get_row($query))) {
-                $result = $this->_wpdb->insert($this->_tbl_transactions, $params);
+                if ($params['vpc_TxnResponseCode'] == 0) {
+                    // Transaction successful
+                    $result = $this->_wpdb->insert($this->_tbl_transactions, $params);
+                }
             }
         }
 

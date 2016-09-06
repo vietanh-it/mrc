@@ -38,7 +38,7 @@ function mrcLoad()
     require_once __DIR__ . '/vendor/autoload.php';
 
     //call hooks
-    //RVN\Hooks\Rewrite::init();
+    RVN\Hooks\Rewrite::init();
     RVN\Hooks\BackendUI::init();
     RVN\Hooks\Shortcode::init();
     RVN\Hooks\CustomJourney::init();

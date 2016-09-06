@@ -415,63 +415,65 @@ class CustomJourneyType
     public function save()
     {
         //var_dump($_POST);
-        if(!empty($_POST)){
-            $objJourneyType = JourneyType::init();
+        global $post;
+        if($post->post_type == 'journey_type') {
+            if(!empty($_POST)){
+                $objJourneyType = JourneyType::init();
 
-            if (!empty($_POST['day_name']) && !empty($_POST['day_content'])) {
-                $data = array();
-                foreach ($_POST['day_name'] as $k => $v) {
-                    $data[] = array(
-                        'day_name' => $v,
-                        'day_port' => $_POST['day_port'][$k],
-                        'day_content' => $_POST['day_content'][$k],
+                if (!empty($_POST['day_name']) && !empty($_POST['day_content'])) {
+                    $data = array();
+                    foreach ($_POST['day_name'] as $k => $v) {
+                        $data[] = array(
+                            'day_name' => $v,
+                            'day_port' => $_POST['day_port'][$k],
+                            'day_content' => $_POST['day_content'][$k],
+                        );
+                    }
+                    $args = array(
+                        'itinerary' => serialize($data),
                     );
+                    $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], $args);
+                }else{
+                    $objJourneyType->updateJourneyTypeInfo($_POST['post_ID'],array(
+                        'itinerary' => '',
+                    ));
+                }
+
+                if(!empty($_POST['include'])){
+                    $include = $_POST['include'];
+                }else{
+                    $include = '';
                 }
                 $args = array(
-                    'itinerary' => serialize($data),
+                    'include' => $include,
                 );
                 $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], $args);
-            }else{
-                $objJourneyType->updateJourneyTypeInfo($_POST['post_ID'],array(
-                    'itinerary' => '',
-                ));
-            }
 
-            if(!empty($_POST['include'])){
-                $include = $_POST['include'];
-            }else{
-                $include = '';
-            }
-            $args = array(
-                'include' => $include,
-            );
-            $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], $args);
+                if(!empty($_POST['ship_id'])){
 
-            if(!empty($_POST['ship_id'])){
+                    $ship_id = $_POST['ship_id'];
+                    $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], array('ship'=> $ship_id));
 
-                $ship_id = $_POST['ship_id'];
-                $objJourneyType->saveJourneyTypeInfo($_POST['post_ID'], array('ship'=> $ship_id));
+                    if(!empty($_POST['room_type_id']) && !empty($_POST['twin_high_season_price']) && !empty($_POST['single_high_season_price']) && !empty($_POST['twin_low_season_price']) && !empty($_POST['single_low_season_price'])){
 
-                if(!empty($_POST['room_type_id']) && !empty($_POST['twin_high_season_price']) && !empty($_POST['single_high_season_price']) && !empty($_POST['twin_low_season_price']) && !empty($_POST['single_low_season_price'])){
+                        $objJourneyType->deleteJourneyTypePrice($_POST['post_ID']);
 
-                    $objJourneyType->deleteJourneyTypePrice($_POST['post_ID']);
+                        foreach ($_POST['room_type_id'] as $kr => $room_type_id){
+                            $args_room_price = array(
+                                'journey_type_id' => $_POST['post_ID'],
+                                'room_type_id' => $room_type_id,
+                                'twin_high_season_price' => $_POST['twin_high_season_price'][$kr],
+                                'single_high_season_price' => $_POST['single_high_season_price'][$kr],
+                                'twin_low_season_price' => $_POST['twin_low_season_price'][$kr],
+                                'single_low_season_price' => $_POST['single_low_season_price'][$kr],
+                            );
 
-                    foreach ($_POST['room_type_id'] as $kr => $room_type_id){
-                        $args_room_price = array(
-                            'journey_type_id' => $_POST['post_ID'],
-                            'room_type_id' => $room_type_id,
-                            'twin_high_season_price' => $_POST['twin_high_season_price'][$kr],
-                            'single_high_season_price' => $_POST['single_high_season_price'][$kr],
-                            'twin_low_season_price' => $_POST['twin_low_season_price'][$kr],
-                            'single_low_season_price' => $_POST['single_low_season_price'][$kr],
-                        );
-
-                        $objJourneyType->saveJourneyTypePrice($args_room_price);
+                            $objJourneyType->saveJourneyTypePrice($args_room_price);
+                        }
                     }
                 }
             }
         }
-
     }
 
 }

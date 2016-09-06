@@ -180,21 +180,24 @@ class MetaboxAddon
 
     public function save()
     {
-        if(!empty($_POST)){
-            $objAddOn = Addon::init();
-            $addon_option = $objAddOn->getAddonOptions($_POST['post_ID']);
-            if (!empty($addon_option)) {
-                $objAddOn->delete(array('object_id' => $_POST['post_ID']));
-            }
-            if (!empty($_POST['addon_option_name']) && !empty($_POST['addon_option_price'])) {
-                foreach ($_POST['addon_option_name'] as $k => $v) {
-                    if (!empty($v) && !empty($_POST['addon_option_price'][$k])) {
-                        $args = array(
-                            'object_id' => $_POST['post_ID'],
-                            'option_name' => $v,
-                            'option_price' => $_POST['addon_option_price'][$k],
-                        );
-                        $save = $objAddOn->saveAddon($args);
+        global $post;
+        if($post->post_type == 'addon') {
+            if(!empty($_POST)){
+                $objAddOn = Addon::init();
+                $addon_option = $objAddOn->getAddonOptions($_POST['post_ID']);
+                if (!empty($addon_option)) {
+                    $objAddOn->delete(array('object_id' => $_POST['post_ID']));
+                }
+                if (!empty($_POST['addon_option_name']) && !empty($_POST['addon_option_price'])) {
+                    foreach ($_POST['addon_option_name'] as $k => $v) {
+                        if (!empty($v) && !empty($_POST['addon_option_price'][$k])) {
+                            $args = array(
+                                'object_id' => $_POST['post_ID'],
+                                'option_name' => $v,
+                                'option_price' => $_POST['addon_option_price'][$k],
+                            );
+                            $save = $objAddOn->saveAddon($args);
+                        }
                     }
                 }
             }

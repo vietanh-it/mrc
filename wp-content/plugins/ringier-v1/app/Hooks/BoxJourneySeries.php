@@ -388,53 +388,56 @@ class BoxJourneySeries
 
     public function save()
     {
-        if(!empty($_POST['prefix']) && !empty($_POST['journey_type'])) {
-            $objJourneySeries = JourneySeries::init();
-            $objJourney = Journey::init();
-            $data_journey_series_info = array(
-                'object_id' => $_POST['post_ID'],
-                'journey_type_id' => $_POST['journey_type'],
-                'prefix' => $_POST['prefix'],
-            );
-            $objJourneySeries->saveJourneySeriesInfo($data_journey_series_info);
-            $journey_type = get_post($_POST['journey_type']);
+        global $post;
+        if($post->post_type == 'journey_series') {
+            if(!empty($_POST['prefix']) && !empty($_POST['journey_type'])) {
+                $objJourneySeries = JourneySeries::init();
+                $objJourney = Journey::init();
+                $data_journey_series_info = array(
+                    'object_id' => $_POST['post_ID'],
+                    'journey_type_id' => $_POST['journey_type'],
+                    'prefix' => $_POST['prefix'],
+                );
+                $objJourneySeries->saveJourneySeriesInfo($data_journey_series_info);
+                $journey_type = get_post($_POST['journey_type']);
 
 
-            if(!empty($_POST['journey-code'])){
-                $objJourney->deleteJourneyDetail($_POST['post_ID']);
-                if(!empty($_POST['journey_remove']) && is_array($_POST['journey_remove'])){
-                    foreach ($_POST['journey_remove'] as $jr){
-                        $objJourney->deleteJourney($jr);
+                if(!empty($_POST['journey-code'])){
+                    $objJourney->deleteJourneyDetail($_POST['post_ID']);
+                    if(!empty($_POST['journey_remove']) && is_array($_POST['journey_remove'])){
+                        foreach ($_POST['journey_remove'] as $jr){
+                            $objJourney->deleteJourney($jr);
+                        }
                     }
-                }
-                foreach ($_POST['journey-code'] as $k => $code){
-                    $journey_id = $_POST['journey_id'][$k];
+                    foreach ($_POST['journey-code'] as $k => $code){
+                        $journey_id = $_POST['journey_id'][$k];
 
-                    if($journey_id == 0){
-                        $args_post = array(
-                            'post_title' => $_POST['prefix'].$code .' - '.$journey_type->post_title,
-                            'post_name' => $journey_type->post_name .'-'.sanitize_title($_POST['prefix'].$code),
-                            'post_author' => get_current_user_id(),
-                            'post_status' => 'publish',
-                            'post_type' => 'journey',
-                            'post_date' => current_time('mysql')
+                        if($journey_id == 0){
+                            $args_post = array(
+                                'post_title' => $_POST['prefix'].$code .' - '.$journey_type->post_title,
+                                'post_name' => $journey_type->post_name .'-'.sanitize_title($_POST['prefix'].$code),
+                                'post_author' => get_current_user_id(),
+                                'post_status' => 'publish',
+                                'post_type' => 'journey',
+                                'post_date' => current_time('mysql')
+                            );
+                            $journey_id = $objJourney->insertJourney($args_post);
+                        }
+
+                        $argc = array(
+                            'object_id' =>$journey_id,
+                            'journey_series_id' =>$_POST['post_ID'],
+                            'journey_code' => $_POST['prefix'].$code,
+                            'departure' => $_POST['departure'][$k],
+                            'navigation' =>$_POST['navigation'][$k],
                         );
-                        $journey_id = $objJourney->insertJourney($args_post);
+
+                        $objJourney->insertJourneyDetail($argc);
                     }
-
-                    $argc = array(
-                        'object_id' =>$journey_id,
-                        'journey_series_id' =>$_POST['post_ID'],
-                        'journey_code' => $_POST['prefix'].$code,
-                        'departure' => $_POST['departure'][$k],
-                        'navigation' =>$_POST['navigation'][$k],
-                    );
-
-                    $objJourney->insertJourneyDetail($argc);
+                    
                 }
             }
         }
-
     }
 
 }

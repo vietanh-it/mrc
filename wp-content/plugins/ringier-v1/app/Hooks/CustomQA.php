@@ -203,24 +203,27 @@ class CustomQA
 
     public function save()
     {
-        if(!empty($_POST)){
-            if(!empty($_POST['question'] && !empty($_POST['answer']))){
-                $args = array();
-                foreach ($_POST['question'] as $k => $question ){
-                    $args[] = array(
-                        'question' => $question,
-                        'answer' => $_POST['answer'][$k],
-                    );
+        global $post;
+        if($post->post_type == 'page') {
+            if(!empty($_POST)){
+                if(!empty($_POST['question'] && !empty($_POST['answer']))){
+                    $args = array();
+                    foreach ($_POST['question'] as $k => $question ){
+                        $args[] = array(
+                            'question' => $question,
+                            'answer' => $_POST['answer'][$k],
+                        );
+                    }
+
+                    $list_qa = get_post_meta($_POST['post_ID'],'list_qa',true);
+                    if($list_qa){
+                        update_post_meta($_POST['post_ID'],'list_qa',serialize($args));
+                    }else{
+                        add_post_meta($_POST['post_ID'],'list_qa',serialize($args));
+                    }
                 }
 
-                $list_qa = get_post_meta($_POST['post_ID'],'list_qa',true);
-                if($list_qa){
-                    update_post_meta($_POST['post_ID'],'list_qa',serialize($args));
-                }else{
-                    add_post_meta($_POST['post_ID'],'list_qa',serialize($args));
-                }
             }
-
         }
 
     }

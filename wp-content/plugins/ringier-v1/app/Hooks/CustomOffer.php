@@ -237,16 +237,19 @@ class CustomOffer
 
     public function save()
     {
-        $objOffer = Offer::init();
-        if (!empty($_POST['room_type'])) {
-            $objOffer->deleteOfferRoomType($_POST['post_ID']);
-            foreach ($_POST['room_type'] as $v) {
-                $jt_rt = explode(' - ', $v);
-                if (isset($jt_rt[1])) {
-                    $jt = $jt_rt[0];
-                    $rt = $jt_rt[1];
+        global $post;
+        if($post->post_type == 'offer') {
+            $objOffer = Offer::init();
+            if (!empty($_POST['room_type'])) {
+                $objOffer->deleteOfferRoomType($_POST['post_ID']);
+                foreach ($_POST['room_type'] as $v) {
+                    $jt_rt = explode(' - ', $v);
+                    if (isset($jt_rt[1])) {
+                        $jt = $jt_rt[0];
+                        $rt = $jt_rt[1];
 
-                    $insert = $objOffer->insertOfferRoomType($_POST['post_ID'], $jt, $rt);
+                        $insert = $objOffer->insertOfferRoomType($_POST['post_ID'], $jt, $rt);
+                    }
                 }
             }
         }

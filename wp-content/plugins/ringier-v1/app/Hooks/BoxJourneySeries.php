@@ -434,6 +434,7 @@ class BoxJourneySeries
 
                         $objJourney->insertJourneyDetail($argc);
                     }
+                    
                 }
             }
         }

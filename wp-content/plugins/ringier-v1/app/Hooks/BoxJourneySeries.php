@@ -437,9 +437,6 @@ class BoxJourneySeries
                 }
             }
         }
-        var_dump($_POST);
-
-
     }
 
 }

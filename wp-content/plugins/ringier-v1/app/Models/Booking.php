@@ -62,13 +62,6 @@ class Booking
     }
 
 
-    /**
-     * Get or create cart
-     *
-     * @param $user_id
-     * @param $journey_id
-     * @return array|null|object|void
-     */
     public function getCart($user_id, $journey_id)
     {
         $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id} AND status = 'cart'";
@@ -83,10 +76,21 @@ class Booking
     }
 
 
-    /** Save item to cart
-     * @param $data
-     * @return array|mixed|null|object
-     */
+    public function getDefaultCart($user_id, $journey_id)
+    {
+        $cart = [
+            'user_id'    => $user_id,
+            'journey_id' => $journey_id,
+            'status'     => 'cart',
+            'created_at' => current_time('mysql'),
+            'updated_at' => current_time('mysql')
+        ];
+        $this->_wpdb->insert($this->_tbl_cart, $cart);
+
+        return $cart;
+    }
+
+
     public function saveCart($data)
     {
         if (!is_user_logged_in()) {
@@ -159,14 +163,6 @@ class Booking
     }
 
 
-    /**
-     * Get or create to get object cart
-     *
-     * @param $user_id
-     * @param $journey_id
-     * @param string $status
-     * @return array|null|object
-     */
     public function getCartItems($user_id, $journey_id, $status = 'cart')
     {
         $select = "c.id as cart_id, c.journey_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.room_id, cd.type, cd.price, cd.quantity, cd.total";
@@ -189,16 +185,9 @@ class Booking
      */
     public function getCartInfo($user_id, $journey_id)
     {
-        $cart_info = $this->_wpdb->get_row("SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id}");
+        $cart_info = $this->getCart($user_id, $journey_id);
 
-        if (empty($cart_info)) {
-
-            // Insert if not exist
-            $this->getDefaultCart($user_id, $journey_id);
-        }
-
-        $query = "SELECT c.id as cart_id, c.journey_id, c.user_id, c.created_at, cd.id as cart_item_id, cd.room_id, cd.type, cd.price, cd.total FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id}";
-        $cart = $this->_wpdb->get_results($query);
+        $cart = $this->getCartItems($user_id, $journey_id);
         $room_type_twin_count = [];
         $room_type_single_count = [];
 
@@ -230,7 +219,7 @@ class Booking
 
         // Cart addon
         $m_addon = Addon::init();
-        if (!empty($cart_info)) {
+        if (!empty($cart_info->id)) {
             $cart_addon = $m_addon->getCartAddon($cart_info->id, 0, 0, '', 'active');
         }
         else {
@@ -383,21 +372,6 @@ class Booking
         }
 
         return $result;
-    }
-
-
-    public function getDefaultCart($user_id, $journey_id)
-    {
-        $cart = [
-            'user_id'    => $user_id,
-            'journey_id' => $journey_id,
-            'status'     => 'cart',
-            'created_at' => current_time('mysql'),
-            'updated_at' => current_time('mysql')
-        ];
-        $this->_wpdb->insert($this->_tbl_cart, $cart);
-
-        return $cart;
     }
 
 }

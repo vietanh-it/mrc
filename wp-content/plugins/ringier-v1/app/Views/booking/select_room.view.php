@@ -13,11 +13,13 @@ $booking_ctrl = \RVN\Controllers\BookingController::init();
 $journey_ctrl = \RVN\Controllers\JourneyController::init();
 $ship_ctrl = \RVN\Controllers\ShipController::init();
 
+// Journey detail
 $journey_detail = $journey_ctrl->getJourneyDetail($post->ID);
 $journey_type_info = $journey_detail->journey_type_info;
 $ship_info = $journey_detail->journey_type_info->ship_info;
 $current_season = $journey_detail->current_season;
 
+// Get booked rooms
 $booked_rooms = $booking_ctrl->getBookedRoom($post->ID);
 $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
@@ -105,7 +107,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 </div>
 
                                 <div>
-                                    <?php foreach ($journey_type_info->room_price  as $key => $room_type) {
+                                    <?php foreach ($journey_type_info->room_price as $key => $room_type) {
                                         $twin_price = ($current_season == 'high') ?
                                             valueOrNull($room_type->twin_high_season_price_offer,
                                                 $room_type->twin_high_season_price) :

@@ -25,6 +25,7 @@ class JourneyType
     private $_tbl_offer_info;
     private $_tbl_journey_type_port;
     private $_tbl_journey_type_price;
+    private $_tbl_journey_type_itinerary;
 
     /**
      * Users constructor.
@@ -44,6 +45,7 @@ class JourneyType
         $this->_tbl_offer_info = $this->_prefix . 'offer_info';
         $this->_tbl_journey_type_port = $this->_prefix . 'journey_type_port';
         $this->_tbl_journey_type_price = $this->_prefix . 'journey_type_price';
+        $this->_tbl_journey_type_itinerary = $this->_prefix . 'journey_type_itinerary';
 
     }
 
@@ -199,6 +201,9 @@ class JourneyType
                 $object->destination_info = $destination;
             }
 
+            $object->itinerary  = $this->getJourneyTypeItinerary($object->ID);
+
+
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($object->ID);
             $object->gallery = $gallery;
@@ -321,6 +326,45 @@ class JourneyType
         $result = false;
         if (!empty($journey_type_id)) {
             $result = $this->_wpdb->delete($this->_tbl_journey_type_price, ['journey_type_id' => $journey_type_id]);
+
+        }
+
+        return $result;
+    }
+
+    public function getJourneyTypeItinerary($journey_type_id){
+        $select = 'SELECT jtp.* FROM ' . $this->_tbl_journey_type_itinerary . ' jtp
+         WHERE jtp.journey_type_id  = ' . $journey_type_id;
+
+        $result = $this->_wpdb->get_results($select);
+        if($result){
+            foreach ($result as &$v){
+                $location_info = array();
+                if(!empty($v->location)){
+                    $objPost = Posts::init();
+                    $location_info = $objPost->getInfo($v->location);
+                }
+                $v->location_info = $location_info;
+            }
+        }
+
+        return $result;
+    }
+
+    public function saveJourneyTypeItinerary($data){
+        $result = false;
+        if (!empty($data['journey_type_id'])) {
+
+            $result = $this->_wpdb->insert($this->_tbl_journey_type_itinerary, $data);
+        }
+
+        return $result;
+    }
+
+    public function deleteJourneyTypeItinerary($journey_type_id){
+        $result = false;
+        if (!empty($journey_type_id)) {
+            $result = $this->_wpdb->delete($this->_tbl_journey_type_itinerary, ['journey_type_id' => $journey_type_id]);
 
         }
 

@@ -101,7 +101,7 @@ class AccountController extends _BaseController
 
                     $result = array(
                         'status' => 'success',
-                        'message' => 'Connect email success.',
+                        'message' => 'Refer friend success.',
                         //'url' => $url,
                     );
                 }else{

@@ -122,13 +122,12 @@ class Bank
     public function isValidHash($get)
     {
         $vpc_SecureHash = valueOrNull($get['vpc_SecureHash']);
-        $vpc_TxnResponseCode = valueOrNull($get['vpc_TxnResponseCode']);
+        $vpc_TxnResponseCode = isset($get['vpc_TxnResponseCode']) ? $get['vpc_TxnResponseCode'] : false;
 
-        $result = false;
-        if (!empty($vpc_SecureHash) && !empty($vpc_TxnResponseCode) && !empty($get)) {
+        $result = 0;
+        if (!empty($vpc_SecureHash) && ($vpc_TxnResponseCode !== false) && !empty($get)) {
 
-            if ($vpc_TxnResponseCode == "1") {
-                $SECURE_SECRET = "6D0870CDE5F24F34F3915FB0045120DB";
+            if ($vpc_TxnResponseCode == "0") {
                 ksort($get);
                 $md5HashData = "";
                 foreach ($_GET as $key => $value) {
@@ -141,8 +140,11 @@ class Bank
                 }
                 $md5HashData = rtrim($md5HashData, "&");
 
-                if (strtoupper($vpc_SecureHash) == strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', $SECURE_SECRET)))) {
-                    $result = true;
+                if (strtoupper($vpc_SecureHash) == strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', SECURE_SECRET)))) {
+                    $result = 1;
+                }
+                else {
+                    $result = 2;
                 }
             }
 

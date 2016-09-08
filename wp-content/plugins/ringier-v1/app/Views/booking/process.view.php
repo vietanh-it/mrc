@@ -34,7 +34,6 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'Title'           => 'Booking MRC Ticket'
         ];
 
-        $SECURE_SECRET = "6D0870CDE5F24F34F3915FB0045120DB";
         $vpcURL = "https://mtf.onepay.vn/vpcpay/vpcpay.op?";
 
         $md5HashData = "";
@@ -50,7 +49,8 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
                 if ($appendAmp == 0) {
                     $vpcURL .= urlencode($key) . '=' . urlencode($value);
                     $appendAmp = 1;
-                } else {
+                }
+                else {
                     $vpcURL .= '&' . urlencode($key) . "=" . urlencode($value);
                 }
                 //$md5HashData .= $value; sử dụng cả tên và giá trị tham số để mã hóa
@@ -61,13 +61,14 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
         }
         $md5HashData = rtrim($md5HashData, "&");
 
-        if (strlen($SECURE_SECRET) > 0) {
-            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', $SECURE_SECRET)));
+        if (strlen(SECURE_SECRET_CC) > 0) {
+            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', SECURE_SECRET_CC)));
         }
 
         wp_redirect($vpcURL);
         exit;
-    } elseif ($payment_type == 'atm') {
+    }
+    elseif ($payment_type == 'atm') {
         $vpc = [
             'vpc_Merchant'    => 'ONEPAY',
             'vpc_AccessCode'  => 'D67342C2',
@@ -84,7 +85,6 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'Title'           => 'Booking MRC Ticket'
         ];
 
-        $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
         $vpcURL = "https://mtf.onepay.vn/onecomm-pay/vpc.op?";
 
         $md5HashData = "";
@@ -100,7 +100,8 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
                 if ($appendAmp == 0) {
                     $vpcURL .= urlencode($key) . '=' . urlencode($value);
                     $appendAmp = 1;
-                } else {
+                }
+                else {
                     $vpcURL .= '&' . urlencode($key) . "=" . urlencode($value);
                 }
                 //$md5HashData .= $value; sử dụng cả tên và giá trị tham số để mã hóa
@@ -111,15 +112,16 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
         }
         $md5HashData = rtrim($md5HashData, "&");
 
-        if (strlen($SECURE_SECRET) > 0) {
-            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', $SECURE_SECRET)));
+        if (strlen(SECURE_SECRET_ATM) > 0) {
+            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', SECURE_SECRET_ATM)));
         }
 
         wp_redirect($vpcURL);
         exit;
     }
 
-} else {
+}
+else {
     wp_redirect(WP_SITEURL);
     exit;
 }

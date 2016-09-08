@@ -182,7 +182,7 @@ global $post;
                                 <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>
 
                                 <a href="<?php echo $url . '?step=services-addons' ?>" class="back">Back</a>
-                                <a href="<?php echo $url . '?step=process&payment_type=atm' ?>" class="btn-main btn-pay">Pay Deposit</a>
+                                <a href="<?php echo $url . '?step=process&payment_type=credit_card' ?>" class="btn-main btn-pay">Pay Deposit</a>
                             </div>
                         </div>
                     </div>

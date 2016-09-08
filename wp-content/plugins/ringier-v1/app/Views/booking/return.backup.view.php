@@ -9,7 +9,7 @@
 // This secret will vary from merchant to merchant
 // To not create a secure hash, let SECURE_SECRET be an empty string - ""
 // $SECURE_SECRET = "secure-hash-secret";
-$SECURE_SECRET = "6D0870CDE5F24F34F3915FB0045120DB";
+$SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
 
 // get and remove the vpc_TxnResponseCode code from the response fields as we
 // do not want to include this field in the hash calculation
@@ -56,7 +56,6 @@ if (strlen($SECURE_SECRET) > 0 && $_GET["vpc_TxnResponseCode"] != "7" && $_GET["
     // Secure Hash was not validated, add a data field to be displayed later.
     $hashValidated = "INVALID HASH";
 }
-
 // Define Variables
 // ----------------
 // Extract the available receipt fields from the VPC Response

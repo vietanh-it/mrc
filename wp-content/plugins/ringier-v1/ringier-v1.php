@@ -31,6 +31,20 @@ if (!defined('PASSWORD_DEFAULT')) {
     define('PASSWORD_DEFAULT', 'mrc1234');
 }
 
+if (!defined('SECURE_SECRET_ATM')) {
+    define('SECURE_SECRET_ATM', 'A3EFDFABA8653DF2342E8DAC29B51AF0');
+}
+
+if (!defined('SECURE_SECRET_CC')) {
+    define('SECURE_SECRET_CC', '6D0870CDE5F24F34F3915FB0045120DB');
+}
+
+
+// Current secure secret - accept one payment method (credit card)
+if (!defined('SECURE_SECRET')) {
+    define('SECURE_SECRET', SECURE_SECRET_CC);
+}
+
 add_action('plugins_loaded', 'mrcLoad', 500, 1);
 
 function mrcLoad()

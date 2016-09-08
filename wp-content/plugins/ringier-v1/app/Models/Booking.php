@@ -248,23 +248,26 @@ class Booking
         $query = "SELECT id FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id} AND status = 'cart'";
         $cart_id = $this->_wpdb->get_var($query);
 
+
         // Total = 0 if cart is empty
         if (empty($cart_id)) {
             return 0;
         }
 
+
         // Room total
         $query = "SELECT SUM(total) FROM {$this->_tbl_cart} c LEFT JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id} AND c.status = 'cart'";
         $room_total = $this->_wpdb->get_var($query);
 
+
+        // Addon total
+        $addon_total = 0;
         if ($with_addon) {
             // Addon total
             $query = "SELECT SUM(total) FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND status = 'active'";
             $addon_total = $this->_wpdb->get_var($query);
         }
-        else {
-            $addon_total = 0;
-        }
+
 
         $final_total = valueOrNull($room_total, 0) + valueOrNull($addon_total, 0);
 
@@ -362,10 +365,15 @@ class Booking
         // Transaction
         $params['user_id'] = $user_id;
         $params['total'] = $this->getCartTotal($user_id, $journey_id);
+        $params['created_at'] = current_time('mysql');
         $save_transaction = $this->saveTransaction($params);
 
         if ($save_transaction) {
-            $this->_wpdb->update($this->_tbl_cart, ['status' => 'before-you-go']);
+            $this->_wpdb->update($this->_tbl_cart, ['status' => 'before-you-go'], [
+                'user_id'    => $user_id,
+                'journey_id' => $journey_id,
+                'status'     => 'cart'
+            ]);
 
             $result = [
                 'status' => 'success',

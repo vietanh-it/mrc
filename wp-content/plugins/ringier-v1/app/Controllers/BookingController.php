@@ -189,4 +189,10 @@ class BookingController extends _BaseController
     {
         view('booking/return');
     }
+
+
+    public function yourBooking()
+    {
+        view('booking/your_booking');
+    }
 }

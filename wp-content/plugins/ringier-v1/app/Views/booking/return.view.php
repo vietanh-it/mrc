@@ -24,7 +24,3 @@ unset($_GET['step']);
 $data = $_GET;
 $data['trans_status'] = $transaction_status;
 $booking->finishBooking(get_current_user_id(), $post->ID, $data);
-
-// if (!empty($data)) {
-// echo $bank->getResponseDescription($data['vpc_TxnResponseCode']);
-// }

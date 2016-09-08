@@ -54,8 +54,9 @@ if (is_single()) {
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     <ul class="top-info">
-                        <li><a href="#form-refer-friend" class="refer-friend"> <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer a Friend</a>
-                            <?php if(is_user_logged_in()){ ?>
+                        <li><a href="#form-refer-friend" class="refer-friend">
+                                <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer a Friend</a>
+                            <?php if (is_user_logged_in()) { ?>
                                 <form id="form-refer-friend" style="display: none">
                                     <div class="form-group">
                                         <label for="email_friend">Friend email:</label>
@@ -67,20 +68,23 @@ if (is_single()) {
                                         <button type="submit" class="btn">Send refer</button>
                                     </div>
                                 </form>
-                             <?php }else{ ?>
+                            <?php }
+                            else { ?>
                                 <form id="form-refer-friend" style="display: none">
-                                    Please <a href="<?php echo wp_login_url(get_permalink()); ?>" title="sign in">Sign in</a> or   <a href="<?php echo wp_registration_url(); ?>">Sign up</a> to refer friend.
+                                    Please
+                                    <a href="<?php echo wp_login_url(get_permalink()); ?>" title="sign in">Sign in</a> or
+                                    <a href="<?php echo wp_registration_url(); ?>">Sign up</a> to refer friend.
                                 </form>
                             <?php } ?>
                         </li>
                         <li><a href="#"> Media Centre </a></li>
-                        <li><a href="<?php echo WP_SITEURL.'/qa/' ?>"> Q&A </a></li>
+                        <li><a href="<?php echo WP_SITEURL . '/qa/' ?>"> Q&A </a></li>
                         <li><a href="<?php echo WP_SITEURL; ?>/terms-of-use"> Terms and Conditions </a></li>
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <ul class="top-info text-right">
-                        <li><a href="#">
+                        <li><a href="<?php echo WP_SITEURL . '/account/your-booking'; ?>">
                                 <img src="<?php echo VIEW_URL . '/images/icon-date-2.png' ?>" style="margin-top: -3px;margin-right: 5px" alt=""> Your booking</a>
                         </li>
                         <?php if (!is_user_logged_in()) { ?>

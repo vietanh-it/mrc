@@ -81,8 +81,11 @@ while (have_posts()) : the_post(); ?>
                     </div>
                 </div>
                 <div class="row">
+
+
+
                     <div class="col-xs-6 col-sm-6 " >
-                        <div class=""><a href="#"><img src="<?php echo VIEW_URL .'/images/icon-edit-2.png'?>" style="margin-right: 20%"></a> <b>Dong Tran</b></div>
+                        <a href="#"><img src="<?php echo VIEW_URL .'/images/icon-edit-2.png'?>" style="margin-right: 20%"></a> <b>Dong Tran</b>
                     </div>
                     <div class="col-xs-6 col-sm-6" style="line-height: 25px" >
                         Passport ID: <b>B88868</b><br>
@@ -104,6 +107,10 @@ while (have_posts()) : the_post(); ?>
                         Passport ID: <b>B88868</b>
                     </div>
                 </div>
+
+
+
+
                 <div class="row" style="background: #d5b76e;font-weight: bold;color: white;margin-top: 10px;margin-bottom: 10px">
                     <div class="col-xs-6 col-sm-6 " >
                         <div class="tt-left">Payment</div>

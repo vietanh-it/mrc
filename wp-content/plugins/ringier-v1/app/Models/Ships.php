@@ -61,6 +61,8 @@ class Ships
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($result->ID);
             $result->gallery = $gallery;
+
+            $result->room_types = $this->getShipRoomTypes($result->ID);
         }
 
         return $result;

@@ -362,6 +362,11 @@ class Booking
 
     public function finishBooking($user_id, $journey_id, $params)
     {
+        $result = [
+            'status' => 'fail',
+            'data'   => ''
+        ];
+
         // Transaction
         $params['user_id'] = $user_id;
         $params['total'] = $this->getCartTotal($user_id, $journey_id);
@@ -369,22 +374,22 @@ class Booking
         $save_transaction = $this->saveTransaction($params);
 
         if ($save_transaction) {
-            $this->_wpdb->update($this->_tbl_cart, ['status' => 'before-you-go'], [
-                'user_id'    => $user_id,
-                'journey_id' => $journey_id,
-                'status'     => 'cart'
-            ]);
+            $cart = $this->getCart($user_id, $journey_id);
 
-            $result = [
-                'status' => 'success',
-                'data'   => ''
-            ];
-        }
-        else {
-            $result = [
-                'status' => 'fail',
-                'data'   => ''
-            ];
+            if (!empty($cart)) {
+                $code = $this->generateBookingCode();
+
+                // Update cart booking_code, status
+                $this->_wpdb->update($this->_tbl_cart, [
+                    'status'       => 'before-you-go',
+                    'booking_code' => $code
+                ], ['id' => $cart->id]);
+
+                $result = [
+                    'status' => 'success',
+                    'data'   => ''
+                ];
+            }
         }
 
         return $result;
@@ -405,6 +410,31 @@ class Booking
         }
 
         return $result;
+    }
+
+
+    public function randomCode($prefix = 'MRC', $length = 5)
+    {
+        $code = '';
+        $total = 0;
+        do {
+            $code .= rand(0, 9);
+            $total++;
+        } while ($total < $length);
+
+        return $prefix . $code;
+    }
+
+
+    public function generateBookingCode($prefix = 'MRC')
+    {
+        do {
+            $code = $this->randomCode($prefix);
+            $query = "SELECT * FROM {$this->_tbl_cart} WHERE booking_code = '{$code}'";
+            $result = $this->_wpdb->get_row($query);
+        } while (!empty($result));
+
+        return $code;
     }
 
 }

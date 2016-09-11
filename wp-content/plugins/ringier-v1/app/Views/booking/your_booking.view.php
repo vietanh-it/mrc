@@ -6,9 +6,14 @@
  * Time: 11:08 PM
  */
 
+if (!is_user_logged_in()) {
+    wp_redirect(wp_login_url($_SERVER['REQUEST_URI']));
+    exit;
+}
 
-get_header();
-while (have_posts()) : the_post(); ?>
+
+get_header(); ?>
+
     <div class="container">
         <div class="row detail-your-booking">
             <h1 class="col-xs-12 col-sm-12 tile-main">Booking Detail
@@ -88,5 +93,5 @@ while (have_posts()) : the_post(); ?>
             </div>
         </div>
     </div>
-<?php endwhile;
-get_footer();
+
+<?php get_footer();

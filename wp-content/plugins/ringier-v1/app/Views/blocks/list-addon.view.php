@@ -261,6 +261,7 @@ if (!empty($list_addon)) {
                             cart_id: <?php echo $cart_id ?>
                         },
                         success: function (data) {
+                            switch_loading(false);
 
                             if (data.status == 'success') {
                                 switch_status = true;
@@ -274,7 +275,6 @@ if (!empty($list_addon)) {
                                 }
 
                                 $('[data-item-id="' + object_id + '"]').attr('data-status', data.data.current_status);
-                                switch_loading(false);
                             }
                             else {
                                 var html_msg = '<div>';

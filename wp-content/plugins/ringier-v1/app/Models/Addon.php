@@ -181,7 +181,10 @@ class Addon
             }
             else {
                 // Cart addon null
-                return false;
+                return [
+                    'status' => 'fail',
+                    'data' => ['Please select addon services to add.']
+                ];
             }
 
             $this->_wpdb->update($this->_tbl_cart_addon, ['status' => $next_status], [

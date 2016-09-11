@@ -59,10 +59,15 @@ class BookingController extends _BaseController
         $rs = $addon_model->switchAddonStatus($data['cart_id'], $data['object_id']);
 
         if (!empty($rs)) {
-            $result = [
-                'status' => 'success',
-                'data'   => $rs
-            ];
+            if (!is_array($rs)) {
+                $result = [
+                    'status' => 'success',
+                    'data'   => $rs
+                ];
+            }
+            else {
+                $result = $rs;
+            }
         }
         else {
             $result = [

@@ -1,195 +1,397 @@
 <?php
-/*
-If you would like to edit this file, copy it to your current theme's directory and edit it there.
-Theme My Login will always look in your theme's directory first, before using this default template.
-*/
+$user_info = !empty($user_info) ? $user_info : array();
+
+get_header();
 ?>
-<div class="tml tml-profile" id="theme-my-login<?php $template->the_instance(); ?>">
-    <?php $template->the_action_template_message( 'profile' ); ?>
-    <?php $template->the_errors(); ?>
-    <form id="your-profile" action="<?php $template->the_action_url( 'profile', 'login_post' ); ?>" method="post">
-        <?php wp_nonce_field( 'update-user_' . $current_user->ID ); ?>
-        <p>
-            <input type="hidden" name="from" value="profile" />
-            <input type="hidden" name="checkuser_id" value="<?php echo $current_user->ID; ?>" />
-        </p>
-
-        <h3><?php _e( 'Personal Options', 'theme-my-login' ); ?></h3>
-
-        <table class="tml-form-table">
-            <tr class="tml-user-admin-bar-front-wrap">
-                <th><label for="admin_bar_front"><?php _e( 'Toolbar', 'theme-my-login' )?></label></th>
-                <td>
-                    <label for="admin_bar_front"><input type="checkbox" name="admin_bar_front" id="admin_bar_front" value="1"<?php checked( _get_admin_bar_pref( 'front', $profileuser->ID ) ); ?> />
-                        <?php _e( 'Show Toolbar when viewing site', 'theme-my-login' ); ?></label>
-                </td>
-            </tr>
-            <?php do_action( 'personal_options', $profileuser ); ?>
-        </table>
-
-        <?php do_action( 'profile_personal_options', $profileuser ); ?>
-
-        <h3><?php _e( 'Name', 'theme-my-login' ); ?></h3>
-
-        <table class="tml-form-table">
-            <tr class="tml-user-login-wrap">
-                <th><label for="user_login"><?php _e( 'Username', 'theme-my-login' ); ?></label></th>
-                <td><input type="text" name="user_login" id="user_login" value="<?php echo esc_attr( $profileuser->user_login ); ?>" disabled="disabled" class="regular-text" /> <span class="description"><?php _e( 'Usernames cannot be changed.', 'theme-my-login' ); ?></span></td>
-            </tr>
-
-            <tr class="tml-first-name-wrap">
-                <th><label for="first_name"><?php _e( 'First Name', 'theme-my-login' ); ?></label></th>
-                <td><input type="text" name="first_name" id="first_name" value="<?php echo esc_attr( $profileuser->first_name ); ?>" class="regular-text" /></td>
-            </tr>
-
-            <tr class="tml-last-name-wrap">
-                <th><label for="last_name"><?php _e( 'Last Name', 'theme-my-login' ); ?></label></th>
-                <td><input type="text" name="last_name" id="last_name" value="<?php echo esc_attr( $profileuser->last_name ); ?>" class="regular-text" /></td>
-            </tr>
-
-            <tr class="tml-nickname-wrap">
-                <th><label for="nickname"><?php _e( 'Nickname', 'theme-my-login' ); ?> <span class="description"><?php _e( '(required)', 'theme-my-login' ); ?></span></label></th>
-                <td><input type="text" name="nickname" id="nickname" value="<?php echo esc_attr( $profileuser->nickname ); ?>" class="regular-text" /></td>
-            </tr>
-
-            <tr class="tml-display-name-wrap">
-                <th><label for="display_name"><?php _e( 'Display name publicly as', 'theme-my-login' ); ?></label></th>
-                <td>
-                    <select name="display_name" id="display_name">
-                        <?php
-                        $public_display = array();
-                        $public_display['display_nickname']  = $profileuser->nickname;
-                        $public_display['display_username']  = $profileuser->user_login;
-
-                        if ( ! empty( $profileuser->first_name ) )
-                            $public_display['display_firstname'] = $profileuser->first_name;
-
-                        if ( ! empty( $profileuser->last_name ) )
-                            $public_display['display_lastname'] = $profileuser->last_name;
-
-                        if ( ! empty( $profileuser->first_name ) && ! empty( $profileuser->last_name ) ) {
-                            $public_display['display_firstlast'] = $profileuser->first_name . ' ' . $profileuser->last_name;
-                            $public_display['display_lastfirst'] = $profileuser->last_name . ' ' . $profileuser->first_name;
-                        }
-
-                        if ( ! in_array( $profileuser->display_name, $public_display ) )// Only add this if it isn't duplicated elsewhere
-                            $public_display = array( 'display_displayname' => $profileuser->display_name ) + $public_display;
-
-                        $public_display = array_map( 'trim', $public_display );
-                        $public_display = array_unique( $public_display );
-
-                        foreach ( $public_display as $id => $item ) {
-                            ?>
-                            <option <?php selected( $profileuser->display_name, $item ); ?>><?php echo $item; ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </td>
-            </tr>
-        </table>
-
-        <h3><?php _e( 'Contact Info', 'theme-my-login' ); ?></h3>
-
-        <table class="tml-form-table">
-            <tr class="tml-user-email-wrap">
-                <th><label for="email"><?php _e( 'E-mail', 'theme-my-login' ); ?> <span class="description"><?php _e( '(required)', 'theme-my-login' ); ?></span></label></th>
-                <td><input type="text" name="email" id="email" value="<?php echo esc_attr( $profileuser->user_email ); ?>" class="regular-text" /></td>
-                <?php
-                $new_email = get_option( $current_user->ID . '_new_email' );
-                if ( $new_email && $new_email['newemail'] != $current_user->user_email ) : ?>
-                    <div class="updated inline">
-                        <p><?php
-                            printf(
-                                __( 'There is a pending change of your e-mail to %1$s. <a href="%2$s">Cancel</a>', 'theme-my-login' ),
-                                '<code>' . $new_email['newemail'] . '</code>',
-                                esc_url( self_admin_url( 'profile.php?dismiss=' . $current_user->ID . '_new_email' ) )
-                            ); ?></p>
+<div class="container">
+    <div class="row">
+        <h1 class="col-xs-12 col-sm-12 tile-main">ACCOUNT SETTING
+            <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+        </h1>
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <form id="profile-form" class="form-account">
+                <p class="title">Your personal information</p>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" name="first_name" value="<?php echo !empty($user_info->user_firstname) ? $user_info->user_firstname : '' ?>" id="first_name" class="form-control" >
+                        </div>
                     </div>
-                <?php endif; ?>
-            </tr>
-
-            <tr class="tml-user-url-wrap">
-                <th><label for="url"><?php _e( 'Website', 'theme-my-login' ); ?></label></th>
-                <td><input type="text" name="url" id="url" value="<?php echo esc_attr( $profileuser->user_url ); ?>" class="regular-text code" /></td>
-            </tr>
-
-            <?php
-            foreach ( wp_get_user_contact_methods() as $name => $desc ) {
-                ?>
-                <tr class="tml-user-contact-method-<?php echo $name; ?>-wrap">
-                    <th><label for="<?php echo $name; ?>"><?php echo apply_filters( 'user_'.$name.'_label', $desc ); ?></label></th>
-                    <td><input type="text" name="<?php echo $name; ?>" id="<?php echo $name; ?>" value="<?php echo esc_attr( $profileuser->$name ); ?>" class="regular-text" /></td>
-                </tr>
-                <?php
-            }
-            ?>
-        </table>
-
-        <h3><?php _e( 'About Yourself', 'theme-my-login' ); ?></h3>
-
-        <table class="tml-form-table">
-            <tr class="tml-user-description-wrap">
-                <th><label for="description"><?php _e( 'Biographical Info', 'theme-my-login' ); ?></label></th>
-                <td><textarea name="description" id="description" rows="5" cols="30"><?php echo esc_html( $profileuser->description ); ?></textarea><br />
-                    <span class="description"><?php _e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'theme-my-login' ); ?></span></td>
-            </tr>
-
-            <?php
-            $show_password_fields = apply_filters( 'show_password_fields', true, $profileuser );
-            if ( $show_password_fields ) :
-            ?>
-        </table>
-
-        <h3><?php _e( 'Account Management', 'theme-my-login' ); ?></h3>
-        <table class="tml-form-table">
-            <tr id="password" class="user-pass1-wrap">
-                <th><label for="pass1"><?php _e( 'New Password', 'theme-my-login' ); ?></label></th>
-                <td>
-                    <input class="hidden" value=" " /><!-- #24364 workaround -->
-                    <button type="button" class="button button-secondary wp-generate-pw hide-if-no-js"><?php _e( 'Generate Password', 'theme-my-login' ); ?></button>
-                    <div class="wp-pwd hide-if-js">
-					<span class="password-input-wrapper">
-						<input type="password" name="pass1" id="pass1" class="regular-text" value="" autocomplete="off" data-pw="<?php echo esc_attr( wp_generate_password( 24 ) ); ?>" aria-describedby="pass-strength-result" />
-					</span>
-                        <div style="display:none" id="pass-strength-result" aria-live="polite"></div>
-                        <button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Hide password', 'theme-my-login' ); ?>">
-                            <span class="dashicons dashicons-hidden"></span>
-                            <span class="text"><?php _e( 'Hide', 'theme-my-login' ); ?></span>
-                        </button>
-                        <button type="button" class="button button-secondary wp-cancel-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Cancel password change', 'theme-my-login' ); ?>">
-                            <span class="text"><?php _e( 'Cancel', 'theme-my-login' ); ?></span>
-                        </button>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group" style="position: relative">
+                            <label for="birthday">Birthday</label>
+                            <input type="text" name="birthday" value="<?php echo !empty($user_info->birthday) ? $user_info->birthday : '' ?>" id="birthday" class="form-control datepicker" readonly>
+                            <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
+    bottom: 10px;
+    right: 10px;">
+                        </div>
                     </div>
-                </td>
-            </tr>
-            <tr class="user-pass2-wrap hide-if-js">
-                <th scope="row"><label for="pass2"><?php _e( 'Repeat New Password', 'theme-my-login' ); ?></label></th>
-                <td>
-                    <input name="pass2" type="password" id="pass2" class="regular-text" value="" autocomplete="off" />
-                    <p class="description"><?php _e( 'Type your new password again.', 'theme-my-login' ); ?></p>
-                </td>
-            </tr>
-            <tr class="pw-weak">
-                <th><?php _e( 'Confirm Password', 'theme-my-login' ); ?></th>
-                <td>
-                    <label>
-                        <input type="checkbox" name="pw_weak" class="pw-checkbox" />
-                        <?php _e( 'Confirm use of weak password', 'theme-my-login' ); ?>
-                    </label>
-                </td>
-            </tr>
-            <?php endif; ?>
+                </div>
 
-        </table>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" name="last_name" value="<?php echo !empty($user_info->user_lastname) ? $user_info->user_lastname : '' ?>" id="last_name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" name="address" value="<?php echo !empty($user_info->address) ? $user_info->address : '' ?>" id="address" class="form-control">
+                        </div>
+                    </div>
+                </div>
 
-        <?php do_action( 'show_user_profile', $profileuser ); ?>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="male" <?php echo (!empty($user_info->gender) && $user_info->gender =='male')  ? 'selected': '' ?>>Male</option>
+                                <option value="female" <?php echo (!empty($user_info->gender) && $user_info->gender =='female')  ? 'selected': '' ?>>Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select name="country" id="country" class="form-control">
+                                <option value="">--- Select your country ---</option>
+                                <option value="">Select your country</option>
+                                <option value="AF">Afghanistan</option>
+                                <option value="AX">Åland Islands</option>
+                                <option value="AL">Albania</option>
+                                <option value="DZ">Algeria</option>
+                                <option value="AS">American Samoa</option>
+                                <option value="AD">Andorra</option>
+                                <option value="AO">Angola</option>
+                                <option value="AI">Anguilla</option>
+                                <option value="AQ">Antarctica</option>
+                                <option value="AG">Antigua and Barbuda</option>
+                                <option value="AR">Argentina</option>
+                                <option value="AM">Armenia</option>
+                                <option value="AW">Aruba</option>
+                                <option value="AU">Australia</option>
+                                <option value="AT">Austria</option>
+                                <option value="AZ">Azerbaijan</option>
+                                <option value="BS">Bahamas</option>
+                                <option value="BH">Bahrain</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="BB">Barbados</option>
+                                <option value="BY">Belarus</option>
+                                <option value="BE">Belgium</option>
+                                <option value="BZ">Belize</option>
+                                <option value="BJ">Benin</option>
+                                <option value="BM">Bermuda</option>
+                                <option value="BT">Bhutan</option>
+                                <option value="BO">Bolivia, Plurinational State of</option>
+                                <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                                <option value="BA">Bosnia and Herzegovina</option>
+                                <option value="BW">Botswana</option>
+                                <option value="BV">Bouvet Island</option>
+                                <option value="BR">Brazil</option>
+                                <option value="IO">British Indian Ocean Territory</option>
+                                <option value="BN">Brunei Darussalam</option>
+                                <option value="BG">Bulgaria</option>
+                                <option value="BF">Burkina Faso</option>
+                                <option value="BI">Burundi</option>
+                                <option value="KH">Cambodia</option>
+                                <option value="CM">Cameroon</option>
+                                <option value="CA">Canada</option>
+                                <option value="CV">Cape Verde</option>
+                                <option value="KY">Cayman Islands</option>
+                                <option value="CF">Central African Republic</option>
+                                <option value="TD">Chad</option>
+                                <option value="CL">Chile</option>
+                                <option value="CN">China</option>
+                                <option value="CX">Christmas Island</option>
+                                <option value="CC">Cocos (Keeling) Islands</option>
+                                <option value="CO">Colombia</option>
+                                <option value="KM">Comoros</option>
+                                <option value="CG">Congo</option>
+                                <option value="CD">Congo, the Democratic Republic of the</option>
+                                <option value="CK">Cook Islands</option>
+                                <option value="CR">Costa Rica</option>
+                                <option value="CI">Côte d'Ivoire</option>
+                                <option value="HR">Croatia</option>
+                                <option value="CU">Cuba</option>
+                                <option value="CW">Curaçao</option>
+                                <option value="CY">Cyprus</option>
+                                <option value="CZ">Czech Republic</option>
+                                <option value="DK">Denmark</option>
+                                <option value="DJ">Djibouti</option>
+                                <option value="DM">Dominica</option>
+                                <option value="DO">Dominican Republic</option>
+                                <option value="EC">Ecuador</option>
+                                <option value="EG">Egypt</option>
+                                <option value="SV">El Salvador</option>
+                                <option value="GQ">Equatorial Guinea</option>
+                                <option value="ER">Eritrea</option>
+                                <option value="EE">Estonia</option>
+                                <option value="ET">Ethiopia</option>
+                                <option value="FK">Falkland Islands (Malvinas)</option>
+                                <option value="FO">Faroe Islands</option>
+                                <option value="FJ">Fiji</option>
+                                <option value="FI">Finland</option>
+                                <option value="FR">France</option>
+                                <option value="GF">French Guiana</option>
+                                <option value="PF">French Polynesia</option>
+                                <option value="TF">French Southern Territories</option>
+                                <option value="GA">Gabon</option>
+                                <option value="GM">Gambia</option>
+                                <option value="GE">Georgia</option>
+                                <option value="DE">Germany</option>
+                                <option value="GH">Ghana</option>
+                                <option value="GI">Gibraltar</option>
+                                <option value="GR">Greece</option>
+                                <option value="GL">Greenland</option>
+                                <option value="GD">Grenada</option>
+                                <option value="GP">Guadeloupe</option>
+                                <option value="GU">Guam</option>
+                                <option value="GT">Guatemala</option>
+                                <option value="GG">Guernsey</option>
+                                <option value="GN">Guinea</option>
+                                <option value="GW">Guinea-Bissau</option>
+                                <option value="GY">Guyana</option>
+                                <option value="HT">Haiti</option>
+                                <option value="HM">Heard Island and McDonald Islands</option>
+                                <option value="VA">Holy See (Vatican City State)</option>
+                                <option value="HN">Honduras</option>
+                                <option value="HK">Hong Kong</option>
+                                <option value="HU">Hungary</option>
+                                <option value="IS">Iceland</option>
+                                <option value="IN">India</option>
+                                <option value="ID">Indonesia</option>
+                                <option value="IR">Iran, Islamic Republic of</option>
+                                <option value="IQ">Iraq</option>
+                                <option value="IE">Ireland</option>
+                                <option value="IM">Isle of Man</option>
+                                <option value="IL">Israel</option>
+                                <option value="IT">Italy</option>
+                                <option value="JM">Jamaica</option>
+                                <option value="JP">Japan</option>
+                                <option value="JE">Jersey</option>
+                                <option value="JO">Jordan</option>
+                                <option value="KZ">Kazakhstan</option>
+                                <option value="KE">Kenya</option>
+                                <option value="KI">Kiribati</option>
+                                <option value="KP">Korea, Democratic People's Republic of</option>
+                                <option value="KR">Korea, Republic of</option>
+                                <option value="KW">Kuwait</option>
+                                <option value="KG">Kyrgyzstan</option>
+                                <option value="LA">Lao People's Democratic Republic</option>
+                                <option value="LV">Latvia</option>
+                                <option value="LB">Lebanon</option>
+                                <option value="LS">Lesotho</option>
+                                <option value="LR">Liberia</option>
+                                <option value="LY">Libya</option>
+                                <option value="LI">Liechtenstein</option>
+                                <option value="LT">Lithuania</option>
+                                <option value="LU">Luxembourg</option>
+                                <option value="MO">Macao</option>
+                                <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                                <option value="MG">Madagascar</option>
+                                <option value="MW">Malawi</option>
+                                <option value="MY">Malaysia</option>
+                                <option value="MV">Maldives</option>
+                                <option value="ML">Mali</option>
+                                <option value="MT">Malta</option>
+                                <option value="MH">Marshall Islands</option>
+                                <option value="MQ">Martinique</option>
+                                <option value="MR">Mauritania</option>
+                                <option value="MU">Mauritius</option>
+                                <option value="YT">Mayotte</option>
+                                <option value="MX">Mexico</option>
+                                <option value="FM">Micronesia, Federated States of</option>
+                                <option value="MD">Moldova, Republic of</option>
+                                <option value="MC">Monaco</option>
+                                <option value="MN">Mongolia</option>
+                                <option value="ME">Montenegro</option>
+                                <option value="MS">Montserrat</option>
+                                <option value="MA">Morocco</option>
+                                <option value="MZ">Mozambique</option>
+                                <option value="MM">Myanmar</option>
+                                <option value="NA">Namibia</option>
+                                <option value="NR">Nauru</option>
+                                <option value="NP">Nepal</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="NC">New Caledonia</option>
+                                <option value="NZ">New Zealand</option>
+                                <option value="NI">Nicaragua</option>
+                                <option value="NE">Niger</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="NU">Niue</option>
+                                <option value="NF">Norfolk Island</option>
+                                <option value="MP">Northern Mariana Islands</option>
+                                <option value="NO">Norway</option>
+                                <option value="OM">Oman</option>
+                                <option value="PK">Pakistan</option>
+                                <option value="PW">Palau</option>
+                                <option value="PS">Palestinian Territory, Occupied</option>
+                                <option value="PA">Panama</option>
+                                <option value="PG">Papua New Guinea</option>
+                                <option value="PY">Paraguay</option>
+                                <option value="PE">Peru</option>
+                                <option value="PH">Philippines</option>
+                                <option value="PN">Pitcairn</option>
+                                <option value="PL">Poland</option>
+                                <option value="PT">Portugal</option>
+                                <option value="PR">Puerto Rico</option>
+                                <option value="QA">Qatar</option>
+                                <option value="RE">Réunion</option>
+                                <option value="RO">Romania</option>
+                                <option value="RU">Russian Federation</option>
+                                <option value="RW">Rwanda</option>
+                                <option value="BL">Saint Barthélemy</option>
+                                <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                                <option value="KN">Saint Kitts and Nevis</option>
+                                <option value="LC">Saint Lucia</option>
+                                <option value="MF">Saint Martin (French part)</option>
+                                <option value="PM">Saint Pierre and Miquelon</option>
+                                <option value="VC">Saint Vincent and the Grenadines</option>
+                                <option value="WS">Samoa</option>
+                                <option value="SM">San Marino</option>
+                                <option value="ST">Sao Tome and Principe</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="SN">Senegal</option>
+                                <option value="RS">Serbia</option>
+                                <option value="SC">Seychelles</option>
+                                <option value="SL">Sierra Leone</option>
+                                <option value="SG">Singapore</option>
+                                <option value="SX">Sint Maarten (Dutch part)</option>
+                                <option value="SK">Slovakia</option>
+                                <option value="SI">Slovenia</option>
+                                <option value="SB">Solomon Islands</option>
+                                <option value="SO">Somalia</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                <option value="SS">South Sudan</option>
+                                <option value="ES">Spain</option>
+                                <option value="LK">Sri Lanka</option>
+                                <option value="SD">Sudan</option>
+                                <option value="SR">Suriname</option>
+                                <option value="SJ">Svalbard and Jan Mayen</option>
+                                <option value="SZ">Swaziland</option>
+                                <option value="SE">Sweden</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="SY">Syrian Arab Republic</option>
+                                <option value="TW">Taiwan, Province of China</option>
+                                <option value="TJ">Tajikistan</option>
+                                <option value="TZ">Tanzania, United Republic of</option>
+                                <option value="TH">Thailand</option>
+                                <option value="TL">Timor-Leste</option>
+                                <option value="TG">Togo</option>
+                                <option value="TK">Tokelau</option>
+                                <option value="TO">Tonga</option>
+                                <option value="TT">Trinidad and Tobago</option>
+                                <option value="TN">Tunisia</option>
+                                <option value="TR">Turkey</option>
+                                <option value="TM">Turkmenistan</option>
+                                <option value="TC">Turks and Caicos Islands</option>
+                                <option value="TV">Tuvalu</option>
+                                <option value="UG">Uganda</option>
+                                <option value="UA">Ukraine</option>
+                                <option value="AE">United Arab Emirates</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="US">United States</option>
+                                <option value="UM">United States Minor Outlying Islands</option>
+                                <option value="UY">Uruguay</option>
+                                <option value="UZ">Uzbekistan</option>
+                                <option value="VU">Vanuatu</option>
+                                <option value="VE">Venezuela, Bolivarian Republic of</option>
+                                <option value="VN">Viet Nam</option>
+                                <option value="VG">Virgin Islands, British</option>
+                                <option value="VI">Virgin Islands, U.S.</option>
+                                <option value="WF">Wallis and Futuna</option>
+                                <option value="EH">Western Sahara</option>
+                                <option value="YE">Yemen</option>
+                                <option value="ZM">Zambia</option>
+                                <option value="ZW">Zimbabwe</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-right">
+                    <button type="submit">Update</button>
+                </div>
+            </form>
 
-        <p class="tml-submit-wrap">
-            <input type="hidden" name="action" value="profile" />
-            <input type="hidden" name="instance" value="<?php $template->the_instance(); ?>" />
-            <input type="hidden" name="user_id" id="user_id" value="<?php echo esc_attr( $current_user->ID ); ?>" />
-            <input type="submit" class="button-primary" value="<?php esc_attr_e( 'Update Profile', 'theme-my-login' ); ?>" name="submit" id="submit" />
-        </p>
-    </form>
+
+            <form id="passport-form" class="form-account">
+                <p class="title">Your passport information</p>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="passport_id">Passport ID</label>
+                            <input type="text" name="passport_id" value="<?php echo !empty($user_info->passport_id) ? $user_info->passport_id : '' ?>" id="passport_id" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group" style="position: relative">
+                            <label for="valid_until">Valid until</label>
+                            <input type="text" name="valid_until" value="<?php echo !empty($user_info->valid_until) ? $user_info->valid_until : '' ?>" id="valid_until" class="form-control datepicker" readonly>
+                            <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
+    bottom: 10px;
+    right: 10px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group"  style="position: relative">
+                            <label for="date_of_issue">Date of issue</label>
+                            <input type="text" name="date_of_issue" value="<?php echo !empty($user_info->date_of_issue) ? $user_info->date_of_issue : '' ?>" id="date_of_issue" class="form-control datepicker" readonly>
+                            <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
+    bottom: 10px;
+    right: 10px;">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="nationality">Nationality</label>
+                            <input type="text" name="nationality" value="<?php echo !empty($user_info->nationality) ? $user_info->nationality : '' ?>" id="nationality" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-right">
+                    <button type="submit">Update</button>
+                </div>
+            </form>
+
+
+            <form id="account-form" class="form-account">
+                <p class="title">Your account information</p>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group" style="position: relative">
+                            <label for="a_email">Your email address</label>
+                            <input type="text" name="a_email" value="<?php echo !empty($user_info->user_email) ? $user_info->user_email : '' ?>" id="a_email" class="form-control">
+                            <img src="<?php echo VIEW_URL ?>/images/icon-a-edit.jpg" style="position: absolute;
+    bottom: 0px;
+    right: 0px;">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group" style="position: relative">
+                            <label for="a_password">Your password
+                            </label>
+                            <input type="password" name="a_password" value="<?php echo !empty($user_info->user_password) ? $user_info->user_password : '' ?>" id="a_password" class="form-control " >
+                            <img src="<?php echo VIEW_URL ?>/images/icon-a-edit.jpg" style="position: absolute;
+    bottom: 0px;
+    right: 0px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-right">
+                    <button type="submit">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+
+<?php get_footer() ?>

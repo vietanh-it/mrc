@@ -2,6 +2,7 @@
 namespace RVN\Controllers\Account;
 
 use RVN\Controllers\_BaseController;
+use RVN\Models\Users;
 
 class AccountController extends _BaseController
 {
@@ -127,7 +128,14 @@ class AccountController extends _BaseController
         return $result;
 
     }
-    
+
+    public function userInfo($user_id){
+        $objUser = Users::init();
+
+        $user_info = $objUser->getUserInfo($user_id);
+
+        return view('account/profile',compact('user_info'));
+    }
     
 }
 

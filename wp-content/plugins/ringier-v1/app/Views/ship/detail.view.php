@@ -3,28 +3,35 @@ $ship_detail = !empty($ship_detail) ? $ship_detail : array();
 get_header();
 ?>
 <div class="journey-detail">
+    <div class="featured-image" >
+        <a href="<?php echo $ship_detail->images->full ?>" class="fancybox"><img src="<?php echo $ship_detail->images->full ?>" alt="<?php echo $ship_detail->post_title ?>" ></a>
+        <div class="container container-big">
+            <div class="info-ship">
+                <?php echo $ship_detail->post_content  ?>
+            </div>
+        </div>
+    </div>
+
     <div class="container container-big">
         <div class="row">
             <div class="col-xs-12 col-sm-4 list-img-left">
-
-                <h3 class="title-main">Image</h3>
-                <a href="<?php echo $ship_detail->images->small ?>" class="fancybox"><img src="<?php echo $ship_detail->images->small ?>" alt=""></a>
-
-                <h3 class="title-main">Map</h3>
-                <a href="<?php echo $ship_detail->map ?>" class="fancybox"><img src="<?php echo $ship_detail->map ?>" alt=""></a>
-
                 <?php if($ship_detail->gallery){ ?>
-                    <h3 class="title-main">List gallery</h3>
+                    <h3 class="title-main">Ship photos</h3>
                     <div class="list-galary">
                         <?php foreach ($ship_detail->gallery as $g){ ?>
                             <div><a href="<?php echo $g->full ?>" class="fancybox" rel="ship photos"><img src="<?php echo $g->small ?>"></a></div>
                         <?php } ?>
                     </div>
                 <?php } ?>
+
+                <h3 class="title-main">Ship video</h3>
+                <a href="<?php echo $ship_detail->map ?>" class="fancybox"><img src="<?php echo $ship_detail->map ?>" alt=""></a>
+
+
             </div>
             <div class="col-xs-12 col-sm-8">
-                <h1 class="title-main" ><?php the_title() ?></h1>
-                <?php echo apply_filters('the_content',$ship_detail->post_content) ?>
+               <!-- <h1 class="title-main" ><?php /*the_title() */?></h1>
+                --><?php /*echo apply_filters('the_content',$ship_detail->post_content) */?>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">

@@ -1,6 +1,4 @@
 <?php
-/**
- * Template name: News list
- */
+global $post;
 $ctr = \RVN\Controllers\NewsController::init();
-$ctr->listNews();
+$ctr->detail($post->ID);

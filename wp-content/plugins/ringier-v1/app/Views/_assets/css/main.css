@@ -1222,6 +1222,96 @@ footer ul li{
     border-top: 1px solid #e4a611 !important;
     font-weight: bold;
 }
+.info-ship{
+    position: absolute;
+    z-index: 999;
+    bottom: -100px;
+    background: white;
+    width: 900px;
+    padding: 30px;
+}
+.box-news:first-child{
+    margin-top: 30px;
+}
+.box-news{
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.box-news .title{
+    color: #e4a611;
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+    display: block;
+}
+.box-news .title:hover{
+    text-decoration: none;
+    color: #e1cc9c;
+}
+
+.box-news .explore{
+    display: block;
+    margin-top: 30px;
+    color: white;
+    background: #e4a611;
+    padding: 7px 0;
+    text-align: center;
+    width: 130px;
+    text-transform: uppercase;
+    border: 1px solid #e4a611;
+    border-radius: 10px;
+}
+.box-news .explore:hover{
+    color: #e4a611;
+    background: white;
+}
+.box-news .time{
+    color: #7c7c7c;
+    font-style: inherit;
+}
+
+.wp-caption { max-width: 100% !important;   border: 1px solid #ddd;
+    text-align: center;
+    background-color: #f3f3f3;
+    padding-top: 5px;
+    margin: 10px 0;}
+.editor img { max-width: 98%!important; height: auto !important;}
+.wp-caption img { max-width: 98%!important; height: auto !important;}
+.wp-caption-text {padding: 10px 10px 0 10px; font-style: italic; text-align: center}
+.single-news .tile-main{
+    text-align: left;
+   margin: 15px 0;
+}
+.news-related{
+    position: relative;
+    margin-bottom: 30px;
+}
+.news-related .title{
+    position: absolute;
+    bottom: 0px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    z-index: 89;
+    padding: 10px;
+}
+.single-news .share{
+    list-style: none;
+    padding-left: 0;
+}
+.single-news .share li{
+    display: inline-block;
+    list-style: none;
+    padding-right: 10px;
+}
+.single-news .share li a:hover{
+    opacity: 0.8;
+}
+
+
+
 @media (min-width: 1200px){
 
     .container{

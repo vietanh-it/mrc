@@ -1,6 +1,4 @@
 <?php
-/**
- * Template name: Resources
- */
+global $post;
 $ctr = \RVN\Controllers\ResourceController::init();
-$ctr->listResource();
+$ctr->detail($post->ID);

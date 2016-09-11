@@ -1297,6 +1297,13 @@ footer ul li{
     z-index: 89;
     padding: 10px;
 }
+.news-related:hover image{
+
+}
+.news-related:hover a{
+    color: #e4a611;
+}
+
 .single-news .share{
     list-style: none;
     padding-left: 0;
@@ -1309,7 +1316,6 @@ footer ul li{
 .single-news .share li a:hover{
     opacity: 0.8;
 }
-
 
 
 @media (min-width: 1200px){

@@ -34,17 +34,14 @@ jQuery(document).ready(function ($) {
     $(".owl-carousel .owl-next").html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
     $(".owl-carousel .owl-prev").html('<i class="fa fa-angle-left" aria-hidden="true"></i>');
 
-    /*$( ".datepicker" ).datepicker({
+    $( ".datepicker" ).datepicker({
      changeMonth: true,
      changeYear: true,
      showButtonPanel: true,
-     dateFormat: 'MM yy',
-     onClose: function(dateText, inst) {
-     $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-     }
-     });*/
-    $('.month-year-input').attr('readonly', true);
-    $('.month-year-input').MonthPicker({Button: false});
+     dateFormat: 'dd M yy'
+     });
+   /* $('.month-year-input').attr('readonly', true);
+    $('.month-year-input').MonthPicker({Button: false});*/
 
 
     $("select.select-2").select2({

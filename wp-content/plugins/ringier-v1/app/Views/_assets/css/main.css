@@ -933,10 +933,6 @@ footer ul li{
     margin-bottom: 30px;
 }
 
-.ui-datepicker-calendar {
-    display: none;
-}
-
 .select2-container, .select2-drop, .select2-search, .select2-search input{
     background: none;
     border: 0;
@@ -1317,6 +1313,35 @@ footer ul li{
     opacity: 0.8;
 }
 
+
+.form-account{
+    margin-bottom: 30px;
+    background: #f5f5f5;
+    padding: 20px;
+}
+.form-account .title {
+    color: #d5b76e;
+    font-size: 17px;
+    font-family: 'Playfair Display', serif;
+}
+.form-account button{
+    padding: 8px 35px;
+    background: #e4a611;
+    border: 1px solid #e4a611;
+    border-radius: 5px;
+    text-transform: uppercase;
+    color: white;
+}
+.form-account button:hover{
+    color: #e4a611;
+    background: white;
+}
+.form-account .form-control{
+    height: 38px;
+}
+.form-account input[readonly]{
+    background: white;
+}
 
 @media (min-width: 1200px){
 

@@ -35,7 +35,8 @@ if (!function_exists('sendy_action')) {
         if ($action == 1) {
 //        $data['name'] = $userdata->data->display_name;
             curl_setopt($ch, CURLOPT_URL, 'http://sendy.ringier.com.vn/subscribe');
-        } else {
+        }
+        else {
             if (isset($data['name'])) {
                 unset($data['name']);
             }
@@ -60,7 +61,8 @@ if (!function_exists('cut_string_by_char')) {
                 return substr($string, 0, $max_length) . "...";
             }
             return substr($string, 0, $pos) . "...";
-        } else {
+        }
+        else {
             return $string;
         }
     }
@@ -85,7 +87,8 @@ if (!function_exists('limitWord')) {
             if (!empty($arr[$i])) {
                 if ($i != 0) {
                     $rs .= ' ' . $arr[$i];
-                } else {
+                }
+                else {
                     $rs .= $arr[$i];
                 }
             }
@@ -118,7 +121,8 @@ if (!function_exists('set_cache_tag')) {
             $list = wp_cache_get($tag_key);
             if ($list === false) {
                 $list = [$key];
-            } else {
+            }
+            else {
                 $list[] = $key;
             }
             wp_cache_set($tag_key, $list, CACHEGROUP, CACHETIME);
@@ -171,7 +175,8 @@ if (!function_exists('isAjax')) {
     {
         if (!defined('DOING_AJAX') || !DOING_AJAX) {
             return false;
-        } else {
+        }
+        else {
             return true;
         }
     }
@@ -205,7 +210,8 @@ if (!function_exists('validateDate')) {
         $d = DateTime::createFromFormat($format, $date);
         if ($d && $d->format($format) == $date) {
             return $d->format($format_return);
-        } else {
+        }
+        else {
             return false;
         }
 
@@ -230,24 +236,28 @@ if (!function_exists('htmlPrice')) {
                         // 1.1.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_high_season_price) . "</span>";
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_high_season_price_offer) . "</span>";
-                    } else {
+                    }
+                    else {
                         // 1.1.2 No offer
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_high_season_price) . '</span>';
                     }
-                } elseif ($season == 'low') {
+                }
+                elseif ($season == 'low') {
                     // 1.2 Low season
 
                     if (!empty($room_type_object->twin_low_season_price_offer)) {
                         // 1.2.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_low_season_price) . "</span>";
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_low_season_price_offer) . "</span>";
-                    } else {
+                    }
+                    else {
                         // 1.2.2 No offer
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_low_season_price) . '</span>';
                     }
                 }
 
-            } elseif ($type == 'single') {
+            }
+            elseif ($type == 'single') {
 
                 // 2. Single
                 if ($season == 'high') {
@@ -257,18 +267,21 @@ if (!function_exists('htmlPrice')) {
                         // 2.1.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->single_high_season_price) . "</span>";
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_high_season_price_offer) . "</span>";
-                    } else {
+                    }
+                    else {
                         // 2.1.2 No offer
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_high_season_price) . '</span>';
                     }
-                } elseif ($season == 'low') {
+                }
+                elseif ($season == 'low') {
                     // 2.2 Low season
 
                     if (!empty($room_type_object->single_low_season_price_offer)) {
                         // 2.2.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->single_low_season_price) . "</span>";
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_low_season_price_offer) . "</span>";
-                    } else {
+                    }
+                    else {
                         // 2.2.2 No offer
                         $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_low_season_price) . '</span>';
                     }
@@ -279,6 +292,35 @@ if (!function_exists('htmlPrice')) {
         }
 
         return $result_string;
+    }
+
+}
+
+if (!function_exists('sendEmailHTML')) {
+
+    function sendEmailHTML($to_email, $subject, $html_path, $args)
+    {
+        // region test params
+        // $to_email = 'vietanh@ringier.com.vn'
+
+        // $subject = 'test'
+
+        // $html_path = 'account/forgot_password.html'
+
+        // $args = [
+        //     '[%first_name%]' => 'Việt Anh'
+        // ];
+        // endregion
+
+        $html = file_get_contents(EMAIL_PATH . $html_path);
+        $args_search = [];
+        $args_replace = [];
+        foreach ($args as $key => $value) {
+            $args_search[] = $key;
+            $args_replace[] = $value;
+        }
+        $content = str_replace($args_search, $args_replace, $html);
+        wp_mail($to_email, $subject, $content, 'Content-type: text/html');
     }
 
 }

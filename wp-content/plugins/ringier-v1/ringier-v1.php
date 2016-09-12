@@ -45,6 +45,11 @@ if (!defined('SECURE_SECRET')) {
     define('SECURE_SECRET', SECURE_SECRET_CC);
 }
 
+if (!defined('EMAIL_PATH')) {
+    define('EMAIL_PATH', ABSPATH . '_email/');
+}
+
+
 add_action('plugins_loaded', 'mrcLoad', 500, 1);
 
 function mrcLoad()

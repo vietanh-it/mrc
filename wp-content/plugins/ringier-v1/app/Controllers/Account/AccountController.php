@@ -169,10 +169,10 @@ class AccountController extends _BaseController
                 $data['passport_id'] = $_POST['passport_id'];
             }
             if(isset($_POST['valid_until'])){
-                $data['valid_until'] = $_POST['valid_until'];
+                $data['valid_until'] =  date('Y-m-d',strtotime($_POST['valid_until'])); ;
             }
             if(isset($_POST['date_of_issue'])){
-                $data['date_of_issue'] = $_POST['date_of_issue'];
+                $data['date_of_issue'] =   date('Y-m-d',strtotime($_POST['date_of_issue']));;
             }
             if(isset($_POST['nationality'])){
                 $data['nationality'] = $_POST['nationality'];

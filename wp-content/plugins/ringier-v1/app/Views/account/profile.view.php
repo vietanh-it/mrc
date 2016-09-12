@@ -34,7 +34,7 @@ get_header();
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group" style="position: relative">
                             <label for="birthday">Birthday</label>
-                            <input type="text" name="birthday" value="<?php echo !empty($user_info->birthday) ? $user_info->birthday : '' ?>" id="birthday" class="form-control datepicker" readonly>
+                            <input type="text" name="birthday" value="<?php echo !empty($user_info->birthday) ? date('d M Y', strtotime($user_info->birthday) ) : '' ?>" id="birthday" class="form-control datepicker" readonly>
                             <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
     bottom: 10px;
     right: 10px;">
@@ -100,7 +100,7 @@ get_header();
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group" style="position: relative">
                             <label for="valid_until">Valid until</label>
-                            <input type="text" name="valid_until" value="<?php echo !empty($user_info->valid_until) ? $user_info->valid_until : '' ?>" id="valid_until" class="form-control datepicker" readonly>
+                            <input type="text" name="valid_until" value="<?php echo !empty($user_info->valid_until) ? date('d M Y', strtotime($user_info->valid_until)) : '' ?>" id="valid_until" class="form-control datepicker" readonly>
                             <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
     bottom: 10px;
     right: 10px;">
@@ -112,7 +112,7 @@ get_header();
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group"  style="position: relative">
                             <label for="date_of_issue">Date of issue</label>
-                            <input type="text" name="date_of_issue" value="<?php echo !empty($user_info->date_of_issue) ? $user_info->date_of_issue : '' ?>" id="date_of_issue" class="form-control datepicker" readonly>
+                            <input type="text" name="date_of_issue" value="<?php echo !empty($user_info->date_of_issue) ? date('d M Y', strtotime($user_info->date_of_issue)) : '' ?>" id="date_of_issue" class="form-control datepicker" readonly>
                             <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
     bottom: 10px;
     right: 10px;">

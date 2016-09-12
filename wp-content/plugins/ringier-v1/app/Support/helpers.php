@@ -332,7 +332,7 @@ if (!function_exists('sendEmailHTML')) {
 if (!function_exists('subscribeSendy')) {
     function subscribeSendy()
     {
-        function subscribe_to_list($data)
+        function subscribeSendy($data)
         {
             //sendy
             $ch = curl_init();

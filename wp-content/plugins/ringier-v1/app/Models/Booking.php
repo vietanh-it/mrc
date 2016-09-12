@@ -66,7 +66,7 @@ class Booking
     {
         // $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id} AND status = 'cart'";
         $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_cart} c ON p.ID = c.id" .
-            " WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id} AND c.status = 'cart'";
+            " WHERE p.post_status <> 'trash' AND c.user_id = {$user_id} AND c.journey_id = {$journey_id} AND c.status = 'cart'";
         $cart = $this->_wpdb->get_row($query);
 
         // Nếu chưa có cart
@@ -86,7 +86,8 @@ class Booking
 
         // Create post
         $post_id = wp_insert_post([
-            'post_title' => $code,
+            'post_title' => '#' . $code,
+            'post_name'  => $code,
             'post_type'  => 'booking'
         ]);
 

@@ -49,6 +49,10 @@ if (!defined('EMAIL_PATH')) {
     define('EMAIL_PATH', ABSPATH . '_email/');
 }
 
+if (!defined('SUBSCRIBE_LIST')) {
+    define('SUBSCRIBE_LIST', 'RGc7bPC3b2UkfX4CsOw2HQ');
+}
+
 
 add_action('plugins_loaded', 'mrcLoad', 500, 1);
 

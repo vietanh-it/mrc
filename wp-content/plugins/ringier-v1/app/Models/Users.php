@@ -38,7 +38,7 @@ class Users
      * Tao moi user
      *
      * @param $data
-     * @return array
+     * @return bool | array
      */
     public function saveUser($data)
     {
@@ -60,13 +60,12 @@ class Users
 
             if($data['password']){
                 wp_set_password( $data['password'], $user_id );
-
             }
 
             //sendy
             subscribeSendy(array(
-                'name' => $data['full_name'],
-                'email' => $data['user_email'],
+                'display_name' => $data['first_name'],
+                'user_email' => $data['user_email'],
             ));
 
             $query = 'SELECT * FROM '.$this->_table_info .' WHERE user_id = '.$user_id;

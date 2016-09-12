@@ -62,12 +62,20 @@ class AccountController extends _BaseController
         if($data['c_email']){
             if(is_email($data['c_email'])){
 
+                $name = !empty($data['c_name']) ? $data['c_name'] : $data['c_email'];
                 $args= array(
                     'email' => $data['c_email'],
-                    'name' => !empty($data['c_name']) ? $data['c_name'] : $data['c_email'],
+                    'name' => $name,
                 );
-                //TODO :  add to sendy
 
+                //TODO :  add to sendy
+                $args = array(
+                    'first_name' => $name,
+                    'url_web' => WP_SITEURL,
+                    'url_unsubscribe' => '#',
+                );
+                sendEmailHTML($data['c_email'],'Thank you for your newsletter sign-up
+','normal_user/newsletter_sign_up.html',$args);
                 //
 
                 $result = array(

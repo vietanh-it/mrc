@@ -105,7 +105,7 @@ if (is_single()) {
                             ?>
                             <li class="sign-up">
                                 <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>">
-                                <a href="<?php echo WP_SITEURL.'/account/setting/' ?>">
+                                <a href="<?php echo WP_SITEURL.'/account/profile/' ?>">
                                     <?php echo $user_info->display_name ?>
                                 </a>
                                 |

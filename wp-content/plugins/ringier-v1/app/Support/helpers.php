@@ -330,24 +330,23 @@ if (!function_exists('sendEmailHTML')) {
 }
 
 if (!function_exists('subscribeSendy')) {
-    function subscribeSendy()
-    {
-        function subscribeSendy($data)
-        {
-            //sendy
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
 
-            $data = [
-                'name'  => $data['display_name'],
-                'email' => $data['user_email'],
-                'list'  => SUBSCRIBE_LIST
-            ];
-            curl_setopt($ch, CURLOPT_URL, 'http://sendy.carodigital.studio/subscribe');
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            return curl_exec($ch);
-        }
+    function subscribeSendy($data)
+    {
+        //sendy
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        $data = [
+            'name'  => $data['display_name'],
+            'email' => $data['user_email'],
+            'list'  => SUBSCRIBE_LIST
+        ];
+        curl_setopt($ch, CURLOPT_URL, 'http://sendy.carodigital.studio/subscribe');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        return curl_exec($ch);
     }
+
 }

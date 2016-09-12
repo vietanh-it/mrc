@@ -1221,10 +1221,13 @@ footer ul li{
 .info-ship{
     position: absolute;
     z-index: 999;
-    bottom: -100px;
+    bottom: -590px;
     background: white;
-    width: 900px;
+    width: 70%;
     padding: 30px;
+    max-height: 200px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
 }
 .box-news:first-child{
     margin-top: 30px;

@@ -53,7 +53,9 @@ class Users
         if($user_id){
             wp_update_user(array(
                 "ID" => $user_id,
-                "display_name" => $data['full_name'],
+                "display_name" => $data['first_name'] . ' '.$data['last_name'],
+                "first_name" => $data['first_name'],
+                "last_name" => $data['last_name'],
             ));
 
             if($data['password']){
@@ -61,13 +63,19 @@ class Users
 
             }
 
+            //sendy
+            subscribeSendy(array(
+                'display_name' => $data['full_name'],
+                'user_email' => $data['user_email'],
+            ));
+
             $query = 'SELECT * FROM '.$this->_table_info .' WHERE user_id = '.$user_id;
             $user_info = $this->_wpdb->get_row($query);
 
             $data_info = array(
-                'phone' => $_POST['phone'],
-                'nationality' => $_POST['nationality'],
-                'address' => $_POST['address'],
+                /*'phone' => $_POST['phone'],
+                'country' => $_POST['country'],*/
+                //'address' => $_POST['address'],
                 'update_at' => current_time('mysql'),
             );
             if(!$user_info){
@@ -78,6 +86,7 @@ class Users
             }
         }
 
+        return $result;
     }
 
 

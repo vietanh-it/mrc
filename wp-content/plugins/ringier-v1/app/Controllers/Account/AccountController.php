@@ -34,8 +34,10 @@ class AccountController extends _BaseController
 
     public function register($template,$theme_my_login)
     {
+        $Location = Location::init();
+        $country_list = $Location->getCountryList();
 
-        return view('account/register',compact('template','theme_my_login'));
+        return view('account/register',compact('template','theme_my_login','country_list'));
     }
 
     public function resetpass($template)

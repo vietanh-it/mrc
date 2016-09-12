@@ -41,15 +41,19 @@ class Users
 
     function registration_errors($errors)
     {
-        if (empty($_POST['full_name'])) {
-            $errors->add('empty_full_name', 'Please enter your full name.');
+        if (empty($_POST['last_name'])) {
+            $errors->add('empty_last_name', 'Please enter your last name.');
         }
-        if (empty($_POST['nationality'])) {
+
+        if (empty($_POST['first_name'])) {
+            $errors->add('empty_first_name', 'Please enter your first name.');
+        }
+        /*if (empty($_POST['nationality'])) {
             $errors->add('empty_location', 'Please choice your nationality');
         }
         if (empty($_POST['phone'])) {
             $errors->add('empty_phone', 'Please enter your phone number');
-        }
+        }*/
         //PASSWORD & RE-PASSWORD
         if (empty($_POST['pass1'])) {
             $errors->add('empty_pass', 'Please enter a password.');

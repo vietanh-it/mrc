@@ -4,9 +4,23 @@ If you would like to edit this file, copy it to your current theme's directory a
 Theme My Login will always look in your theme's directory first, before using this default template.
 */
 ?>
+<p style="text-align: center">Welcome to the world of luxury cruises</p>
 
 <div class="ctn-account">
     <div class="tml tml-login" id="theme-my-login<?php $template->the_instance(); ?>">
+        <div class="row" style="margin-bottom: 20px;padding-bottom: 20px;border-bottom: 1px solid #ccc">
+            <div class="col-xs-12 col-sm-6">
+                <a href="javascript:void(0)" onclick="login_fb()" title="Login width facebook">
+                    <img src="<?php echo VIEW_URL.'/images/login-facebook.png' ?>" alt="">
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <a href="javascript:void(0)"  title="Login width google">
+                    <img src="<?php echo VIEW_URL.'/images/glogin.png' ?>" alt="" >
+                </a>
+            </div>
+        </div>
+
         <?php $template->the_action_template_message('login'); ?>
         <?php $template->the_errors(); ?>
         <form name="loginform" id="loginform<?php $template->the_instance(); ?>"
@@ -56,18 +70,7 @@ Theme My Login will always look in your theme's directory first, before using th
         </form>
         <?php $template->the_action_links(array('login' => false)); ?>
 
-        <div class="row" style="margin-top: 10px">
-            <div class="col-xs-12 col-sm-6">
-                <a href="javascript:void(0)" onclick="login_fb()" title="Login width facebook">
-                    <img src="<?php echo VIEW_URL.'/images/login-facebook.png' ?>" alt="">
-                </a>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <a href="javascript:void(0)"  title="Login width google">
-                    <img src="<?php echo VIEW_URL.'/images/glogin.png' ?>" alt="" >
-                </a>
-            </div>
-        </div>
+
 
     </div>
 </div>

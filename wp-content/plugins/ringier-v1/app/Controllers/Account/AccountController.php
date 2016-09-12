@@ -2,6 +2,7 @@
 namespace RVN\Controllers\Account;
 
 use RVN\Controllers\_BaseController;
+use RVN\Models\Location;
 use RVN\Models\Users;
 
 class AccountController extends _BaseController
@@ -131,10 +132,107 @@ class AccountController extends _BaseController
 
     public function userInfo($user_id){
         $objUser = Users::init();
+        $return = array();
+        $data = array();
 
+        if(!empty($_POST) && is_user_logged_in()){
+            $data['user_id'] = get_current_user_id();
+            $data['update_at'] = current_time('mysql');
+            if(isset($_POST['first_name']) && isset($_POST['last_name'])){
+                if(empty($_POST['first_name']) && empty($_POST['last_name'])){
+                    $return['status'] = 'error';
+                    $return['message'][] = 'Please enter first name or last name.';
+                }else{
+                    $display_name = $_POST['first_name'] . ' '. $_POST['last_name'];
+                    wp_update_user(array(
+                        "ID" => $data['user_id'],
+                        "first_name" => $_POST['first_name'],
+                        "last_name" => $_POST['last_name'],
+                        "display_name" => $display_name,
+                    ));
+                }
+            }
+            if(isset($_POST['birthday'])){
+                $data['birthday'] = date('Y-m-d',strtotime($_POST['birthday']));
+            }
+            if(isset($_POST['country'])){
+                $data['country'] = $_POST['country'];
+            }
+            if(isset($_POST['address'])){
+                $data['address'] = $_POST['address'];
+            }
+            if(isset($_POST['gender'])){
+                $data['gender'] = $_POST['gender'];
+            }
+
+            if(isset($_POST['passport_id'])){
+                $data['passport_id'] = $_POST['passport_id'];
+            }
+            if(isset($_POST['valid_until'])){
+                $data['valid_until'] = $_POST['valid_until'];
+            }
+            if(isset($_POST['date_of_issue'])){
+                $data['date_of_issue'] = $_POST['date_of_issue'];
+            }
+            if(isset($_POST['nationality'])){
+                $data['nationality'] = $_POST['nationality'];
+            }
+
+            if(isset($_POST['a_email']) && isset($_POST['a_password'])){
+                $ags["ID"] = $data['user_id'];
+                if(empty($_POST['a_email'])){
+                    $return['status'] = 'error';
+                    $return['message'][] = 'Please enter your email.';
+                }else{
+                    if(!is_email($_POST['a_email'])){
+                        $return['status'] = 'error';
+                        $return['message'][] = 'Email not match.';
+                    }else{
+                        $user_current = wp_get_current_user();
+
+                        if($_POST['a_email'] != $user_current->user_email && email_exists($_POST['a_email'])){
+                            $return['status'] = 'error';
+                            $return['message'][] = 'This email already exists.';
+                        }else{
+                            $ags["user_email" ] = $_POST['a_email'];
+                            $ags["user_login" ] = $_POST['a_email'];
+                            $ags["user_nicename" ] = sanitize_title($_POST['a_email']);
+                        }
+                    }
+                }
+
+                if(empty($_POST['a_password'])){
+                    $return['status'] = 'error';
+                    $return['message'][] = 'Please enter your password.';
+                }else{
+                    $ags['user_pass'] = $_POST['a_password'];
+                }
+
+                $update_ac = wp_update_user($ags);
+                if(!$update_ac){
+                    $return['status'] = 'error';
+                    $return['message'][] = 'An error, please try again.';
+                }
+            }
+
+            if($return['status'] != 'error' ){
+                $update = $objUser->saveUserInfo($data);
+                if($update){
+                    $return['status'] = 'success';
+                    $return['message'] = 'Update profile success.';
+                }else{
+                    $return['status'] = 'error';
+                    $return['message'][] = 'An error, please try again.';
+                }
+            }
+
+        }
+
+        $Location = Location::init();
+        $country_list = $Location->getCountryList();
         $user_info = $objUser->getUserInfo($user_id);
 
-        return view('account/profile',compact('user_info'));
+        return view('account/profile',compact('user_info','country_list','return'));
     }
     
 }

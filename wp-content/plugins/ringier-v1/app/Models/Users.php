@@ -104,4 +104,20 @@ class Users
 
         return $user;
     }
+
+    public function saveUserInfo($data){
+        $result = false;
+        if(!empty($data['user_id'])){
+            $query = 'SELECT * FROM '.$this->_table_info .' WHERE user_id = '.$data['user_id'];
+
+            $user_info = $this->_wpdb->get_row($query);
+            if(!empty($user_info)){
+                $result = $this->_wpdb->update($this->_table_info,$data,array('user_id' => $data['user_id']));
+            }else{
+                $result = $this->_wpdb->insert($this->_table_info,$data);
+            }
+        }
+
+        return $result;
+    }
 }

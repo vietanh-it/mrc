@@ -308,7 +308,7 @@ if (!function_exists('sendEmailHTML')) {
         // $html_path = 'account/forgot_password.html'
 
         // $args = [
-        //     '[%first_name%]' => 'Việt Anh'
+        //     'first_name' => 'Việt Anh'
         // ];
         // endregion
         $header_html = file_get_contents(EMAIL_PATH . 'header.html');
@@ -318,7 +318,7 @@ if (!function_exists('sendEmailHTML')) {
         $args_search = [];
         $args_replace = [];
         foreach ($args as $key => $value) {
-            $args_search[] = $key;
+            $args_search[] = '[%' . $key . '%]';
             $args_replace[] = $value;
         }
 

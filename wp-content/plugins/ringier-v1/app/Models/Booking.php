@@ -64,7 +64,9 @@ class Booking
 
     public function getCart($user_id, $journey_id)
     {
-        $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id} AND status = 'cart'";
+        // $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id} AND status = 'cart'";
+        $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_cart} c ON p.ID = c.id" .
+            " WHERE c.user_id = {$user_id} AND c.journey_id = {$journey_id} AND c.status = 'cart'";
         $cart = $this->_wpdb->get_row($query);
 
         // Nếu chưa có cart
@@ -78,12 +80,24 @@ class Booking
 
     public function getDefaultCart($user_id, $journey_id)
     {
+        $modelUser = Users::init();
+        $user = $modelUser->getUserInfo($user_id);
+        $code = $this->generateBookingCode();
+
+        // Create post
+        $post_id = wp_insert_post([
+            'post_title' => $code,
+            'post_type'  => 'booking'
+        ]);
+
         $cart = [
-            'user_id'    => $user_id,
-            'journey_id' => $journey_id,
-            'status'     => 'cart',
-            'created_at' => current_time('mysql'),
-            'updated_at' => current_time('mysql')
+            'id'           => $post_id,
+            'user_id'      => $user_id,
+            'journey_id'   => $journey_id,
+            'booking_code' => $code,
+            'status'       => 'cart',
+            'created_at'   => current_time('mysql'),
+            'updated_at'   => current_time('mysql')
         ];
         $this->_wpdb->insert($this->_tbl_cart, $cart);
 
@@ -385,6 +399,23 @@ class Booking
                     'booking_code' => $code
                 ], ['id' => $cart->id]);
 
+                // Update post
+                wp_update_post([
+                    'ID'          => $cart->id,
+                    'post_title'  => '#' . $code,
+                    'post_status' => 'publish'
+                ]);
+
+                // Send email
+                $subject = 'Booking confirmation, booking ID #' . $code;
+                $html_path = 'normal_user/booking_confirmation.html';
+                $email_args = [
+                    'first_name'         => 'Việt Anh',
+                    'booking_detail_url' => WP_SITEURL . '/your-booking'
+                ];
+
+                sendEmailHTML('vietanh@ringier.com.vn', $subject, $html_path, $email_args);
+
                 $result = [
                     'status' => 'success',
                     'data'   => ''
@@ -413,7 +444,7 @@ class Booking
     }
 
 
-    public function randomCode($prefix = 'MRC', $length = 5)
+    public function randomCode($prefix = '', $length = 7)
     {
         $code = '';
         $total = 0;
@@ -426,7 +457,7 @@ class Booking
     }
 
 
-    public function generateBookingCode($prefix = 'MRC')
+    public function generateBookingCode($prefix = '')
     {
         do {
             $code = $this->randomCode($prefix);

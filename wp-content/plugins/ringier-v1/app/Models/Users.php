@@ -44,7 +44,7 @@ class Users
     {
         $result = false;
 
-        if($data['user_id']){
+        if(!empty($data['user_id'])){
             $user_id = $data['user_id'];
         }else{
             $user_id = 0;
@@ -65,8 +65,8 @@ class Users
 
             //sendy
             subscribeSendy(array(
-                'display_name' => $data['full_name'],
-                'user_email' => $data['user_email'],
+                'name' => $data['full_name'],
+                'email' => $data['user_email'],
             ));
 
             $query = 'SELECT * FROM '.$this->_table_info .' WHERE user_id = '.$user_id;

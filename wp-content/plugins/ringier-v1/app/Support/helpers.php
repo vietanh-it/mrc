@@ -311,6 +311,8 @@ if (!function_exists('sendEmailHTML')) {
         //     '[%first_name%]' => 'Việt Anh'
         // ];
         // endregion
+        $header_html = file_get_contents(EMAIL_PATH . 'header.html');
+        $footer_html = file_get_contents(EMAIL_PATH . 'footer.html');
 
         $html = file_get_contents(EMAIL_PATH . $html_path);
         $args_search = [];
@@ -319,7 +321,9 @@ if (!function_exists('sendEmailHTML')) {
             $args_search[] = $key;
             $args_replace[] = $value;
         }
-        $content = str_replace($args_search, $args_replace, $html);
+
+        $merged_html = $header_html . $html . $footer_html;
+        $content = str_replace($args_search, $args_replace, $merged_html);
         wp_mail($to_email, $subject, $content, 'Content-type: text/html');
     }
 

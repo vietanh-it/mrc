@@ -3,6 +3,30 @@
 If you would like to edit this file, copy it to your current theme's directory and edit it there.
 Theme My Login will always look in your theme's directory first, before using this default template.
 */
+$is_refer = 0;
+$email_refer = 0;
+$code_refer = 0;
+$user_refer_id= 0;
+
+if(!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])){
+    $user_refer_id = $_GET['id'];
+
+    $list_email_refer = get_user_meta($user_refer_id,'email_refer');
+    $list_code_refer = get_user_meta($user_refer_id,'code_refer');
+    if(!empty($list_email_refer)){
+        foreach ($list_email_refer as $k => $email){
+            if($_GET['email'] == $email){
+                $code = $list_code_refer[$k];
+                if($code == $_GET['code']){
+                    $email_refer = $email;
+                    $code_refer = $code;
+                    $is_refer = 1;
+                }
+            }
+        }
+    }
+}
+
 ?>
 <p style="text-align: center">Create your account to join the world of luxury cruises</p>
 <div class="ctn-account">
@@ -113,6 +137,12 @@ Theme My Login will always look in your theme's directory first, before using th
                        value="<?php $template->the_redirect_url('register'); ?>"/>
                 <input type="hidden" name="instance" value="<?php $template->the_instance(); ?>"/>
                 <input type="hidden" name="action" value="register"/>
+
+                <!--info refer-->
+                <input type="hidden" name="is_refer" value="<?php echo $is_refer ?>"/>
+                <input type="hidden" name="email_refer" value="<?php echo $email_refer ?>"/>
+                <input type="hidden" name="code_refer" value="<?php echo $code_refer ?>"/>
+                <input type="hidden" name="user_refer_id" value="<?php echo $user_refer_id ?>"/>
             </p>
         </form>
     </div>

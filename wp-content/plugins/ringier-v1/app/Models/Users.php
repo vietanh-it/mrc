@@ -77,6 +77,25 @@ class Users
                 //'address' => $_POST['address'],
                 'update_at' => current_time('mysql'),
             );
+            if(!empty($data['is_refer'])  && !empty($data['email_refer']) && !empty($data['code_refer']) && !empty($data['user_refer_id'])){
+
+                // set is_refer cho nguoi dc moi
+                $data_info['is_refer'] = 1;
+
+                //cong them 1 cho is_refer cua user mời
+                $user_refer_info = $this->getUserInfo($data['user_refer_id']);
+                $is_refer = $user_refer_info->is_refer;
+                $new_refer  = 1;
+                if(!empty($is_refer)){
+                    $new_refer = intval($is_refer + 1);
+                }
+                $this->_wpdb->update($this->_table_info,array('is_refer' => $new_refer),array('user_id' => $data['user_refer_id']));
+
+                // xoa cac param da luu
+                delete_user_meta($data['user_refer_id'],'email_refer',$data['email_refer']);
+                delete_user_meta($data['user_refer_id'],'code_refer',$data['code_refer']);
+
+            }
             if(!$user_info){
                 $data_info['user_id'] = $user_id;
                 $this->_wpdb->insert($this->_table_info,$data_info);

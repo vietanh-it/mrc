@@ -104,18 +104,34 @@ class AccountController extends _BaseController
         if(is_user_logged_in()){
             if($data['email_friend']){
                 if(is_email($data['email_friend'])){
-                    $email = $data['email_friend'];
-                    $code = md5(time()).'_'.get_current_user_id();
+                    if(email_exists($data['email_friend'])){
+                        $result = array(
+                            'status' => 'error',
+                            'message' => array('This email is already a member.'),
+                        );
+                    }else{
+                        $email = $data['email_friend'];
+                        $code = md5(time()).'_'.get_current_user_id();
 
-                    $url = wp_registration_url().'/?email='.$email.'&code='.$code;
+                        $url = wp_registration_url().'/?email='.$email.'&code='.$code.'&id='.get_current_user_id();
 
-                    // TODO: send mail
+                        $args_mail = array(
+                            'first_name' => $data['email_friend'],
+                            'url_register' => $url,
+                        );
+                        sendEmailHTML($data['email_friend'],'Register invitation
+','normal_user/refer_friend.html',$args_mail);
 
-                    $result = array(
-                        'status' => 'success',
-                        'message' => 'Refer friend success.',
-                        //'url' => $url,
-                    );
+                        add_user_meta(get_current_user_id(),'email_refer',$data['email_friend']);
+                        add_user_meta(get_current_user_id(),'code_refer',$code);
+
+                        $result = array(
+                            'status' => 'success',
+                            'message' => 'Refer friend success.',
+                            'url' => $url,
+                        );
+                    }
+
                 }else{
                     $result = array(
                         'status' => 'error',

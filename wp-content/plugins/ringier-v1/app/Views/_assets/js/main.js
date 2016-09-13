@@ -272,7 +272,7 @@ jQuery(document).ready(function ($) {
                         if (result.length > 0) {
                             htmlErrors += "<ul style='color: red'>";
                             for (var i = 0; i < result.length; i++) {
-                                htmlErrors += "<li>" + result[i] + "</li>";
+                                htmlErrors += "<li style='list-style: none'>" + result[i] + "</li>";
                             }
                             htmlErrors += "</ul>";
                         }
@@ -367,7 +367,7 @@ jQuery(document).ready(function ($) {
                                     if (result.length > 0) {
                                         htmlErrors += "<ul style='color: red'>";
                                         for (var i = 0; i < result.length; i++) {
-                                            htmlErrors += "<li>" + result[i] + "</li>";
+                                            htmlErrors += "<li style='list-style: none'>" + result[i] + "</li>";
                                         }
                                         htmlErrors += "</ul>";
                                     }

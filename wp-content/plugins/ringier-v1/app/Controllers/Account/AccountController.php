@@ -110,26 +110,34 @@ class AccountController extends _BaseController
                             'message' => array('This email is already a member.'),
                         );
                     }else{
-                        $email = $data['email_friend'];
-                        $code = md5(time()).'_'.get_current_user_id();
+                        $list_email_refer = get_user_meta(get_current_user_id(),'email_refer');
+                        if(in_array($data['email_friend'],$list_email_refer)){
+                            $result = array(
+                                'status' => 'error',
+                                'message' => array('You invited this email already..'),
+                            );
+                        }else{
+                            $email = $data['email_friend'];
+                            $code = md5(time()).'_'.get_current_user_id();
 
-                        $url = wp_registration_url().'/?email='.$email.'&code='.$code.'&id='.get_current_user_id();
+                            $url = wp_registration_url().'/?email='.$email.'&code='.$code.'&id='.get_current_user_id();
 
-                        $args_mail = array(
-                            'first_name' => $data['email_friend'],
-                            'url_register' => $url,
-                        );
-                        sendEmailHTML($data['email_friend'],'Register invitation
+                            $args_mail = array(
+                                'first_name' => $data['email_friend'],
+                                'url_register' => $url,
+                            );
+                            sendEmailHTML($data['email_friend'],'Register invitation
 ','normal_user/refer_friend.html',$args_mail);
 
-                        add_user_meta(get_current_user_id(),'email_refer',$data['email_friend']);
-                        add_user_meta(get_current_user_id(),'code_refer',$code);
+                            add_user_meta(get_current_user_id(),'email_refer',$data['email_friend']);
+                            add_user_meta(get_current_user_id(),'code_refer',$code);
 
-                        $result = array(
-                            'status' => 'success',
-                            'message' => 'Refer friend success.',
-                            'url' => $url,
-                        );
+                            $result = array(
+                                'status' => 'success',
+                                'message' => 'Refer friend success.',
+                                'url' => $url,
+                            );
+                        }
                     }
 
                 }else{

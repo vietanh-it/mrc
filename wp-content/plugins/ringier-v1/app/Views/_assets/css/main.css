@@ -1185,6 +1185,9 @@ footer ul li{
 .fancybox-lock .fancybox-overlay{
     z-index: 9999999;
 }
+.sweet-alert{
+    z-index: 10000000 !important;
+}
 .box-qa {
     margin-bottom: 30px;
     padding-bottom: 30px;

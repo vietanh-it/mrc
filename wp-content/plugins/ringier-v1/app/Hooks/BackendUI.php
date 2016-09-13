@@ -21,6 +21,22 @@ class BackendUI
         add_action('admin_footer', [$this, 'adminFooter']);
         add_action('admin_menu', [$this, 'adminMenu'], 9999);
         add_filter('acf/load_field/name=countries', [$this, 'loadFieldDestinationCountries']);
+        add_filter('wp_mail', [$this, 'wpMail']);
+    }
+
+
+    public function wpMail($args)
+    {
+        if (empty($args['headers'])) {
+            $header_html = file_get_contents(EMAIL_PATH . 'header.html');
+            $footer_html = file_get_contents(EMAIL_PATH . 'footer.html');
+
+            $content = $header_html . $args['message'] . $footer_html;
+            $args['message'] = $content;
+            $args['headers'] = 'Content-type: text/html';
+
+            return $args;
+        }
     }
 
 

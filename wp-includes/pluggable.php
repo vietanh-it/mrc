@@ -1751,7 +1751,7 @@ function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) 
 
 	$message .= wp_login_url() . "\r\n";
 
-	wp_mail($user->user_email, sprintf(__('[%s] Your username and password info'), $blogname), $message);
+	wp_mail($user->user_email, sprintf(__('[%s] Your username and password info'), $blogname), '111');
 }
 endif;
 

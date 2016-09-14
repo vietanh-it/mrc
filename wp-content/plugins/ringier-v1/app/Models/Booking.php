@@ -62,6 +62,35 @@ class Booking
     }
 
 
+    public function getBookingDetail($booking_id)
+    {
+        // Cart
+        $query1 = "SELECT p.ID, c.* FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_cart} c ON p.ID = c.id WHERE p.ID = {$booking_id}";
+        $result = $this->_wpdb->get_row($query1);
+
+        // Cart detail
+        $query2 = "SELECT * FROM {$this->_tbl_cart_detail} WHERE cart_id = {$result->ID}";
+        $result->cart_detail = $this->_wpdb->get_results($query2);
+
+        // Cart addon
+        $query3 = "SELECT * FROM {$this->_tbl_cart_addon} WHERE cart_id = {$result->ID} AND status = 'active'";
+        $result->cart_addon = $this->_wpdb->get_results($query3);
+
+        // Guests
+
+        return $result;
+    }
+
+
+    public function getBookingLists($user_id)
+    {
+        $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id}";
+        $result = $this->_wpdb->get_results($query);
+
+        return $result;
+    }
+
+
     public function getCart($user_id, $journey_id)
     {
         // $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id} AND status = 'cart'";
@@ -188,6 +217,14 @@ class Booking
         }
 
         return $cart;
+    }
+
+
+    public function getCartTotalPeople($cart_id)
+    {
+        $query = "SELECT COUNT(quantity) FROM {$this->_tbl_cart_detail} WHERE cart_id = {$cart_id}";
+
+        return $this->_wpdb->get_var($query);
     }
 
 
@@ -397,7 +434,8 @@ class Booking
                 // Update cart booking_code, status
                 $this->_wpdb->update($this->_tbl_cart, [
                     'status'       => 'before-you-go',
-                    'booking_code' => $code
+                    'booking_code' => $code,
+                    'booked_date'  => current_time('mysql')
                 ], ['id' => $cart->id]);
 
                 // Update post

@@ -61,7 +61,7 @@ class AccountController extends _BaseController
 
     public function ajaxConnectEmail($data){
 
-        if($data['c_email']){
+        if(!empty($data['c_email'])) {
             if(is_email($data['c_email'])){
 
                 $name = !empty($data['c_name']) ? $data['c_name'] : $data['c_email'];
@@ -87,7 +87,7 @@ class AccountController extends _BaseController
             }else{
                 $result = array(
                     'status' => 'error',
-                    'message' => array('Email not email.'),
+                    'message' => array('Invalid email.'),
                 );
             }
         }else{

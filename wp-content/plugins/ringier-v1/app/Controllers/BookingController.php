@@ -200,4 +200,10 @@ class BookingController extends _BaseController
     {
         view('booking/your_booking');
     }
+
+
+    public function bookingDetail()
+    {
+        view('booking/booking_detail');
+    }
 }

@@ -11,6 +11,12 @@ if (!is_user_logged_in()) {
     exit;
 }
 
+$modelBooking = \RVN\Models\Booking::init();
+$modelJourney = \RVN\Models\Journey::init();
+
+$user_id = get_current_user_id();
+$booking_list = $modelBooking->getBookingLists($user_id);
+
 
 get_header(); ?>
 
@@ -25,11 +31,11 @@ get_header(); ?>
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Booking ID</th>
+                            <th class="text-center">Booking ID</th>
                             <th>Departure date</th>
                             <th>From - to</th>
                             <th>Journey</th>
-                            <th>SHip</th>
+                            <th>Ship</th>
                             <th>Travellers</th>
                             <th>Payment</th>
                             <th>Status</th>
@@ -37,52 +43,82 @@ get_header(); ?>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="upstream">
-                            <td><b>MP160816-4</b></td>
-                            <td>1 September 2016</td>
-                            <td>Saigon - Phnom Penh 7 nights</td>
-                            <td style="text-decoration: underline"><a href="http://local.mrc.com/ship/mekong-princess"
-                                                                      target="_blank" style="color: rgb(84, 84, 84);">Mekong
-                                                                                                                      Princess</a>
-                            </td>
-                            <td style="text-decoration: underline">
-                                <a href="http://local.mrc.com/ship/mekong-princess"
-                                   target="_blank" style="color: rgb(84, 84, 84);">Mekong
-                                                                                   Princess</a></td>
-                            <td> 2</td>
-                            <td>
-                                <b style="color: black;font-size: 17px;text-transform: uppercase">US$968</b>
-                            </td>
-                            <td>
-                                <span style="color: #e4a611">Before you go</span>
-                            </td>
-                            <td style="text-align: center"><a href="#">
-                                    <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>" class="img-icon"></a>
-                            </td>
-                        </tr>
-                        <tr class="upstream">
-                            <td><b>MP160816-4</b></td>
-                            <td>1 September 2016</td>
-                            <td>Saigon - Phnom Penh 7 nights</td>
-                            <td style="text-decoration: underline"><a href="http://local.mrc.com/ship/mekong-princess"
-                                                                      target="_blank" style="color: rgb(84, 84, 84);">Mekong
-                                                                                                                      Princess</a>
-                            </td>
-                            <td style="text-decoration: underline">
-                                <a href="http://local.mrc.com/ship/mekong-princess"
-                                   target="_blank" style="color: rgb(84, 84, 84);">Mekong
-                                                                                   Princess</a></td>
-                            <td> 2</td>
-                            <td>
-                                <b style="color: black;font-size: 17px;text-transform: uppercase">US$968</b>
-                            </td>
-                            <td>
-                                <span style="color: #e4a611">Before you go</span>
-                            </td>
-                            <td style="text-align: center"><a href="#">
-                                    <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>" class="img-icon"></a>
-                            </td>
-                        </tr>
+
+                        <?php foreach ($booking_list as $key => $value) {
+
+                            $booking_permalink = get_permalink($value->id);
+
+                            $journey_detail = $modelJourney->getInfo($value->journey_id);
+                            $total = $modelBooking->getCartTotalByID($value->id);
+                            $total = number_format($total);
+                            $total_people = $modelBooking->getCartTotalPeople($value->id);
+                            switch ($value->status) {
+                                case 'cart' :
+                                    $status = 'Booking';
+                                    break;
+                                case 'before-you-go':
+                                    $status = 'Before you go';
+                                    break;
+                                case 'ready-to-onboard':
+                                    $status = 'Ready to on-board';
+                                    break;
+                                case 'onboard':
+                                    $status = 'On-board';
+                                    break;
+                                case 'finished':
+                                    $status = 'Finished';
+                                    break;
+                                default:
+                                    $status = 'Booking';
+                                    break;
+                            }
+                            ?>
+
+                            <tr class="upstream">
+                                <td>
+                                    <a href="<?php echo $booking_permalink; ?>" style="color: #545454;">
+                                        <b>
+                                            <?php echo $value->booking_code; ?>
+                                        </b>
+                                    </a>
+                                </td>
+                                <td><?php echo $journey_detail->departure_fm; ?></td>
+                                <td>
+                                    <?php echo $journey_detail->journey_type_info->starting_point ?>
+                                    - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?> nights
+                                </td>
+                                <td style="text-decoration: underline">
+                                    <a href="<?php echo $journey_detail->permalink; ?>"
+                                       target="_blank" style="color: rgb(84, 84, 84);">
+                                        <?php echo $journey_detail->journey_type_info->post_title . ' - ' . $journey_detail->post_title; ?>
+                                    </a>
+                                </td>
+                                <td style="text-decoration: underline">
+                                    <a href="<?php echo $journey_detail->journey_type_info->ship_info->permalink; ?>"
+                                       target="_blank" style="color: rgb(84, 84, 84);">
+                                        <?php echo $journey_detail->journey_type_info->ship_info->post_title; ?>
+                                    </a>
+                                </td>
+                                <td style="text-align: center;">
+                                    <?php echo $total_people; ?>
+                                </td>
+                                <td>
+                                    <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo $total; ?></b>
+                                </td>
+                                <td>
+                                    <span style="color: #e4a611">
+                                        <?php echo $status; ?>
+                                    </span>
+                                </td>
+                                <td style="text-align: center">
+                                    <a href="javascript:void(0)">
+                                        <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>" class="img-icon">
+                                    </a>
+                                </td>
+                            </tr>
+
+                        <?php } ?>
+
                         </tbody>
                     </table>
                 </div>

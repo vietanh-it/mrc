@@ -74,10 +74,10 @@
                     <div class="col-xs-12 col-sm-2">
                         <h4>Ship</h4>
                         <ul>
-                            <li><a href="#" title="">Overview</a></li>
+                            <li><a href="<?php echo WP_SITEURL.'/overview/' ?>" title="">Overview</a></li>
                             <li><a href="#" title="">Mekong Princess</a></li>
                             <li><a href="#" title="">Viet Princess</a></li>
-                            <li><a href="#" title="">Ship Tour</a></li>
+                            <li><a href="<?php echo WP_SITEURL.'/ships/' ?>" title="">Ship Tour</a></li>
                         </ul>
                     </div>
 

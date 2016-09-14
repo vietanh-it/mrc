@@ -65,9 +65,9 @@
                         <ul>
                             <li><a href="<?php echo WP_SITEURL . '/about-us'; ?>" title=""> About Us </a></li>
                             <li><a href="<?php echo WP_SITEURL . '/contact-us'; ?>" title=""> Contact Us</a></li>
-                            <li><a href="#" title=""> Media Centre</a></li>
+                            <li><a href="<?php echo WP_SITEURL.'/media-centre/' ?>" title=""> Media Centre</a></li>
                             <li><a href="<?php echo WP_SITEURL . '/faq'; ?>" title=""> FAQ</a></li>
-                            <li><a href="#" title=""> Partner</a></li>
+                            <li><a href="<?php echo WP_SITEURL.'/partner/' ?>" title=""> Partner</a></li>
                         </ul>
                     </div>
 
@@ -84,11 +84,11 @@
                     <div class="col-xs-12 col-sm-2">
                         <h4>Journey</h4>
                         <ul>
-                            <li><a href="#" title="">Destination</a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/before-you-go'; ?>" title="">Before you go</a></li>
-                            <li><a href="#" title=""> Manage my journey</a></li>
-                            <li><a href="#" title=""> Travel information</a></li>
-                            <li><a href="#" title=""> Services</a></li>
+                            <li><a href="<?php echo WP_SITEURL.'/destination/' ?>" title="">Destination</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/before-you-go/'; ?>" title="">Before you go</a></li>
+                            <li><a href="<?php echo WP_SITEURL .'/account/your-booking/'?>" title=""> Manage my journey</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/travel-information/'; ?>" title=""> Travel information</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/service/'; ?>" title=""> Services</a></li>
                         </ul>
                     </div>
 
@@ -96,9 +96,9 @@
                     <div class="col-xs-12 col-sm-2">
                         <h4>Resource</h4>
                         <ul>
-                            <li><a href="#" title="">E-brochure </a></li>
-                            <li><a href="#" title=""> Gallery </a></li>
-                            <li><a href="#" title=""> Video </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/e-brochure/'; ?>" title="">E-brochure </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/gallery/'; ?>" title=""> Gallery </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/video/'; ?>" title=""> Video </a></li>
                         </ul>
                     </div>
 

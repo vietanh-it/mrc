@@ -7,7 +7,7 @@ $list_ship = !empty($list_ship) ? $list_ship : array();
 
 <div class="container">
     <div class="row">
-        <h1 class="col-xs-12 col-sm-12 tile-main">All Ships
+        <h1 class="col-xs-12 col-sm-12 tile-main">Our Ships
             <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
         </h1>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">

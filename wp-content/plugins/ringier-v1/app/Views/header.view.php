@@ -77,7 +77,7 @@ if (is_single()) {
                                 </form>
                             <?php } ?>
                         </li>
-                        <li><a href="#"> Media Centre </a></li>
+                        <li><a href="<?php echo WP_SITEURL.'/media-centre/' ?>"> Media Centre </a></li>
                         <li><a href="<?php echo WP_SITEURL . '/qa/' ?>"> Q&A </a></li>
                         <li><a href="<?php echo WP_SITEURL; ?>/terms-of-use"> Terms and Conditions </a></li>
                     </ul>

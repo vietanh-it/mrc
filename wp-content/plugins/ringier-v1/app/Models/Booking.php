@@ -423,42 +423,46 @@ class Booking
         $params['user_id'] = $user_id;
         $params['total'] = $this->getCartTotal($user_id, $journey_id);
         $params['created_at'] = current_time('mysql');
+        if (!empty($params['q'])) {
+            unset($params['q']);
+        }
         $save_transaction = $this->saveTransaction($params);
 
         if ($save_transaction) {
             $cart = $this->getCart($user_id, $journey_id);
 
             if (!empty($cart)) {
-                $code = $this->generateBookingCode();
-
                 // Update cart booking_code, status
                 $this->_wpdb->update($this->_tbl_cart, [
-                    'status'       => 'before-you-go',
-                    'booking_code' => $code,
-                    'booked_date'  => current_time('mysql')
+                    'status'      => 'before-you-go',
+                    'booked_date' => current_time('mysql')
                 ], ['id' => $cart->id]);
 
                 // Update post
                 wp_update_post([
                     'ID'          => $cart->id,
-                    'post_title'  => '#' . $code,
                     'post_status' => 'publish'
                 ]);
 
                 // Send email
-                $subject = 'Booking confirmation, booking ID #' . $code;
+                $subject = 'Booking confirmation, booking ID #' . $cart->booking_code;
                 $html_path = 'normal_user/booking_confirmation.html';
                 $email_args = [
                     'first_name'         => 'Việt Anh',
                     'booking_detail_url' => WP_SITEURL . '/your-booking'
                 ];
 
-                sendEmailHTML('vietanh@ringier.com.vn', $subject, $html_path, $email_args);
+                $user = wp_get_current_user();
+
+                sendEmailHTML($user->data->user_email, $subject, $html_path, $email_args);
 
                 $result = [
                     'status' => 'success',
                     'data'   => ''
                 ];
+
+                wp_redirect(WP_SITEURL . '/account/your-booking');
+                exit;
             }
         }
 

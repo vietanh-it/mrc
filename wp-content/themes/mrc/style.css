@@ -139,6 +139,25 @@ Text Domain: mrc
     top: 2px;
 }
 
+.connect-email .form-control {
+    border: none;
+    height: 44px;
+    border-radius: 8px;
+}
+
+.connect-email button {
+    font-size: 22px;
+    top: 5px;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.offer-home .owl-carousel .owl-buttons .owl-prev,
+.offer-home .owl-carousel .owl-buttons .owl-next {
+    color: #dfb221;
+    border-color: #dfb221;
+}
+
 @media (min-width: 1200px) {
     .container {
         width: 1170px !important;

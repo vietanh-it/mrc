@@ -15,7 +15,7 @@ get_header();
                 <div class="form-group">
                     <select name="_destination" class="form-control select-2">
                         <option value="">Choose your destination</option>
-                        <?php if ($list_destination['data']) {
+                        <?php if (!empty($list_destination['data'])) {
                             foreach ($list_destination['data'] as $v) { ?>
                                 <option value="<?php echo $v->post_name ?>"> <?php echo $v->post_title ?></option>
                             <?php }

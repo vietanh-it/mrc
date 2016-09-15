@@ -531,7 +531,7 @@ nav ul.navbar-nav li.active a{
 .join-with h3{
     text-align: left;
     margin-bottom: 20px;
-    font-weight: normal;
+    font-weight: bold;
 }
 .connect-email{
     position: relative;
@@ -1389,18 +1389,52 @@ footer ul li{
 .ctn-account ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    black !important;
     font-weight: bold !important;
+    font-family: 'Playfair Display', serif !important;
 }
 .ctn-account :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color:    black !important;
     font-weight: bold !important;
+    font-family: 'Playfair Display', serif !important;
 }
 .ctn-account ::-moz-placeholder { /* Mozilla Firefox 19+ */
     color:    black !important;
     font-weight: bold !important;
+    font-family: 'Playfair Display', serif !important;
 }
 .ctn-account :-ms-input-placeholder { /* Internet Explorer 10-11 */
     color:    black !important;
     font-weight: bold !important;
+    font-family: 'Playfair Display', serif !important;
+}
+
+.contact-us .form-group{
+    margin-bottom: 20px;
+}
+.contact-us .form-control{
+    background: #fafafa;
+}
+.contact-us ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    black !important;
+    font-weight: bold !important;
+    font-family: 'Playfair Display', serif !important;
+}
+.contact-us :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    black !important;
+    font-weight: bold !important;
+    font-family: 'Playfair Display', serif !important;
+}
+.contact-us ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    black !important;
+    font-family: 'Playfair Display', serif !important;
+    font-weight: bold !important;
+}
+.contact-us :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:    black !important;
+    font-weight: bold !important;
+    font-family: 'Playfair Display', serif !important;
+}
+.font-playfair{
+    font-family: 'Playfair Display', serif !important;
 }
 
 @media (min-width: 1200px){

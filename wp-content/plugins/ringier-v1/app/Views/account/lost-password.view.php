@@ -8,7 +8,7 @@ Theme My Login will always look in your theme's directory first, before using th
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
         <div class="ctn-account" style="text-align: center">
             <div class="tml tml-lostpassword" id="theme-my-login<?php $template->the_instance(); ?>">
-                <?php echo 'We will send a link to your email to help you reset your password' ?>
+                <?php echo '<p class="font-playfair" style="font-style: italic">We will send a link to your email to help you reset your password</p>' ?>
                 <?php $template->the_errors(); ?>
                 <form name="lostpasswordform" id="lostpasswordform<?php $template->the_instance(); ?>" style="margin-top: 30px"
                       action="<?php $template->the_action_url('lostpassword', 'login_post'); ?>" method="post">

@@ -6,7 +6,7 @@ Theme My Login will always look in your theme's directory first, before using th
 ?>
 <div class="row">
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-        <p style="text-align: center;font-style: italic">Welcome to the world of luxury cruises</p>
+        <p style="text-align: center;font-style: italic" class="font-playfair">Welcome to the world of luxury cruises</p>
 
         <div class="ctn-account">
             <div class="tml tml-login" id="theme-my-login<?php $template->the_instance(); ?>">
@@ -61,7 +61,7 @@ Theme My Login will always look in your theme's directory first, before using th
                                     'theme-my-login'); ?></label>
                         </p>
                         <p class="tml-submit-wrap">
-                            <a href="<?php echo WP_SITEURL.'/account/lostpassword/' ?>" style="font-style: italic">Forgot password</a>
+                            <a href="<?php echo WP_SITEURL.'/account/lostpassword/' ?>" class="font-playfair" style="font-style: italic">Forgot password</a>
                         </p>
                     </div>
                     <p class="tml-submit-wrap" style="text-align: center;float: left;width: 100%;margin: 30px 0;">

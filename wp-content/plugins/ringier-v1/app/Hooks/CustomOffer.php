@@ -102,11 +102,10 @@ class CustomOffer
                                         $select = '';
                                     }
                                     if (($k == $jt->ID) or empty($jt->offer)) {
-
-                                    }
-                                    echo "<option value='" . $jt->ID . "' 
+                                        echo "<option value='" . $jt->ID . "' 
             data-ship = '" . $jt->ship_info->ID . "' 
             data-room_types= '" . $room_types . "' " . $select . " > " . $jt->post_title . "</option>";
+                                    }
                                 } ?>
                             </select>
                             <div class="ctn_room_types">
@@ -216,7 +215,7 @@ class CustomOffer
         $html = '
             <div class="add_journey_type_and_room_type">
             <select name="journey_type[]" class="journey_type">
-                <option value=""> --- Select journey --- </option>';
+                <option value=""> --- Select journey type --- </option>';
         foreach ($data as $jt) {
             if (empty($jt->offer)) {
                 $room_types = json_encode($jt->ship_info->room_types);

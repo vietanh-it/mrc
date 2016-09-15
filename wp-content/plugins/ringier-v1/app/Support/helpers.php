@@ -361,12 +361,14 @@ if (!function_exists('unsubscribeSendy')) {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
 
+        if (isset($data['name'])) {
+            unset($data['name']);
+        }
         $data = [
-            'name'  => $data['display_name'],
             'email' => $data['user_email'],
             'list'  => SUBSCRIBE_LIST
         ];
-        curl_setopt($ch, CURLOPT_URL, 'http://sendy.carodigital.studio/subscribe');
+        curl_setopt($ch, CURLOPT_URL, 'http://sendy.carodigital.studio/unsubscribe');
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         return curl_exec($ch);

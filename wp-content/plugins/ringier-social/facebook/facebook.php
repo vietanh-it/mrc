@@ -109,6 +109,9 @@ function ringier_create_user($data){
                 'user_password' => $password,
                 'remember'      => FALSE
             );
+
+            // TODO: Send email welcome
+            // sendEmailHTML($username, 'Activate your account', 'account/welcome_email.html');
            // $user = wp_signon($creds, FALSE);
         }
     }

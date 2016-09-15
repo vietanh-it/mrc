@@ -82,11 +82,12 @@ class AccountController extends _BaseController
                     ]);
                 }
 
-                $args_mail = array(
-                    'first_name' => $name,
-                    'url_web' => WP_SITEURL,
-                    'url_unsubscribe' => '#',
-                );
+                $hash_email = mrcEncrypt($data['c_email']);
+                $args_mail = [
+                    'first_name'      => $name,
+                    'url_web'         => WP_SITEURL,
+                    'url_unsubscribe' => WP_SITEURL . '/unsubscribe?p=' . $hash_email,
+                ];
                 sendEmailHTML($data['c_email'],'Thank you for your newsletter sign-up
 ','normal_user/newsletter_sign_up.html',$args_mail);
 

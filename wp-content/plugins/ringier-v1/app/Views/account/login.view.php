@@ -24,7 +24,7 @@ Theme My Login will always look in your theme's directory first, before using th
                     </div>
                 </div>
 
-                <p class="line-account"> <a href="#">or  sign in your account</a> </p>
+                <p class="line-account"> <span href="#">or  sign in your account</span> </p>
                 <?php $template->the_errors(); ?>
                 <form name="loginform" id="loginform<?php $template->the_instance(); ?>"
                       action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
@@ -61,7 +61,7 @@ Theme My Login will always look in your theme's directory first, before using th
                                     'theme-my-login'); ?></label>
                         </p>
                         <p class="tml-submit-wrap">
-                            <a href="<?php echo WP_SITEURL.'/account/lostpassword/' ?>" style="font-style: italic;color: #ccc">Forgot password</a>
+                            <a href="<?php echo WP_SITEURL.'/account/lostpassword/' ?>" style="font-style: italic">Forgot password</a>
                         </p>
                     </div>
                     <p class="tml-submit-wrap" style="text-align: center;float: left;width: 100%;margin: 30px 0;">

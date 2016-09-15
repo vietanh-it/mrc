@@ -72,6 +72,14 @@ class AccountController extends _BaseController
 
                 subscribeSendy($args_sub);
 
+                // Add user to newsletter list
+                global $wpdb;
+                $wpdb->insert($wpdb->prefix . 'newsletter', [
+                    'name'       => $name,
+                    'email'      => $data['c_email'],
+                    'created_at' => current_time('mysql')
+                ]);
+
                 $args_mail = array(
                     'first_name' => $name,
                     'url_web' => WP_SITEURL,
@@ -268,7 +276,7 @@ class AccountController extends _BaseController
 
         return view('account/profile',compact('user_info','country_list','return'));
     }
-    
+
 }
 
 ?>

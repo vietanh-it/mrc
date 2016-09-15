@@ -214,7 +214,12 @@ class AccountController extends _BaseController
                 $data['passport_id'] = $_POST['passport_id'];
             }
             if(isset($_POST['valid_until'])){
-                $data['valid_until'] =  date('Y-m-d',strtotime($_POST['valid_until'])); ;
+                if(empty($_POST['valid_until'])){
+                    $return['status'] = 'error';
+                    $return['message'][] = 'Please enter valid until.';
+                }else{
+                    $data['valid_until'] =  date('Y-m-d',strtotime($_POST['valid_until'])); ;
+                }
             }
             if(isset($_POST['date_of_issue'])){
                 $data['date_of_issue'] =   date('Y-m-d',strtotime($_POST['date_of_issue']));;

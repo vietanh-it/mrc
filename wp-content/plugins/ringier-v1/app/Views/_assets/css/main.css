@@ -990,9 +990,12 @@ footer ul li{
     padding-bottom: 30px;
     /*max-width: 500px;*/
 }
-/*.ctn-account .tml.tml-register {
-    max-width: 600px;
-}*/
+.ctn-account .bnt-primary{
+    font-weight: normal;
+}
+    /*.ctn-account .tml.tml-register {
+        max-width: 600px;
+    }*/
 .ctn-account .tml .tml-action-links a{
     font-weight: bold;
 }

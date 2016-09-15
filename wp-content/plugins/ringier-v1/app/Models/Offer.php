@@ -162,7 +162,10 @@ class Offer
 
     public function getOfferByJourneyType($jt_id){
         $rs = array();
-        $query = ' SELECT * FROM '.$this->_tbl_offer_journey . ' WHERE journey_type_id = '.$jt_id .' ';
+        $query = ' SELECT oj.* FROM '.$this->_tbl_offer_journey . ' oj
+         INNER JOIN '.$this->_wpdb->posts.' as p ON p.ID = oj.offer_id
+         WHERE oj.journey_type_id = '.$jt_id .'  AND p.post_status = "publish"
+        ';
         $list_jt_have_off = $this->_wpdb->get_results($query);
         if($list_jt_have_off){
             foreach ($list_jt_have_off as $v){

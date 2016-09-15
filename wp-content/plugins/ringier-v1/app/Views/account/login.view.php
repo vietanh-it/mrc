@@ -4,47 +4,48 @@ If you would like to edit this file, copy it to your current theme's directory a
 Theme My Login will always look in your theme's directory first, before using this default template.
 */
 ?>
-<p style="text-align: center">Welcome to the world of luxury cruises</p>
+<p style="text-align: center;font-style: italic">Welcome to the world of luxury cruises</p>
 
 <div class="ctn-account">
     <div class="tml tml-login" id="theme-my-login<?php $template->the_instance(); ?>">
-        <div class="row" style="margin-bottom: 20px;padding-bottom: 20px;border-bottom: 1px solid #ccc">
+        <p style="margin: 20px 0;color: black;font-size: 17px;text-align: center">Sign In width</p>
+        <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <a href="javascript:void(0)" onclick="login_fb()" title="Login width facebook">
                     <img src="<?php echo VIEW_URL.'/images/login-facebook.png' ?>" alt="">
                 </a>
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-6" style="text-align: right">
                 <a href="javascript:void(0)"  title="Login width google">
                     <img src="<?php echo VIEW_URL.'/images/glogin.png' ?>" alt="" >
                 </a>
             </div>
         </div>
 
-        <?php $template->the_action_template_message('login'); ?>
+        <p class="line-account"> <span>or  sign in your account</span> </p>
         <?php $template->the_errors(); ?>
         <form name="loginform" id="loginform<?php $template->the_instance(); ?>"
               action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
             <p class="tml-user-login-wrap">
-                <label for="user_login<?php $template->the_instance(); ?>"><?php
-                    if ('username' == $theme_my_login->get_option('login_type')) {
+                <!--<label for="user_login<?php /*$template->the_instance(); */?>"><?php
+/*                    if ('username' == $theme_my_login->get_option('login_type')) {
                         _e('Username', 'theme-my-login');
                     } elseif ('email' == $theme_my_login->get_option('login_type')) {
                         _e('E-mail', 'theme-my-login');
                     } else {
                         _e('Username or E-mail', 'theme-my-login');
                     }
-                    ?></label>
+                    */?></label>-->
                 <input type="text" name="log" id="user_login<?php $template->the_instance(); ?>"
                        class="input form-control" value="<?php $template->the_posted_value('log'); ?>"
-                       size="20"/>
+                       size="20" placeholder="E-mail"/>
             </p>
 
             <p class="tml-user-pass-wrap">
-                <label for="user_pass<?php $template->the_instance(); ?>"><?php _e('Password',
-                        'theme-my-login'); ?></label>
+                <!--<label for="user_pass<?php /*$template->the_instance(); */?>"><?php /*_e('Password',
+                        'theme-my-login'); */?></label>-->
                 <input type="password" name="pwd" id="user_pass<?php $template->the_instance(); ?>"
-                       class="input form-control" value="" size="20" autocomplete="off"/>
+                       class="input form-control" value="" size="20" autocomplete="off" placeholder="Password"/>
             </p>
 
             <?php do_action('login_form'); ?>
@@ -57,18 +58,20 @@ Theme My Login will always look in your theme's directory first, before using th
                         for="rememberme<?php $template->the_instance(); ?>"><?php esc_attr_e('Remember Me',
                             'theme-my-login'); ?></label>
                 </p>
-
                 <p class="tml-submit-wrap">
-                    <input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>"
-                           value="<?php esc_attr_e('Log In', 'theme-my-login'); ?>" class="bnt-primary"/>
-                    <input type="hidden" name="redirect_to"
-                           value="<?php $template->the_redirect_url('login'); ?>"/>
-                    <input type="hidden" name="instance" value="<?php $template->the_instance(); ?>"/>
-                    <input type="hidden" name="action" value="login"/>
+                    <a href="<?php echo WP_SITEURL.'/account/lostpassword/' ?>" style="font-style: italic">Forgot password</a>
                 </p>
             </div>
+            <p class="tml-submit-wrap" style="text-align: center;float: left;width: 100%;margin: 30px 0;">
+                <input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>"
+                       value="<?php esc_attr_e('Log In', 'theme-my-login'); ?>" class="bnt-primary"/>
+                <input type="hidden" name="redirect_to"
+                       value="<?php $template->the_redirect_url('login'); ?>"/>
+                <input type="hidden" name="instance" value="<?php $template->the_instance(); ?>"/>
+                <input type="hidden" name="action" value="login"/>
+            </p>
         </form>
-        <?php $template->the_action_links(array('login' => false)); ?>
+        <?php // $template->the_action_links(array('login' => false)); ?>
 
 
 

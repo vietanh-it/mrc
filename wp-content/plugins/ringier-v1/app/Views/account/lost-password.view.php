@@ -5,21 +5,21 @@ Theme My Login will always look in your theme's directory first, before using th
 */
 ?>
 
-<div class="ctn-account">
+<div class="ctn-account" style="text-align: center">
     <div class="tml tml-lostpassword" id="theme-my-login<?php $template->the_instance(); ?>">
-        <?php $template->the_action_template_message('lostpassword'); ?>
+        <?php echo 'We will send a link to your email to help you reset your password' ?>
         <?php $template->the_errors(); ?>
-        <form name="lostpasswordform" id="lostpasswordform<?php $template->the_instance(); ?>"
+        <form name="lostpasswordform" id="lostpasswordform<?php $template->the_instance(); ?>" style="margin-top: 30px"
               action="<?php $template->the_action_url('lostpassword', 'login_post'); ?>" method="post">
             <p class="tml-user-login-wrap">
-                <label for="user_login<?php $template->the_instance(); ?>"><?php
-                    if ('email' == $theme_my_login->get_option('login_type')) {
+                <!--<label for="user_login<?php /*$template->the_instance(); */?>"><?php
+/*                    if ('email' == $theme_my_login->get_option('login_type')) {
                         _e('E-mail:', 'theme-my-login');
                     } else {
                         _e('Username or E-mail:', 'theme-my-login');
-                    } ?></label>
+                    } */?></label>-->
                 <input type="text" name="user_login" id="user_login<?php $template->the_instance(); ?>"
-                       class="input form-control"
+                       class="input form-control" placeholder="E-mail"
                        value="<?php $template->the_posted_value('user_login'); ?>" size="20"/>
             </p>
 
@@ -27,7 +27,7 @@ Theme My Login will always look in your theme's directory first, before using th
 
             <p class="tml-submit-wrap">
                 <input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>"
-                       value="<?php esc_attr_e('Get New Password', 'theme-my-login'); ?>"
+                       value="<?php esc_attr_e('Submit', 'theme-my-login'); ?>"
                        class="bnt-primary"/>
                 <input type="hidden" name="redirect_to"
                        value="<?php $template->the_redirect_url('lostpassword'); ?>"/>
@@ -35,6 +35,6 @@ Theme My Login will always look in your theme's directory first, before using th
                 <input type="hidden" name="action" value="lostpassword"/>
             </p>
         </form>
-        <?php $template->the_action_links(array('lostpassword' => false)); ?>
+        <?php //$template->the_action_links(array('lostpassword' => false)); ?>
     </div>
 </div>

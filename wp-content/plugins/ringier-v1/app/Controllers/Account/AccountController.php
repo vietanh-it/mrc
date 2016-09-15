@@ -74,7 +74,7 @@ class AccountController extends _BaseController
 
                 // Add user to newsletter list
                 global $wpdb;
-                if ($wpdb->get_row("SELECT * FROM {$wpdb->prefix}newsletter WHERE email = '{$data['c_email']}'")) {
+                if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}newsletter WHERE email = '{$data['c_email']}'"))) {
                     $wpdb->insert($wpdb->prefix . 'newsletter', [
                         'name'       => $name,
                         'email'      => $data['c_email'],

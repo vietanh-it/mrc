@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50620
-Source Host           : localhost:3306
+Source Server         : [127.0.0.1 - LOCAL]
+Source Server Version : 50505
+Source Host           : 127.0.0.1:3306
 Source Database       : a_mrc
 
 Target Server Type    : MYSQL
-Target Server Version : 50620
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-09-12 12:43:05
+Date: 2016-09-15 10:42:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,6 +31,8 @@ CREATE TABLE `mrc_user_info` (
   `valid_until` varchar(255) DEFAULT NULL,
   `date_of_issue` date DEFAULT NULL,
   `nationality` varchar(255) DEFAULT NULL,
+  `is_refer` tinyint(4) DEFAULT '0',
+  `is_subscribe` tinyint(2) unsigned DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -38,4 +40,5 @@ CREATE TABLE `mrc_user_info` (
 -- ----------------------------
 -- Records of mrc_user_info
 -- ----------------------------
-INSERT INTO `mrc_user_info` VALUES ('2', null, 'vn', null, 'male', '2016-09-08', '12 tôn đản, quận 4, Tp.HCM', null, null, null, null, '2016-09-12 05:40:58');
+INSERT INTO `mrc_user_info` VALUES ('2', null, 'vn', null, 'male', '2016-09-08', '12 tôn đản, quận 4, Tp.HCM', null, null, null, null, '0', null, '2016-09-12 05:40:58');
+INSERT INTO `mrc_user_info` VALUES ('8', null, null, null, null, null, null, null, null, null, null, '0', null, '2016-09-12 16:50:39');

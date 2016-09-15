@@ -298,7 +298,7 @@ if (!function_exists('htmlPrice')) {
 
 if (!function_exists('sendEmailHTML')) {
 
-    function sendEmailHTML($to_email, $subject, $html_path, $args)
+    function sendEmailHTML($to_email, $subject, $html_path, $args = [])
     {
         // region test params
         // $to_email = 'vietanh@ringier.com.vn'
@@ -347,6 +347,72 @@ if (!function_exists('subscribeSendy')) {
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         return curl_exec($ch);
+    }
+
+}
+
+
+if (!function_exists('unsubscribeSendy')) {
+
+    function unsubscribeSendy($data)
+    {
+        //sendy
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        $data = [
+            'name'  => $data['display_name'],
+            'email' => $data['user_email'],
+            'list'  => SUBSCRIBE_LIST
+        ];
+        curl_setopt($ch, CURLOPT_URL, 'http://sendy.carodigital.studio/subscribe');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        return curl_exec($ch);
+    }
+
+}
+
+
+if (!function_exists('mrcEncrypt')) {
+
+    function mrcEncrypt($string)
+    {
+        $secret_key = 'mrc1234';
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $secret_iv = 'vietcruises';
+        // hash
+        $key = hash('sha256', $secret_key);
+
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+
+        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+        $output = base64_encode($output);
+
+        return $output;
+    }
+
+}
+
+if (!function_exists('mrcDecrypt')) {
+
+    function mrcDecrypt($string)
+    {
+        $secret_key = 'mrc1234';
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $secret_iv = 'vietcruises';
+        // hash
+        $key = hash('sha256', $secret_key);
+
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+
+        return $output;
     }
 
 }

@@ -65,40 +65,55 @@
                         <ul>
                             <li><a href="<?php echo WP_SITEURL . '/about-us'; ?>" title=""> About Us </a></li>
                             <li><a href="<?php echo WP_SITEURL . '/contact-us'; ?>" title=""> Contact Us</a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/media-centre/' ?>" title=""> Media Centre</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/news/' ?>" title=""> Media Centre</a></li>
                             <li><a href="<?php echo WP_SITEURL . '/faq'; ?>" title=""> FAQ</a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/partner/' ?>" title=""> Partner</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/partner/' ?>" title=""> Partner</a></li>
                         </ul>
                     </div>
 
                     <div class="col-xs-12 col-sm-2">
-                        <h4>Ship</h4>
+                        <h4>Ships</h4>
                         <ul>
-                            <li><a href="<?php echo WP_SITEURL.'/overview/' ?>" title="">Overview</a></li>
-                            <li><a href="#" title="">Mekong Princess</a></li>
-                            <li><a href="#" title="">Viet Princess</a></li>
-                            <li><a href="<?php echo WP_SITEURL.'/ships/' ?>" title="">Ship Tour</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/ships/' ?>" title="">Overview</a></li>
+                            <li>
+                                <a href="<?php echo WP_SITEURL . '/ship/mekong-princess/' ?>" title="Mekong Princess">
+                                    Mekong Princess
+                                </a>
+                            </li>
+                            <li><a href="<?php echo WP_SITEURL . '/ship/hong-princess/' ?>" title="Hong Princess">Hong
+                                    Princess</a>
+                            </li>
+                            <li><a href="<?php echo WP_SITEURL . '/ship/han-princess/' ?>" title="Han Princess">Han
+                                    Princess</a>
+                            </li>
                         </ul>
                     </div>
 
                     <div class="col-xs-12 col-sm-2">
-                        <h4>Journey</h4>
+                        <h4>Journeys</h4>
                         <ul>
-                            <li><a href="<?php echo WP_SITEURL.'/destination/' ?>" title="">Destination</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">Destination</a></li>
                             <li><a href="<?php echo WP_SITEURL . '/before-you-go/'; ?>" title="">Before you go</a></li>
-                            <li><a href="<?php echo WP_SITEURL .'/account/your-booking/'?>" title=""> Manage my journey</a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/travel-information/'; ?>" title=""> Travel information</a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/service/'; ?>" title=""> Services</a></li>
+                            <li>
+                                <a href="<?php echo WP_SITEURL . '/account/your-booking/' ?>" title="">
+                                    Your booking
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo WP_SITEURL . '/review-us/' ?>" title="">
+                                    Review Us
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
 
                     <div class="col-xs-12 col-sm-2">
-                        <h4>Resource</h4>
+                        <h4>Resources</h4>
                         <ul>
-                            <li><a href="<?php echo WP_SITEURL . '/e-brochure/'; ?>" title="">E-brochure </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/gallery/'; ?>" title=""> Gallery </a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/video/'; ?>" title=""> Video </a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/resource/human-resources/'; ?>" title="Human resource">Human resource</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/resource/onboard-services/'; ?>" title="On-board services">On-board services</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/resource/food-and-beverage/'; ?>" title="Food and beverage">Food and beverage</a></li>
                         </ul>
                     </div>
 

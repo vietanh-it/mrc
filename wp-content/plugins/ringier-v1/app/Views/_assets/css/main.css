@@ -1446,6 +1446,16 @@ footer ul li{
     display: inline-block;
 }
 
+.ctn-account .form-control,
+.ctn-account .form-control:-moz-placeholder,
+.ctn-account .form-control:-ms-input-placeholder,
+.ctn-account .form-control::-webkit-input-placeholder,
+.ctn-account .form-control::-moz-placeholder {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: normal;
+}
+
+
 @media (min-width: 1200px){
 
     .container{

@@ -158,6 +158,20 @@ Text Domain: mrc
     border-color: #dfb221;
 }
 
+.line-account {
+    z-index: 1;
+}
+
+.line-account:before {
+    z-index: -1;
+}
+
+.line-account span {
+    z-index: 1;
+    background: #ffffff;
+    padding: 0 10px;
+}
+
 @media (min-width: 1200px) {
     .container {
         width: 1170px !important;

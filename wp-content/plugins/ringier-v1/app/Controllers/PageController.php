@@ -54,4 +54,9 @@ class PageController extends _BaseController
         $list_qa = get_post_meta($post->ID,'list_qa',true);
         view('page/qa',compact('list_qa'));
     }
+
+    public function pageContact(){
+
+        view('page/contact');
+    }
 }

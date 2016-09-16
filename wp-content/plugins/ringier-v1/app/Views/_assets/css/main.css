@@ -1437,6 +1437,15 @@ footer ul li{
     font-family: 'Playfair Display', serif !important;
 }
 
+.socail-icon {
+    padding-left: 0;
+}
+.socail-icon li{
+    list-style: none;
+    padding-right: 30px;
+    display: inline-block;
+}
+
 @media (min-width: 1200px){
 
     .container{

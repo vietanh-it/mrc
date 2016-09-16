@@ -3,6 +3,7 @@ namespace RVN\Controllers\Account;
 
 use RVN\Controllers\_BaseController;
 use RVN\Models\Location;
+use RVN\Models\Posts;
 use RVN\Models\Users;
 
 class AccountController extends _BaseController
@@ -283,6 +284,43 @@ class AccountController extends _BaseController
         $user_info = $objUser->getUserInfo($user_id);
 
         return view('account/profile',compact('user_info','country_list','return'));
+    }
+
+    public function ajaxSendContact($data){
+        $result = array(
+            'message' => array('An error, please try again.'),
+            'status' => 'error',
+        );
+        if(!empty($data)){
+            $html = '
+                <p><b>Full name :</b> '.$data["contact_full_name"].'</p>
+                <p><b>E-mail :</b> '.$data["contact_email"].'</p>
+                <p><b>Phone number :</b> '.$data["contact_phone"].'</p>
+                <p><b>Country :</b> '.$data["contact_country"].'</p>
+                <p><b>Message subject :</b> '.$data["contact_subject"].'</p>
+                <p><b>Message :</b> '.$data["contact_message"].'</p>
+            ';
+
+            $Post = Posts::init();
+            $insert = wp_insert_post(array( 'post_title' => $data["contact_full_name"] .' - '.$data["contact_subject"],
+                                            'post_author' => get_current_user_id() ? get_current_user_id() : 0,
+                                            'post_status' => 'pending',
+                                            'post_content' => $html,
+                                            'post_type' => 'contact',
+                                            'post_date' => current_time('mysql')));
+
+            if($insert){
+                $result = array(
+                    'message' => 'Send contact success, thank you.',
+                    'status' => 'success',
+                );
+
+                wp_mail('vosydao88@gmail.com','[Contact] '.$data["contact_full_name"] .' - '.$data["contact_subject"],$html);
+            }
+
+        }
+
+        return $result;
     }
 
 }

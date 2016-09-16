@@ -284,6 +284,83 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $('.contact-us').validate({
+        ignore: [],
+        rules: {
+            contact_full_name : 'required',
+            contact_country : 'required',
+            contact_phone : 'required',
+            contact_subject : 'required',
+            contact_message : 'required',
+            contact_email: {
+                required : true,
+                email:true
+            }
+        },
+        messages: {
+            contact_full_name : 'Please enter your name.',
+            contact_country : 'Please enter your country.',
+            contact_phone : 'Please enter your phone number.',
+            contact_subject : 'Please enter your message subject .',
+            contact_message : 'Please enter your message.',
+            contact_email: {
+                required : 'Please enter your email',
+                email:'Email not valid.'
+            }
+        },
+        errorPlacement: function (error, element) {
+            element.attr('data-original-title', error.text())
+                .attr('data-toggle', 'tooltip')
+                .attr('data-placement', 'top');
+            $(element).tooltip('show');
+        },
+        unhighlight: function (element) {
+            $(element)
+                .removeAttr('data-toggle')
+                .removeAttr('data-original-title')
+                .removeAttr('data-placement')
+                .removeClass('error');
+            $(element).unbind("tooltip");
+        },
+        submitHandler: function (form) {
+            var objfrm = $(form);
+            $.ajax({
+                type: "post",
+                url: ajaxurl,
+                dataType: 'json',
+                data: objfrm.serialize(),
+                beforeSend: function () {
+                    $('input, button[type=submit]', objfrm).attr('disabled', true).css({'opacity': '0.5'});
+                },
+                success: function (data) {
+                    $('input, button[type=submit]', objfrm).attr('disabled', false).css({'opacity': 1});
+                    if (data.status =='success') {
+                        swal({
+                            "title": "Success",
+                            "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
+                            "type": "success",
+                            html: true
+                        });
+                        objfrm.trigger("reset");
+                    }
+                    else {
+                        var result = data.message;
+                        var htmlErrors = "";
+                        if (result.length > 0) {
+                            htmlErrors += "<ul style='color: red'>";
+                            for (var i = 0; i < result.length; i++) {
+                                htmlErrors += "<li style='list-style: none'>" + result[i] + "</li>";
+                            }
+                            htmlErrors += "</ul>";
+                        }
+                        swal({"title": "Error", "text": htmlErrors, "type": "error", html: true});
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
 
     var flag_alert = true;
     $('.refer-friend').fancybox({

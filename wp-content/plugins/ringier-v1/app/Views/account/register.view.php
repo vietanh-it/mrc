@@ -33,7 +33,7 @@ if(!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])){
         <p style="text-align: center;font-style: italic" class="font-playfair">Create your account to join the world of luxury cruises</p>
         <div class="ctn-account">
             <div class="tml tml-register" id="theme-my-login<?php $template->the_instance(); ?>" \>
-                <p style="margin: 20px 0;color: black;font-size: 17px;text-align: center;font-family: 'Playfair Display', serif;">Sign In width</p>
+                <p style="margin: 20px 0;color: black;font-size: 17px;text-align: center;font-family: 'Playfair Display', serif;">Sign In with</p>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-6" style="text-align: left">

@@ -16,7 +16,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-language" content="vi"/>
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico">
     <meta name="theme-color" content="#e4a611">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>

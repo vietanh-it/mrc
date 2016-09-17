@@ -4,32 +4,42 @@ If you would like to edit this file, copy it to your current theme's directory a
 Theme My Login will always look in your theme's directory first, before using this default template.
 */
 ?>
+</div><!--close .main-content-->
+
+<style>
+    .main-content {
+        display: none;
+    }
+</style>
+
 <div class="row">
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-        <p style="text-align: center;font-style: italic" class="font-playfair">Welcome to the world of luxury cruises</p>
+        <p style="text-align: center;font-style: italic" class="font-playfair">Welcome to the world of luxury
+            cruises</p>
 
         <div class="ctn-account">
             <div class="tml tml-login" id="theme-my-login<?php $template->the_instance(); ?>">
-                <p style="margin: 20px 0;color: black;font-size: 17px;text-align: center;font-family: 'Playfair Display', serif;">Sign In width</p>
+                <p style="margin: 25px 0 17px;color: black;font-size: 17px;text-align: center;font-family: 'Playfair Display', serif;">
+                    Sign In with</p>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
-                        <a href="javascript:void(0)" onclick="login_fb()" title="Login width facebook">
-                            <img src="<?php echo VIEW_URL.'/images/login-facebook.png' ?>" alt="">
+                        <a href="javascript:void(0)" onclick="login_fb()" title="Login with facebook">
+                            <img src="<?php echo VIEW_URL . '/images/login-facebook.png' ?>" alt="">
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-6" style="text-align: right">
-                        <a href="javascript:void(0)"  title="Login width google">
-                            <img src="<?php echo VIEW_URL.'/images/glogin.png' ?>" alt="" >
+                        <a href="javascript:void(0)" title="Login with google">
+                            <img src="<?php echo VIEW_URL . '/images/glogin.png' ?>" alt="">
                         </a>
                     </div>
                 </div>
 
-                <p class="line-account"> <span href="#">or  sign in your account</span> </p>
+                <p class="line-account"><span href="#">Or sign-in with your created account</span></p>
                 <?php $template->the_errors(); ?>
                 <form name="loginform" id="loginform<?php $template->the_instance(); ?>"
                       action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
                     <p class="tml-user-login-wrap">
-                        <!--<label for="user_login<?php /*$template->the_instance(); */?>"><?php
+                        <!--<label for="user_login<?php /*$template->the_instance(); */ ?>"><?php
                         /*                    if ('username' == $theme_my_login->get_option('login_type')) {
                                                 _e('Username', 'theme-my-login');
                                             } elseif ('email' == $theme_my_login->get_option('login_type')) {
@@ -37,15 +47,15 @@ Theme My Login will always look in your theme's directory first, before using th
                                             } else {
                                                 _e('Username or E-mail', 'theme-my-login');
                                             }
-                                            */?></label>-->
+                                            */ ?></label>-->
                         <input type="text" name="log" id="user_login<?php $template->the_instance(); ?>"
                                class="input form-control" value="<?php $template->the_posted_value('log'); ?>"
                                size="20" placeholder="E-mail"/>
                     </p>
 
                     <p class="tml-user-pass-wrap">
-                        <!--<label for="user_pass<?php /*$template->the_instance(); */?>"><?php /*_e('Password',
-                        'theme-my-login'); */?></label>-->
+                        <!--<label for="user_pass<?php /*$template->the_instance(); */ ?>"><?php /*_e('Password',
+                        'theme-my-login'); */ ?></label>-->
                         <input type="password" name="pwd" id="user_pass<?php $template->the_instance(); ?>"
                                class="input form-control" value="" size="20" autocomplete="off" placeholder="Password"/>
                     </p>
@@ -61,12 +71,13 @@ Theme My Login will always look in your theme's directory first, before using th
                                     'theme-my-login'); ?></label>
                         </p>
                         <p class="tml-submit-wrap">
-                            <a href="<?php echo WP_SITEURL.'/account/lostpassword/' ?>" class="font-playfair" style="font-style: italic">Forgot password</a>
+                            <a href="<?php echo WP_SITEURL . '/account/lostpassword/' ?>" class="font-playfair"
+                               style="font-style: italic">Forgot password</a>
                         </p>
                     </div>
-                    <p class="tml-submit-wrap" style="text-align: center;float: left;width: 100%;margin: 30px 0;">
+                    <p class="tml-submit-wrap" style="width: 100%; text-align: center;float: left;margin: 30px 0 60px;">
                         <input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>"
-                               value="<?php esc_attr_e('Log In', 'theme-my-login'); ?>" class="bnt-primary"/>
+                               value="Sign in" class="bnt-primary"/>
                         <input type="hidden" name="redirect_to"
                                value="<?php $template->the_redirect_url('login'); ?>"/>
                         <input type="hidden" name="instance" value="<?php $template->the_instance(); ?>"/>
@@ -80,3 +91,4 @@ Theme My Login will always look in your theme's directory first, before using th
     </div>
 </div>
 
+<div><!--open close div of .main-content-->

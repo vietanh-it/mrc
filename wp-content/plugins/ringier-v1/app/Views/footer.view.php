@@ -157,6 +157,10 @@
     </div>
 </div>
 
+<a href="javascript:void(0)" class="back-top">
+    <i class="fa fa-chevron-up"></i>
+</a>
+
 
 <div id="fb-root"></div>
 <?php wp_footer(); ?>

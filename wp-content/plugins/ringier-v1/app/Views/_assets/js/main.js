@@ -34,14 +34,14 @@ jQuery(document).ready(function ($) {
     $(".owl-carousel .owl-next").html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
     $(".owl-carousel .owl-prev").html('<i class="fa fa-angle-left" aria-hidden="true"></i>');
 
-    $( ".datepicker" ).datepicker({
-     changeMonth: true,
-     changeYear: true,
-     showButtonPanel: true,
-     dateFormat: 'dd M yy'
-     });
-   /* $('.month-year-input').attr('readonly', true);
-    $('.month-year-input').MonthPicker({Button: false});*/
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'dd M yy'
+    });
+    /* $('.month-year-input').attr('readonly', true);
+     $('.month-year-input').MonthPicker({Button: false});*/
 
 
     $("select.select-2").select2({
@@ -221,13 +221,13 @@ jQuery(document).ready(function ($) {
         ignore: [],
         rules: {
             c_email: {
-                required : true,
-                email:true
+                required: true,
+                email: true
             }
         },
         messages: {
             c_email: {
-                required : 'Please enter your email',
+                required: 'Please enter your email',
                 email: 'Email not email'
             }
         },
@@ -257,7 +257,7 @@ jQuery(document).ready(function ($) {
                 },
                 success: function (data) {
                     $('input, button[type=submit]', objfrm).attr('disabled', false).css({'opacity': 1});
-                    if (data.status =='success') {
+                    if (data.status == 'success') {
                         swal({
                             "title": "Success",
                             "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
@@ -287,25 +287,25 @@ jQuery(document).ready(function ($) {
     $('.contact-us').validate({
         ignore: [],
         rules: {
-            contact_full_name : 'required',
-            contact_country : 'required',
-            contact_phone : 'required',
-            contact_subject : 'required',
-            contact_message : 'required',
+            contact_full_name: 'required',
+            contact_country: 'required',
+            contact_phone: 'required',
+            contact_subject: 'required',
+            contact_message: 'required',
             contact_email: {
-                required : true,
-                email:true
+                required: true,
+                email: true
             }
         },
         messages: {
-            contact_full_name : 'Please enter your name.',
-            contact_country : 'Please enter your country.',
-            contact_phone : 'Please enter your phone number.',
-            contact_subject : 'Please enter your message subject .',
-            contact_message : 'Please enter your message.',
+            contact_full_name: 'Please enter your name.',
+            contact_country: 'Please enter your country.',
+            contact_phone: 'Please enter your phone number.',
+            contact_subject: 'Please enter your message subject .',
+            contact_message: 'Please enter your message.',
             contact_email: {
-                required : 'Please enter your email',
-                email:'Email not valid.'
+                required: 'Please enter your email',
+                email: 'Email not valid.'
             }
         },
         errorPlacement: function (error, element) {
@@ -334,7 +334,7 @@ jQuery(document).ready(function ($) {
                 },
                 success: function (data) {
                     $('input, button[type=submit]', objfrm).attr('disabled', false).css({'opacity': 1});
-                    if (data.status =='success') {
+                    if (data.status == 'success') {
                         swal({
                             "title": "Success",
                             "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
@@ -373,34 +373,34 @@ jQuery(document).ready(function ($) {
             }
         },
         padding: 10,
-        beforeShow : function () {
+        beforeShow: function () {
         },
-        afterLoad : function(){
+        afterLoad: function () {
             flag_alert = false;
-            $('#form-refer-friend').on("hover",function(){
+            $('#form-refer-friend').on("hover", function () {
                 var obj = $(this);
                 obj.validate({
                     ignore: [],
                     rules: {
                         email_friend: {
-                            required : true,
-                            email:true
+                            required: true,
+                            email: true
                         }
                     },
                     messages: {
                         email_friend: {
-                            required : 'Please enter your email',
+                            required: 'Please enter your email',
                             email: 'Email not email'
                         }
                     },
                     errorPlacement: function (error, element) {
-                        if(element.attr('name') == "cate_favourite") {
+                        if (element.attr('name') == "cate_favourite") {
                             element.parent().attr('data-original-title', error.text())
                                 .attr('data-toggle', 'tooltip')
                                 .attr('data-placement', 'top');
                             $(element).parent().tooltip('show');
                         }
-                        else{
+                        else {
                             element.attr('data-original-title', error.text())
                                 .attr('data-toggle', 'tooltip')
                                 .attr('data-placement', 'top');
@@ -416,7 +416,7 @@ jQuery(document).ready(function ($) {
                             .removeClass('error');
                         $(element).unbind("tooltip");
                     },
-                    submitHandler: function(form) {
+                    submitHandler: function (form) {
                         $.ajax({
                             type: "post",
                             url: ajaxurl,
@@ -427,7 +427,7 @@ jQuery(document).ready(function ($) {
                             },
                             success: function (data) {
                                 $('input, button[type=submit]', obj).attr('disabled', false).css({'opacity': '1'});
-                                if(data.status == "success"){
+                                if (data.status == "success") {
                                     swal({
                                         "title": "Success",
                                         "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
@@ -460,17 +460,22 @@ jQuery(document).ready(function ($) {
     });
 
     $('.show-answer').click(function () {
-       var obj  = $(this);
+        var obj = $(this);
         obj.closest('.box-qa').find('.answer').fadeIn();
-        obj.closest('.box-qa').find('.hide-answer').css('display','block');
-        obj.css('display','none');
+        obj.closest('.box-qa').find('.hide-answer').css('display', 'block');
+        obj.css('display', 'none');
     });
 
     $('.hide-answer').click(function () {
-        var obj  = $(this);
+        var obj = $(this);
         obj.closest('.box-qa').find('.answer').fadeOut();
-        obj.closest('.box-qa').find('.show-answer').css('display','block');
-        obj.css('display','none');
+        obj.closest('.box-qa').find('.show-answer').css('display', 'block');
+        obj.css('display', 'none');
+    });
+
+    $('.back-top').click(function (e) {
+        $("html, body").animate({scrollTop: 0}, 600);
+        return false;
     });
 });
 

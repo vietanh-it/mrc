@@ -1455,6 +1455,28 @@ footer ul li{
     font-weight: normal;
 }
 
+.back-top {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    background: rgba(228, 166, 17, 0.8);
+    padding: 7px 10px;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.back-top:hover, .back-top:active, .back-top:focus {
+    background: rgba(228, 166, 17, 0.5);
+    color: #ffffff;
+}
+
+.tile-main, .title-main {
+    margin: 30px 0 20px;
+}
+
+.main-content {
+    margin-bottom: 50px;
+}
 
 @media (min-width: 1200px){
 

@@ -57,7 +57,8 @@ Theme My Login will always look in your theme's directory first, before using th
                         <!--<label for="user_pass<?php /*$template->the_instance(); */ ?>"><?php /*_e('Password',
                         'theme-my-login'); */ ?></label>-->
                         <input type="password" name="pwd" id="user_pass<?php $template->the_instance(); ?>"
-                               class="input form-control" value="" size="20" autocomplete="off" placeholder="Your password"/>
+                               class="input form-control" value="" size="20" autocomplete="off"
+                               placeholder="Your password"/>
                     </p>
 
                     <?php do_action('login_form'); ?>
@@ -92,3 +93,59 @@ Theme My Login will always look in your theme's directory first, before using th
 </div>
 
 <div><!--open close div of .main-content-->
+
+    <script>
+        var $ = jQuery.noConflict();
+        $(document).ready(function () {
+            $('.google-plus-signin').on('click', function (e) {
+                auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function (response) {
+
+                    if (response) {
+                        gapi.client.load('plus', 'v1', function () {
+                            var request = gapi.client.plus.people.get({
+                                'userId': 'me'
+                            });
+                            request.execute(function (resp) {
+                                console.log('Retrieved profile for:' + resp.displayName);
+
+                                $.ajax({
+                                    url: MyAjax.ajax_url,
+                                    type: 'post',
+                                    dataType: 'json',
+                                    data: {
+                                        action: 'ajax_handler_account',
+                                        method: 'GoogleLogin',
+                                        user_data: resp
+                                    },
+                                    success: function (data) {
+                                        if (data.status == 'success') {
+                                            console.log(data.data.user_data.emails[0].value);
+                                        }
+                                        else {
+                                            var html_msg = '<div>';
+                                            if (data.message) {
+                                                $.each(data.message, function (k_msg, msg) {
+                                                    html_msg += msg + "<br/>";
+                                                });
+                                            } else if (data.data) {
+                                                $.each(data.data, function (k_msg, msg) {
+                                                    html_msg += msg + "<br/>";
+                                                });
+                                            }
+                                            html_msg += "</div>";
+                                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                        }
+
+                                    }
+                                }); // end ajax
+
+                            });
+                        });
+
+                    }
+
+                });
+
+            });
+        });
+    </script>

@@ -32,6 +32,16 @@
          ga('send', 'pageview');*/
     </script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <script>
+        function start() {
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '<?php echo GOOGLE_CLIENT_ID; ?>'
+                });
+            });
+        }
+    </script>
 
 </head>
 <body <?php body_class(); ?>>

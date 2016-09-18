@@ -12,6 +12,9 @@ Author URI: http://www.ringier.vn
 define("FACEBOOK_APP_ID", "913210768811539");
 define("FACEBOOK_SECRET", "5f955f910212ee23d8d5fab846e6b050");
 
+define("GOOGLE_CLIENT_ID", "1016359682208-k6m91deb6th0vgk1khl4op3ojuotj52b.apps.googleusercontent.com");
+define("GOOGLE_CLIENT_SECRET", "RDJcby4lI0vodEt7mmTM-fG5");
+
 define("PATH_VIEW", __DIR__ . '/app/Views/');
 define("VIEW_URL", WP_SITEURL . '/wp-content/plugins/ringier-v1/app/Views/_assets');
 

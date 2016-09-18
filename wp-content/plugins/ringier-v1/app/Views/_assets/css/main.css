@@ -1493,6 +1493,16 @@ footer ul li{
     font-size: 13px;
 }
 
+.is-agree-terms {
+    color: #999999;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.form-control {
+    height: 40px;
+}
+
 
 @media (min-width: 1200px){
 

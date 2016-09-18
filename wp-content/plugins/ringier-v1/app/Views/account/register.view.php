@@ -6,18 +6,18 @@ Theme My Login will always look in your theme's directory first, before using th
 $is_refer = 0;
 $email_refer = 0;
 $code_refer = 0;
-$user_refer_id= 0;
+$user_refer_id = 0;
 
-if(!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])){
+if (!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])) {
     $user_refer_id = $_GET['id'];
 
-    $list_email_refer = get_user_meta($user_refer_id,'email_refer');
-    $list_code_refer = get_user_meta($user_refer_id,'code_refer');
-    if(!empty($list_email_refer)){
-        foreach ($list_email_refer as $k => $email){
-            if($_GET['email'] == $email){
+    $list_email_refer = get_user_meta($user_refer_id, 'email_refer');
+    $list_code_refer = get_user_meta($user_refer_id, 'code_refer');
+    if (!empty($list_email_refer)) {
+        foreach ($list_email_refer as $k => $email) {
+            if ($_GET['email'] == $email) {
                 $code = $list_code_refer[$k];
-                if($code == $_GET['code']){
+                if ($code == $_GET['code']) {
                     $email_refer = $email;
                     $code_refer = $code;
                     $is_refer = 1;
@@ -28,26 +28,41 @@ if(!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])){
 }
 
 ?>
+</div>
+
+<style>
+    .ctn-account .tml {
+        max-width: none;
+    }
+
+    .main-content {
+        display: none;
+    }
+</style>
+
 <div class="row">
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-        <p style="text-align: center;font-style: italic" class="font-playfair">Create your account to join the world of luxury cruises</p>
+        <p style="text-align: center;font-style: italic" class="font-playfair">Create your account to join the world of
+            luxury cruises</p>
         <div class="ctn-account">
             <div class="tml tml-register" id="theme-my-login<?php $template->the_instance(); ?>" \>
-                <p style="margin: 20px 0;color: black;font-size: 17px;text-align: center;font-family: 'Playfair Display', serif;">Sign In with</p>
+                <p style="margin: 20px 0;color: black;font-size: 17px;text-align: center;font-family: 'Playfair Display', serif;">
+                    Sign In with</p>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-6" style="text-align: left">
-                        <a href="javascript:void(0)" onclick="login_fb()" title="Login width facebook">
-                            <img src="<?php echo VIEW_URL.'/images/login-facebook.png' ?>" alt="" style="max-width: 100%" >
+                        <a href="javascript:void(0)" onclick="login_fb()" title="Login with facebook">
+                            <img src="<?php echo VIEW_URL . '/images/login-facebook.png' ?>" alt=""
+                                 style="max-width: 100%">
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-6" style="text-align: right">
-                        <a href="javascript:void(0)"  title="Login width google">
-                            <img src="<?php echo VIEW_URL.'/images/glogin.png' ?>" alt="" style="max-width: 100%" >
+                        <a href="javascript:void(0)" title="Login with google" class="google-plus-signin">
+                            <img src="<?php echo VIEW_URL . '/images/glogin.png' ?>" alt="" style="max-width: 100%">
                         </a>
                     </div>
                 </div>
-                <p class="line-account"> <span>or  create your account</span> </p>
+                <p class="line-account"><span>or  create your account below</span></p>
                 <?php $template->the_errors(); ?>
                 <form name="registerform" id="registerform<?php $template->the_instance(); ?>"
                       action="<?php $template->the_action_url('register', 'login_post'); ?>" method="post">
@@ -65,36 +80,52 @@ if(!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])){
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group">
                                 <!--<label for="first_name" class="text"></label>-->
-                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                       placeholder="First Name"
                                        value="<?php $template->the_posted_value('first_name'); ?>">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group">
                                 <!--<label for="last_name" class="text"></label>-->
-                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                       placeholder="Last Name"
                                        value="<?php $template->the_posted_value('last_name'); ?>">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group">
                                 <!--<label for="user_email" class="text"></label>-->
-                                <input type="text" name="user_email" id="user_email" class="form-control" placeholder="E-mail"
+                                <input type="text" name="user_email" id="user_email" class="form-control"
+                                       placeholder="E-mail"
                                        value="<?php $template->the_posted_value('user_email'); ?>"/>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group">
                                 <!--<label for="pass1" class="text">Password</label>-->
-                                <input type="password" name="pass1" id="pass1" class="form-control" placeholder="Password"
+                                <input type="password" name="pass1" id="pass1" class="form-control"
+                                       placeholder="Password"
                                        value="<?php $template->the_posted_value('pass1'); ?>"/>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group">
                                 <!--<label for="pass2" class="text"> </label>-->
-                                <input type="password" name="pass2" id="pass2" class="form-control " placeholder="Confirm Password"
+                                <input type="password" name="pass2" id="pass2" class="form-control "
+                                       placeholder="Confirm Password"
                                        value="<?php $template->the_posted_value('pass2'); ?>"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" value="1" name="is_agree">
+                                    <a href="<?php echo WP_SITEURL . '/terms-of-use'; ?>"
+                                       class="font-playfair is-agree-terms">
+                                        I accept Terms of Use and Privacy Policy
+                                    </a>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -103,12 +134,12 @@ if(!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])){
                     <?php do_action('register_form'); ?>
 
                     <!--<p class="tml-registration-confirmation" style="text-align: center;margin-top: 30px"
-               id="reg_passmail<?php /*$template->the_instance(); */?>"><?php /*echo apply_filters('tml_register_passmail_template_message',
-                    __('Registration confirmation will be e-mailed to you.', 'theme-my-login')); */?></p>-->
+               id="reg_passmail<?php /*$template->the_instance(); */ ?>"><?php /*echo apply_filters('tml_register_passmail_template_message',
+                    __('Registration confirmation will be e-mailed to you.', 'theme-my-login')); */ ?></p>-->
 
-                    <p class="tml-submit-wrap text-center" style="margin-top: 30px">
+                    <p class="tml-submit-wrap text-center" style="margin-top: 0">
                         <input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>"
-                               value="<?php esc_attr_e('Create Account', 'theme-my-login'); ?>" class="bnt-primary"/>
+                               value="Sign Up" class="bnt-primary"/>
                         <input type="hidden" name="redirect_to"
                                value="<?php $template->the_redirect_url('register'); ?>"/>
                         <input type="hidden" name="instance" value="<?php $template->the_instance(); ?>"/>
@@ -130,3 +161,61 @@ if(!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])){
         </div>
     </div>
 </div>
+
+<div>
+
+    <script>
+        var $ = jQuery.noConflict();
+        $(document).ready(function () {
+            $('.google-plus-signin').on('click', function (e) {
+                auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function (response) {
+
+                    if (response) {
+                        gapi.client.load('plus', 'v1', function () {
+                            var request = gapi.client.plus.people.get({
+                                'userId': 'me'
+                            });
+                            request.execute(function (resp) {
+                                console.log('Retrieved profile for:' + resp.displayName);
+
+                                $.ajax({
+                                    url: MyAjax.ajax_url,
+                                    type: 'post',
+                                    dataType: 'json',
+                                    data: {
+                                        action: 'ajax_handler_account',
+                                        method: 'GoogleLogin',
+                                        user_data: resp
+                                    },
+                                    success: function (data) {
+                                        if (data.status == 'success') {
+                                            console.log(data.data.user_data.emails[0].value);
+                                        }
+                                        else {
+                                            var html_msg = '<div>';
+                                            if (data.message) {
+                                                $.each(data.message, function (k_msg, msg) {
+                                                    html_msg += msg + "<br/>";
+                                                });
+                                            } else if (data.data) {
+                                                $.each(data.data, function (k_msg, msg) {
+                                                    html_msg += msg + "<br/>";
+                                                });
+                                            }
+                                            html_msg += "</div>";
+                                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                        }
+
+                                    }
+                                }); // end ajax
+
+                            });
+                        });
+
+                    }
+
+                });
+
+            });
+        });
+    </script>

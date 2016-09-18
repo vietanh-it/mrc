@@ -78,6 +78,10 @@ class Users
             }
         }
 
+        if (empty($_POST['is_agree'])) {
+            $errors->add('empty_is_agree', 'Please accept terms of use and privacy policy.');
+        }
+
         $errors->remove('empty_email');
         $errors->remove('empty_username');
         $errors->remove('username_exists');

@@ -31,7 +31,7 @@ if (!empty($journey_id)) {
     ?>
 
     <div class="nav-bar">
-        <div class="container container-big">
+        <div class="container container-big booking-topbar">
             <div class="row">
                 <div class="col-xs-12 col-sm-5">
                     <h3 class="title-main white"><?php echo $jt_info->post_title; ?></h3>

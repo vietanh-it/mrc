@@ -54,16 +54,6 @@ function ringier_facebook_login(){
                     }
                     $error = 0;
 
-                    $args_mail = [
-                        'first_name'      => $full_name,
-                        'url_web'         => WP_SITEURL,
-                    ];
-                    sendEmailHTML($username,'Thank you for choosing us','account/welcome_email.html',$args_mail);
-
-                    subscribeSendy(array(
-                        'display_name' => $full_name,
-                        'user_email' => $username,
-                    ));
                 }
             }
         }
@@ -114,15 +104,18 @@ function ringier_create_user($data){
         $user_id = email_exists( $email );
         if( !$user_id ){
             $user_id = wp_create_user( $username, $password, $email );
-            $creds = array(
-                'user_login'    => $username,
-                'user_password' => $password,
-                'remember'      => FALSE
-            );
 
-            // TODO: Send email welcome
-            // sendEmailHTML($username, 'Activate your account', 'account/welcome_email.html');
-           // $user = wp_signon($creds, FALSE);
+            $full_name = $data['name'];
+            $args_mail = [
+                'first_name'      => $full_name,
+                'url_web'         => WP_SITEURL,
+            ];
+            sendEmailHTML($username,'Thank you for choosing us','account/welcome_email.html',$args_mail);
+
+            subscribeSendy(array(
+                'display_name' => $full_name,
+                'user_email' => $username,
+            ));
         }
     }
     return $user_id;

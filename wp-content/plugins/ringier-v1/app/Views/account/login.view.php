@@ -119,21 +119,27 @@ Theme My Login will always look in your theme's directory first, before using th
                                     },
                                     success: function (data) {
                                         if (data.status == 'success') {
-                                            console.log(data.data.user_data.emails[0].value);
+                                            swal({
+                                                    "title": "Success",
+                                                    "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
+                                                    "type": "success",
+                                                    html: true
+                                                },
+                                                function(){
+                                                    window.location.href = "";
+                                                });
                                         }
                                         else {
-                                            var html_msg = '<div>';
-                                            if (data.message) {
-                                                $.each(data.message, function (k_msg, msg) {
-                                                    html_msg += msg + "<br/>";
-                                                });
-                                            } else if (data.data) {
-                                                $.each(data.data, function (k_msg, msg) {
-                                                    html_msg += msg + "<br/>";
-                                                });
+                                            var result = data.message;
+                                            var htmlErrors = "";
+                                            if (result.length > 0) {
+                                                htmlErrors += "<ul style='color: red'>";
+                                                for (var i = 0; i < result.length; i++) {
+                                                    htmlErrors += "<li style='list-style: none'>" + result[i] + "</li>";
+                                                }
+                                                htmlErrors += "</ul>";
                                             }
-                                            html_msg += "</div>";
-                                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                            swal({"title": "Error", "text": htmlErrors, "type": "error", html: true});
                                         }
 
                                     }

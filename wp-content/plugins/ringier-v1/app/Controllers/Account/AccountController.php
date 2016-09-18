@@ -330,9 +330,66 @@ class AccountController extends _BaseController
 
     public function ajaxGoogleLogin($data)
     {
-        // TODO: save user
+        $result= array(
+            'status' => 'error',
+            'message' => 'An error, please try again!'
+        );
+        if(!empty($data['user_data'])){
+            $data = $data['user_data'];
 
-        return $data;
+            // TODO: save user
+            if(!empty($data['emails'][0]['value'])){
+                $email = $data['emails'][0]['value'];
+                $user_id = username_exists($email);
+                $first_name = !empty($data['name']['familyName']) ? $data['name']['familyName'] : '';
+                $last_name = !empty($data['name']['givenName']) ? $data['name']['givenName'] : '';
+
+                if( !$user_id ){
+                    $user_id = email_exists( $email );
+                    if( !$user_id ){
+                        $password = $email . rand();
+                        $user_id = wp_create_user( $email, $password, $email );
+
+                        $args_mail = [
+                            'first_name'      => !empty($first_name) ? $first_name : $data['displayName'],
+                            'url_web'         => WP_SITEURL,
+                        ];
+                        sendEmailHTML($email,'Thank you for choosing us','account/welcome_email.html',$args_mail);
+
+                        subscribeSendy(array(
+                            'display_name' => $data['displayName'],
+                            'user_email' => $email,
+                        ));
+                    }
+                }
+
+
+                if(!empty($user_id)){
+                    wp_set_auth_cookie($user_id);
+
+                    wp_update_user(array(
+                        "ID" => $user_id,
+                        "display_name" => $data['displayName'],
+                        "first_name" => $first_name,
+                        "last_name" => $last_name,
+                    ));
+
+                    $User = Users::init();
+                    $User->saveUserInfo(array(
+                        'user_id' =>$user_id,
+                        'avatar' => $data['image']['url'],
+                        'gender' => $data['gender'],
+                    ));
+
+                    $result= array(
+                        'status' => 'success',
+                        'message' => 'Login success.'
+                    );
+                }
+            }
+        }
+
+        return $result;
     }
 }
 

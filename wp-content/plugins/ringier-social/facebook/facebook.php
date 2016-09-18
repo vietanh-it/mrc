@@ -58,8 +58,7 @@ function ringier_facebook_login(){
                         'first_name'      => $full_name,
                         'url_web'         => WP_SITEURL,
                     ];
-                    sendEmailHTML($username,'Thank you for your newsletter sign-up
-','account/welcome_email.html.html',$args_mail);
+                    sendEmailHTML($username,'Thank you for choosing us','account/welcome_email.html',$args_mail);
 
                     subscribeSendy(array(
                         'display_name' => $full_name,

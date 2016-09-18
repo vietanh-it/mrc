@@ -15,6 +15,7 @@
                         </form>
                     </div>
                     <div class="col-xs-12 col-sm-6">
+                        
                         <h3 class="tile-main orange text-left">Join us</h3>
                         <ul class="social-icon">
                             <li>

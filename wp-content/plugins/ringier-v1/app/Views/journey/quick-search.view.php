@@ -84,7 +84,7 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                 </div>
 
                 <div class="col-xs-12 col-sm-2">
-                    <div class="text-center">
+                    <div class="text-right">
                         <button type="submit"> <i class="fa fa-search" aria-hidden="true"></i> Find now</button>
                     </div>
                 </div>

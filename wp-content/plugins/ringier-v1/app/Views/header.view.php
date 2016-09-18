@@ -69,7 +69,7 @@ if (is_single()) {
                         <li><a href="#form-refer-friend" class="refer-friend">
                                 <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer friends</a>
                             <?php if (is_user_logged_in()) { ?>
-                                <form id="form-refer-friend" style="display: none">
+                                <form id="form-refer-friend" style="display: none" class="form-facybox">
                                     <div class="form-group">
                                         <label for="email_friend">Friend email:</label>
                                         <input type="email" value="" name="email_friend" id="email_friend"

@@ -157,9 +157,26 @@ get_header();
     <div class="offer-home">
         <div class="container ">
             <div class="row">
-                <h2 class="col-xs-12 col-sm-12 tile-main">
-                    <a href="<?php echo WP_SITEURL . '/offers/' ?>">Latest offer</a>
-                    <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+                <h2 class="col-xs-12 col-sm-10 col-sm-offset-1">
+                    <div class="tile-main" style="position: relative">
+                        <a href="<?php echo WP_SITEURL . '/offers/' ?>">Latest offer</a>
+                        <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+
+                        <a class="btn-kep-offer" href="#form-kep-offer"><img src="<?php echo VIEW_URL.'/images/icon-email-2.png' ?>" style="padding-right: 10px"> Keep in touch with best offer</a>
+
+                        <form id="form-kep-offer" style="display: none" class="form-facybox">
+                            <div class="form-group">
+                                <label for="c_email">Your email:</label>
+                                <input type="email" value="" name="c_email"
+                                       placeholder="" class="form-control">
+                            </div>
+                            <div class="form-group text-center">
+                                <input type="hidden" name="action" value="ajax_handler_account">
+                                <input type="hidden" name="method" value="ConnectEmail">
+                                <button type="submit" class="btn">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </h2>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                     <div class="row">

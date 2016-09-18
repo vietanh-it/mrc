@@ -459,6 +459,102 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $('.btn-kep-offer').fancybox({
+        helpers: {
+            title: {
+                type: 'over'
+            },
+            overlay: {
+                speedOut: 0
+            }
+        },
+        padding: 10,
+        beforeShow: function () {
+        },
+        afterLoad: function () {
+            flag_alert = false;
+            $('#form-kep-offer').on("hover", function () {
+                var obj = $(this);
+                obj.validate({
+                    ignore: [],
+                    rules: {
+                        your_email: {
+                            required: true,
+                            email: true
+                        }
+                    },
+                    messages: {
+                        your_email: {
+                            required: 'Please enter your email',
+                            email: 'Email not email'
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.attr('name') == "cate_favourite") {
+                            element.parent().attr('data-original-title', error.text())
+                                .attr('data-toggle', 'tooltip')
+                                .attr('data-placement', 'top');
+                            $(element).parent().tooltip('show');
+                        }
+                        else {
+                            element.attr('data-original-title', error.text())
+                                .attr('data-toggle', 'tooltip')
+                                .attr('data-placement', 'top');
+                            $(element).tooltip('show');
+                        }
+
+                    },
+                    unhighlight: function (element) {
+                        $(element)
+                            .removeAttr('data-toggle')
+                            .removeAttr('data-original-title')
+                            .removeAttr('data-placement')
+                            .removeClass('error');
+                        $(element).unbind("tooltip");
+                    },
+                    submitHandler: function (form) {
+                        $.ajax({
+                            type: "post",
+                            url: ajaxurl,
+                            dataType: 'json',
+                            data: obj.serialize(),
+                            beforeSend: function () {
+                                $('input, button[type=submit]', obj).attr('disabled', true).css({'opacity': '0.5'});
+                            },
+                            success: function (data) {
+                                $('input, button[type=submit]', obj).attr('disabled', false).css({'opacity': '1'});
+                                if (data.status == "success") {
+                                    swal({
+                                        "title": "Success",
+                                        "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
+                                        "type": "success",
+                                        html: true
+                                    });
+
+                                    flag_alert = true;
+                                    parent.jQuery.fancybox.close();
+                                }
+                                else {
+                                    var result = data.message;
+                                    var htmlErrors = "";
+                                    if (result.length > 0) {
+                                        htmlErrors += "<ul style='color: red'>";
+                                        for (var i = 0; i < result.length; i++) {
+                                            htmlErrors += "<li style='list-style: none'>" + result[i] + "</li>";
+                                        }
+                                        htmlErrors += "</ul>";
+                                    }
+                                    swal({"title": "Error", "text": htmlErrors, "type": "error", html: true});
+                                }
+                            }
+                        });
+                        return false;
+                    }
+                });
+            });
+        }
+    });
+
     $('.show-answer').click(function () {
         var obj = $(this);
         obj.closest('.box-qa').find('.answer').fadeIn();

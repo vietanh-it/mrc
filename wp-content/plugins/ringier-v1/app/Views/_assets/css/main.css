@@ -1508,9 +1508,9 @@ footer ul li{
 .tile-main .btn-kep-offer{
     position: absolute;
     color: #ccc;
-    font-size: 15px;
+    font-size: 15px !important;
     font-weight: normal;
-    top: 0;
+    top: 5px;
     text-transform: none;
     font-family: 'Source Sans Pro', sans-serif;
     right: 0;
@@ -1549,6 +1549,14 @@ footer ul li{
 }
 
 h1.tile-main {
+    font-size: 24px;
+}
+
+.tile-main a, .title-main a {
+    font-family: 'Playfair Display', serif;
+}
+
+.home .tile-main a, .home .title-main a {
     font-size: 24px;
 }
 

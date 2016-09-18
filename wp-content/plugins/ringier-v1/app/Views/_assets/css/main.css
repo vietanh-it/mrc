@@ -3,10 +3,10 @@
 body{
     color: #545454;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
 }
 a {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: normal;
     font-family: 'Source Sans Pro', sans-serif;
 }
@@ -526,12 +526,14 @@ nav ul.navbar-nav li.active a{
 
 .join-with{
     background: #f4f4f4;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 .join-with h3{
     text-align: left;
     margin-bottom: 20px;
     font-weight: bold;
+    margin-top: 42px;
+    font-size: 18px;
 }
 .connect-email{
     position: relative;
@@ -578,8 +580,9 @@ footer a:hover{
 footer h4{
     color: white;
     text-transform: uppercase;
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
+    /*font-family: 'Playfair Display', serif;*/
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
     margin-bottom: 15px;
     margin-top: 0;
 }
@@ -963,7 +966,7 @@ footer ul li{
     background: none;
     border: 1px solid white;
     color: white;
-    font-size: 13px;
+    font-size: 14px;
 }
 .select2-container--default .select2-selection--single .select2-selection__arrow{
     display: none;

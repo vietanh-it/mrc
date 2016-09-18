@@ -337,6 +337,7 @@ class acf_field_functions
                         $data['object_id'] = $post_id;
                         $wpdb->insert($wpdb->prefix . 'ship_info', $data);
                     } else {
+                        unset($data['photos']);
                         $wpdb->update($wpdb->prefix . 'ship_info', $data, ['object_id' => $post_id]);
                     }
                     break;

@@ -9,8 +9,8 @@ Author URI: http://www.ringier.vn
 */
 
 
-define("FACEBOOK_APP_ID", "618730188269964");
-define("FACEBOOK_SECRET", "455cfc6c7677f1b5fbe67d6904700bc6");
+define("FACEBOOK_APP_ID", "913210768811539");
+define("FACEBOOK_SECRET", "5f955f910212ee23d8d5fab846e6b050");
 
 define("PATH_VIEW", __DIR__ . '/app/Views/');
 define("VIEW_URL", WP_SITEURL . '/wp-content/plugins/ringier-v1/app/Views/_assets');

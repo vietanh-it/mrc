@@ -95,7 +95,7 @@ nav ul.navbar-nav li a{
 }
 nav ul.navbar-nav li a:hover{
     background: none;
-    border: 1px solid #ccc;
+    border: 1px solid #999;
 }
 nav ul.navbar-nav li:last-child{
     /* padding-right: 0;*/
@@ -543,7 +543,7 @@ nav ul.navbar-nav li.active a{
     padding-left: 10px;
     border: none;
     color: #e4a611;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #999;
     top: 0;
     background: none;
     font-size: 23px;
@@ -808,7 +808,7 @@ footer ul li{
 }
 .journey-detail .bk-box{
     padding: 10px 30px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #999;
     float: left;
     width: 100%;
 }
@@ -941,12 +941,12 @@ footer ul li{
 }
 
 .select2-drop.select2-drop-above.select2-drop-active{
-    border: 1px solid #ccc;
+    border: 1px solid #999;
     background: white;
 }
 .select2-drop, .select2-search, .select2-search input{
     background: white;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #999;
 }
 
 .form-find-journey .select2-container--default .select2-selection--single{
@@ -987,7 +987,7 @@ footer ul li{
     background: #fafafa;
 }
 .ctn-account .tml-login a{
-    color: #ccc;
+    color: #999;
 }
 .ctn-account .tml-login a:hover{
     color: black;
@@ -1013,7 +1013,7 @@ footer ul li{
 }
 .ctn-account #loginform{
     margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #999;
 }
 .ctn-account .select2-container--default .select2-selection--single .select2-selection__rendered{
     color: #333;
@@ -1022,7 +1022,7 @@ footer ul li{
 .ctn-account .select2-container, .ctn-account .select2-drop, .ctn-account .select2-search, .ctn-account .select2-search input{
     background: none;
     color: #333;
-    border: 1px solid #ccc;
+    border: 1px solid #999;
     border-radius: 4px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
@@ -1032,7 +1032,7 @@ footer ul li{
 }
 
 .booking-addon{
-    border-bottom: 2px solid #cccccc;
+    border-bottom: 2px solid #999;
     margin-bottom: 20px;
     padding-bottom: 20px;
 }
@@ -1179,7 +1179,7 @@ footer ul li{
     color: white;
 }
 .wrap-pagination .wp-pagenavi a, .wrap-pagination .wp-pagenavi span{
-    border: 1px solid #ccc;
+    border: 1px solid #999;
     padding: 10px 15px;
 }
 #form-refer-friend{
@@ -1203,7 +1203,7 @@ footer ul li{
 .box-qa {
     margin-bottom: 30px;
     padding-bottom: 30px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #999;
 }
 .box-qa .question a{
     font-weight: bold;
@@ -1367,7 +1367,7 @@ footer ul li{
 .line-account {
     margin-top: 20px !important;
     text-align: center;
-    color: #ccc;
+    color: #999;
     font-style: italic;
     position: relative;
 }
@@ -1384,7 +1384,7 @@ footer ul li{
     position: absolute;
     top: 50%;
     left: 0;
-    background: #ccc;
+    background: #999;
 }
 .ctn-account ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    black !important;
@@ -1477,6 +1477,22 @@ footer ul li{
 .main-content {
     margin-bottom: 50px;
 }
+
+.tml .tml-rememberme-wrap label {
+    padding-left: 8px;
+    font-weight: normal;
+    color: #999999;
+}
+
+.ctn-account #loginform {
+    border: none;
+}
+
+.line-account span {
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 13px;
+}
+
 
 @media (min-width: 1200px){
 

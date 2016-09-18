@@ -13,7 +13,7 @@ $(document).ready(function() {
             // v2
             window.fbAsyncInit = function() {
                 FB.init({
-                    appId      : '618730188269964',
+                    appId      : ringier_social.app_fb_id,
                     xfbml      : true,
                     version    : 'v2.7'
                 });

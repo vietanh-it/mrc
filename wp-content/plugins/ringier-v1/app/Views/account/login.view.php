@@ -28,13 +28,13 @@ Theme My Login will always look in your theme's directory first, before using th
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-6" style="text-align: right">
-                        <a href="javascript:void(0)" title="Login with google">
+                        <a href="javascript:void(0)" title="Login with google" class="google-plus-signin">
                             <img src="<?php echo VIEW_URL . '/images/glogin.png' ?>" alt="">
                         </a>
                     </div>
                 </div>
 
-                <p class="line-account"><span href="#">Or sign-in with your created account</span></p>
+                <p class="line-account"><span>Or sign-in with your created account</span></p>
                 <?php $template->the_errors(); ?>
                 <form name="loginform" id="loginform<?php $template->the_instance(); ?>"
                       action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
@@ -50,14 +50,14 @@ Theme My Login will always look in your theme's directory first, before using th
                                             */ ?></label>-->
                         <input type="text" name="log" id="user_login<?php $template->the_instance(); ?>"
                                class="input form-control" value="<?php $template->the_posted_value('log'); ?>"
-                               size="20" placeholder="E-mail"/>
+                               size="20" placeholder="Your email address"/>
                     </p>
 
                     <p class="tml-user-pass-wrap">
                         <!--<label for="user_pass<?php /*$template->the_instance(); */ ?>"><?php /*_e('Password',
                         'theme-my-login'); */ ?></label>-->
                         <input type="password" name="pwd" id="user_pass<?php $template->the_instance(); ?>"
-                               class="input form-control" value="" size="20" autocomplete="off" placeholder="Password"/>
+                               class="input form-control" value="" size="20" autocomplete="off" placeholder="Your password"/>
                     </p>
 
                     <?php do_action('login_form'); ?>
@@ -75,7 +75,7 @@ Theme My Login will always look in your theme's directory first, before using th
                                style="font-style: italic">Forgot password</a>
                         </p>
                     </div>
-                    <p class="tml-submit-wrap" style="width: 100%; text-align: center;float: left;margin: 30px 0 60px;">
+                    <p class="tml-submit-wrap" style="width: 100%; text-align: center;float: left;margin: 0 0 60px;">
                         <input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>"
                                value="Sign in" class="bnt-primary"/>
                         <input type="hidden" name="redirect_to"

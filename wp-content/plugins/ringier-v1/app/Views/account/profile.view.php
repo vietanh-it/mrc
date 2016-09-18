@@ -2,6 +2,9 @@
 $user_info = !empty($user_info) ? $user_info : array();
 $country_list = !empty($country_list) ? $country_list : array();
 $return = !empty($return) ? $return : array();
+
+$user = wp_get_current_user();
+
 get_header();
 ?>
 <div class="container">
@@ -28,7 +31,7 @@ get_header();
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label for="first_name">First Name</label>
-                            <input type="text" name="first_name" value="<?php echo !empty(wp_get_current_user()->user_firstname) ? wp_get_current_user()->user_firstname : '' ?>" id="first_name" class="form-control" >
+                            <input type="text" name="first_name" value="<?php echo !empty($user->user_firstname) ? $user->user_firstname : '' ?>" id="first_name" class="form-control" >
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
@@ -46,7 +49,7 @@ get_header();
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label for="last_name">Last Name</label>
-                            <input type="text" name="last_name" value="<?php echo !empty(wp_get_current_user()->user_lastname) ? wp_get_current_user()->user_lastname : '' ?>" id="last_name" class="form-control">
+                            <input type="text" name="last_name" value="<?php echo !empty($user->user_lastname) ? $user->user_lastname : '' ?>" id="last_name" class="form-control">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">

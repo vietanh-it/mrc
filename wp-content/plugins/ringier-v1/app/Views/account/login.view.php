@@ -72,8 +72,8 @@ Theme My Login will always look in your theme's directory first, before using th
                                     'theme-my-login'); ?></label>
                         </p>
                         <p class="tml-submit-wrap">
-                            <a href="<?php echo WP_SITEURL . '/account/lostpassword/' ?>" class="font-playfair"
-                               style="font-style: italic">Forgot password</a>
+                            <a href="<?php echo WP_SITEURL . '/account/lostpassword/' ?>" class="font-playfair">Forgot
+                                password</a>
                         </p>
                     </div>
                     <p class="tml-submit-wrap" style="width: 100%; text-align: center;float: left;margin: 0 0 60px;">

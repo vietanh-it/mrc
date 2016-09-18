@@ -10,6 +10,9 @@ class r_photo {
         add_action( 'wp_ajax_r_photo_delete_photo', array( $this, 'r_photo_delete_photo' ) );
         //add_action( 'wp_ajax_nopriv_r_photo_delete_photo', array( $this, 'r_photo_delete_photo' ) );
 
+        add_action( 'wp_ajax_r_photo_update_caption', array( $this, 'r_photo_update_caption' ) );
+        //add_action( 'wp_ajax_nopriv_r_photo_update_caption', array( $this, 'r_photo_update_caption' ) );
+
         add_action( 'wp_ajax_r_photo_set_featured_photo', array( $this, 'r_photo_set_featured_photo' ) );
         //add_action( 'wp_ajax_nopriv_r_photo_delete_photo', array( $this, 'r_photo_delete_photo' ) );
     }
@@ -273,7 +276,24 @@ class r_photo {
                 if( $image) {
                     $id = $photo->id;
                     $image = $image['url'] . "/" . $image['thumbnail'];
-                    $str .= '<div class="has-image" id="div-photo-id-' . $id . '"><img  src="' . $image . '" width="100"><br/><a class=" delete_photo" href="javascript:void(0)" data-photo_id="' . $id . '" data-post_id="' . $post_id . '"><i class="fa fa-times"></i> Delete</a></div>';
+                    $caption = 'No caption';
+                    if(!empty($photo->caption)){
+                        $caption = $photo->caption;
+                    }
+                    $str .= '<div class="has-image" id="div-photo-id-' . $id . '">
+                    <div class = "img">
+                    <img  src="' . $image . '" width="150"><br/>
+                    <a class="update_caption" href="#frm-caption-'.$id.'" data-photo_id="' . $id . '" data-post_id="' . $post_id . '">Update caption</a>
+                    <span class ="text-caption-'.$id.'">'.$caption.'</span>
+                    <div id="frm-caption-'.$id.'" style="display:none" class ="frm-caption">
+                    <label>New caption</label>
+                    <input type = "text" name = "cation" id = "input-cation-'.$id.'" value = "'.$caption.'" />
+                    <a href = "javascript:void(0)" class="btn_update_caption" data-photo_id="' . $id . '" data-post_id="' . $post_id . '">Update</a>
+                    </div>
+                    </div>
+                    
+                    <a class=" delete_photo" href="javascript:void(0)" data-photo_id="' . $id . '" data-post_id="' . $post_id . '"><i class="fa fa-times"></i> Delete</a>
+                    </div>';
                 }
             }
             $result->list = $str;
@@ -467,6 +487,26 @@ class r_photo {
         exit();
     }
 
+    public function r_photo_update_caption(){
+        $result = array(
+            'status' => 'error',
+        );
+        if(!empty($_POST['caption'] && !empty($_POST['photo_id']))){
+            global  $wpdb;
+            $update = $wpdb->update(VENDORS_POST_PHOTO,array(
+                'caption' => $_POST['caption'],
+            ),array(
+                'id' => $_POST['photo_id']
+            ));
+            if($update){
+                $result['status'] = 'success';
+            }
+        }
+
+        echo json_encode($result);
+        exit();
+    }
+
     function r_photo_set_featured_photo(){
         $result = false;
         $post_id = $_POST['post_id'];
@@ -586,7 +626,62 @@ class acf_field_photo extends acf_field {
         ?>
 
         <style>
-            #list_photo .has-image { float: left}
+            #list_photo .has-image {
+                float: left;
+                padding: 10px;
+                border: 1px solid #ccc;
+                text-align: center;
+            }
+
+            #list_photo .has-image .img{
+                position: relative;
+                margin-bottom: 5px;
+                text-align: center;
+                color: darkgray;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 10px;
+            }
+            #list_photo .has-image:hover .update_caption{
+                display: block;
+            }
+            #list_photo .has-image .update_caption{
+                position: absolute;
+                top: 0;
+                z-index: 9;
+                color: white;
+                right: 0;
+                display: none;
+                text-align: center;
+                width: 100%;
+                height:100%;
+                background: rgba(0, 0, 0, 0.31);
+            }
+             .frm-caption input{
+                width: 100%;
+                padding: 7px;
+                margin: 20px 0;
+            }
+             .frm-caption{
+                padding: 10px;
+                background: white;
+            }
+            .frm-caption label{
+                font-weight: bold;
+            }
+            .frm-caption a:hover{
+                color: #ccaf0b;
+                background: white;
+            }
+            .frm-caption a{
+                padding: 10px 20px;
+                display: block;
+                text-align: center;
+                background: #ccaf0b;
+                border: 1px solid #ccaf0b;
+                color: white;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
         </style>
         <div class=" clearfix active">
             <?php echo $e; ?>
@@ -630,8 +725,11 @@ class acf_field_photo extends acf_field {
         wp_enqueue_script( 'jquery-iframe-transport', $this->settings['dir'] . 'js/jquery.iframe-transport.js' , array( 'jquery' ), false, true );
 
         wp_enqueue_script( 'af-field-photos', $this->settings['dir'] . 'js/photos.js' , array( 'jquery' ), '2', true );
+        wp_enqueue_script('fancybox', 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js', array(), false, true);
 
-       // wp_enqueue_style( 'bootrap', $this->settings['dir'] . 'css/bootstrap.min.css', array(), $this->settings['version'] );
+
+        // wp_enqueue_style( 'bootrap', $this->settings['dir'] . 'css/bootstrap.min.css', array(), $this->settings['version'] );
+        wp_enqueue_style('fancybox-css', 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css');
         wp_enqueue_style( 'jquery-fileupload', $this->settings['dir'] . 'css/jquery.fileupload-ui.css', array(), $this->settings['version'] );
         wp_enqueue_style( 'input-css', $this->settings['dir'] . 'css/input.css', array(), $this->settings['version'] );
     }

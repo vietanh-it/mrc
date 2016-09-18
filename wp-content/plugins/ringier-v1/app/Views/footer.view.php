@@ -15,7 +15,7 @@
                         </form>
                     </div>
                     <div class="col-xs-12 col-sm-6">
-                        
+
                         <h3 class="tile-main orange text-left">Join us</h3>
                         <ul class="social-icon">
                             <li>
@@ -112,14 +112,28 @@
                     <div class="col-xs-12 col-sm-2">
                         <h4>Resources</h4>
                         <ul>
-                            <li><a href="<?php echo WP_SITEURL . '/resource/human-resources/'; ?>" title="Human resource">Human resource</a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/resource/onboard-services/'; ?>" title="On-board services">On-board services</a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/resource/food-and-beverage/'; ?>" title="Food and beverage">Food and beverage</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/resource/human-resources/'; ?>"
+                                   title="Human resource">Human resource</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/resource/onboard-services/'; ?>"
+                                   title="On-board services">On-board services</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/resource/food-and-beverage/'; ?>"
+                                   title="Food and beverage">Food and beverage</a></li>
                         </ul>
                     </div>
 
                     <div class="col-xs-12 col-sm-3 text-right">
-                        <img src="<?php echo VIEW_URL . '/images/verify-web.png' ?>" alt="">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <a href="javascript:void(0)">
+                                    <img src="<?php echo VIEW_URL . '/images/verify-web.png' ?>" alt="">
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <a href="javascript:void(0)">
+                                    <img src="<?php echo VIEW_URL . '/images/rapidssl.png' ?>" alt="">
+                                </a>
+                            </div>
+                        </div>
                         <br/><br/>
                         MEKONG RIVER CRUISER LIMITED <br/>
                         Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam <br/>

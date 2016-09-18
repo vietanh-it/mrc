@@ -56,13 +56,21 @@ class Ships
             //$result->room_types = $this->getShipRoomTypes($ship_id);
             $result->permalink = get_permalink($result->ID);
             $objImages = Images::init();
-            $result->images = $objImages->getPostImages($result->ID, ['thumbnail', 'featured', 'full','small']);
+            $result->images = $objImages->getPostImages($result->ID, ['thumbnail', 'featured', 'full', 'small']);
 
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($result->ID);
             $result->gallery = $gallery;
 
             $result->room_types = $this->getShipRoomTypes($result->ID);
+
+            if (!empty($result->cover_photo)) {
+                $cover_photo_id = $result->cover_photo;
+                $cover_photo = wp_get_attachment_image_src($cover_photo_id, 'full');
+                if (!empty($cover_photo)) {
+                    $result->images->full = $cover_photo[0];
+                }
+            }
         }
 
         return $result;
@@ -117,7 +125,7 @@ class Ships
     public function saveRoomInfo($data)
     {
         $this->_wpdb->update($this->_tbl_rooms, [
-            'room_name'    => $data['room_name'],
+            'room_name' => $data['room_name'],
             'room_type_id' => $data['room_type_id']
         ], ['id' => $data['room_id']]);
 
@@ -130,10 +138,10 @@ class Ships
     public function saveRoomTypePricing($data)
     {
         $info = [
-            'twin_high_season_price'   => $data['twin_high_price'],
-            'twin_low_season_price'    => $data['twin_low_price'],
+            'twin_high_season_price' => $data['twin_high_price'],
+            'twin_low_season_price' => $data['twin_low_price'],
             'single_high_season_price' => $data['single_high_price'],
-            'single_low_season_price'  => $data['single_low_price']
+            'single_low_season_price' => $data['single_low_price']
         ];
         $rs = $this->_wpdb->update($this->_tbl_room_types, $info, ['id' => $data['room_type_id']]);
 

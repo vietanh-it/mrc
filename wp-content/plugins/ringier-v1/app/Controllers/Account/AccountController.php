@@ -319,7 +319,7 @@ class AccountController extends _BaseController
                     'status' => 'success',
                 );
 
-                wp_mail('vosydao88@gmail.com', '[Contact] ' . $data["contact_full_name"] . ' - ' . $data["contact_subject"], $html);
+                wp_mail('vietanhtran.it@gmail.com', '[Contact] ' . $data["contact_full_name"] . ' - ' . $data["contact_subject"], $html);
             }
 
         }

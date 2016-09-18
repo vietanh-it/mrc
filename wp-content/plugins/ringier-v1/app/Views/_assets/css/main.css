@@ -1540,6 +1540,15 @@ footer ul li{
     padding: 5px 25px;
 }
 
+.contact-right {
+    padding-left: 45px;
+    float: right;
+}
+
+h1.tile-main {
+    font-size: 24px;
+}
+
 @media (min-width: 1200px){
 
     .container{

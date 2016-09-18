@@ -6,7 +6,7 @@ while (have_posts()) : the_post();
 
     ?>
     <div class="container">
-        <div class="row" style="margin-bottom: 30px">
+        <div class="row" style="margin-bottom: 60px">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
@@ -19,7 +19,7 @@ while (have_posts()) : the_post();
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
-                        <p style="color: #898989;font-style: italic;text-align: center;font-size: 15px;margin-bottom: 30px">Leave us a message below or contact us via our contact information</p>
+                        <p class="font-playfair" style="color: #898989;font-style: italic;text-align: center;font-size: 14px;margin-bottom: 30px">Leave us a message below or contact us via our contact information</p>
                         <form class="contact-us">
                             <div class="form-group">
                                 <!--<label for="last_name" class="text"></label>-->
@@ -61,8 +61,8 @@ while (have_posts()) : the_post();
                             </div>
                         </form>
                     </div>
-                    <div class="col-xs-12 col-sm-6">
-                        <p style="color: #898989;font-style: italic;text-align: center;font-size: 15px;margin-bottom: 30px">Contact us via</p>
+                    <div class="col-xs-12 col-sm-6 contact-right">
+                        <p class="font-playfair" style="color: #898989;font-style: italic;text-align: center;font-size: 14px;margin-bottom: 27px">Contact us via</p>
                         <ul class="socail-icon">
                             <li>
                                 <a href="#" target="_blank" rel="nofollow"><img src="<?php echo VIEW_URL .'/images/icon-twiter-3.png' ?>"></a>
@@ -85,14 +85,14 @@ while (have_posts()) : the_post();
                         </ul>
 
                         <div class="info-ct" style="margin-top: 20px">
-                            <img src="<?php echo VIEW_URL .'/images/icon-location-2.png '?>" alt="" style="padding-right: 20px"> <b>MEKONG RIVER CRUISER LIMITED</b>
-                            <ul style="padding-left: 52px">
+                            <img src="<?php echo VIEW_URL .'/images/icon-location-2.png '?>" alt="" style="padding-right: 12px; font-weight: bold;"> <b>MEKONG RIVER CRUISER LIMITED</b>
+                            <ul style="padding-left: 45px; color: #898989;">
                                 <li>Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam</li>
                                 <li>Tel: +84 8 3514 6033</li>
                             </ul>
                         </div>
-                        <div class="map" style="margin-top: 30px">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3919.1933797263223!2d106.69246756681802!3d10.79649625170139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1473994758611" width="100%" height="300px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <div class="map" style="margin-top: 28px">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3919.1933797263223!2d106.69246756681802!3d10.79649625170139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1473994758611" width="100%" height="245px" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>

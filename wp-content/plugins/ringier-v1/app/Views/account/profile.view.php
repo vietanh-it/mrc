@@ -149,9 +149,9 @@ get_header();
                         <div class="form-group" style="position: relative">
                             <label for="a_email">Your email address</label>
                             <input type="text" name="a_email" value="<?php echo !empty($user_info->user_email) ? $user_info->user_email : '' ?>" id="a_email" class="form-control" autocomplete="off" >
-                            <img src="<?php echo VIEW_URL ?>/images/icon-a-edit.jpg" style="position: absolute;
+                            <label for="a_email" style="display: block; cursor: pointer;"><img src="<?php echo VIEW_URL ?>/images/icon-a-edit.jpg" style="position: absolute;
     bottom: 0px;
-    right: 0px;">
+    right: 0px;"></label>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
@@ -159,9 +159,9 @@ get_header();
                             <label for="a_password">Your password
                             </label>
                             <input type="password" name="a_password" value="<?php echo !empty($user_info->user_pass) ? $user_info->user_pass : '' ?>" id="a_password" class="form-control" autocomplete="off" >
-                            <img src="<?php echo VIEW_URL ?>/images/icon-a-edit.jpg" style="position: absolute;
+                            <label for="a_password" style="display: block; cursor: pointer;"><img src="<?php echo VIEW_URL ?>/images/icon-a-edit.jpg" style="position: absolute;
     bottom: 0px;
-    right: 0px;">
+    right: 0px;"></label>
                         </div>
                     </div>
                 </div>

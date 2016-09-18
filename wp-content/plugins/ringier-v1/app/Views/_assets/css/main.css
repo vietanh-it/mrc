@@ -1517,6 +1517,28 @@ footer ul li{
     color: #ccc;
 }
 
+.site-breadcrumb {
+    margin: 0 0 20px;
+}
+
+.quick-search-journey .form-group {
+    margin-bottom: 35px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 37px;
+    padding: 0 0 1px 10px;
+}
+
+.icon-n {
+    top: 10px;
+}
+
+.quick-search-journey button {
+    height: 40px;
+    border: 0;
+    padding: 5px 25px;
+}
 
 @media (min-width: 1200px){
 

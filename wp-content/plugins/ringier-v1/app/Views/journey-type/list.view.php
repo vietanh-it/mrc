@@ -8,7 +8,7 @@ view('journey/quick-search');
 
 <div class="container">
     <div class="row">
-        <h1 class="col-xs-12 col-sm-12 tile-main">All Journeys
+        <h1 class="col-xs-12 col-sm-12 tile-main" style="margin: 75px 0 40px;">All Journeys
             <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
         </h1>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">

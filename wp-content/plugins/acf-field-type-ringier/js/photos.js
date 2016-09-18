@@ -134,7 +134,6 @@ jQuery(document).ready(function($) {
                         if (data.status == 'success') {
                             parent.jQuery.fancybox.close();
                             $('.text-caption-'+photo_id).text(caption);
-                            alert("Update caption thành công.");
                         } else {
                             alert("Update caption không thành công.");
                         }

@@ -142,7 +142,7 @@ get_header();
             </form>
 
 
-            <form id="account-form" class="form-account" method="post">
+            <form id="account-form" class="form-account" method="post" style="margin-bottom: 70px;">
                 <p class="title">Your account information</p>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">

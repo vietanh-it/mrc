@@ -145,4 +145,5 @@ jQuery(document).ready(function($) {
             })
         }
     });
+
 });

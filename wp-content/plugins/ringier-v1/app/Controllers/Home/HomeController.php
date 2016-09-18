@@ -9,6 +9,7 @@ use RVN\Controllers\ShipController;
 use RVN\Models\Journey;
 use RVN\Models\JourneyType;
 use RVN\Models\Offer;
+use RVN\Models\Posts;
 
 class HomeController extends _BaseController
 {
@@ -48,7 +49,14 @@ class HomeController extends _BaseController
         $objOffer = Offer::init();
         $list_offer = $objOffer->getListOffer(array());
 
-        return view('home/home',compact('list_destination','list_ship','list_port','list_journey_type','list_offer','list_month'));
+        $Post = Posts::init();
+        $list_room_items = $Post->getList(array(
+            'post_type' => 'album',
+            'post_status' => 'publish',
+            'posts_per_page' => 5,
+        ));
+
+        return view('home/home',compact('list_destination','list_ship','list_port','list_journey_type','list_offer','list_month','list_room_items'));
     }
 }
 

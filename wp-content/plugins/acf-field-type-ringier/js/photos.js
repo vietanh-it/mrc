@@ -123,7 +123,6 @@ jQuery(document).ready(function($) {
                 $.ajax({
                     type: "post",
                     dataType: 'json',
-                    context: $(this),
                     url: ajaxurl,
                     data: ({
                         action: "r_photo_update_caption",
@@ -137,9 +136,6 @@ jQuery(document).ready(function($) {
                         } else {
                             alert("Update caption không thành công.");
                         }
-                    },
-                    error: function (data) {
-                        alert('Có lỗi xảy ra, vui lòng thử lại sau!');
                     }
                 });
             })

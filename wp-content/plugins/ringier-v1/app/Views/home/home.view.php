@@ -200,31 +200,32 @@ get_header();
                                         $min_price =  $journey_min_price->min_price_offer;
                                     }
                                 }
-
-                                ?>
-                                <div class="col-xs-12 col-sm-12">
-                                    <div class="box-journey box-white">
-                                        <div class="image" style="position: relative">
-                                            <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
-                                                <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
-                                            </a>
-                                            <div class="price"> $<?php echo  number_format($min_price) ?></div>
+                                if(!empty($min_price)){
+                                    ?>
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="box-journey box-white">
+                                            <div class="image" style="position: relative">
+                                                <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                                                    <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                                                </a>
+                                                <div class="price"> $<?php echo  number_format($min_price) ?></div>
+                                            </div>
+                                            <div class="desc">
+                                                <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                                                <p><?php echo cut_string_by_char(strip_tags($v->post_content), 150) ?></p>
+                                                <p>
+                                                    <b>Start Date:</b> <?php echo date("j F Y", strtotime($v->start_date)); ?>
+                                                    <a href="<?php echo $v->permalink ?>" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                                </p>
+                                            </div>
+                                            <div class="star"><i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i></div>
                                         </div>
-                                        <div class="desc">
-                                            <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
-                                            <p><?php echo cut_string_by_char(strip_tags($v->post_content), 150) ?></p>
-                                            <p>
-                                                <b>Start Date:</b> <?php echo date("j F Y", strtotime($v->start_date)); ?>
-                                                <a href="<?php echo $v->permalink ?>" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                            </p>
-                                        </div>
-                                        <div class="star"><i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i></div>
                                     </div>
-                                </div>
-                            <?php } ?>
+                                <?php }
+                            } ?>
                         </div>
                     </div>
                 </div>
@@ -264,7 +265,7 @@ get_header();
                         <?php if(!empty($list_room_items['data'])){
                             foreach ($list_room_items['data'] as $room){
                                 if($room->gallery){ ?>
-                                    <div class="col-xs-12 col-sm-3">
+                                    <div class="col-xs-6 col-sm-3">
                                         <div class="box-room">
                                             <?php foreach ($room->gallery as $kg =>  $img){ ?>
                                                 <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="list_room_<?php echo $room->caption ?>">

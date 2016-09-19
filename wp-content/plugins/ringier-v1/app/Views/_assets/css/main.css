@@ -1850,8 +1850,13 @@ h1.tile-main {
 
 @media (max-width: 768px) {
     .connect-email {
-        border: 1px solid #e4a611;
+        border: 1px solid #ccc;
         width: 100%;
+        border-radius: 5px;
+
+    }
+    .connect-email .form-control{
+        height: 40px !important;
     }
 
     .navbar-toggle {
@@ -1947,5 +1952,17 @@ h1.tile-main {
     .form-find-journey button{
         width: 100%;
     }
+    .join-with h3{
+        margin-bottom: 15px;
+        margin-top: 25px
+    }
+    .social-icon li{
+        padding-right: 17px;
+        float: left;
+    }
+    .join-with{
+        padding-bottom: 30px;
+    }
+
 }
 

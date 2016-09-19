@@ -157,7 +157,7 @@ nav ul.navbar-nav li.active a {
 .home-slider {
     height: 100%;
     padding: 50px 0 100px;
-    background: url("../images/bn2.jpg");
+    /*background: url("../images/bn2.jpg");*/
     position: relative;
 }
 
@@ -1842,6 +1842,110 @@ h1.tile-main {
         float: none;
         display: inline-block;
         text-transform: uppercase;
+    }
+    .hide-on-med-and-up{
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .connect-email {
+        border: 1px solid #e4a611;
+        width: 100%;
+    }
+
+    .navbar-toggle {
+        float: left;
+        padding: 0;
+        margin-top: 15px;
+    }
+
+    .navbar-toggle .icon-bar {
+        background: #e4a611;
+    }
+
+    .hide-on-med-and-down {
+        display: none !important;
+    }
+
+    /*.navbar-collapse.in {
+        overflow-y: auto;
+        position: absolute;
+        background: white;
+        z-index: 999990;
+        width: 250px;
+        left: 0;
+        text-align: left;
+    }*/
+    header .top-bar .top-info li{
+        padding: 15px 0;
+        padding-right: 0;
+    }
+    nav ul{
+        text-align: left;
+    }
+    nav ul.navbar-nav li a{
+        padding-left: 0;
+        border-bottom: 1px solid #ccc;
+        margin-top: 10px;
+        text-transform: uppercase;
+    }
+
+    .user-mobile{
+        margin-top: 15px;
+        display: block;
+    }
+    .home-slider{
+        padding: 0;
+    }
+    .ctn-slide{
+        position: inherit;
+    }
+    .owl-carousel .owl-pagination{
+         bottom: 10px;
+     }
+
+    .back-top{
+        right: 10px;
+        bottom: 10px;
+    }
+    .form-find-journey{
+        position: inherit;
+        width: 100%;
+        padding: 25px 0;
+        background: white;
+    }
+    .form-find-journey .select2-container--default .select2-selection--single{
+        border: 1px solid #ccc;
+        padding-left: 10px;
+        border-radius: 5px;
+        background: #fafafa;
+    }
+    .form-find-journey h3{
+        display: none;
+    }
+
+    .icon-n.icon-location{
+        background: url("../images/icon-location-mb.png");
+        z-index: 9999999;
+    }
+    .icon-n.icon-date{
+        background: url("../images/icon-date-mb.png");
+        z-index: 9999999;
+    }
+    .icon-n.icon-port{
+        background: url("../images/icon-port-mb.png");
+        z-index: 9999999;
+    }
+    .icon-n.icon-ship{
+        background: url("../images/icon-dns-mb.png");
+        z-index: 9999999;
+    }
+    .form-find-journey .form-group{
+        margin-bottom: 20px;
+    }
+    .form-find-journey button{
+        width: 100%;
     }
 }
 

@@ -1824,6 +1824,10 @@ h1.tile-main {
     margin: 25px 0 8px;
 }
 
+.booking-topbar {
+    max-height: 100px;
+}
+
 @media (min-width: 1200px) {
 
     .container {

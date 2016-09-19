@@ -61,7 +61,7 @@
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-3">
+                    <div class="col-xs-12 col-sm-3 hide-on-med-and-down">
                         <h4>Company information</h4>
                         <ul>
                             <li><a href="<?php echo WP_SITEURL . '/about-us'; ?>" title=""> About Us </a></li>
@@ -72,7 +72,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-xs-12 col-sm-2">
+                    <div class="col-xs-12 col-sm-2 hide-on-med-and-down">
                         <h4>Ships</h4>
                         <ul>
                             <li><a href="<?php echo WP_SITEURL . '/ships/' ?>" title="">Overview</a></li>
@@ -90,7 +90,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-xs-12 col-sm-2">
+                    <div class="col-xs-12 col-sm-2 hide-on-med-and-down">
                         <h4>Journeys</h4>
                         <ul>
                             <li><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">Destination</a></li>
@@ -109,7 +109,7 @@
                     </div>
 
 
-                    <div class="col-xs-12 col-sm-2">
+                    <div class="col-xs-12 col-sm-2 hide-on-med-and-down">
                         <h4>Resources</h4>
                         <ul>
                             <li><a href="<?php echo WP_SITEURL . '/resource/human-resources/'; ?>"
@@ -128,7 +128,7 @@
                                     <img src="<?php echo VIEW_URL . '/images/verify-web.png' ?>" alt="">
                                 </a>
                             </div>
-                            <div class="col-md-6 col-xs-12">
+                            <div class="col-md-6 col-xs-12 hide-on-med-and-down">
                                 <a href="javascript:void(0)">
                                     <img src="<?php echo VIEW_URL . '/images/rapidssl.png' ?>" alt="">
                                 </a>

@@ -64,7 +64,7 @@ if (is_single()) {
     <div class="top-bar">
         <div class="container container-big">
             <div class="row">
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-6 col-sm-6">
                     <ul class="top-info">
                         <li><a href="#form-refer-friend" class="refer-friend">
                                 <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer friends</a>
@@ -90,19 +90,19 @@ if (is_single()) {
                                 </form>
                             <?php } ?>
                         </li>
-                        <li><a href="<?php echo WP_SITEURL . '/media-centre/' ?>"> Media centre </a></li>
-                        <li><a href="<?php echo WP_SITEURL . '/faq/' ?>"> FAQ </a></li>
-                        <li><a href="<?php echo WP_SITEURL; ?>/terms-of-use"> Terms of use</a></li>
+                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/media-centre/' ?>"> Media centre </a></li>
+                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/faq/' ?>"> FAQ </a></li>
+                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL; ?>/terms-of-use"> Terms of use</a></li>
                     </ul>
                 </div>
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-6 col-sm-6">
                     <ul class="top-info text-right">
                         <li><a href="<?php echo WP_SITEURL . '/account/your-booking'; ?>">
                                 <img src="<?php echo VIEW_URL . '/images/icon-date-2.png' ?>"
                                      style="margin-top: -3px;margin-right: 5px" alt=""> Your booking</a>
                         </li>
                         <?php if (!is_user_logged_in()) { ?>
-                            <li class="sign-up">
+                            <li class="sign-up hide-on-med-and-down">
                                 <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>" style="padding-right: 7px;">
                                 <a href="<?php echo wp_login_url(get_permalink()); ?>">
                                     Sign in
@@ -116,7 +116,7 @@ if (is_single()) {
                             $objUser = \RVN\Models\Users::init();
                             $user_info = $objUser->getUserInfo(get_current_user_id());
                             ?>
-                            <li class="sign-up">
+                            <li class="sign-up hide-on-med-and-down">
                                 <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>">
                                 <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
                                     <?php echo $user_info->display_name ?>
@@ -135,14 +135,14 @@ if (is_single()) {
     <nav class="navbar">
         <div class="container container-big">
             <div class="row">
-                <div class="col-sm-3 col-xs-12">
+                <div class="col-sm-3 col-xs-12 hide-on-med-and-down">
                     <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png"
                                                             width="100%"></a>
                 </div>
-                <div class="col-sm-7 col-xs-12">
+                <div class="col-sm-7 col-xs-2">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -174,7 +174,42 @@ if (is_single()) {
                         </ul>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-2">
+                <div class="col-xs-8 hide-on-med-and-up">
+                    <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png" width="100%" style="margin-top: 10px"></a>
+                </div>
+                <div class="col-xs-2 hide-on-med-and-up">
+                    <a href="#" class="user-mobile">
+                        <img src="<?php echo VIEW_URL.'/images/icon-user-2.png' ?>" alt="">
+                    </a>
+                </div>
+
+                <div class="col-xs-12 hide-on-med-and-up">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                        <ul class="nav navbar-nav">
+                            <li class="<?php echo is_home() ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL ?>" title=""> Home </a></li>
+                            <li class="<?php echo (!empty($page_name) && $page_name == 'why-us') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'ships') or $post_type == 'ship') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/ships/' ?> " title="">SHIPs </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'journeys') or $post_type == 'journey' or $post_type == 'journey_type') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">JOURNEy </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'offers') or $post_type == 'offer') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/offers/' ?>" title="">OFFERS </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'resources') or $post_type == 'resource') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/resources/' ?>" title="">RESOURCEs </a></li>
+
+                            <li class="<?php echo ((!empty($page_name) && $page_name == 'news') or $post_type == 'new') ? 'active' : '' ?>">
+                                <a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-2 hide-on-med-and-down">
                     <div class="action-contact">
                         <a href="#" title="">
                             <img src="<?php echo VIEW_URL . '/images/icon-headphone.png' ?>">

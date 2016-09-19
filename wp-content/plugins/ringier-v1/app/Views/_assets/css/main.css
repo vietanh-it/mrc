@@ -42,6 +42,7 @@ header .top-bar {
     background: #ebebeb;
     color: #a7a7a7;
     border-bottom: 1px solid #dde4ea;
+    height: 48px;
 }
 
 header .top-bar a {
@@ -65,8 +66,7 @@ header .top-bar .top-info img {
 header .top-bar .top-info li {
     display: inline-block;
     list-style: none;
-    padding: 10px 0;
-    padding-right: 20px;
+    padding: 13px 20px 13px 0;
 }
 
 header .top-bar .top-info li.sign-up {
@@ -159,6 +159,8 @@ nav ul.navbar-nav li.active a {
     padding: 50px 0 100px;
     background: url("../images/bn2.jpg");
     position: relative;
+    max-height: 600px;
+    overflow: hidden;
 }
 
 .home-slider img {
@@ -259,6 +261,7 @@ nav ul.navbar-nav li.active a {
     text-transform: uppercase;
     font-family: 'Playfair Display', serif;
     font-size: 20px;
+    text-align: center;
 }
 
 .form-find-journey input, .form-find-journey select {
@@ -610,7 +613,7 @@ nav ul.navbar-nav li.active a {
 .box-why .desc .title {
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 18px;
     font-family: 'Playfair Display', serif;
 }
 
@@ -1724,6 +1727,7 @@ footer ul li {
     padding: 7px 10px;
     color: #ffffff;
     border-radius: 5px;
+    z-index: 100;
 }
 
 .back-top:hover, .back-top:active, .back-top:focus {
@@ -1826,6 +1830,16 @@ h1.tile-main {
 
 .booking-topbar {
     max-height: 100px;
+}
+
+.why-us .tile-main, .why-us .title-main {
+    margin-top: 65px;
+    margin-bottom: 45px;
+}
+
+.journey-home .tile-main {
+    margin-top: 55px;
+    margin-bottom: 40px;
 }
 
 @media (min-width: 1200px) {

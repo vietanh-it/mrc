@@ -103,7 +103,7 @@ if (is_single()) {
                         </li>
                         <?php if (!is_user_logged_in()) { ?>
                             <li class="sign-up">
-                                <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>">
+                                <img src="<?php echo VIEW_URL . '/images/icon-user.png' ?>" style="padding-right: 7px;">
                                 <a href="<?php echo wp_login_url(get_permalink()); ?>">
                                     Sign in
                                 </a>

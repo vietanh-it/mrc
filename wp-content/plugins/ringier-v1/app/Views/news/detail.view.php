@@ -5,7 +5,7 @@ $permalink =  get_permalink($post->ID);
 $content_mail =  (cut_string_by_char(strip_tags($post->post_content),200)) . '%0D%0A%0D%0A' . $permalink;
 ?>
 
-<div class="container single-news">
+<div class="container single-news" style="margin-bottom: 55px">
     <div class="row">
         <h1 class="col-xs-12 col-sm-8 tile-main"><?php the_title() ?>
         </h1>

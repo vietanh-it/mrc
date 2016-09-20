@@ -17,6 +17,7 @@ $list_post = !empty($list_post) ? $list_post : array();
             <!--<div class="row">-->
                 <?php if(!empty($list_post['data'])){
                     foreach ($list_post['data'] as $v){
+                        $author = get_userdata($v->post_author);
                         ?>
                         <div class="box-news">
                             <div class="col-xs-12 col-sm-3 col-sm-offset-1">
@@ -31,7 +32,7 @@ $list_post = !empty($list_post) ? $list_post : array();
                                     <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
                                     <p><?php echo cut_string_by_char(strip_tags($v->post_content),250) ?></p>
                                     <p class="time"><?php echo date("j F Y",strtotime($v->post_date)) ?><br>
-                                        <span style="font-style: italic">article by Glenn Harris for the Luxury Lifestyle Mag UK</span>
+                                        <span style="font-style: italic">article by <?php echo $author->data->display_name; ?></span>
                                     </p>
                                     <a href="<?php echo $v->permalink ?>" class="explore" title="Read more">Read more</a>
                                 </div>

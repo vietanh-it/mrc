@@ -777,7 +777,7 @@ footer ul li {
 .journey-detail .featured-image {
     position: relative;
     color: #4a3303;
-    max-height: 500px;
+    max-height: 380px;
     overflow: hidden;
 }
 
@@ -1793,7 +1793,7 @@ footer ul li {
 }
 
 .site-breadcrumb {
-    margin: 0 0 20px;
+    margin: 0 0 23px;
 }
 
 .quick-search-journey .form-group {

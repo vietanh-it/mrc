@@ -30,6 +30,14 @@ jQuery(document).ready(function ($) {
         navigation: true,
         pagination: false
     });
+    $(".list-galary-2").owlCarousel({
+        autoPlay: 5000,
+        items: 1,
+        itemsDesktop: [1199, 1],
+        itemsDesktopSmall: [760, 1],
+        navigation: false,
+        pagination: true
+    });
 
     $(".owl-carousel .owl-next").html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
     $(".owl-carousel .owl-prev").html('<i class="fa fa-angle-left" aria-hidden="true"></i>');

@@ -4,7 +4,24 @@ get_header();
 $list_ship = !empty($list_ship) ? $list_ship : array();
 
 ?>
-
+<div class="featured-rs" style="margin-bottom: 30px">
+    <div class="row">
+        <?php if($list_ship['data']) {
+            foreach ($list_ship['data'] as $v) { ?>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="box-ft-rs" style="position: relative">
+                        <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                            <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>"
+                                 class="lazy">
+                        </a>
+                        <a href="<?php echo $v->permalink ?>" class="title"
+                           title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                    </div>
+                </div>
+            <?php }
+        }?>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <h1 class="col-xs-12 col-sm-12 tile-main">Our Ships

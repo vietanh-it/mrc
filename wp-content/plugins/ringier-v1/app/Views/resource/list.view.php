@@ -12,13 +12,32 @@ $list_post = !empty($list_post) ? $list_post : array();
     </div>
 </div>
 <div class="featured-rs">
-    <!--<div class="row">
+    <div class="row">
         <div class="col-xs-12 col-sm-4">
-            <div class="box-ft-rs">
-                <img src="<?php /*echo VIEW_URL.'/images/' */?>">
+            <div class="box-ft-rs" style="position: relative">
+                <a href="#" >
+                    <img src="http://www.vietcruises.com/wp-content/uploads/2016/09/1-1472720716-660x0-3818-1473249422-485x360.jpg' ?>">
+                </a>
+                <a href="#" class="title"> ahsdahsd sahd sajdhs ahdsa </a>
             </div>
         </div>
-    </div>-->
+        <div class="col-xs-12 col-sm-4">
+            <div class="box-ft-rs" style="position: relative">
+                <a href="#">
+                    <img src="http://www.vietcruises.com/wp-content/uploads/2016/09/1-1472720716-660x0-3818-1473249422-485x360.jpg' ?>">
+                </a>
+                <a href="#" class="title"> ahsdahsd sahd sajdhs ahdsa </a>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div class="box-ft-rs" style="position: relative">
+                <a href="#" >
+                    <img src="http://www.vietcruises.com/wp-content/uploads/2016/09/1-1472720716-660x0-3818-1473249422-485x360.jpg' ?>">
+                </a>
+                <a href="#" class="title"> ahsdahsd sahd sajdhs ahdsa </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container">
@@ -203,7 +222,17 @@ $list_post = !empty($list_post) ? $list_post : array();
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6">
-                    <img src="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg" alt="PHNOM PENH AND SIEM REAP" class="lazy" width="100%">
+                    <div class="list-galary-2">
+                        <div>
+                            <a href="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg" class="fancybox" rel="ship photos"><img src="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg"></a>
+                        </div>
+                        <div>
+                            <a href="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg" class="fancybox" rel="ship photos"><img src="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg"></a>
+                        </div>
+                        <div>
+                            <a href="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg" class="fancybox" rel="ship photos"><img src="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

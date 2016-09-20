@@ -1906,7 +1906,28 @@ h1.tile-main {
 .box-rs-2 .box-journey{
     margin-bottom: 0;
 }
+.box-ft-rs .title{
+    display: none;
+    position: absolute;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    bottom: 10px;
+    left: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.box-ft-rs:hover .title{
+    display: block;
+}
+.box-ft-rs:hover img{
+    transform: scale(1.05);
+    transition: all 0.4s ease;
+    box-shadow: 0 0px 27px 0px rgba(0, 0, 0, 0.4);
+}
 
+.list-galary-2.owl-carousel .owl-pagination{
+    bottom: 20px;
+}
 
 @media (min-width: 1200px) {
 

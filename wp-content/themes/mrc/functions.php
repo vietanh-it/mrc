@@ -10,6 +10,7 @@ function r_theme_setup()
 
     add_image_size('featured', 500, 500, true);
     add_image_size('small', 485, 360, true);
+    add_image_size('widescreen', 485, 303, true);
     add_theme_support('post-thumbnails');
 
 }

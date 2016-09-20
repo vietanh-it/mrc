@@ -110,7 +110,7 @@ class Posts {
         if($result == false){
 
             $objImages = Images::init();
-            $post->images = $objImages->getPostImages($post->ID, ['thumbnail', 'featured','small','full']);
+            $post->images = $objImages->getPostImages($post->ID, ['thumbnail', 'featured','small','full', 'widescreen']);
             $post->permalink = get_permalink($post->ID);
             if(empty($post->post_excerpt )) $post->post_excerpt = cut_string_by_char(150,strip_tags($post->post_content));
 

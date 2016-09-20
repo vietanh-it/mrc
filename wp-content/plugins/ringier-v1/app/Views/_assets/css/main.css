@@ -1543,8 +1543,14 @@ footer ul li {
     margin: 0 0 15px;
 }
 .single-news .content{
-    padding-right: 85px;
+    /*padding-right: 85px;*/
+    text-align: justify;
 }
+
+.single-news .content-wrapper{
+    color: #252525;
+}
+
 .news-related {
     position: relative;
     margin-bottom: 30px;
@@ -1552,10 +1558,10 @@ footer ul li {
 
 .news-related .title {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     color: white;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: normal;
     z-index: 89;
     padding: 15px 25px;
     background: rgba(0, 0, 0, 0.28);

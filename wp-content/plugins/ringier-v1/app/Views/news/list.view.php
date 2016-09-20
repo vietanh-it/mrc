@@ -4,7 +4,7 @@ get_header();
 $list_post = !empty($list_post) ? $list_post : array();
 
 ?>
-<div class="journey-detail" style="margin-bottom: 70px">
+<div class="journey-detail" style="margin-bottom: 40px">
     <div class="featured-image" >
         <img src="<?php echo VIEW_URL.'/images/bg-news.png' ?>" alt="bg" >
     </div>

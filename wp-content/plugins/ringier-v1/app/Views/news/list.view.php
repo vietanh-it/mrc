@@ -4,7 +4,7 @@ get_header();
 $list_post = !empty($list_post) ? $list_post : array();
 
 ?>
-<div class="journey-detail">
+<div class="journey-detail" style="margin-bottom: 70px">
     <div class="featured-image" >
         <img src="<?php echo VIEW_URL.'/images/bg-news.png' ?>" alt="bg" >
     </div>
@@ -30,7 +30,9 @@ $list_post = !empty($list_post) ? $list_post : array();
                                 <div class="desc">
                                     <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
                                     <p><?php echo cut_string_by_char(strip_tags($v->post_content),250) ?></p>
-                                    <p class="time"><?php echo date("j F Y",strtotime($v->post_date)) ?></p>
+                                    <p class="time"><?php echo date("j F Y",strtotime($v->post_date)) ?><br>
+                                        <span style="font-style: italic">article by Glenn Harris for the Luxury Lifestyle Mag UK</span>
+                                    </p>
                                     <a href="<?php echo $v->permalink ?>" class="explore" title="Read more">Read more</a>
                                 </div>
                             </div>

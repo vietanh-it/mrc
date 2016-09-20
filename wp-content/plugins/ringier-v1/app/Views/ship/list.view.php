@@ -31,7 +31,6 @@ $list_ship = !empty($list_ship) ? $list_ship : array();
             <div class="row">
                 <?php if($list_ship['data']){
                     foreach ($list_ship['data'] as $v){
-
                         ?>
                         <div class="col-xs-12 col-sm-4">
                             <div class="box-journey">

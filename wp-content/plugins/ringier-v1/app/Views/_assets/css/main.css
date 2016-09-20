@@ -1455,7 +1455,7 @@ footer ul li {
 .info-ship {
     position: absolute;
     z-index: 999;
-    bottom: -590px;
+    bottom: -460px;
     background: white;
     width: 70%;
     padding: 30px;

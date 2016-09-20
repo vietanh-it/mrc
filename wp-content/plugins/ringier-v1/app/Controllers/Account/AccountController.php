@@ -259,7 +259,15 @@ class AccountController extends _BaseController
                     $return['status'] = 'error';
                     $return['message'][] = 'Please enter your password.';
                 } else {
-                    $ags['user_pass'] = $_POST['a_password'];
+                    $user = wp_get_current_user();
+                    $check_pass = wp_check_password( $_POST['a_password'], $user->user_pass, $user->ID);
+                    if(!$check_pass){
+                        $ags['user_pass'] = $_POST['a_password'];
+                        $args_mail = array(
+                            'display_name' => $user->display_name,
+                        );
+                        sendEmailHTML($user->user_email,'Your password was recently changed.','account/password_change.html', $args_mail);
+                    }
                 }
 
                 $update_ac = wp_update_user($ags);

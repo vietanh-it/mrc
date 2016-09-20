@@ -158,7 +158,7 @@ get_header();
                         <div class="form-group" style="position: relative">
                             <label for="a_password">Your password
                             </label>
-                            <input type="password" name="a_password" value="<?php echo !empty($user_info->user_pass) ? $user_info->user_pass : '' ?>" id="a_password" class="form-control" autocomplete="off" >
+                            <input type="password" name="a_password" id="a_password" class="form-control" autocomplete="off" >
                             <label for="a_password" style="display: block; cursor: pointer;"><img src="<?php echo VIEW_URL ?>/images/icon-a-edit.jpg" style="position: absolute;
     bottom: 0px;
     right: 0px;"></label>

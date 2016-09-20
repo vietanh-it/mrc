@@ -33,9 +33,9 @@ class Users
             $errors->remove( 'password_reset_mismatch' );
         });*/
 
-        /*add_action('send_password_change_email', function(){
+        add_action('send_password_change_email', function(){
             return false;
-        });*/
+        });
 
     }
 

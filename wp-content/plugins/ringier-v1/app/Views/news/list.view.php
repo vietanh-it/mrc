@@ -13,13 +13,13 @@ $list_post = !empty($list_post) ? $list_post : array();
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-            <div class="row">
+        <!--<div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+            <!--<div class="row">-->
                 <?php if(!empty($list_post['data'])){
                     foreach ($list_post['data'] as $v){
                         ?>
                         <div class="box-news">
-                            <div class="col-xs-12 col-sm-4">
+                            <div class="col-xs-12 col-sm-3 col-sm-offset-1">
                                 <div class="image">
                                     <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
                                         <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
@@ -43,8 +43,8 @@ $list_post = !empty($list_post) ? $list_post : array();
                         'after' => '</div>'
                     ));
                 } ?>
-            </div>
-        </div>
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </div>
 

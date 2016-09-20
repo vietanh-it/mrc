@@ -1372,7 +1372,7 @@ footer ul li {
 }
 
 .wrap-pagination .wp-pagenavi a {
-    color: #e4a611;
+    color: #717171;
 }
 
 .wrap-pagination .wp-pagenavi a:hover {
@@ -1478,7 +1478,7 @@ footer ul li {
     color: #e4a611;
     font-weight: bold;
     font-size: 17px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-family: 'Playfair Display', serif;
     display: block;
 }
@@ -1493,7 +1493,9 @@ footer ul li {
     margin-top: 15px;
     color: white;
     background: #e4a611;
-    padding: 7px 0;
+    /*padding: 7px 0;*/
+    height: 40px;
+    line-height: 40px;
     text-align: center;
     width: 130px;
     text-transform: uppercase;

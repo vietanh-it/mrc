@@ -90,7 +90,7 @@ if (is_single()) {
                                 </form>
                             <?php } ?>
                         </li>
-                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/media-centre/' ?>"> Media centre </a></li>
+                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/news/' ?>"> Media centre </a></li>
                         <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/faq/' ?>"> FAQ </a></li>
                         <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL; ?>/terms-of-use"> Terms of use</a></li>
                     </ul>

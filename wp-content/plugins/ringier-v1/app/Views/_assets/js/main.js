@@ -46,7 +46,8 @@ jQuery(document).ready(function ($) {
         changeMonth: true,
         changeYear: true,
         showButtonPanel: true,
-        dateFormat: 'dd M yy'
+        dateFormat: 'dd M yy',
+        yearRange: '-100:+0'
     });
     /* $('.month-year-input').attr('readonly', true);
      $('.month-year-input').MonthPicker({Button: false});*/

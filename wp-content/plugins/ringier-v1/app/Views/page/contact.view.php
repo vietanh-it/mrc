@@ -54,7 +54,7 @@ while (have_posts()) : the_post();
                                 <textarea rows="5" class="form-control" name="contact_message" placeholder="Leave your message  "></textarea>
                             </div>
                             <div class="text-center">
-                                <input class="bnt-primary" type="submit" value="send massage" style="font-weight: normal">
+                                <input class="bnt-primary" type="submit" value="send message" style="font-weight: normal">
 
                                 <input type="hidden" name="action" value="ajax_handler_account">
                                 <input type="hidden" name="method" value="SendContact">

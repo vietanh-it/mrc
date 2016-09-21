@@ -16,11 +16,23 @@ get_header();
             <div class="message">
                 <?php if(!empty($return)){
                     if($return['status'] == 'error'){
-                        foreach ($return['message'] as $er){ ?>
-                            <p class="text-danger bg-danger"><?php echo $er ?></p>
-                        <?php }
+
+                        if(!empty($return['message']) ) {
+
+                            if (is_array($return['message'])) {
+                                foreach ($return['message'] as $er) { ?>
+                                    <p class="text-danger bg-danger"><?php echo $er ?></p>
+                                <?php }
+                            } else {
+                                echo '<p class="text-danger bg-danger">' . $return['message'] . '</p>';
+                            }
+
+                        }
+
                     } else { ?>
-                      <p class="text-success bg-success"><?php echo $return['message'] ?></p>
+                      <p class="text-success bg-success">
+                          <?php echo is_array($return['message']) ? $return['message'][0] : $return['message']; ?>
+                      </p>
                     <?php }
                 } ?>
             </div>

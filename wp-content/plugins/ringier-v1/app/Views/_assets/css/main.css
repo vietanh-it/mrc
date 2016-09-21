@@ -1987,6 +1987,10 @@ header .top-bar .top-info li:first-child {
 }
 
 @media (max-width: 768px) {
+    .box-journey {
+        max-width: 100%;
+    }
+
     .connect-email {
         border: 1px solid #ccc;
         width: 100%;
@@ -2011,10 +2015,6 @@ header .top-bar .top-info li:first-child {
         display: none !important;
     }
 
-    header .top-bar .top-info li {
-        padding: 14px 0;
-    }
-
     /*.navbar-collapse.in {
         overflow-y: auto;
         position: absolute;
@@ -2025,9 +2025,13 @@ header .top-bar .top-info li:first-child {
         text-align: left;
     }*/
     header .top-bar .top-info li{
-        padding: 15px 0;
-        padding-right: 0;
+        padding: 13px 0;
     }
+
+    .top-bar .container.container-big:after {
+        background: transparent;
+    }
+
     nav ul{
         text-align: left;
     }

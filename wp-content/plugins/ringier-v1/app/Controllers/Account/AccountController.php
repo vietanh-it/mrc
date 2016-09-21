@@ -197,7 +197,7 @@ class AccountController extends _BaseController
             }
         }
         return view('account/confirm-change-email', compact('return'));
-    } 
+    }
 
     public function userInfo($user_id)
     {
@@ -253,6 +253,7 @@ class AccountController extends _BaseController
                 $data['nationality'] = $_POST['nationality'];
             }
 
+            $change_email = false;
             if (isset($_POST['a_email']) && isset($_POST['a_password'])) {
                 $user_current = wp_get_current_user();
 
@@ -289,11 +290,8 @@ class AccountController extends _BaseController
                                     'confirm_url' => $url_cf,
                                 );
 
+                                $change_email = true;
                                 sendEmailHTML($user_current->user_email,'Your email address was recently changed.','account/email_address_change.html', $args_mail);
-
-                                /*$ags["user_email"] = $_POST['a_email'];
-                                $ags["user_login"] = $_POST['a_email'];
-                                $ags["user_nicename"] = sanitize_title($_POST['a_email']);*/
                             }
                         }
                     }
@@ -324,7 +322,11 @@ class AccountController extends _BaseController
                 $update = $objUser->saveUserInfo($data);
                 if ($update) {
                     $return['status'] = 'success';
-                    $return['message'] = 'Update profile success.';
+                    if($change_email){
+                        $return['message'][] = 'Update profile success. Please check your email to complete the email change !!!';
+                    }else{
+                        $return['message'][] = 'Update profile success.';
+                    }
                 } else {
                     $return['status'] = 'error';
                     $return['message'][] = 'An error, please try again.';

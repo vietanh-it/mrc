@@ -27,7 +27,7 @@ class NewsController extends _BaseController
     }
 
     public function listNews(){
-        $page = get_query_var("paged");
+        $page = (get_query_var('paged')) ? get_query_var('paged') : 1;
         if(empty($page)) $page =1;
 
         $args = array(

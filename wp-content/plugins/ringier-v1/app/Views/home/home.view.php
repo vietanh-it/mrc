@@ -165,12 +165,12 @@ get_header();
     <div class="offer-home">
         <div class="container ">
             <div class="row">
-                <h2 class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                     <div class="tile-main" style="position: relative">
                         <a href="<?php echo WP_SITEURL . '/offers/' ?>">Latest offer</a>
                         <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
 
-                        <a class="btn-kep-offer" href="#form-kep-offer"><img src="<?php echo VIEW_URL.'/images/icon-email-2.png' ?>" style="padding-right: 10px"> Keep in touch with best offer</a>
+                        <a class="btn-kep-offer" href="#form-kep-offer"><img src="<?php echo VIEW_URL . '/images/icon-email-2.png' ?>" style="padding-right: 10px"> Keep in touch with best offer</a>
 
                         <form id="form-kep-offer" style="display: none" class="form-facybox">
                             <div class="form-group">
@@ -185,7 +185,7 @@ get_header();
                             </div>
                         </form>
                     </div>
-                </h2>
+                </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                     <div class="row">
                         <div class="owl-carousel-2">
@@ -194,13 +194,13 @@ get_header();
                             foreach ($list_offer['data'] as $v) {
 
                                 $min_price = 0;
-                                if(!empty($v->journey_type_id)){
-                                    $journey_min_price = $JourneyType->getJourneyMinPrice($v->journey_type_id,'offer');
-                                    if(!empty($journey_min_price) && !empty($journey_min_price->min_price_offer)){
-                                        $min_price =  $journey_min_price->min_price_offer;
+                                if (!empty($v->journey_type_id)) {
+                                    $journey_min_price = $JourneyType->getJourneyMinPrice($v->journey_type_id, 'offer');
+                                    if (!empty($journey_min_price) && !empty($journey_min_price->min_price_offer)) {
+                                        $min_price = $journey_min_price->min_price_offer;
                                     }
                                 }
-                                if(!empty($min_price)){
+                                if (!empty($min_price)) {
                                     ?>
                                     <div class="col-xs-12 col-sm-12">
                                         <div class="box-journey box-white">
@@ -208,7 +208,7 @@ get_header();
                                                 <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
                                                     <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
                                                 </a>
-                                                <div class="price"> $<?php echo  number_format($min_price) ?></div>
+                                                <div class="price"> $<?php echo number_format($min_price) ?></div>
                                             </div>
                                             <div class="desc">
                                                 <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
@@ -234,9 +234,9 @@ get_header();
     </div>
 <?php } ?>
 
-<?php if(!empty($list_room_items['data'])){
+<?php if (!empty($list_room_items['data'])) {
     $big_room = array_shift($list_room_items['data']);
- ?>
+    ?>
     <div class="room-home">
         <div class="container ">
             <div class="row">
@@ -247,35 +247,35 @@ get_header();
                     <div class="row">
 
                         <?php //var_dump($big_room);
-                        if($big_room->gallery){
+                        if ($big_room->gallery) {
                             ?>
                             <div class="col-xs-12 col-sm-6">
-                                    <div class="box-room">
-                                        <?php foreach ($big_room->gallery as $kg =>  $img){ ?>
+                                <div class="box-room">
+                                    <?php foreach ($big_room->gallery as $kg => $img) { ?>
                                         <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="big_rom">
-                                            <img src="<?php echo $img->featured ?>" alt="" class="lazy " >
+                                            <img src="<?php echo $img->featured ?>" alt="" class="lazy ">
                                         </a>
-                                        <?php } ?>
-                                        <a href="#" title="" class="title"><?php echo $big_room->post_title ?></a>
-                                    </div>
+                                    <?php } ?>
+                                    <a href="#" title="" class="title"><?php echo $big_room->post_title ?></a>
+                                </div>
                             </div>
                         <?php }
                         ?>
 
-                        <?php if(!empty($list_room_items['data'])){
-                            foreach ($list_room_items['data'] as $room){
-                                if($room->gallery){ ?>
+                        <?php if (!empty($list_room_items['data'])) {
+                            foreach ($list_room_items['data'] as $room) {
+                                if ($room->gallery) { ?>
                                     <div class="col-xs-6 col-sm-3">
                                         <div class="box-room">
-                                            <?php foreach ($room->gallery as $kg =>  $img){ ?>
+                                            <?php foreach ($room->gallery as $kg => $img) { ?>
                                                 <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="list_room_<?php echo $img->caption ?>">
-                                                    <img src="<?php echo $img->featured ?>" alt="" class="lazy" >
+                                                    <img src="<?php echo $img->featured ?>" alt="" class="lazy">
                                                 </a>
                                             <?php } ?>
                                             <a href="#" title="" class="title"><?php echo $room->post_title ?></a>
                                         </div>
                                     </div>
-                            <?php }
+                                <?php }
                             }
                         } ?>
 
@@ -285,7 +285,7 @@ get_header();
             </div>
         </div>
     </div>
-<?php
+    <?php
 } ?>
 
 

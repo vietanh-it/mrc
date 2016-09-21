@@ -2011,6 +2011,10 @@ header .top-bar .top-info li:first-child {
         display: none !important;
     }
 
+    header .top-bar .top-info li {
+        padding: 14px 0;
+    }
+
     /*.navbar-collapse.in {
         overflow-y: auto;
         position: absolute;

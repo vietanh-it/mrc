@@ -123,12 +123,12 @@
 
                     <div class="col-xs-12 col-sm-3 text-right">
                         <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <a href="javascript:void(0)">
-                                    <img src="<?php echo VIEW_URL . '/images/verify-web.png' ?>" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-xs-12 hide-on-med-and-down">
+                            <!--<div class="col-md-6 col-xs-12">-->
+                            <!--    <a href="javascript:void(0)">-->
+                            <!--        <img src="--><?php //echo VIEW_URL . '/images/verify-web.png' ?><!--" alt="">-->
+                            <!--    </a>-->
+                            <!--</div>-->
+                            <div class="col-md-12 col-xs-12 hide-on-med-and-down">
                                 <a href="javascript:void(0)">
                                     <img src="<?php echo VIEW_URL . '/images/rapidssl.png' ?>" alt="">
                                 </a>

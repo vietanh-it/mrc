@@ -197,7 +197,7 @@ class AccountController extends _BaseController
             }
         }
         return view('account/confirm-change-email', compact('return'));
-    }
+    } 
 
     public function userInfo($user_id)
     {

@@ -234,58 +234,61 @@ get_header();
     </div>
 <?php } ?>
 
-<?php if (!empty($list_room_items['data'])) {
-    $big_room = array_shift($list_room_items['data']);
-    ?>
-    <div class="room-home">
-        <div class="container ">
-            <div class="row">
-                <h2 class="col-xs-12 col-sm-12 tile-main">Featured Room Item
-                    <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
-                </h2>
-                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                    <div class="row">
+<?php if (!empty($list_room_items['data']) or !empty($list_room_items_featured['data'])) {
+    if(!empty($list_room_items_featured['data'])){
+        $big_room = array_shift($list_room_items_featured['data']);
+    }else{
+        if(!empty($list_room_items['data'])) $big_room = array_shift($list_room_items['data']);
+    }
+    if(!empty($big_room)){
+        ?>
+        <div class="room-home">
+            <div class="container ">
+                <div class="row">
+                    <h2 class="col-xs-12 col-sm-12 tile-main">Featured Room Item
+                        <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+                    </h2>
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                        <div class="row">
 
-                        <?php //var_dump($big_room);
-                        if ($big_room->gallery) {
-                            ?>
-                            <div class="col-xs-12 col-sm-6">
-                                <div class="box-room">
-                                    <?php foreach ($big_room->gallery as $kg => $img) { ?>
-                                        <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="big_rom">
-                                            <img src="<?php echo $img->featured ?>" alt="" class="lazy ">
-                                        </a>
-                                    <?php } ?>
-                                    <a href="#" title="" class="title"><?php echo $big_room->post_title ?></a>
-                                </div>
-                            </div>
-                        <?php }
-                        ?>
-
-                        <?php if (!empty($list_room_items['data'])) {
-                            foreach ($list_room_items['data'] as $room) {
-                                if ($room->gallery) { ?>
-                                    <div class="col-xs-6 col-sm-3">
-                                        <div class="box-room">
-                                            <?php foreach ($room->gallery as $kg => $img) { ?>
-                                                <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="list_room_<?php echo $img->caption ?>">
-                                                    <img src="<?php echo $img->featured ?>" alt="" class="lazy">
-                                                </a>
-                                            <?php } ?>
-                                            <a href="#" title="" class="title"><?php echo $room->post_title ?></a>
-                                        </div>
+                            <?php //var_dump($big_room);
+                            if ($big_room->gallery) {
+                                ?>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="box-room">
+                                        <?php foreach ($big_room->gallery as $kg => $img) { ?>
+                                            <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="big_rom">
+                                                <img src="<?php echo $img->featured ?>" alt="" class="lazy ">
+                                            </a>
+                                        <?php } ?>
+                                        <a href="#" title="" class="title"><?php echo $big_room->post_title ?></a>
                                     </div>
-                                <?php }
-                            }
-                        } ?>
+                                </div>
+                            <?php }
+                            ?>
 
-
+                            <?php if (!empty($list_room_items['data'])) {
+                                foreach ($list_room_items['data'] as $room) {
+                                    if ($room->gallery) { ?>
+                                        <div class="col-xs-6 col-sm-3">
+                                            <div class="box-room">
+                                                <?php foreach ($room->gallery as $kg => $img) { ?>
+                                                    <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="list_room_<?php echo $img->caption ?>">
+                                                        <img src="<?php echo $img->featured ?>" alt="" class="lazy">
+                                                    </a>
+                                                <?php } ?>
+                                                <a href="#" title="" class="title"><?php echo $room->post_title ?></a>
+                                            </div>
+                                        </div>
+                                    <?php }
+                                }
+                            } ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <?php
+    <?php }
 } ?>
 
 

@@ -66,7 +66,7 @@ header .top-bar .top-info img {
 header .top-bar .top-info li {
     display: inline-block;
     list-style: none;
-    padding: 13px 20px 13px 0;
+    padding: 14px 20px 13px 0;
 }
 
 header .top-bar .top-info li.sign-up {
@@ -74,6 +74,7 @@ header .top-bar .top-info li.sign-up {
     color: white;
     padding-left: 20px;
     padding-right: 40px;
+    height: 47px;
 }
 
 header .top-bar .top-info li.sign-up a {
@@ -1930,11 +1931,34 @@ h1.tile-main {
 .box-ft-rs:hover img{
     transform: scale(1.05);
     transition: all 0.4s ease;
-    box-shadow: 0 0px 27px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 27px 0 rgba(0, 0, 0, 0.4);
 }
 
 .list-galary-2.owl-carousel .owl-pagination{
     bottom: 20px;
+}
+
+.top-bar {
+    position: relative;
+}
+
+header .top-bar .top-info li:first-child {
+    background: #ebebeb;
+}
+
+.top-bar .col-xs-6.col-sm-6 {
+    z-index: 2;
+}
+
+.top-bar .container.container-big:after {
+    content: " ";
+    background: #d5b76e;
+    width: 28%;
+    height: 47px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
 }
 
 @media (min-width: 1200px) {

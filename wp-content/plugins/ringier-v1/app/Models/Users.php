@@ -147,4 +147,36 @@ class Users
 
         return $result;
     }
+
+    public function updateUserEmail($user_id,$code){
+        $result = false;
+
+        $code_cr = get_user_meta($user_id,'code_change_email',true);
+        if(!empty($code_cr) && $code_cr == $code){
+            $new_email  = get_user_meta($user_id,'new_email',true);
+            if(!empty($new_email)){
+
+                $user = $this->getUserInfo($user_id);
+
+                $ags["user_email"] = $new_email;
+                $ags["user_login"] = $new_email;
+                $ags["user_nicename"] = sanitize_title($new_email);
+
+                $update =  $this->_wpdb->update($this->_wpdb->users,$ags,array('ID' => $user_id));
+                if($update){
+                    //sendy
+                    subscribeSendy(array(
+                        'display_name' => $user->display_name,
+                        'user_email' => $new_email,
+                    ));
+
+                    delete_user_meta($user_id,'code_change_email');
+                    delete_user_meta($user_id,'new_email');
+                    $result = true;
+                }
+            }
+        }
+
+        return $result;
+    }
 }

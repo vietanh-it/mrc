@@ -178,6 +178,27 @@ class AccountController extends _BaseController
 
     }
 
+    public function confirm_change_email(){
+        $return = array(
+            'status' => 'error',
+            'message' => 'An error, please check your email and try again.',
+        );
+        if(!empty($_GET['id']) && !empty($_GET['code'])){
+            $code = $_GET['code'];
+            $user_id = $_GET['id'];
+
+            $User = Users::init();
+            $update = $User->updateUserEmail($user_id,$code);
+            if($update){
+                $return = array(
+                    'status' => 'success',
+                    'message' => 'Change email success, please login again.',
+                );
+            }
+        }
+        return view('account/confirm-change-email', compact('return'));
+    }
+
     public function userInfo($user_id)
     {
         $objUser = Users::init();
@@ -233,6 +254,8 @@ class AccountController extends _BaseController
             }
 
             if (isset($_POST['a_email']) && isset($_POST['a_password'])) {
+                $user_current = wp_get_current_user();
+
                 $ags["ID"] = $data['user_id'];
                 if (empty($_POST['a_email'])) {
                     $return['status'] = 'error';
@@ -242,15 +265,36 @@ class AccountController extends _BaseController
                         $return['status'] = 'error';
                         $return['message'][] = 'Email not match.';
                     } else {
-                        $user_current = wp_get_current_user();
+                        if($_POST['a_email'] != $user_current->user_email){
+                            if (email_exists($_POST['a_email'])) {
+                                $return['status'] = 'error';
+                                $return['message'][] = 'This email already exists.';
+                            } else {
+                                $code_change_email = md5(time().$_POST['a_email']);
+                                $url_cf = WP_SITEURL.'/confirm-change-email/?id='.$user_current->ID.'&code='.$code_change_email;
+                                if(!empty(get_user_meta($user_current->ID,'code_change_email',true))){
+                                    update_user_meta($user_current->ID,'code_change_email',$code_change_email);
+                                }else{
+                                    add_user_meta($user_current->ID,'code_change_email',$code_change_email);
+                                }
 
-                        if ($_POST['a_email'] != $user_current->user_email && email_exists($_POST['a_email'])) {
-                            $return['status'] = 'error';
-                            $return['message'][] = 'This email already exists.';
-                        } else {
-                            $ags["user_email"] = $_POST['a_email'];
-                            $ags["user_login"] = $_POST['a_email'];
-                            $ags["user_nicename"] = sanitize_title($_POST['a_email']);
+                                if(!empty(get_user_meta($user_current->ID,'new_email',true))){
+                                    update_user_meta($user_current->ID,'new_email',$_POST['a_email']);
+                                }else{
+                                    add_user_meta($user_current->ID,'new_email',$_POST['a_email']);
+                                }
+
+                                $args_mail = array(
+                                    'display_name' => $user_current->display_name,
+                                    'confirm_url' => $url_cf,
+                                );
+
+                                sendEmailHTML($user_current->user_email,'Your email address was recently changed.','account/email_address_change.html', $args_mail);
+
+                                /*$ags["user_email"] = $_POST['a_email'];
+                                $ags["user_login"] = $_POST['a_email'];
+                                $ags["user_nicename"] = sanitize_title($_POST['a_email']);*/
+                            }
                         }
                     }
                 }
@@ -259,14 +303,13 @@ class AccountController extends _BaseController
                     $return['status'] = 'error';
                     $return['message'][] = 'Please enter your password.';
                 } else {
-                    $user = wp_get_current_user();
-                    $check_pass = wp_check_password( $_POST['a_password'], $user->user_pass, $user->ID);
+                    $check_pass = wp_check_password( $_POST['a_password'], $user_current->user_pass, $user_current->ID);
                     if(!$check_pass){
                         $ags['user_pass'] = $_POST['a_password'];
                         $args_mail = array(
-                            'display_name' => $user->display_name,
+                            'display_name' => $user_current->display_name,
                         );
-                        sendEmailHTML($user->user_email,'Your password was recently changed.','account/password_change.html', $args_mail);
+                        sendEmailHTML($user_current->user_email,'Your password was recently changed.','account/password_change.html', $args_mail);
                     }
                 }
 

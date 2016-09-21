@@ -107,7 +107,7 @@ nav .navbar-collapse {
 
 nav ul.navbar-nav li a {
     color: #545454;
-    padding: 10px;
+    padding: 10px 16px;
     margin-top: 0;
     border: 1px solid white;
     transition: all 0.7s;
@@ -383,6 +383,7 @@ nav ul.navbar-nav li.active a {
 .box-journey {
     margin-bottom: 70px;
     position: relative;
+    max-width: 290px;
 }
 
 .box-journey .image img {
@@ -414,7 +415,7 @@ nav ul.navbar-nav li.active a {
     text-transform: uppercase;
     font-weight: bold;
     font-family: 'Playfair Display', serif;
-    padding: 10px 20px;
+    padding: 10px 30px;
     background: #e4a611;
     border: 1px solid #e4a611;
     color: white;

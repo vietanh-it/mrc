@@ -489,7 +489,7 @@ class r_photo {
 
     public function r_photo_update_caption(){
         $result = array(
-            'status' => 'error',
+            'status' => 'success',
         );
         if(!empty($_POST['caption'] && !empty($_POST['photo_id']))){
             global  $wpdb;

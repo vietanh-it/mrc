@@ -59,7 +59,7 @@ class JourneyType
         return self::$instance;
     }
 
-    public function getJourneyTypeList($params)
+    public function getJourneyTypeList($params = [])
     {
         $cacheId = __CLASS__ . 'getJourneyTypeList' . serialize($params);
         if (!empty($params['is_cache'])) {

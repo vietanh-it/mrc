@@ -16,6 +16,9 @@ Theme My Login will always look in your theme's directory first, before using th
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
         <p style="text-align: center;font-style: italic" class="font-playfair">Welcome to the world of luxury
             cruises</p>
+        <div class="text-center">
+            Don't have an account? <a href="<?php echo wp_registration_url(); ?>">Sign-up</a>
+        </div>
 
         <div class="ctn-account">
             <div class="tml tml-login" id="theme-my-login<?php $template->the_instance(); ?>">

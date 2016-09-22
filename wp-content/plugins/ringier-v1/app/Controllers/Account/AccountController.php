@@ -203,7 +203,7 @@ class AccountController extends _BaseController
     {
         $objUser = Users::init();
         $return = [
-            'status' => 'error'
+            'status' => 'success'
         ];
         $data = array();
 
@@ -323,7 +323,6 @@ class AccountController extends _BaseController
             if ($return['status'] != 'error') {
                 $update = $objUser->saveUserInfo($data);
                 if ($update) {
-                    $return['status'] = 'success';
                     if($change_email){
                         $return['message'][] = 'Update profile success. Please check your email to complete the email change.';
                     }else{

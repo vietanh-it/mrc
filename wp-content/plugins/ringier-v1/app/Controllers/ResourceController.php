@@ -31,7 +31,7 @@ class ResourceController extends _BaseController
         if(empty($page)) $page =1;
         $Post = Posts::init();
 
-        /*$cate_people = get_term_by( 'slug', 'team', 'resource_category');
+        /*$cate_people = get_term_by( 'slug', 'onboard-services', 'resource_category');
         var_dump($cate_people);*/
 
         $args = array(

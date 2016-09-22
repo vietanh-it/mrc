@@ -82,7 +82,7 @@ var_dump($list_rs_food);*/
                 </div>
             <?php } ?>
 
-            <?php if(!empty($list_rs_services['data'])){ ?>
+            <?php if(!empty($list_rs_food['data'])){ ?>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <h3 class="title-sm">Food and Beverage</h3>
@@ -90,7 +90,7 @@ var_dump($list_rs_food);*/
 
                     <div class="col-xs-6 col-sm-6">
                         <div class="row">
-                            <?php foreach ($list_rs_services['data'] as $v){ ?>
+                            <?php foreach ($list_rs_food['data'] as $v){ ?>
                                 <div class="col-xs-12 col-sm-4">
                                     <div class="box-smal-food">
                                         <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">

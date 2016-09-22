@@ -29,18 +29,66 @@ class ResourceController extends _BaseController
     public function listResource(){
         $page = get_query_var("paged");
         if(empty($page)) $page =1;
+        $Post = Posts::init();
+
+        /*$cate_people = get_term_by( 'slug', 'team', 'resource_category');
+        var_dump($cate_people);*/
 
         $args = array(
             'posts_per_page' => 6,
             'paged' => $page,
             'post_type' => 'resource',
             'is_paging' => 1,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'resource_category',
+                    'field'    => 'slug',
+                    'terms'    => 'team',
+                    'operator' => 'NOT IN',
+                ),
+            )
         );
-
-        $Post = Posts::init();
         $list_post = $Post->getList($args);
 
-        view('resource/list',compact('list_post'));
+        $list_rs_people =  $Post->getList(array(
+            'posts_per_page' => 5,
+            'paged' => $page,
+            'post_type' => 'resource',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'resource_category',
+                    'field'    => 'slug',
+                    'terms'    => 'team',
+                ),
+            ),
+        ));
+
+        $list_rs_services =  $Post->getList(array(
+            'posts_per_page' => 3,
+            'paged' => $page,
+            'post_type' => 'resource',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'resource_category',
+                    'field'    => 'slug',
+                    'terms'    => 'onboard-services',
+                ),
+            ),
+        ));
+        $list_rs_food =  $Post->getList(array(
+            'posts_per_page' => 6,
+            'paged' => $page,
+            'post_type' => 'resource',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'resource_category',
+                    'field'    => 'slug',
+                    'terms'    => 'food-and-beverage',
+                ),
+            ),
+        ));
+
+        view('resource/list',compact('list_post','list_rs_people','list_rs_services','list_rs_food'));
     }
 
     public function detail($id){

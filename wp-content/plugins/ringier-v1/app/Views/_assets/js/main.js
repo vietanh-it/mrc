@@ -39,6 +39,15 @@ jQuery(document).ready(function ($) {
         pagination: true
     });
 
+    $(".list-galary-3").owlCarousel({
+        autoPlay: 5000,
+        items: 3,
+        itemsDesktop: [1199, 3],
+        itemsDesktopSmall: [760, 3],
+        navigation: false,
+        pagination: true
+    });
+
     $(".owl-carousel .owl-next").html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
     $(".owl-carousel .owl-prev").html('<i class="fa fa-angle-left" aria-hidden="true"></i>');
 

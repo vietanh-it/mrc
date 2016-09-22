@@ -21,7 +21,7 @@ get_header();
         <div class="row">
             <div class="col-xs-12 col-sm-4 list-img-left">
                 <?php if($ship_detail->gallery){ ?>
-                    <h3 class="title-main">Ship photos</h3>
+                    <h3 class="title-main" style="margin-top: 0">Ship photos</h3>
                     <div class="list-galary">
                         <?php foreach ($ship_detail->gallery as $g){ ?>
                             <div><a href="<?php echo $g->full ?>" class="fancybox" rel="ship photos"><img src="<?php echo $g->small ?>"></a></div>

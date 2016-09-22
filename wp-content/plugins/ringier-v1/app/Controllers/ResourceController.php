@@ -93,10 +93,20 @@ class ResourceController extends _BaseController
 
     public function detail($id){
         $Post = Posts::init();
+        $terms = wp_get_post_terms( $id, 'resource_category' );
+        if(!empty($terms)) $terms = array_shift($terms);
+
         $list_related = $Post->getList(array(
             'posts_per_page' => 5,
             'post_type' => 'resource',
             'post__not_in' => array($id),
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'resource_category',
+                    'field'    => 'term_id',
+                    'terms'    => $terms->term_id,
+                ),
+            )
         ));
 
         view('resource/detail',compact('list_related'));

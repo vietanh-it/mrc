@@ -221,7 +221,7 @@ class AccountController extends _BaseController
                         "first_name" => $_POST['first_name'],
                         "last_name" => $_POST['last_name'],
                         "display_name" => $display_name,
-                    ));
+                    )); 
                 }
             }
             if (isset($_POST['birthday'])) {

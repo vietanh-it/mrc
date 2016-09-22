@@ -44,8 +44,11 @@ if (!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])) {
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
         <p style="text-align: center;font-style: italic" class="font-playfair">Create your account to join the world of
             luxury cruises</p>
+        <div class="text-center">
+            Already have an account? <a href="<?php echo wp_login_url(); ?>" style="color: #999999;">Sign-in</a>
+        </div>
         <div class="ctn-account">
-            <div class="tml tml-register" id="theme-my-login<?php $template->the_instance(); ?>" \>
+            <div class="tml tml-register" id="theme-my-login<?php $template->the_instance(); ?>">
                 <p style="margin: 20px 0;color: black;font-size: 17px;text-align: center;font-family: 'Playfair Display', serif;">
                     Sign In with</p>
 

@@ -1962,6 +1962,10 @@ header .top-bar .top-info li:first-child {
     z-index: 1;
 }
 
+.box-ft-rs a img {
+    width: 100%;
+}
+
 @media (min-width: 1200px) {
 
     .container {

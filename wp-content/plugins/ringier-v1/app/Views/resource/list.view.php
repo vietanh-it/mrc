@@ -20,17 +20,17 @@ var_dump($list_rs_food);*/
     <div class="featured-rs">
         <div class="row">
             <div class="list-galary-3">
-            <?php foreach ($list_post['data'] as $v){ ?>
-                <div class="col-xs-12 col-sm-12">
-                    <div class="box-ft-rs" style="position: relative">
-                        <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
-                            <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>">
-                        </a>
-                        <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"> <?php echo $v->post_title ?> </a>
+                <?php foreach ($list_post['data'] as $v){ ?>
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="box-ft-rs" style="position: relative">
+                            <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
+                                <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>">
+                            </a>
+                            <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"> <?php echo $v->post_title ?> </a>
+                        </div>
                     </div>
-                </div>
-            <?php } ?>
-                </div>
+                <?php } ?>
+            </div>
         </div>
     </div>
 <?php } ?>

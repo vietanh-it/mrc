@@ -202,7 +202,9 @@ class AccountController extends _BaseController
     public function userInfo($user_id)
     {
         $objUser = Users::init();
-        $return = array();
+        $return = array(
+            'status' => ''
+        );
         $data = array();
 
         if (!empty($_POST) && is_user_logged_in()) {

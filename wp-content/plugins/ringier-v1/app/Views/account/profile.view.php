@@ -14,7 +14,7 @@ get_header();
         </h1>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
             <div class="message">
-                <?php if(!empty($return)){
+                <?php if(!empty($return['status'])){
                     if($return['status'] == 'error'){
 
                         if(!empty($return['message']) ) {

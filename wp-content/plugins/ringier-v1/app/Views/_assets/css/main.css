@@ -1988,6 +1988,10 @@ header .top-bar .top-info li:first-child {
     .hide-on-med-and-up{
         display: none !important;
     }
+    .box-smal-food{
+        height: 145px ;
+        overflow: hidden;
+    }
 }
 
 @media (max-width: 768px) {

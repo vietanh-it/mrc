@@ -202,9 +202,7 @@ class AccountController extends _BaseController
     public function userInfo($user_id)
     {
         $objUser = Users::init();
-        $return = [
-            'status' => 'success'
-        ];
+        $return = array();
         $data = array();
 
         if (!empty($_POST) && is_user_logged_in()) {
@@ -323,6 +321,7 @@ class AccountController extends _BaseController
             if ($return['status'] != 'error') {
                 $update = $objUser->saveUserInfo($data);
                 if ($update) {
+                    $return['status'] = 'success';
                     if($change_email){
                         $return['message'][] = 'Update profile success. Please check your email to complete the email change.';
                     }else{

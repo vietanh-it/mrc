@@ -39,18 +39,21 @@ var_dump($list_rs_food);*/
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 main-content">
-            <?php if(!empty($list_rs_people['data'])){ ?>
+            <?php if(!empty($list_rs_people['data'])){
+                ?>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <h3 class="title-sm">Mekong Princess Team</h3>
                     </div>
-                    <?php foreach ($list_rs_people['data'] as $v){ ?>
+                    <?php foreach ($list_rs_people['data'] as $v){
+                        $position = get_post_meta($v->ID,'position',true);
+                        ?>
                         <div class="rs-20 box-rs-people">
                             <div class="image">
                                 <img src="<?php echo $v->images->featured ?>" width="100%">
                             </div>
                             <div class="title"><?php echo $v->post_title ?></div>
-                            <div class="job">Captain</div>
+                            <div class="job"><?php echo !empty($position) ? $position : '' ?></div>
                             <div class="desc">
                                 <?php echo strip_tags($v->post_content) ?>
                             </div>
@@ -106,12 +109,21 @@ var_dump($list_rs_food);*/
                     </div>
                     <div class="col-xs-6 col-sm-6">
                         <div class="list-galary-2">
-                            <div>
-                                <a href="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg" class="fancybox" rel="ship photos"><img src="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg"></a>
-                            </div>
-                            <div>
-                                <a href="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg" class="fancybox" rel="ship photos"><img src="http://local.mrc.com/wp-content/uploads/2016/07/Phnom-Penh-Extension-Header-shutterstock_142484584-500x500.jpg"></a>
-                            </div>
+                            <?php foreach ($list_rs_food['data'] as $v) {
+                                $gallery = $v->gallery;
+                                if (!empty($gallery)) {
+                                    ?>
+                                    <div>
+                                        <?php foreach ($gallery as $kg => $img) { ?>
+                                            <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?>
+                                                href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>"
+                                                class="fancybox" rel="list_room_<?php echo $v->ID ?>">
+                                                <img src="<?php echo $img->featured ?>" alt="" class=="lazy">
+                                            </a>
+                                        <?php } ?>
+                                    </div>
+                                <?php }
+                            }?>
                         </div>
                     </div>
                 </div>

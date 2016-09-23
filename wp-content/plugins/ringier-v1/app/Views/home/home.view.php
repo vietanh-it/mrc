@@ -273,7 +273,7 @@ get_header();
                                         <div class="col-xs-6 col-sm-3">
                                             <div class="box-room">
                                                 <?php foreach ($room->gallery as $kg => $img) { ?>
-                                                    <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="list_room_<?php echo $img->caption ?>">
+                                                    <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="list_room_<?php echo $room->ID ?>">
                                                         <img src="<?php echo $img->featured ?>" alt="" class="lazy">
                                                     </a>
                                                 <?php } ?>

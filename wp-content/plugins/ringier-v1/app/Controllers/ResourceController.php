@@ -31,9 +31,6 @@ class ResourceController extends _BaseController
         if(empty($page)) $page =1;
         $Post = Posts::init();
 
-        /*$cate_people = get_term_by( 'slug', 'onboard-services', 'resource_category');
-        var_dump($cate_people);*/
-
         $args = array(
             'posts_per_page' => 6,
             'paged' => $page,
@@ -43,7 +40,7 @@ class ResourceController extends _BaseController
                 array(
                     'taxonomy' => 'resource_category',
                     'field'    => 'slug',
-                    'terms'    => 'team',
+                    'terms'    => 'human-resources',
                     'operator' => 'NOT IN',
                 ),
             )
@@ -58,7 +55,7 @@ class ResourceController extends _BaseController
                 array(
                     'taxonomy' => 'resource_category',
                     'field'    => 'slug',
-                    'terms'    => 'team',
+                    'terms'    => 'human-resources',
                 ),
             ),
         ));

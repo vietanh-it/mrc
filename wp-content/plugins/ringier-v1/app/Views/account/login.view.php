@@ -17,7 +17,7 @@ Theme My Login will always look in your theme's directory first, before using th
         <p style="text-align: center;font-style: italic" class="font-playfair">Welcome to the world of luxury
             cruises</p>
         <div class="text-center">
-            Don't have an account? <a href="<?php echo wp_registration_url(); ?>">Sign-up</a>
+            Don't have an account? <a href="<?php echo wp_registration_url(); ?>" style="color: #999999;">Sign-up</a>
         </div>
 
         <div class="ctn-account">

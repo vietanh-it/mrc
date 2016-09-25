@@ -16,10 +16,11 @@ $author = get_userdata($post->post_author);
         <div class="col-xs-12 col-sm-7 content">
             <p class="time">by <?php echo $author->data->display_name; ?> on <?php echo date("j F Y",strtotime($post->post_date)) ?></p>
             <ul class="share">
-                <li><a target="_blank" title="Share width Google+" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $permalink; ?>" rel="nofollow"><img src="<?php echo VIEW_URL . '/images/icon-google-2.png' ?>"></a></li>
-                <li><a target="_blank" title="Share width Pinterest" href="https://twitter.com/intent/tweet?source=webclient&text=<?php echo $permalink . "+" . $post->post_title; ?>" rel="nofollow"><img src="<?php echo VIEW_URL . '/images/icon-prin-2.png' ?>"></a></li>
-                <li><a target="_blank" title="Share width Facebook" href="https://plus.google.com/share?url={<?php echo $permalink; ?>}" rel="nofollow"><img src="<?php echo VIEW_URL . '/images/icon-facebook-2.png' ?>"></a></li>
-                <li><a target="_blank" title="Share width Twitter" href="mailto:?Subject=<?php echo $post->post_title; ?>&body=<?php echo $content_mail; ?>" rel="nofollow"><img src="<?php echo VIEW_URL . '/images/icon-twiter-2.png' ?>"></a></li>
+                <li><a target="_blank" title="Share width Google+" href="https://plus.google.com/share?url={<?php echo $permalink; ?>}" rel="nofollow"><img src="<?php echo VIEW_URL . '/images/icon-google-2.png' ?>"></a></li>
+                <li><a target="_blank" title="Share width Twitter" href="https://twitter.com/intent/tweet?source=webclient&text=<?php echo $permalink . "+" . $post->post_title; ?>" rel="nofollow"><img src="<?php echo VIEW_URL . '/images/icon-twiter-2.png' ?>"></a></li>
+                <li><a target="_blank" title="Share width Facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $permalink; ?>" rel="nofollow"><img src="<?php echo VIEW_URL . '/images/icon-facebook-2.png' ?>"></a></li>
+                <li><a target="_blank" title="Share width Pinterest" href="https://www.pinterest.com/pin/create/button/" rel="nofollow" data-pin-custom="true" style="cursor: pointer;"><img src="<?php echo VIEW_URL . '/images/icon-prin-2.png' ?>"></a></li>
+                <!--<li><a target="_blank" title="Share width Pinterest" href="mailto:?Subject=--><?php //echo $post->post_title; ?><!--&body=--><?php //echo $content_mail; ?><!--" rel="nofollow"><img src="--><?php //echo VIEW_URL . '/images/icon-prin-2.png' ?><!--"></a></li>-->
             </ul>
             <div class="content-wrapper">
                 <?php the_content() ?>

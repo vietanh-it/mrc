@@ -148,7 +148,10 @@
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="copy-right">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6" style="font-family: 'Source Sans Pro', sans-serif; font-size: 14px;">&copy; <?php echo date('Y'); ?> Mekong River Cruiser.</div>
+                        <div class="col-xs-12 col-sm-6"
+                             style="font-family: 'Source Sans Pro', sans-serif; font-size: 14px;">&copy; <?php echo date('Y'); ?>
+                            Mekong River Cruiser.
+                        </div>
                         <div class="col-xs-12 col-sm-6 text-right">
                             <a href="<?php echo WP_SITEURL . '/terms-of-use'; ?>" title="">
                                 Terms of Use
@@ -179,5 +182,6 @@
 
 <div id="fb-root"></div>
 <?php wp_footer(); ?>
+<script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
 </body>
 </html>

@@ -48,8 +48,7 @@ class Journey
         $cacheId = __CLASS__ . 'getJourneyList' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        }
-        else {
+        } else {
             $result = false;
         }
         if ($result == false) {
@@ -94,6 +93,10 @@ class Journey
                 $where .= " AND jsi.journey_type_id = " . $params['journey_type_id'];
             }
 
+            if (!empty($params['journey_series_id'])) {
+                $where .= " AND jsi.object_id = " . $params['journey_series_id'];
+            }
+
             if (!empty($params['_month'])) {
                 $month = date_format(date_create_from_format("d/m/Y", '01/' . $params['_month']), "Y-m");
                 $where .= " AND DATE_FORMAT(ji.departure,'%Y-%m') = '" . $month . "'";
@@ -117,7 +120,7 @@ class Journey
             }
 
             $result = [
-                'data'  => $list,
+                'data' => $list,
                 'total' => $total,
             ];
 
@@ -137,8 +140,7 @@ class Journey
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
-        }
-        else {
+        } else {
             $cacheId = __CLASS__ . 'getInfo' . $object->ID;
         }
 
@@ -146,7 +148,7 @@ class Journey
         if ($result == false) {
 
             if (is_numeric($object)) {
-                $object  = get_post($object);
+                $object = get_post($object);
             }
             $object->permalink = get_permalink($object->ID);
 
@@ -163,12 +165,13 @@ class Journey
             $object->current_season = $current_season;
             $object->is_offer = false;
 
-            if(!empty($journey_type_info)){
+            if (!empty($journey_type_info)) {
                 // days, nights, duration
                 $departure_fm = date("j F Y", strtotime($object->departure));
                 $object->departure_fm = $departure_fm;
                 $departure = date('Y-m-d', strtotime($object->departure));
-                $arrive = date('Y-m-d', strtotime($object->departure) + (intval($journey_type_info->nights) * 24 * 60 * 60));
+                $arrive = date('Y-m-d',
+                    strtotime($object->departure) + (intval($journey_type_info->nights) * 24 * 60 * 60));
                 $object->arrive = $arrive;
 
                 if (!empty($journey_type_info->room_price)) {
@@ -176,7 +179,7 @@ class Journey
                     $promotion = 0;
                     $list_room_offer = [];
 
-                    if ($journey_type_info->offer_main_info) {
+                    if (!empty($journey_type_info->offer_main_info)) {
                         $offer_main_info = $journey_type_info->offer_main_info;
                         $is_offer = false;
                         $offer_start = $offer_main_info->start_date;
@@ -210,8 +213,7 @@ class Journey
 
                         if ($current_season == 'low') {
                             $price_sub = $v->single_low_season_price;
-                        }
-                        else {
+                        } else {
                             $price_sub = $v->single_high_season_price;
                         }
                         if ($price_sub < $min_price) {
@@ -233,10 +235,11 @@ class Journey
         return $result;
     }
 
-    public function getJourneySeriesInfoByJourney($journey_id){
+    public function getJourneySeriesInfoByJourney($journey_id)
+    {
         $query = 'SELECT ji.*, jsi.* FROM ' . $this->_tbl_journey_info . ' as ji
                   INNER JOIN ' . $this->_tbl_journey_series_info . ' as jsi ON jsi.object_id = ji.journey_series_id
-                  WHERE ji.object_id =  "'. $journey_id .'"';
+                  WHERE ji.object_id =  "' . $journey_id . '"';
         return $this->_wpdb->get_row($query);
     }
 
@@ -303,8 +306,7 @@ class Journey
             $price = $price - (($price * $offer) / 100);
 
             return $price;
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -418,42 +420,47 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
     }*/
 
 
-    public function insertJourneyDetail($data){
+    public function insertJourneyDetail($data)
+    {
         $result = false;
-        if($data['journey_series_id']){
-            $result = $this->_wpdb->insert($this->_tbl_journey_info,$data);
+        if ($data['journey_series_id']) {
+            $result = $this->_wpdb->insert($this->_tbl_journey_info, $data);
         }
 
         return $result;
     }
 
-    public function deleteJourneyDetail($journey_series_id){
-        $result= false;
+    public function deleteJourneyDetail($journey_series_id)
+    {
+        $result = false;
 
-        if($journey_series_id){
-            $result = $this->_wpdb->delete($this->_tbl_journey_info,array('journey_series_id'=>$journey_series_id));
+        if ($journey_series_id) {
+            $result = $this->_wpdb->delete($this->_tbl_journey_info, array('journey_series_id' => $journey_series_id));
         }
 
         return $result;
     }
 
-    public function getJourneyDetailByJourneySeries($journey_series_id){
-        $select = "SELECT ji.* FROM ".$this->_tbl_journey_info." as ji 
-        INNER JOIN ".$this->_wpdb->posts." as p ON p.ID = ji.object_id
-        WHERE p.post_status = 'publish' AND ji.journey_series_id = ".$journey_series_id ;
+    public function getJourneyDetailByJourneySeries($journey_series_id)
+    {
+        $select = "SELECT ji.* FROM " . $this->_tbl_journey_info . " as ji 
+        INNER JOIN " . $this->_wpdb->posts . " as p ON p.ID = ji.object_id
+        WHERE p.post_status = 'publish' AND ji.journey_series_id = " . $journey_series_id;
         return $this->_wpdb->get_results($select);
     }
 
-    public function insertJourney($data){
-        $this->_wpdb->insert($this->_wpdb->posts,$data);
+    public function insertJourney($data)
+    {
+        $this->_wpdb->insert($this->_wpdb->posts, $data);
         $result = $this->_wpdb->insert_id;
         return $result;
     }
 
-    public function deleteJourney($journey_id){
-        $result= false;
-        if($journey_id){
-            $result = $this->_wpdb->delete($this->_wpdb->posts,array('ID'=>$journey_id));
+    public function deleteJourney($journey_id)
+    {
+        $result = false;
+        if ($journey_id) {
+            $result = $this->_wpdb->delete($this->_wpdb->posts, array('ID' => $journey_id));
         }
 
         return $result;

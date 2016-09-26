@@ -47,8 +47,12 @@ class Ships
 
     public function getShipDetail($ship_id)
     {
-        $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_ship_info} si ON p.ID = si.object_id WHERE p.ID = {$ship_id}";
-        $result = $this->_wpdb->get_row($query);
+        if (!empty($ship_id)) {
+            $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_ship_info} si ON p.ID = si.object_id WHERE p.ID = {$ship_id}";
+            $result = $this->_wpdb->get_row($query);
+        } else {
+            $result = false;
+        }
 
         if (!empty($result)) {
             $result->map = VIEW_URL . '/images/ship_maps/' . $result->map;

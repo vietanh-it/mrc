@@ -44,8 +44,34 @@ class BackendUI
     {
         echo '<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"  rel="stylesheet">';
         echo '<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css"  rel="stylesheet">';
-        echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">';
-    }
+        echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">'; ?>
+
+        <style>
+            .loading-wrapper {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.2);
+                z-index: 300;
+            }
+
+            .loading-overlay {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                background: rgba(0, 0, 0, 0.5);
+                color: #ffffff;
+                padding: 30px 50px;
+                font-size: 32px;
+                border-radius: 5px;
+                margin-left: -64px;
+                margin-top: -52px;
+            }
+        </style>
+
+    <?php }
 
 
     public function adminFooter()
@@ -54,11 +80,25 @@ class BackendUI
         echo '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>';
         ?>
 
+        <div class="loading-wrapper" style="display: none;">
+            <div class="loading-overlay">
+                <i class="fa fa-spin fa-refresh"></i>
+            </div>
+        </div>
+
         <script>
             var $ = jQuery.noConflict();
             $(document).ready(function () {
                 $('.select2').select2();
             });
+
+            function switch_loading(is_loading) {
+                if (is_loading) {
+                    $('.loading-wrapper').fadeIn();
+                } else {
+                    $('.loading-wrapper').fadeOut();
+                }
+            }
         </script>
 
         <?php

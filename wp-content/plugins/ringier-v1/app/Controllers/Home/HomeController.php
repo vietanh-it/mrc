@@ -6,7 +6,6 @@ use RVN\Controllers\DestinationController;
 use RVN\Controllers\JourneyController;
 use RVN\Controllers\PortController;
 use RVN\Controllers\ShipController;
-use RVN\Models\Journey;
 use RVN\Models\JourneyType;
 use RVN\Models\Offer;
 use RVN\Models\Posts;
@@ -47,7 +46,7 @@ class HomeController extends _BaseController
         $list_journey_type = $journey->getJourneyTypeList($args);
 
         $objOffer = Offer::init();
-        $list_offer = $objOffer->getListOffer(array());
+        $list_offer = $objOffer->getOfferList();
 
         $Post = Posts::init();
         $list_room_items_featured = $Post->getList(array(
@@ -60,7 +59,7 @@ class HomeController extends _BaseController
 
         $not_in = 0;
         $limit_room = 5;
-        if(!empty($list_room_items_featured['data'])){
+        if (!empty($list_room_items_featured['data'])) {
             $limit_room = 4;
             $not_in = $list_room_items_featured['data'][0]->ID;
         }
@@ -72,7 +71,9 @@ class HomeController extends _BaseController
             'post__not_in' => array($not_in),
         ));
 
-        return view('home/home',compact('list_destination','list_ship','list_port','list_journey_type','list_offer','list_month','list_room_items','list_room_items_featured'));
+        return view('home/home',
+            compact('list_destination', 'list_ship', 'list_port', 'list_journey_type', 'list_offer', 'list_month',
+                'list_room_items', 'list_room_items_featured'));
     }
 }
 

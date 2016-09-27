@@ -2,6 +2,7 @@
 namespace RVN\Controllers;
 
 use RVN\Models\Journey;
+use RVN\Models\JourneySeries;
 
 class JourneySeriesController extends _BaseController
 {
@@ -27,12 +28,25 @@ class JourneySeriesController extends _BaseController
         return self::$instance;
     }
 
-    public function ajaxCountNewDeparture($data){
+    public function ajaxCountNewDeparture($data)
+    {
         $result = '';
-        if(!empty($data['departure']) && !empty($data['duration'])){
-            $result = date('Y-m-d',strtotime($data['departure']) + intval($data['duration'])*24*60*60 );
+        if (!empty($data['departure']) && !empty($data['duration'])) {
+            $result = date('Y-m-d', strtotime($data['departure']) + intval($data['duration']) * 24 * 60 * 60);
         }
 
         return $result;
+    }
+
+
+    public function ajaxGetJourneySeries($args)
+    {
+        $journey_series = JourneySeries::init();
+        $list_series = $journey_series->getList($args);
+
+        return [
+            'status' => 'success',
+            'data' => $list_series
+        ];
     }
 }

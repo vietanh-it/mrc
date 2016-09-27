@@ -46,7 +46,9 @@ class JourneyController extends _BaseController
     public function journeyList($args = [])
     {
         $page = get_query_var("paged");
-        if(empty($page)) $page =1;
+        if (empty($page)) {
+            $page = 1;
+        }
 
         $args['page'] = $page;
         $args['limit'] = 6;
@@ -59,7 +61,35 @@ class JourneyController extends _BaseController
     }
 
 
-    public function ajaxGetJourneyByJourneyType($args){
+    public function ajaxGetJourneys($args)
+    {
+        $journey = Journey::init();
+        $list_journey = $journey->getJourneyList($args);
+
+        if (empty($list_journey['status'])) {
+            $list_journey['status'] = 'success';
+        }
+
+        return $list_journey;
+    }
+
+
+    public function ajaxGetJourneyInfo($args)
+    {
+        $journey = Journey::init();
+        $info = $journey->getInfo($args['object_id']);
+
+        $rs = [
+            'status' => 'success',
+            'data' => $info
+        ];
+
+        return $rs;
+    }
+
+
+    public function ajaxGetJourneyByJourneySeries($args)
+    {
         $journey = Journey::init();
         $list_journey = $journey->getJourneyList($args);
 
@@ -67,7 +97,8 @@ class JourneyController extends _BaseController
     }
 
 
-    public function getMonth(){
+    public function getMonth()
+    {
         $model = Journey::init();
 
         return $model->getMonthHaveJourney();

@@ -18,7 +18,6 @@ class Offer
     private $_tbl_journey_info;
     private $_tbl_journey_type_info;
     private $_tbl_journey_type_port;
-    private $_tbl_journey_type_river;
     private $_tbl_offer_journey;
     private $_tbl_offer_info;
 
@@ -45,7 +44,37 @@ class Offer
         return self::$instance;
     }
 
-    public function getListOffer($params){
+
+    /**
+     * Lấy list offer theo kiểu mới
+     *
+     * @param array $params
+     * @return array|null|object
+     */
+    public function getOfferList($params = [])
+    {
+        $query = "SELECT * FROM {$this->_wpdb->posts} p";
+        $inner_join = " INNER JOIN " . TBL_OFFER_INFO . " oi ON p.ID = oi.object_id";
+        $inner_join .= " INNER JOIN " . TBL_JOURNEY_INFO . " ji ON oi.journey_id = ji.object_id";
+        $group_by = " GROUP BY oi.object_id HAVING p.post_status = 'publish' AND ji.departure > '" . current_time('mysql') . "'";
+
+        $query .= $inner_join .= $group_by;
+        $result = $this->_wpdb->get_results($query);
+
+        $objImage = Images::init();
+        if (!empty($result)) {
+            foreach ($result as $k => $v) {
+                $v->permalink = get_permalink($v);
+                $v->images = $objImage->getPostImages($v->ID, ['small', 'widescreen']);
+            }
+        }
+
+        return $result;
+    }
+
+
+    public function getListOffer($params)
+    {
         $cacheId = __CLASS__ . 'getListOffer' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
@@ -60,9 +89,9 @@ class Offer
             if (!empty($params['order_by'])) {
                 $order_by = $params['order_by'];
             }
-            $today = date("Y-m-d",time());
-            $where = '  AND oi.end_date > "'.$today.'" ';
-            $join = ' INNER JOIN '.$this->_tbl_offer_info .' as oi ON oi.object_id = p.ID ';
+            $today = date("Y-m-d", time());
+            $where = '  AND oi.end_date > "' . $today . '" ';
+            $join = ' INNER JOIN ' . $this->_tbl_offer_info . ' as oi ON oi.object_id = p.ID ';
 
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
             $join
@@ -71,7 +100,7 @@ class Offer
             ORDER BY $order_by  LIMIT $to, $limit
             ";
 
-             //echo $query;
+            //echo $query;
             $list = $this->_wpdb->get_results($query);
             $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
             if ($list) {
@@ -81,21 +110,23 @@ class Offer
             }
 
             $result = [
-                'data'  => $list,
+                'data' => $list,
                 'total' => $total,
             ];
 
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
 
-        if(!empty($params['is_paging'])) {
+        if (!empty($params['is_paging'])) {
             $this->_set_paging($result['data'], $result['total'], $params['limit'], $params['page']);
         }
 
         return $result;
     }
 
-    private function _set_paging($data, $total, $limit, $page){
+
+    private function _set_paging($data, $total, $limit, $page)
+    {
         global $wp_query;
         $wp_query->posts = $data;
         $wp_query->is_paged = ($page >= 1) ? true : false;
@@ -104,7 +135,60 @@ class Offer
     }
 
 
-    public function getOfferInfo($object){
+    public function deleteOffer($object)
+    {
+        if (is_numeric($object)) {
+            $object = get_post($object);
+        }
+
+        // Delete offer info
+        $this->_wpdb->delete($this->_tbl_offer_info, ['object_id' => $object->ID]);
+
+        return true;
+    }
+
+
+    public function getOfferDetail($object)
+    {
+        if (is_numeric($object)) {
+            $object = get_post($object);
+        }
+
+        if (!empty($object)) {
+            $object->permalink = get_permalink($object);
+            $objImage = Images::init();
+            $object->images = $objImage->getPostImages($object->ID, ['small', 'widescreen']);
+
+
+            return $object;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     * Get Offer Info New
+     *
+     * @param $object
+     * @return array|null|object
+     */
+    public function getOfferDetailList($object)
+    {
+        if (is_numeric($object)) {
+            $object = get_post($object);
+        }
+
+        $query = "SELECT * FROM {$this->_tbl_offer_info} WHERE object_id = {$object->ID}";
+        $result = $this->_wpdb->get_results($query);
+
+        return $result;
+
+    }
+
+
+    public function getOfferInfo($object)
+    {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getOfferInfo' . $object;
         } else {
@@ -121,7 +205,7 @@ class Offer
 
             // images, permalink
             $objImages = Images::init();
-            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured','small','full']);
+            $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'small', 'full']);
             $object->permalink = '#';
 
             $query = 'SELECT * FROM ' . $this->_tbl_offer_info . ' WHERE object_id = ' . $object->ID;
@@ -129,10 +213,10 @@ class Offer
             $object = (object)array_merge((array)$object, (array)$post_info);
 
             $query_2 = 'SELECT * FROM ' . $this->_tbl_offer_journey . ' WHERE offer_id = ' . $object->ID;
-            $list_offer_room =$this->_wpdb->get_results($query_2);
+            $list_offer_room = $this->_wpdb->get_results($query_2);
             $object->list_offer_room = $list_offer_room;
 
-            if(!empty($list_offer_room[0])){
+            if (!empty($list_offer_room[0])) {
                 $journey_type_id = $list_offer_room[0]->journey_type_id;
                 $object->journey_type_id = $journey_type_id;
 
@@ -146,30 +230,36 @@ class Offer
         return $result;
     }
 
-    public function insertOfferRoomType($offer_id,$journey_type_id,$room_type_id){
-        return $this->_wpdb->insert($this->_tbl_offer_journey,array(
+
+    public function insertOfferRoomType($offer_id, $journey_type_id, $room_type_id)
+    {
+        return $this->_wpdb->insert($this->_tbl_offer_journey, array(
             'offer_id' => $offer_id,
             'journey_type_id' => $journey_type_id,
             'room_type_id' => $room_type_id,
         ));
     }
 
-    public function deleteOfferRoomType($offer_id){
-        return $this->_wpdb->delete($this->_tbl_offer_journey,array(
+
+    public function deleteOfferRoomType($offer_id)
+    {
+        return $this->_wpdb->delete($this->_tbl_offer_journey, array(
             'offer_id' => $offer_id,
         ));
     }
 
-    public function getOfferByJourneyType($jt_id){
+
+    public function getOfferByJourneyType($jt_id)
+    {
         $rs = array();
-        $query = ' SELECT oj.* FROM '.$this->_tbl_offer_journey . ' oj
-         INNER JOIN '.$this->_wpdb->posts.' as p ON p.ID = oj.offer_id
-         WHERE oj.journey_type_id = '.$jt_id .'  AND p.post_status = "publish"
+        $query = ' SELECT oj.* FROM ' . $this->_tbl_offer_journey . ' oj
+         INNER JOIN ' . $this->_wpdb->posts . ' as p ON p.ID = oj.offer_id
+         WHERE oj.journey_type_id = ' . $jt_id . '  AND p.post_status = "publish"
         ';
         $list_jt_have_off = $this->_wpdb->get_results($query);
-        if($list_jt_have_off){
-            foreach ($list_jt_have_off as $v){
-                $offer_info =$this->getOfferInfo($v->offer_id);
+        if ($list_jt_have_off) {
+            foreach ($list_jt_have_off as $v) {
+                $offer_info = $this->getOfferInfo($v->offer_id);
                 $v->offer_info = $offer_info;
                 //unset($v->journey_id);
                 $rs[] = $v;
@@ -177,6 +267,26 @@ class Offer
         }
 
         return $rs;
+    }
+
+
+    public function saveOffer($args)
+    {
+        if (empty($args['object_id'])) {
+            return false;
+        } else {
+            $query = "SELECT * FROM {$this->_tbl_offer_info} WHERE object_id = {$args['object_id']} AND room_type_id = {$args['room_type_id']}";
+            $offer_info = $this->_wpdb->get_row($query);
+
+            if (empty($offer_info)) {
+                $this->_wpdb->insert($this->_tbl_offer_info, $args);
+            } else {
+                $this->_wpdb->update($this->_tbl_offer_info, $args,
+                    ['object_id' => $args['object_id'], 'room_type_id' => $args['room_type_id']]);
+            }
+
+            return true;
+        }
     }
 
 }

@@ -101,10 +101,10 @@ class JourneyType
                     $where .= ' AND jtp.port_id = ' . $port->ID;
                 }
             }
-            if (!empty($params['offer_id'])) {
-                $join .= ' INNER JOIN ' . $this->_tbl_offer_journey . ' as oj ON oj.journey_type_id = p.ID';
-                $where .= ' AND oj.offer_id = ' . intval($params['offer_id']);
-            }
+            // if (!empty($params['offer_id'])) {
+            //     $join .= ' INNER JOIN ' . $this->_tbl_offer_journey . ' as oj ON oj.journey_type_id = p.ID';
+            //     $where .= ' AND oj.offer_id = ' . intval($params['offer_id']);
+            // }
 
 
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
@@ -195,15 +195,18 @@ class JourneyType
                 $object->ship_info = $ship_detail;
             }
 
+            // Desitnation
             $objPost = Posts::init();
             if ($object->destination) {
                 $destination = $objPost->getInfo($object->destination);
                 $object->destination_info = $destination;
             }
 
+            // Initerary
             $object->itinerary  = $this->getJourneyTypeItinerary($object->ID);
 
 
+            // Gallery
             $objGallery = Gallery::init();
             $gallery = $objGallery->getGalleryBy($object->ID);
             $object->gallery = $gallery;
@@ -211,20 +214,20 @@ class JourneyType
             $room_price = $this->getJourneyTypePrice($object->ID);
             $object->room_price = $room_price;
 
-            $object->offer_main_info = false;
-            $object->offer = false;
-            if ($type != 'offer') {
-                $objOffer = Offer::init();
-                $offer = $objOffer->getOfferByJourneyType($object->ID);
-                if (!empty($offer)) {
-                    $object->offer = $offer;
-                    $object->offer_main_info = $object->offer[0]->offer_info;
-                    $object->offer_main_info = $object->offer[0]->offer_info;
-                    if (!empty($object->offer_main_info->start_date)) {
-                        $object->offer_main_info->month_year = date('M Y', strtotime($object->offer_main_info->start_date));
-                    }
-                }
-            }
+            // $object->offer_main_info = false;
+            // $object->offer = false;
+            // if ($type != 'offer') {
+            //     $objOffer = Offer::init();
+            //     $offer = $objOffer->getOfferByJourneyType($object->ID);
+            //     if (!empty($offer)) {
+            //         $object->offer = $offer;
+            //         $object->offer_main_info = $object->offer[0]->offer_info;
+            //         $object->offer_main_info = $object->offer[0]->offer_info;
+            //         if (!empty($object->offer_main_info->start_date)) {
+            //             $object->offer_main_info->month_year = date('M Y', strtotime($object->offer_main_info->start_date));
+            //         }
+            //     }
+            // }
 
             $result = $object;
             wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);

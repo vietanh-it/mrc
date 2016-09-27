@@ -48,13 +48,18 @@ class Journey
         $cacheId = __CLASS__ . 'getJourneyList' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        } else {
+        }
+        else {
             $result = false;
         }
         if ($result == false) {
+
+            // Paging
             $page = (empty($params['page'])) ? 1 : intval($params['page']);
             $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
             $to = ($page - 1) * $limit;
+
+            // Order by
             $order_by = "  ji.departure ASC ";
             if (!empty($params['order_by'])) {
                 $order_by = $params['order_by'];
@@ -62,6 +67,7 @@ class Journey
 
             $where = '';
             $join = '';
+            $not_in = '';
 
             $objPost = Posts::init();
             $join .= ' INNER JOIN ' . $this->_tbl_journey_info . ' as ji ON ji.object_id = p.ID
@@ -102,10 +108,37 @@ class Journey
                 $where .= " AND DATE_FORMAT(ji.departure,'%Y-%m') = '" . $month . "'";
             }
 
+
+            // Loại những journey đã có offer
+            if (!empty($params['is_exclude_offered'])) {
+                $query = "SELECT journey_id FROM " . TBL_OFFER_INFO . " GROUP BY journey_id";
+                $journey_offers = $this->_wpdb->get_results($query);
+                if (!empty($journey_offers)) {
+                    $not_exclude = valueOrNull($params['not_exclude']);
+
+                    $not_in_ctn = '';
+                    foreach ($journey_offers as $k => $v) {
+
+                        // Không loại journey của offer hiện tại
+                        if ($v->journey_id != $not_exclude) {
+                            $not_in_ctn .= $v->journey_id . ',';
+                        }
+
+                    }
+
+                    // trim
+                    $not_in_ctn = trim($not_in_ctn, ',');
+                    if (!empty($not_in_ctn)) {
+                        $not_in .= ' AND p.ID NOT IN(' . $not_in_ctn . ')';
+                    }
+
+                }
+            }
+
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
             $join
             WHERE p.post_type = 'journey' AND p.post_status='publish' AND pjs.post_status = 'publish' 
-            $where          
+            $where $not_in
             ORDER BY $order_by  LIMIT $to, $limit
             ";
 
@@ -120,7 +153,7 @@ class Journey
             }
 
             $result = [
-                'data' => $list,
+                'data'  => $list,
                 'total' => $total,
             ];
 
@@ -140,7 +173,8 @@ class Journey
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
-        } else {
+        }
+        else {
             $cacheId = __CLASS__ . 'getInfo' . $object->ID;
         }
 
@@ -164,6 +198,7 @@ class Journey
             $current_season = $this->getJourneySeason($object->ID);
             $object->current_season = $current_season;
             $object->is_offer = false;
+            $object->min_price = $this->getJourneyMinPrice($object->ID, true);
 
             if (!empty($journey_type_info)) {
                 // days, nights, duration
@@ -213,7 +248,8 @@ class Journey
 
                         if ($current_season == 'low') {
                             $price_sub = $v->single_low_season_price;
-                        } else {
+                        }
+                        else {
                             $price_sub = $v->single_high_season_price;
                         }
                         if ($price_sub < $min_price) {
@@ -234,6 +270,7 @@ class Journey
 
         return $result;
     }
+
 
     public function getJourneySeriesInfoByJourney($journey_id)
     {
@@ -306,7 +343,8 @@ class Journey
             $price = $price - (($price * $offer) / 100);
 
             return $price;
-        } else {
+        }
+        else {
             return 0;
         }
     }
@@ -430,16 +468,18 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
         return $result;
     }
 
+
     public function deleteJourneyDetail($journey_series_id)
     {
         $result = false;
 
         if ($journey_series_id) {
-            $result = $this->_wpdb->delete($this->_tbl_journey_info, array('journey_series_id' => $journey_series_id));
+            $result = $this->_wpdb->delete($this->_tbl_journey_info, ['journey_series_id' => $journey_series_id]);
         }
 
         return $result;
     }
+
 
     public function getJourneyDetailByJourneySeries($journey_series_id)
     {
@@ -449,6 +489,7 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
         return $this->_wpdb->get_results($select);
     }
 
+
     public function insertJourney($data)
     {
         $this->_wpdb->insert($this->_wpdb->posts, $data);
@@ -456,11 +497,91 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
         return $result;
     }
 
+
     public function deleteJourney($journey_id)
     {
         $result = false;
         if ($journey_id) {
-            $result = $this->_wpdb->delete($this->_wpdb->posts, array('ID' => $journey_id));
+            $result = $this->_wpdb->delete($this->_wpdb->posts, ['ID' => $journey_id]);
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * Lấy journey_type_id của journey
+     *
+     * @param $journey_id
+     * @return null|string
+     */
+    public function getJourneyTypeID($journey_id)
+    {
+        // Get journey_type_id of journey
+        $query = "SELECT jsi.journey_type_id FROM {$this->_tbl_journey_info} ji INNER JOIN {$this->_tbl_journey_series_info} jsi ON ji.journey_series_id = jsi.object_id WHERE ji.object_id = {$journey_id}";
+        $result = $this->_wpdb->get_var($query);
+
+        return $result;
+    }
+
+
+    /**
+     * Lấy promotion thuộc journey
+     *
+     * @param $journey_id
+     * @return null|string
+     */
+    public function getJourneyPromotion($journey_id)
+    {
+        $query = "SELECT promotion FROM " . TBL_OFFER_INFO . " GROUP BY journey_id HAVING journey_id = {$journey_id}";
+        $promotion = $this->_wpdb->get_var($query);
+
+        return $promotion;
+    }
+
+
+    // Get journey min price
+    public function getJourneyMinPrice($journey_id, $is_offer = false)
+    {
+        $result = 0;
+
+        $journey_type_id = $this->getJourneyTypeID($journey_id);
+        if (!empty($journey_type_id)) {
+            $current_season = $this->getJourneySeason($journey_id);
+
+            $query = "SELECT * FROM {$this->_prefix}journey_type_price WHERE journey_type_id = {$journey_type_id}";
+            $room_prices = $this->_wpdb->get_results($query);
+
+            // Get min price
+            if (!empty($room_prices)) {
+
+                // Initialize value
+                $min = $room_prices[0]->{'twin_' . $current_season . '_season_price'};
+
+                foreach ($room_prices as $k => $v) {
+
+                    $twin_price = ($v->{'twin_' . $current_season . '_season_price'} * 2);
+                    $single_price = $v->{'single_' . $current_season . '_season_price'};
+
+                    // Twin
+                    if ($twin_price < $min) {
+                        $min = $twin_price;
+                    }
+
+                    // Single
+                    if ($single_price < $min) {
+                        $min = $single_price;
+                    }
+
+                }
+
+                $result = $min;
+            }
+        }
+
+        if ($is_offer) {
+            $promotion = $this->getJourneyPromotion($journey_id);
+            $result = ($result * $promotion) / 100;
         }
 
         return $result;

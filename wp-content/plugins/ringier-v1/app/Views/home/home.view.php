@@ -99,7 +99,8 @@ get_header();
                             <img src="<?php echo VIEW_URL . '/images/why-1.png' ?>" alt="">
                             <div class="desc">
                                 <p class="title">The differences</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
+                                   ipsum eget mollis. Duis pulvinar nibh ornare.</p>
                             </div>
                         </div>
                     </div>
@@ -108,7 +109,8 @@ get_header();
                             <img src="<?php echo VIEW_URL . '/images/why-2.png' ?>" alt="">
                             <div class="desc">
                                 <p class="title">Our care</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
+                                   ipsum eget mollis. Duis pulvinar nibh ornare.</p>
                             </div>
                         </div>
                     </div>
@@ -117,7 +119,8 @@ get_header();
                             <img src="<?php echo VIEW_URL . '/images/why-3.png' ?>" alt="">
                             <div class="desc">
                                 <p class="title">Ship owner and partner</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
+                                   ipsum eget mollis. Duis pulvinar nibh ornare.</p>
                             </div>
                         </div>
                     </div>
@@ -142,11 +145,13 @@ get_header();
                                 <div class="box-journey">
                                     <div class="image">
                                         <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
-                                            <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                                            <img src="<?php echo $v->images->featured ?>"
+                                                 alt="<?php echo $v->post_title ?>" class="lazy">
                                         </a>
                                     </div>
                                     <div class="desc">
-                                        <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                                        <a href="<?php echo $v->permalink ?>" class="title"
+                                           title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
                                         <p><?php echo cut_string_by_char(($v->post_excerpt), 150) ?></p>
                                         <a href="<?php echo $v->permalink ?>" class="explore" title="">Explore</a>
                                     </div>
@@ -161,7 +166,7 @@ get_header();
     <img src="<?php echo VIEW_URL . '/images/icon-trong-dong.png' ?>" alt="" class="bg-a">
 </div>
 
-<?php if (!empty($list_offer['data'])) { ?>
+<?php if (!empty($list_offer)) { ?>
     <div class="offer-home">
         <div class="container ">
             <div class="row">
@@ -170,7 +175,9 @@ get_header();
                         <a href="<?php echo WP_SITEURL . '/offers/' ?>">Latest offer</a>
                         <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
 
-                        <a class="btn-kep-offer" href="#form-kep-offer"><img src="<?php echo VIEW_URL . '/images/icon-email-2.png' ?>" style="padding-right: 10px"> Keep in touch with best offer</a>
+                        <a class="btn-kep-offer" href="#form-kep-offer"><img
+                                src="<?php echo VIEW_URL . '/images/icon-email-2.png' ?>" style="padding-right: 10px">
+                            Keep in touch with best offer</a>
 
                         <form id="form-kep-offer" style="display: none" class="form-facybox">
                             <div class="form-group">
@@ -191,41 +198,58 @@ get_header();
                         <div class="owl-carousel-2">
                             <?php
                             $JourneyType = \RVN\Controllers\JourneyTypeController::init();
-                            foreach ($list_offer['data'] as $v) {
+                            $m_journey = \RVN\Models\Journey::init();
 
-                                $min_price = 0;
-                                if (!empty($v->journey_type_id)) {
-                                    $journey_min_price = $JourneyType->getJourneyMinPrice($v->journey_type_id, 'offer');
-                                    if (!empty($journey_min_price) && !empty($journey_min_price->min_price_offer)) {
-                                        $min_price = $journey_min_price->min_price_offer;
-                                    }
-                                }
-                                if (!empty($min_price)) {
-                                    ?>
-                                    <div class="col-xs-12 col-sm-12">
-                                        <div class="box-journey box-white">
-                                            <div class="image" style="position: relative">
-                                                <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
-                                                    <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                            foreach ($list_offer as $v) {
+                                $journey_info = $m_journey->getInfo($v->journey_id);
+
+                                $permalink = $journey_info->journey_type_info->permalink . '?journey_offer_id=' . $journey_info->ID;
+
+                                // Journey min price
+                                $journey_min_price = $m_journey->getJourneyMinPrice($v->journey_id, true); ?>
+
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="box-journey box-white">
+
+                                        <div class="image" style="position: relative">
+                                            <a href="<?php echo $permalink ?>" title="<?php echo $v->post_title ?>">
+                                                <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                                            </a>
+                                            <div class="price">
+                                                $<?php echo number_format($journey_min_price) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="desc">
+                                            <a href="<?php echo $permalink ?>" class="title" title="<?php echo $v->post_title ?>">
+                                                <?php echo $v->post_title ?>
+                                            </a>
+
+                                            <p>
+                                                <?php echo cut_string_by_char(strip_tags($v->post_content), 150) ?>
+                                            </p>
+
+                                            <p>
+                                                <b>Departure date:</b>
+                                                <?php echo date("j F Y", strtotime($journey_info->departure)); ?>
+
+                                                <a href="<?php echo $permalink; ?>" class="read-more" title="read more">
+                                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                                                 </a>
-                                                <div class="price"> $<?php echo number_format($min_price) ?></div>
-                                            </div>
-                                            <div class="desc">
-                                                <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
-                                                <p><?php echo cut_string_by_char(strip_tags($v->post_content), 150) ?></p>
-                                                <p>
-                                                    <b>Start Date:</b> <?php echo date("j F Y", strtotime($v->start_date)); ?>
-                                                    <a href="<?php echo $v->permalink ?>" class="read-more" title="read more"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                                </p>
-                                            </div>
-                                            <div class="star"><i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i></div>
+                                            </p>
+                                        </div>
+                                        <div class="star">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
                                     </div>
-                                <?php }
-                            } ?>
+                                </div>
+
+                            <?php } ?>
+
                         </div>
                     </div>
                 </div>
@@ -235,12 +259,15 @@ get_header();
 <?php } ?>
 
 <?php if (!empty($list_room_items['data']) or !empty($list_room_items_featured['data'])) {
-    if(!empty($list_room_items_featured['data'])){
+    if (!empty($list_room_items_featured['data'])) {
         $big_room = array_shift($list_room_items_featured['data']);
-    }else{
-        if(!empty($list_room_items['data'])) $big_room = array_shift($list_room_items['data']);
     }
-    if(!empty($big_room)){
+    else {
+        if (!empty($list_room_items['data'])) {
+            $big_room = array_shift($list_room_items['data']);
+        }
+    }
+    if (!empty($big_room)) {
         ?>
         <div class="room-home">
             <div class="container ">
@@ -257,7 +284,9 @@ get_header();
                                 <div class="col-xs-12 col-sm-6">
                                     <div class="box-room">
                                         <?php foreach ($big_room->gallery as $kg => $img) { ?>
-                                            <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="big_rom">
+                                            <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?>
+                                                href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>"
+                                                class="fancybox" rel="big_rom">
                                                 <img src="<?php echo $img->featured ?>" alt="" class="lazy ">
                                             </a>
                                         <?php } ?>
@@ -273,7 +302,10 @@ get_header();
                                         <div class="col-xs-6 col-sm-3">
                                             <div class="box-room">
                                                 <?php foreach ($room->gallery as $kg => $img) { ?>
-                                                    <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?> href="<?php echo $img->full ?>" title="<?php echo $img->caption ?>" class="fancybox" rel="list_room_<?php echo $room->ID ?>">
+                                                    <a <?php echo $kg != 0 ? "style ='display:none'" : '' ?>
+                                                        href="<?php echo $img->full ?>"
+                                                        title="<?php echo $img->caption ?>" class="fancybox"
+                                                        rel="list_room_<?php echo $room->ID ?>">
                                                         <img src="<?php echo $img->featured ?>" alt="" class="lazy">
                                                     </a>
                                                 <?php } ?>

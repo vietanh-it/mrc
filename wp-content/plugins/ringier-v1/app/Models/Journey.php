@@ -48,8 +48,7 @@ class Journey
         $cacheId = __CLASS__ . 'getJourneyList' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        }
-        else {
+        } else {
             $result = false;
         }
         if ($result == false) {
@@ -153,7 +152,7 @@ class Journey
             }
 
             $result = [
-                'data'  => $list,
+                'data' => $list,
                 'total' => $total,
             ];
 
@@ -173,8 +172,7 @@ class Journey
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
-        }
-        else {
+        } else {
             $cacheId = __CLASS__ . 'getInfo' . $object->ID;
         }
 
@@ -248,8 +246,7 @@ class Journey
 
                         if ($current_season == 'low') {
                             $price_sub = $v->single_low_season_price;
-                        }
-                        else {
+                        } else {
                             $price_sub = $v->single_high_season_price;
                         }
                         if ($price_sub < $min_price) {
@@ -343,8 +340,7 @@ class Journey
             $price = $price - (($price * $offer) / 100);
 
             return $price;
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -352,40 +348,10 @@ class Journey
 
     public function getJourneyOffer($journey_id, $room_type_id)
     {
-        if (!empty($journey_id) && !empty($room_type_id)) {
-            $journey_type = $this->getJourneyTypeByJourney($journey_id);
+        $query = "SELECT promotion FROM " . TBL_OFFER_INFO . " WHERE journey_id = {$journey_id} AND room_type_id = {$room_type_id}";
+        $promotion = $this->_wpdb->get_var($query);
 
-            $query = "SELECT * FROM {$this->_prefix}offer_info oi INNER JOIN {$this->_prefix}offer_journey oj ON oi.object_id = oj.offer_id WHERE oj.journey_type_id = {$journey_type->journey_type_id} AND oj.room_type_id = {$room_type_id}";
-            $result = $this->_wpdb->get_row($query);
-            $promotion = 0;
-
-            if (!empty($result)) {
-
-                // Check if promotion start date & end date is suitable
-                $journey = $this->getJourneyInfoByID($journey_id);
-                $departure = strtotime($journey->departure);
-                $arrive = strtotime('+ ' . $journey->nights . ' days', $departure);
-
-                $offer_start = strtotime($result->start_date);
-                $offer_end = strtotime($result->end_date);
-
-                // offer start <= departure <= offer end
-                if (($offer_start <= $departure) && ($departure <= $offer_end)) {
-                    $promotion = $result->promotion;
-                }
-
-                // offer start <= arrive <= offer end
-                if (($offer_start <= $arrive) && ($arrive <= $offer_end)) {
-                    $promotion = $result->promotion;
-                }
-            }
-
-            if (is_numeric($promotion)) {
-                return intval($promotion);
-            }
-        }
-
-        return false;
+        return $promotion;
     }
 
 
@@ -526,17 +492,20 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
 
 
     /**
-     * Lấy promotion thuộc journey
+     * Get Journey info by Offer
      *
-     * @param $journey_id
-     * @return null|string
+     * @param $offer_id
+     * @return bool|mixed|object
      */
-    public function getJourneyPromotion($journey_id)
+    public function getJourneyByOffer($offer_id)
     {
-        $query = "SELECT promotion FROM " . TBL_OFFER_INFO . " GROUP BY journey_id HAVING journey_id = {$journey_id}";
-        $promotion = $this->_wpdb->get_var($query);
+        // Get journey id
+        $query = "SELECT journey_id FROM " . TBL_OFFER_INFO . " WHERE object_id = {$offer_id} LIMIT 1";
+        $journey_id = $this->_wpdb->get_var($query);
 
-        return $promotion;
+        $journey_info = $this->getInfo($journey_id);
+
+        return $journey_info;
     }
 
 
@@ -545,23 +514,40 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
     {
         $result = 0;
 
+        // Get journey type id by journey id
         $journey_type_id = $this->getJourneyTypeID($journey_id);
         if (!empty($journey_type_id)) {
+
+            // Get current season
             $current_season = $this->getJourneySeason($journey_id);
 
+            // Get room type prices
             $query = "SELECT * FROM {$this->_prefix}journey_type_price WHERE journey_type_id = {$journey_type_id}";
-            $room_prices = $this->_wpdb->get_results($query);
+            $rt_prices = $this->_wpdb->get_results($query);
 
             // Get min price
-            if (!empty($room_prices)) {
+            if (!empty($rt_prices)) {
 
                 // Initialize value
-                $min = $room_prices[0]->{'twin_' . $current_season . '_season_price'};
+                $min = $rt_prices[0]->{'twin_' . $current_season . '_season_price'};
 
-                foreach ($room_prices as $k => $v) {
+                foreach ($rt_prices as $k => $v) {
 
                     $twin_price = ($v->{'twin_' . $current_season . '_season_price'} * 2);
                     $single_price = $v->{'single_' . $current_season . '_season_price'};
+
+                    if ($is_offer) {
+
+                        // Get offer for room type
+                        $offer = $this->getJourneyOffer($journey_id, $v->room_type_id);
+
+                        // With offer
+                        if (!empty($offer)) {
+                            $twin_price = ($twin_price * $offer) / 100;
+                            $single_price = ($single_price * $offer) / 100;
+                        }
+
+                    }
 
                     // Twin
                     if ($twin_price < $min) {
@@ -577,11 +563,6 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
 
                 $result = $min;
             }
-        }
-
-        if ($is_offer) {
-            $promotion = $this->getJourneyPromotion($journey_id);
-            $result = ($result * $promotion) / 100;
         }
 
         return $result;

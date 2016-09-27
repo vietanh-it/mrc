@@ -129,63 +129,13 @@ jQuery(document).ready(function ($) {
         var obj = $(this);
         var journey_type_id = obj.attr('data-journey_type');
 
-        $.ajax({
-            type: "post",
-            url: ajaxurl,
-            dataType: 'json',
-            data: ({
-                action: "ajax_handler_journey",
-                method: "GetJourneyByJourneyType",
-                journey_type_id: journey_type_id
-            }),
-            beforeSend: function () {
-            },
-            success: function (data) {
-                var html = '';
-                if (data.total > 0) {
-                    //console.log(data);
-                    var result = data.data;
-                    $.each(result, function (key, value) {
-                        var text = '';
-                        if (value.min_price_fm != value.min_price_offer_fm) {
-                            text = '<span style="text-decoration: line-through;color: burlywood;">' + value.min_price_fm + '</span>';
-                        }
-                        var htm_offer = '';
-                        if (value.is_offer) {
-                            var offer_info = value.journey_type_info.offer_main_info;
-                            var img_ticket = $('#ctn-list-journey').attr('data-img_ticket');
-                            htm_offer = '<b>' + offer_info.post_title + '<br>' + offer_info.month_year + ' and save ' + offer_info.promotion + '%.</b> <img src="' + img_ticket + '"> ';
-                        }
+        $('#ctn-list-journey').fadeIn();
 
-                        var class_navi = 'downstream';
-                        if (value.navigation == 'upstream') {
-                            class_navi = 'upstream';
-                        }
 
-                        html += '<tr class="' + class_navi + '"> ' +
-                            '<td> <b>' + value.departure_fm + '</b> </td> ' +
-                            '<td> ' + value.journey_type_info.destination_info.post_title + '<br> '
-                            + value.journey_type_info.nights + ' nights<br> ' + htm_offer + '</td> ' +
-                            '<td style="text-decoration: underline"> <a href="' + value.journey_type_info.ship_info.permalink + '" target="_blank" style="color: rgb(84, 84, 84);">' + value.journey_type_info.ship_info.post_title + '</a></td> ' +
-                            '<td> ' + value.navigation + ' </td> ' +
-                            '<td> from ' + text + ' <b style="color: #e4a611">US$' + value.min_price_offer_fm + '</b> pp <br>based on twin cabin </td> ' +
-                            '<td> <a href="' + value.permalink + '" class="bnt-jn">Select</a>' +
-                            'Some availability </td> ' +
-                            '</tr>';
-                    });
-                } else {
-                    html += '<tr> <td colspan="6"> No result is found</td> </tr>';
-                }
+        $('html, body').animate({
+            scrollTop: $('#ctn-list-journey').offset().top - 50
+        }, 500);
 
-                //console.log(html);
-
-                $('.ctn-list-journey tbody').html(html);
-                $('#ctn-list-journey').fadeIn();
-                $('html, body').animate({
-                    scrollTop: $('#ctn-list-journey').offset().top - 50
-                }, 500);
-            }
-        })
     });
 
     $('.order-navigation').click(function () {

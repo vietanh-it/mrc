@@ -1,17 +1,20 @@
 <?php
 get_header();
-$journey_type_info = !empty($journey_type_info) ? $journey_type_info : $journey_type_info = '';
-$journey_min_price = !empty($journey_min_price) ? $journey_min_price : $journey_min_price = '';
+$journey_type_info = valueOrNull($journey_type_info);
+$journey_min_price = valueOrNull($journey_min_price);
 
 $min_price = $journey_min_price->min_price;
 if (!empty($journey_min_price->min_price_offer)) {
     $min_price = $journey_min_price->min_price_offer;
 }
-if ($journey_type_info) { ?>
+
+if (!empty($journey_type_info)) { ?>
 
     <div class="journey-detail">
         <div class="featured-image">
-            <a href="<?php echo $journey_type_info->images->full ?>" class="fancybox"><img src="<?php echo $journey_type_info->images->full ?>" alt="<?php echo $journey_type_info->post_title ?>"></a>
+            <a href="<?php echo $journey_type_info->images->full ?>" class="fancybox"><img
+                    src="<?php echo $journey_type_info->images->full ?>"
+                    alt="<?php echo $journey_type_info->post_title ?>"></a>
 
             <div class="container container-big">
                 <div class="info">
@@ -23,18 +26,21 @@ if ($journey_type_info) { ?>
                         <li><b><?php echo $journey_type_info->duration ?></b></li>
                         <?php if (!empty($journey_type_info->offer_main_info)) { ?>
                             <li>
-                                <b>Promotion:</b> Save up to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
+                                <b>Promotion:</b> Save up
+                                to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
                             </li>
                         <?php } ?>
                     </ul>
-                    <a href="javascript:void(0)" class="btn-show-journey" data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
+                    <a href="javascript:void(0)" class="btn-show-journey"
+                       data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
                     <span>from <span class="price-if"><?php echo number_format($min_price) ?></span> pp</span>
                 </div>
             </div>
 
         </div>
 
-        <div class="container container-big" id="ctn-list-journey" style="display: none" data-img_ticket="<?php echo VIEW_URL . '/images/icon-ticket.png' ?>">
+        <div class="container container-big" id="ctn-list-journey" style="display: none"
+             data-img_ticket="<?php echo VIEW_URL . '/images/icon-ticket.png' ?>">
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                     <div class="ctn-list-journey">
@@ -47,8 +53,10 @@ if ($journey_type_info) { ?>
                                 <th>From - to</th>
                                 <th>Ship</th>
                                 <th>
-                                    <a href="javascript:void(0)" class="order-navigation active" data-navigation="all">All</a> |
-                                    <a href="javascript:void(0)" class="order-navigation" data-navigation="upstream">Upstream</a> |
+                                    <a href="javascript:void(0)" class="order-navigation active" data-navigation="all">All</a>
+                                    |
+                                    <a href="javascript:void(0)" class="order-navigation" data-navigation="upstream">Upstream</a>
+                                    |
                                     <a href="javascript:void(0)" class="order-navigation" data-navigation="downstream">Downstream</a>
                                 </th>
                                 <th><b>Price</b></th>
@@ -56,6 +64,59 @@ if ($journey_type_info) { ?>
                             </tr>
                             </thead>
                             <tbody>
+
+                            <?php if (!empty($journey_list['data'])) {
+
+                                $m_journey = \RVN\Models\Journey::init();
+                                $m_offer = \RVN\Models\Offer::init();
+
+                                foreach ($journey_list['data'] as $k => $v) {
+                                    $jt_info = $v->journey_type_info;
+                                    $offer = $m_offer->getOfferByJourney($v->ID); ?>
+
+
+                                    <tr class="<?php echo $v->navigation; ?>">
+                                        <td>
+                                            <b><?php echo $v->departure_fm; ?></b>
+                                        </td>
+                                        <td>
+                                            <?php echo $v->journey_type_info->starting_point ?><br>
+                                            <?php echo $jt_info->duration; ?><br>
+
+                                            <?php if (!empty($offer)) { ?>
+
+                                                <b>
+                                                    <?php echo $offer->post_title ?> <br>
+                                                    Book by <?php echo $v->departure_fm; ?>
+                                                    and save <?php echo $offer->offers[0]->promotion; ?>%.
+                                                </b>
+
+                                                <img src="<?php echo VIEW_URL ?>/images/icon-ticket.png">
+
+                                            <?php } ?>
+                                        </td>
+                                        <td style="text-decoration: underline">
+                                            <a href="https://www.vietcruises.com/ship/mekong-princess" target="_blank"
+                                               style="color: rgb(84, 84, 84);">Mekong Princess</a>
+                                        </td>
+                                        <td> <?php echo $v->navigation; ?></td>
+                                        <td> from
+                                            <span style="text-decoration: line-through;color: burlywood;">700</span>
+                                            <b style="color: #e4a611">US$350</b> pp <br>based on twin cabin
+                                        </td>
+                                        <td>
+                                            <a href="https://www.vietcruises.com/journey/mc1" class="bnt-jn">Select</a>Some
+                                            availability
+                                        </td>
+                                    </tr>
+
+                                <?php }
+                            }
+                            else { ?>
+                                <tr>
+                                    <td colspan="6"> No result is found</td>
+                                </tr>
+                            <?php } ?>
 
                             </tbody>
                         </table>
@@ -73,21 +134,24 @@ if ($journey_type_info) { ?>
                             <?php foreach ($journey_type_info->gallery as $g) {
                                 ?>
                                 <div>
-                                    <a href="<?php echo $g->full ?>" class="fancybox" rel="Journey photos"><img src="<?php echo $g->small ?>"></a>
+                                    <a href="<?php echo $g->full ?>" class="fancybox" rel="Journey photos"><img
+                                            src="<?php echo $g->small ?>"></a>
                                 </div>
                             <?php } ?>
                         </div>
                     <?php } ?>
 
                     <h3 class="title-main">Journey map</h3>
-                    <a href="<?php echo $journey_type_info->map_image ?>" class="fancybox"><img src="<?php echo $journey_type_info->map_image ?>" alt=""></a>
+                    <a href="<?php echo $journey_type_info->map_image ?>" class="fancybox"><img
+                            src="<?php echo $journey_type_info->map_image ?>" alt=""></a>
 
                     <?php if ($journey_type_info->ship_info->gallery) { ?>
                         <h3 class="title-main">The ship</h3>
                         <div class="list-galary">
                             <?php foreach ($journey_type_info->ship_info->gallery as $g) { ?>
                                 <div>
-                                    <a href="<?php echo $g->full ?>" class="fancybox" rel="ship photos"><img src="<?php echo $g->small ?>"></a>
+                                    <a href="<?php echo $g->full ?>" class="fancybox" rel="ship photos"><img
+                                            src="<?php echo $g->small ?>"></a>
                                 </div>
                             <?php } ?>
                         </div>
@@ -102,7 +166,8 @@ if ($journey_type_info) { ?>
                         foreach ($itinerary as $it) {
                             ?>
                             <div class="box-day-in">
-                                <div class="day-in">DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?></div>
+                                <div class="day-in">
+                                    DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?></div>
                                 <p><?php echo apply_filters('the_content', $it->content) ?></p>
                             </div>
                         <?php }
@@ -122,7 +187,8 @@ if ($journey_type_info) { ?>
                                     <div class="related">
                                         <div class="images">
                                             <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
-                                                <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>">
+                                                <img src="<?php echo $v->images->featured ?>"
+                                                     alt="<?php echo $v->post_title ?>">
                                             </a>
                                         </div>
                                         <div class="title">
@@ -141,5 +207,5 @@ if ($journey_type_info) { ?>
         </div>
     </div>
 <?php }
-?>
-<?php get_footer() ?>
+
+get_footer() ?>

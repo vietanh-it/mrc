@@ -172,7 +172,7 @@ get_header();
             <div class="row">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                     <div class="tile-main" style="position: relative">
-                        <a href="<?php echo WP_SITEURL . '/offers/' ?>">Latest offer</a>
+                        <a href="javascript:void(0)">Latest offer</a>
                         <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
 
                         <a class="btn-kep-offer" href="#form-kep-offer"><img
@@ -203,7 +203,7 @@ get_header();
                             foreach ($list_offer as $v) {
                                 $journey_info = $m_journey->getInfo($v->journey_id);
 
-                                $permalink = $journey_info->journey_type_info->permalink . '?journey_offer_id=' . $journey_info->ID;
+                                $permalink = $journey_info->journey_type_info->permalink . '#j=' . $journey_info->ID;
 
                                 // Journey min price
                                 $journey_min_price = $m_journey->getJourneyMinPrice($v->journey_id, true); ?>

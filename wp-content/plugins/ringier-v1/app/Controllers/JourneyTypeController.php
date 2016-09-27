@@ -41,6 +41,8 @@ class JourneyTypeController extends _BaseController
     public function journeyTypeDetail($journey_id)
     {
         $journeyType = JourneyType::init();
+        $m_journey = Journey::init();
+
         $journey_type_info = $journeyType->getInfo($journey_id);
 
         $objTourAddon = Addon::init();
@@ -52,7 +54,12 @@ class JourneyTypeController extends _BaseController
 
         $journey_min_price = $this->getJourneyMinPrice($journey_id);
 
-        return view('journey-type/detail', compact('journey_type_info', 'list_add_on', 'journey_min_price'));
+        // List Journey
+        $journey_list = $m_journey->getJourneyList(['journey_type_id' => $journey_id]);
+
+
+        return view('journey-type/detail',
+            compact('journey_type_info', 'journey_list', 'list_add_on', 'journey_min_price'));
     }
 
     public function getJourneyMinPrice($journey_id, $type = '')

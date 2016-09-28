@@ -33,7 +33,7 @@ if (!empty($journey_type_info)) { ?>
                     </ul>
                     <a href="javascript:void(0)" class="btn-show-journey"
                        data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
-                    <span>from <span class="price-if"><?php echo number_format($min_price) ?></span> pp</span>
+                    <span>from US$<span class="price-if"><?php echo number_format($min_price) ?></span> pp</span>
                 </div>
             </div>
 
@@ -108,7 +108,7 @@ if (!empty($journey_type_info)) { ?>
 
                                             <?php if (!empty($offer)) { ?>
                                                 <span style="text-decoration: line-through;color: burlywood; padding-right: 5px;">
-                                                $<?php echo number_format($j_min_price->min_price); ?>
+                                                US$<?php echo number_format($j_min_price->min_price); ?>
                                             </span>
                                             <?php } ?>
 
@@ -249,5 +249,6 @@ get_footer() ?>
             }, 2500);
 
         }
+
     });
 </script>

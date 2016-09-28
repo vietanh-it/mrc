@@ -181,7 +181,9 @@ jQuery(document).ready(function ($) {
         if (_ship == '' && _destination == '' && _month == '' && _port == '') {
             e.preventDefault();
 
-            swal({'title': 'Warning', "text": 'Please choose one of the options', "type": "warning", html: true});
+            // remove parameters
+            window.location.href = location.protocol + '//' + location.host + location.pathname;
+            // swal({'title': 'Warning', "text": 'Please choose one of the options', "type": "warning", html: true});
         }
     });
 

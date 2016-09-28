@@ -26,6 +26,7 @@ class JourneyTypeController extends _BaseController
         return self::$instance;
     }
 
+
     public function journeyTypeList($args)
     {
         $page = get_query_var('paged');
@@ -38,12 +39,15 @@ class JourneyTypeController extends _BaseController
         view('journey-type/list', compact('list_journey_type'));
     }
 
+
     public function journeyTypeDetail($journey_id)
     {
         $journeyType = JourneyType::init();
         $m_journey = Journey::init();
 
         $journey_type_info = $journeyType->getInfo($journey_id);
+
+        $min_price = $journeyType->getJourneyTypeMinPrice($journey_type_info->ID);
 
         $objTourAddon = Addon::init();
         $list_add_on = $objTourAddon->getList(
@@ -52,15 +56,15 @@ class JourneyTypeController extends _BaseController
                 'limit'           => 6,
             ]);
 
-        $journey_min_price = $this->getJourneyMinPrice($journey_id);
 
         // List Journey
         $journey_list = $m_journey->getJourneyList(['journey_type_id' => $journey_id]);
 
 
         return view('journey-type/detail',
-            compact('journey_type_info', 'journey_list', 'list_add_on', 'journey_min_price'));
+            compact('journey_type_info', 'journey_list', 'list_add_on', 'min_price'));
     }
+
 
     public function getJourneyMinPrice($journey_id, $type = '')
     {

@@ -1,12 +1,7 @@
 <?php
 get_header();
-$journey_type_info = valueOrNull($journey_type_info);
-$journey_min_price = valueOrNull($journey_min_price);
 
-$min_price = $journey_min_price->min_price;
-if (!empty($journey_min_price->min_price_offer)) {
-    $min_price = $journey_min_price->min_price_offer;
-}
+$min_price = valueOrNull($min_price, 0);
 
 if (!empty($journey_type_info)) { ?>
 
@@ -128,7 +123,7 @@ if (!empty($journey_type_info)) { ?>
                             }
                             else { ?>
                                 <tr>
-                                    <td colspan="6"> No result is found</td>
+                                    <td colspan="6"> No journey is available at the moment</td>
                                 </tr>
                             <?php } ?>
 

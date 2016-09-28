@@ -8,7 +8,6 @@
 namespace RVN\Models;
 
 use RVN\Library\Images;
-use WeDevs\ORM\WP\Post;
 
 class JourneyType
 {
@@ -203,7 +202,7 @@ class JourneyType
             }
 
             // Initerary
-            $object->itinerary  = $this->getJourneyTypeItinerary($object->ID);
+            $object->itinerary = $this->getJourneyTypeItinerary($object->ID);
 
 
             // Gallery
@@ -335,15 +334,16 @@ class JourneyType
         return $result;
     }
 
-    public function getJourneyTypeItinerary($journey_type_id){
+    public function getJourneyTypeItinerary($journey_type_id)
+    {
         $select = 'SELECT jtp.* FROM ' . $this->_tbl_journey_type_itinerary . ' jtp
          WHERE jtp.journey_type_id  = ' . $journey_type_id;
 
         $result = $this->_wpdb->get_results($select);
-        if($result){
-            foreach ($result as &$v){
-                $location_info = array();
-                if(!empty($v->location)){
+        if ($result) {
+            foreach ($result as &$v) {
+                $location_info = [];
+                if (!empty($v->location)) {
                     $objPost = Posts::init();
                     $location_info = $objPost->getInfo($v->location);
                 }
@@ -354,7 +354,8 @@ class JourneyType
         return $result;
     }
 
-    public function saveJourneyTypeItinerary($data){
+    public function saveJourneyTypeItinerary($data)
+    {
         $result = false;
         if (!empty($data['journey_type_id'])) {
 
@@ -364,7 +365,8 @@ class JourneyType
         return $result;
     }
 
-    public function deleteJourneyTypeItinerary($journey_type_id){
+    public function deleteJourneyTypeItinerary($journey_type_id)
+    {
         $result = false;
         if (!empty($journey_type_id)) {
             $result = $this->_wpdb->delete($this->_tbl_journey_type_itinerary, ['journey_type_id' => $journey_type_id]);
@@ -372,5 +374,28 @@ class JourneyType
         }
 
         return $result;
+    }
+
+
+    public function getJourneyTypeMinPrice($jt_id)
+    {
+        $m_journey = Journey::init();
+        $journeys = $m_journey->getJourneyList(['journey_type_id' => $jt_id]);
+
+        $min = 0;
+        if (!empty($journeys['data'])) {
+            foreach ($journeys['data'] as $k => $v) {
+
+                // Get journey min price, compare to get minimum
+                // k = 0 => set minimum
+                $journey_min_price = $m_journey->getJourneyMinPrice($v->ID, true);
+                if (($k == 0) || ($journey_min_price->min_price_offer < $min)) {
+                    $min = $journey_min_price->min_price_offer;
+                }
+
+            }
+        }
+
+        return $min;
     }
 }

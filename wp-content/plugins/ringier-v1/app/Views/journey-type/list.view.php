@@ -36,7 +36,7 @@ view('journey/quick-search');
                         'after' => '</div>'
                     ));
                 } else { ?>
-                    <div class="col-xs-12 col-sm-12" style="    margin: 0 0 20px;">No result match found</div>
+                    <div class="col-xs-12 col-sm-12" style="    margin: 0 0 20px;">No journey match found</div>
                 <?php } ?>
             </div>
         </div>

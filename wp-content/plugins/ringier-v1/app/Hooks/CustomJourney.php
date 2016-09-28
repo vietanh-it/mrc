@@ -63,59 +63,65 @@ class CustomJourney
 
     public function trashJourneySeries($jseries_id)
     {
-        global $wpdb;
+        global $post, $wpdb;
 
-        $m_journey = Journey::init();
-        $m_offer = Offer::init();
-        $journey_list = $m_journey->getJourneyListBySeries($jseries_id);
+        if ($post->post_type == 'journey_series') {
+            $m_journey = Journey::init();
+            $m_offer = Offer::init();
+            $journey_list = $m_journey->getJourneyListBySeries($jseries_id);
 
-        foreach ($journey_list as $k => $v) {
-            // Trash journey
-            wp_trash_post($v->object_id);
+            foreach ($journey_list as $k => $v) {
+                // Trash journey
+                wp_trash_post($v->object_id);
 
-            // Trash offer theo journey
-            $offer = $m_offer->getOfferByJourney($v->object_id);
-            wp_trash_post($offer->ID);
+                // Trash offer theo journey
+                $offer = $m_offer->getOfferByJourney($v->object_id);
+                wp_trash_post($offer->ID);
+            }
         }
     }
 
 
     public function untrashJourneySeries($jseries_id)
     {
-        global $wpdb;
+        global $post, $wpdb;
 
-        $m_journey = Journey::init();
-        $m_offer = Offer::init();
-        $journey_list = $m_journey->getJourneyListBySeries($jseries_id);
+        if ($post->post_type == 'journey_series') {
+            $m_journey = Journey::init();
+            $m_offer = Offer::init();
+            $journey_list = $m_journey->getJourneyListBySeries($jseries_id);
 
-        foreach ($journey_list as $k => $v) {
-            // Untrash journey
-            wp_untrash_post($v->object_id);
+            foreach ($journey_list as $k => $v) {
+                // Untrash journey
+                wp_untrash_post($v->object_id);
 
-            // Untrash offer theo journey
-            $offer = $m_offer->getOfferByJourney($v->object_id);
-            wp_untrash_post($offer->ID);
+                // Untrash offer theo journey
+                $offer = $m_offer->getOfferByJourney($v->object_id);
+                wp_untrash_post($offer->ID);
+            }
         }
     }
 
 
     public function deleteJourneySeries($jseries_id)
     {
-        global $wpdb;
+        global $post, $wpdb;
 
-        $m_journey = Journey::init();
-        $m_offer = Offer::init();
-        $journey_list = $m_journey->getJourneyListBySeries($jseries_id);
+        if ($post->post_type == 'journey_series') {
+            $m_journey = Journey::init();
+            $m_offer = Offer::init();
+            $journey_list = $m_journey->getJourneyListBySeries($jseries_id);
 
-        foreach ($journey_list as $k => $v) {
-            wp_delete_post($v->object_id);
+            foreach ($journey_list as $k => $v) {
+                wp_delete_post($v->object_id);
 
-            // Delete journey info
-            $wpdb->delete($wpdb->prefix . 'journey_info', ['object_id' => $v->object_id]);
+                // Delete journey info
+                $wpdb->delete($wpdb->prefix . 'journey_info', ['object_id' => $v->object_id]);
 
-            // Delete offer theo journey
-            $offer = $m_offer->getOfferByJourney($v->object_id);
-            wp_delete_post($offer->ID);
+                // Delete offer theo journey
+                $offer = $m_offer->getOfferByJourney($v->object_id);
+                wp_delete_post($offer->ID);
+            }
         }
     }
 

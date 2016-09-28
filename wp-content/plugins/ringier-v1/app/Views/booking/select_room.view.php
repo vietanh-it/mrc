@@ -6,6 +6,9 @@
  * Time: 12:27 AM
  */
 
+
+// TODO: get room type price with offer
+
 $user_id = get_current_user_id();
 
 global $post;
@@ -75,7 +78,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 <div class="stateroom-price-wrapper">
                                     <?php foreach ($journey_type_info->room_price as $key => $room_type) { ?>
                                         <div class="bk-box bk-box-gray">
-                                            <span class="text"><?php echo $room_type->room_type_name ?> Twin Share</span>
+                                            <span class="text"><?php echo $room_type->room_type_name ?>
+                                                Twin Share</span>
                                             <span class="price">
 
                                                 <?php echo htmlPrice($room_type, 'twin', $current_season); ?>
@@ -103,7 +107,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 <div class="bk-box bk-box-2" style="background: #d5b76e;margin-top: 50px">
                                 <span
                                     style="text-transform: uppercase;font-weight: bold">Your stateroom selection</span>
-                                    <span class="price-2">Total: <b>US$<span class="stateroom-booking-total">0</span></b></span>
+                                    <span class="price-2">Total: <b>US$<span
+                                                class="stateroom-booking-total">0</span></b></span>
                                 </div>
 
                                 <div>
@@ -168,7 +173,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 </div>
 
                                 <div class="text-center btt-box">
-                                    <!--<a href="--><?php //echo WP_SITEURL . '/journeys' ?><!--" class="back">Back</a>-->
+                                    <!--<a href="-->
+                                    <?php //echo WP_SITEURL . '/journeys' ?><!--" class="back">Back</a>-->
                                     <a href="<?php echo $journey_type_info->permalink; ?>" class="back">Back</a>
                                     <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
                                        class="btn btn-primary btn-continue btn-yellow">Continue</a>
@@ -184,8 +190,10 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 </div>
 
 <div class="option-dialog" style="display: none;">
-    <a href="javascript:void(0)" class="twin"><img src="<?php echo VIEW_URL . '/images/icon-booking-twin.png'; ?>"> Twin</a> |
-    <a href="javascript:void(0)" class="single"><img src="<?php echo VIEW_URL . '/images/icon-booking-single.png'; ?>"> Single</a> |
+    <a href="javascript:void(0)" class="twin"><img src="<?php echo VIEW_URL . '/images/icon-booking-twin.png'; ?>"> Twin</a>
+    |
+    <a href="javascript:void(0)" class="single"><img src="<?php echo VIEW_URL . '/images/icon-booking-single.png'; ?>">
+        Single</a> |
     <a href="javascript:void(0)" class="none"><img src="<?php echo VIEW_URL . '/images/icon-booking-none.png'; ?>"> None</a>
 </div>
 

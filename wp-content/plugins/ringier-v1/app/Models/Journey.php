@@ -562,8 +562,12 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
 
                         // With offer
                         if (!empty($offer)) {
-                            $twin_price = ($twin_price * $offer) / 100;
-                            $single_price = ($single_price * $offer) / 100;
+
+                            // Offer 10% => remain = 90%
+                            $remain = 100 - $offer;
+
+                            $twin_price = ($twin_price * $remain) / 100;
+                            $single_price = ($single_price * $remain) / 100;
                         }
 
                     }

@@ -22,7 +22,7 @@ if (!empty($journey_type_info)) { ?>
                         <?php if (!empty($journey_type_info->offer_main_info)) { ?>
                             <li>
                                 <b>Promotion:</b> Save up
-                                                  to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
+                                to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
                             </li>
                         <?php } ?>
                     </ul>
@@ -76,7 +76,8 @@ if (!empty($journey_type_info)) { ?>
                                             <b><?php echo date('d M Y', strtotime($v->departure)); ?></b>
                                         </td>
                                         <td>
-                                            <?php echo $jt_info->starting_point ?> - <?php echo $jt_info->destination_info->post_title; ?>
+                                            <?php echo $jt_info->starting_point ?>
+                                            - <?php echo $jt_info->destination_info->post_title; ?>
                                             <br>
                                             <?php echo $jt_info->duration; ?><br>
 
@@ -93,7 +94,8 @@ if (!empty($journey_type_info)) { ?>
                                             <?php } ?>
                                         </td>
                                         <td style="text-decoration: underline">
-                                            <a href="<?php echo $jt_info->ship_info->permalink; ?>" target="_blank" style="color: rgb(84, 84, 84);">
+                                            <a href="<?php echo $jt_info->ship_info->permalink; ?>" target="_blank"
+                                               style="color: rgb(84, 84, 84);">
                                                 <?php echo $jt_info->ship_info->post_title; ?>
                                             </a>
                                         </td>
@@ -103,7 +105,8 @@ if (!empty($journey_type_info)) { ?>
                                         <td> from
 
                                             <?php if (!empty($offer)) { ?>
-                                                <span style="text-decoration: line-through;color: burlywood; padding-right: 5px;">
+                                                <span
+                                                    style="text-decoration: line-through;color: burlywood; padding-right: 5px;">
                                                 US$<?php echo number_format($j_min_price->min_price); ?>
                                             </span>
                                             <?php } ?>

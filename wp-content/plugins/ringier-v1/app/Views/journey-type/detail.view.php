@@ -27,7 +27,7 @@ if (!empty($journey_type_info)) { ?>
                         <?php if (!empty($journey_type_info->offer_main_info)) { ?>
                             <li>
                                 <b>Promotion:</b> Save up
-                                to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
+                                                  to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
                             </li>
                         <?php } ?>
                     </ul>
@@ -72,10 +72,11 @@ if (!empty($journey_type_info)) { ?>
 
                                 foreach ($journey_list['data'] as $k => $v) {
                                     $jt_info = $v->journey_type_info;
-                                    $offer = $m_offer->getOfferByJourney($v->ID); ?>
+                                    $offer = $m_offer->getOfferByJourney($v->ID);
+                                    $j_min_price = $m_journey->getJourneyMinPrice($v->ID, true); ?>
 
 
-                                    <tr class="<?php echo $v->navigation; ?>">
+                                    <tr class="<?php echo $v->navigation; ?>" data-jid="<?php echo $v->ID; ?>">
                                         <td>
                                             <b><?php echo $v->departure_fm; ?></b>
                                         </td>
@@ -96,17 +97,29 @@ if (!empty($journey_type_info)) { ?>
                                             <?php } ?>
                                         </td>
                                         <td style="text-decoration: underline">
-                                            <a href="https://www.vietcruises.com/ship/mekong-princess" target="_blank"
-                                               style="color: rgb(84, 84, 84);">Mekong Princess</a>
+                                            <a href="<?php echo $jt_info->ship_info->permalink; ?>" target="_blank" style="color: rgb(84, 84, 84);">
+                                                <?php echo $jt_info->ship_info->post_title; ?>
+                                            </a>
                                         </td>
+
                                         <td> <?php echo $v->navigation; ?></td>
+
                                         <td> from
-                                            <span style="text-decoration: line-through;color: burlywood;">700</span>
-                                            <b style="color: #e4a611">US$350</b> pp <br>based on twin cabin
+
+                                            <?php if (!empty($offer)) { ?>
+                                                <span style="text-decoration: line-through;color: burlywood; padding-right: 5px;">
+                                                $<?php echo number_format($j_min_price->min_price); ?>
+                                            </span>
+                                            <?php } ?>
+
+                                            <b style="color: #e4a611">
+                                                US$<?php echo number_format($j_min_price->min_price_offer); ?>
+                                            </b> pp
+                                            <br>based on <?php echo $j_min_price->type; ?> cabin
                                         </td>
                                         <td>
-                                            <a href="https://www.vietcruises.com/journey/mc1" class="bnt-jn">Select</a>Some
-                                            availability
+                                            <a href="<?php echo $v->permalink; ?>" class="bnt-jn">Select</a>
+                                            Some availability
                                         </td>
                                     </tr>
 
@@ -134,16 +147,18 @@ if (!empty($journey_type_info)) { ?>
                             <?php foreach ($journey_type_info->gallery as $g) {
                                 ?>
                                 <div>
-                                    <a href="<?php echo $g->full ?>" class="fancybox" rel="Journey photos"><img
-                                            src="<?php echo $g->small ?>"></a>
+                                    <a href="<?php echo $g->full ?>" class="fancybox" rel="Journey photos">
+                                        <img src="<?php echo $g->small ?>">
+                                    </a>
                                 </div>
                             <?php } ?>
                         </div>
                     <?php } ?>
 
                     <h3 class="title-main">Journey map</h3>
-                    <a href="<?php echo $journey_type_info->map_image ?>" class="fancybox"><img
-                            src="<?php echo $journey_type_info->map_image ?>" alt=""></a>
+                    <a href="<?php echo $journey_type_info->map_image ?>" class="fancybox">
+                        <img src="<?php echo $journey_type_info->map_image ?>" alt="">
+                    </a>
 
                     <?php if ($journey_type_info->ship_info->gallery) { ?>
                         <h3 class="title-main">The ship</h3>
@@ -209,3 +224,27 @@ if (!empty($journey_type_info)) { ?>
 <?php }
 
 get_footer() ?>
+
+<script>
+    var $ = jQuery.noConflict();
+    $(document).ready(function ($) {
+
+        // Scroll to jid
+        var jhash = location.hash;
+        if (jhash.substr(0, 3) == '#j=') {
+
+            $('#ctn-list-journey').fadeIn();
+
+
+            setTimeout(function () {
+                $('html, body').animate({
+                    scrollTop: $('#ctn-list-journey').offset().top - 50
+                }, 500);
+
+                var jid = jhash.substr(3);
+                $('[data-jid="' + jid + '"]').css('background', '#f5dda5').attr('style', '');
+            }, 1000);
+
+        }
+    });
+</script>

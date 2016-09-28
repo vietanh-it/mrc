@@ -48,7 +48,8 @@ class Journey
         $cacheId = __CLASS__ . 'getJourneyList' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        } else {
+        }
+        else {
             $result = false;
         }
         if ($result == false) {
@@ -152,7 +153,7 @@ class Journey
             }
 
             $result = [
-                'data' => $list,
+                'data'  => $list,
                 'total' => $total,
             ];
 
@@ -172,7 +173,8 @@ class Journey
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
-        } else {
+        }
+        else {
             $cacheId = __CLASS__ . 'getInfo' . $object->ID;
         }
 
@@ -196,7 +198,10 @@ class Journey
             $current_season = $this->getJourneySeason($object->ID);
             $object->current_season = $current_season;
             $object->is_offer = false;
-            $object->min_price = $this->getJourneyMinPrice($object->ID, true);
+
+            // Journey min price with offer
+            $min_price = $this->getJourneyMinPrice($object->ID, true);
+            $object->min_price = $min_price->min_price_offer;
 
             if (!empty($journey_type_info)) {
                 // days, nights, duration
@@ -246,7 +251,8 @@ class Journey
 
                         if ($current_season == 'low') {
                             $price_sub = $v->single_low_season_price;
-                        } else {
+                        }
+                        else {
                             $price_sub = $v->single_high_season_price;
                         }
                         if ($price_sub < $min_price) {
@@ -340,7 +346,8 @@ class Journey
             $price = $price - (($price * $offer) / 100);
 
             return $price;
-        } else {
+        }
+        else {
             return 0;
         }
     }
@@ -512,7 +519,12 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
     // Get journey min price
     public function getJourneyMinPrice($journey_id, $is_offer = false)
     {
-        $result = 0;
+        $result = [
+            'room_type_id'    => 0,
+            'min_price'       => 0,
+            'min_price_offer' => 0,
+            'type'            => ''
+        ];
 
         // Get journey type id by journey id
         $journey_type_id = $this->getJourneyTypeID($journey_id);
@@ -533,6 +545,7 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
 
                 foreach ($rt_prices as $k => $v) {
 
+                    // Calculate original price
                     $twin_price = ($v->{'twin_' . $current_season . '_season_price'} * 2);
                     $single_price = $v->{'single_' . $current_season . '_season_price'};
 
@@ -552,20 +565,33 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
                     // Twin
                     if ($twin_price < $min) {
                         $min = $twin_price;
+
+                        $result = [
+                            'room_type_id'    => $v->room_type_id,
+                            'min_price'       => ($v->{'twin_' . $current_season . '_season_price'} * 2),
+                            'min_price_offer' => $min,
+                            'type'            => 'twin'
+                        ];
                     }
 
                     // Single
                     if ($single_price < $min) {
                         $min = $single_price;
+
+                        $result = [
+                            'room_type_id'    => $v->room_type_id,
+                            'min_price'       => $v->{'single_' . $current_season . '_season_price'},
+                            'min_price_offer' => $min,
+                            'type'            => 'single'
+                        ];
                     }
 
                 }
 
-                $result = $min;
             }
         }
 
-        return $result;
+        return (object)$result;
     }
 
 }

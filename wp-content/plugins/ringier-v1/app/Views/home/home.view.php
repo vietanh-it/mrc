@@ -216,7 +216,7 @@ get_header();
                                                 <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
                                             </a>
                                             <div class="price">
-                                                $<?php echo number_format($journey_min_price) ?>
+                                                $<?php echo number_format($journey_min_price->min_price_offer) ?>
                                             </div>
                                         </div>
 

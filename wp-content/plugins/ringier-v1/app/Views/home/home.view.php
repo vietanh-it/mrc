@@ -100,7 +100,7 @@ get_header();
                             <div class="desc">
                                 <p class="title">The differences</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
-                                   ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                                    ipsum eget mollis. Duis pulvinar nibh ornare.</p>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ get_header();
                             <div class="desc">
                                 <p class="title">Our care</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
-                                   ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                                    ipsum eget mollis. Duis pulvinar nibh ornare.</p>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@ get_header();
                             <div class="desc">
                                 <p class="title">Ship owner and partner</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
-                                   ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                                    ipsum eget mollis. Duis pulvinar nibh ornare.</p>
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,8 @@ get_header();
 
                                         <div class="image" style="position: relative">
                                             <a href="<?php echo $permalink ?>" title="<?php echo $v->post_title ?>">
-                                                <img src="<?php echo $v->images->small ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                                                <img src="<?php echo $v->images->small ?>"
+                                                     alt="<?php echo $v->post_title ?>" class="lazy">
                                             </a>
                                             <div class="price">
                                                 $<?php echo number_format($journey_min_price->min_price_offer) ?>
@@ -221,7 +222,8 @@ get_header();
                                         </div>
 
                                         <div class="desc">
-                                            <a href="<?php echo $permalink ?>" class="title" title="<?php echo $v->post_title ?>">
+                                            <a href="<?php echo $permalink ?>" class="title"
+                                               title="<?php echo $v->post_title ?>">
                                                 <?php echo $v->post_title ?>
                                             </a>
 

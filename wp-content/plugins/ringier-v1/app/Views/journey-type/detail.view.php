@@ -78,10 +78,11 @@ if (!empty($journey_type_info)) { ?>
 
                                     <tr class="<?php echo $v->navigation; ?>" data-jid="<?php echo $v->ID; ?>">
                                         <td>
-                                            <b><?php echo $v->departure_fm; ?></b>
+                                            <b><?php echo date('d M Y', strtotime($v->departure)); ?></b>
                                         </td>
                                         <td>
-                                            <?php echo $v->journey_type_info->starting_point ?><br>
+                                            <?php echo $jt_info->starting_point ?> - <?php echo $jt_info->destination_info->post_title; ?>
+                                            <br>
                                             <?php echo $jt_info->duration; ?><br>
 
                                             <?php if (!empty($offer)) { ?>

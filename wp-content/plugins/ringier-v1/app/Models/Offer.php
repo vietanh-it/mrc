@@ -64,6 +64,13 @@ class Offer
         $objImage = Images::init();
         if (!empty($result)) {
             foreach ($result as $k => $v) {
+
+                // Nếu journey gắn theo offer empty hoặc ko publish => remove offer
+                $journey = get_post($v->journey_id);
+                if (empty($journey) || $journey->post_status != 'publish') {
+                    unset($result[$k]);
+                }
+
                 $v->permalink = get_permalink($v);
                 $v->images = $objImage->getPostImages($v->ID, ['small', 'widescreen']);
             }

@@ -516,7 +516,13 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
     }
 
 
-    // Get journey min price
+    /**
+     * Get journey min price
+     *
+     * @param $journey_id
+     * @param bool $is_offer
+     * @return object
+     */
     public function getJourneyMinPrice($journey_id, $is_offer = false)
     {
         $result = [
@@ -592,6 +598,21 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
         }
 
         return (object)$result;
+    }
+
+
+    /**
+     * Get journey list by journey series
+     *
+     * @param $j_series_id
+     * @return array|null|object
+     */
+    public function getJourneyListBySeries($j_series_id)
+    {
+        $query = "SELECT * FROM {$this->_tbl_journey_info} WHERE journey_series_id = {$j_series_id}";
+        $result = $this->_wpdb->get_results($query);
+
+        return $result;
     }
 
 }

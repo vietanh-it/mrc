@@ -235,15 +235,18 @@ get_footer() ?>
 
             $('#ctn-list-journey').fadeIn();
 
+            var jid = jhash.substr(3);
 
             setTimeout(function () {
                 $('html, body').animate({
                     scrollTop: $('#ctn-list-journey').offset().top - 50
                 }, 500);
-
-                var jid = jhash.substr(3);
-                $('[data-jid="' + jid + '"]').css('background', '#f5dda5').attr('style', '');
+                $('[data-jid="' + jid + '"]').css('background', '#f5dda5');
             }, 1000);
+
+            setTimeout(function () {
+                $('[data-jid="' + jid + '"]').attr('style', '');
+            }, 2500);
 
         }
     });

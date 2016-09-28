@@ -189,82 +189,34 @@ class Journey
             $post_info = $this->getJourneySeriesInfoByJourney($object->ID);
             $object = (object)array_merge((array)$object, (array)$post_info);
 
+
+            // Journey Type info
             if (!empty($object->journey_type_id)) {
                 $journeyType = JourneyType::init();
                 $journey_type_info = $journeyType->getInfo($object->journey_type_id);
                 $object->journey_type_info = $journey_type_info;
             }
 
+
+            // Current season
             $current_season = $this->getJourneySeason($object->ID);
             $object->current_season = $current_season;
             $object->is_offer = false;
+
 
             // Journey min price with offer
             $min_price = $this->getJourneyMinPrice($object->ID, true);
             $object->min_price = $min_price->min_price_offer;
 
+
             if (!empty($journey_type_info)) {
+
                 // days, nights, duration
-                $departure_fm = date("j F Y", strtotime($object->departure));
-                $object->departure_fm = $departure_fm;
-                $departure = date('Y-m-d', strtotime($object->departure));
+                $object->departure_fm = date("j F Y", strtotime($object->departure));
                 $arrive = date('Y-m-d',
                     strtotime($object->departure) + (intval($journey_type_info->nights) * 24 * 60 * 60));
                 $object->arrive = $arrive;
 
-                if (!empty($journey_type_info->room_price)) {
-                    $min_price = 9999999999999999999999999;
-                    $promotion = 0;
-                    $list_room_offer = [];
-
-                    if (!empty($journey_type_info->offer_main_info)) {
-                        $offer_main_info = $journey_type_info->offer_main_info;
-                        $is_offer = false;
-                        $offer_start = $offer_main_info->start_date;
-                        $offer_end = $offer_main_info->end_date;
-                        if ((($offer_start <= $departure) && ($offer_end >= $departure)) or (($offer_start <= $arrive) && ($offer_end >= $arrive))) {
-                            $is_offer = true;
-                        }
-                        if (($departure <= $offer_start) && ($arrive >= $offer_start)) {
-                            $is_offer = true;
-                        }
-                        //kiem tra xem jouney nay co nằm trong khoang thoi gian có offer k
-                        $object->is_offer = $is_offer;
-                        if ($is_offer == true) {
-                            $promotion = $offer_main_info->promotion;
-                        }
-
-                        // lấy promtion và list room đc offer
-                        if (!empty($journey_type_info->offer)) {
-                            foreach ($journey_type_info->offer as $o) {
-                                $list_room_offer[] = $o->room_type_id;
-                            }
-                        }
-                    }
-                    foreach ($journey_type_info->room_price as $k => &$v) {
-                        if (in_array($v->id, $list_room_offer) && !empty($promotion)) {
-                            $v->twin_high_season_price_offer = intval($v->twin_high_season_price) - intval($v->twin_high_season_price) * $promotion / 100;
-                            $v->single_high_season_price_offer = intval($v->single_high_season_price) - intval($v->single_high_season_price) * $promotion / 100;
-                            $v->twin_low_season_price_offer = intval($v->twin_low_season_price) - intval($v->twin_low_season_price) * $promotion / 100;
-                            $v->single_low_season_price_offer = intval($v->single_low_season_price) - intval($v->single_low_season_price) * $promotion / 100;
-                        }
-
-                        if ($current_season == 'low') {
-                            $price_sub = $v->single_low_season_price;
-                        }
-                        else {
-                            $price_sub = $v->single_high_season_price;
-                        }
-                        if ($price_sub < $min_price) {
-                            $min_price = $price_sub;
-                        }
-                    }
-
-                    $object->min_price = intval($min_price);
-                    $object->min_price_offer = intval($min_price) - intval($min_price) * $promotion / 100;
-                    $object->min_price_fm = number_format($object->min_price);
-                    $object->min_price_offer_fm = number_format($object->min_price_offer);
-                }
             }
 
             $result = $object;

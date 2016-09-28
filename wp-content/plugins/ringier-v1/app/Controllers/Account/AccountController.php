@@ -392,7 +392,6 @@ class AccountController extends _BaseController
         if(!empty($data['user_data'])){
             $data = $data['user_data'];
 
-            // TODO: save user
             if(!empty($data['emails'][0]['value'])){
                 $email = $data['emails'][0]['value'];
                 $user_id = username_exists($email);

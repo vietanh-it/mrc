@@ -52,29 +52,9 @@ get_header(); ?>
                             $total = $modelBooking->getCartTotalByID($value->id);
                             $total = number_format($total);
                             $total_people = $modelBooking->getCartTotalPeople($value->id);
-                            switch ($value->status) {
-                                case 'cart' :
-                                    $status = 'Booking';
-                                    break;
-                                case 'before-you-go':
-                                    $status = 'Before you go';
-                                    break;
-                                case 'ready-to-onboard':
-                                    $status = 'Ready to on-board';
-                                    break;
-                                case 'onboard':
-                                    $status = 'On-board';
-                                    break;
-                                case 'finished':
-                                    $status = 'Finished';
-                                    break;
-                                default:
-                                    $status = 'Booking';
-                                    break;
-                            }
-                            ?>
+                            $status = $modelBooking->getBookingStatusText($value->status); ?>
 
-                            <tr class="upstream">
+                            <tr>
                                 <td>
                                     <a href="<?php echo $booking_permalink; ?>" style="color: #545454;">
                                         <b>
@@ -85,7 +65,8 @@ get_header(); ?>
                                 <td><?php echo $journey_detail->departure_fm; ?></td>
                                 <td>
                                     <?php echo $journey_detail->journey_type_info->starting_point ?>
-                                    - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?> nights
+                                    - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?>
+                                    nights
                                 </td>
                                 <td style="text-decoration: underline">
                                     <a href="<?php echo $journey_detail->permalink; ?>"
@@ -112,7 +93,8 @@ get_header(); ?>
                                 </td>
                                 <td style="text-align: center">
                                     <a href="javascript:void(0)">
-                                        <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>" class="img-icon">
+                                        <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>"
+                                             class="img-icon">
                                     </a>
                                 </td>
                             </tr>

@@ -1994,6 +1994,11 @@ header .top-bar .top-info li:first-child {
     transition: all 1s;
 }
 
+.list-galary-3 .owl-carousel .owl-wrapper-outer{
+    height: 580px;
+    padding-top: 35px;
+}
+
 @media (min-width: 1200px) {
 
     .container {

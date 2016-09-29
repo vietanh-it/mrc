@@ -511,4 +511,31 @@ class Booking
         return $code;
     }
 
+
+    public function getBookingStatusText($status_code)
+    {
+        switch ($status_code) {
+            case 'cart':
+                $result = 'Booking';
+                break;
+            case 'before-you-go':
+                $result = 'Before you go';
+                break;
+            case 'ready-to-onboard':
+                $result = 'Ready to on-board';
+                break;
+            case 'onboard':
+                $result = 'On-board';
+                break;
+            case 'finished':
+                $result = 'Finished';
+                break;
+            default:
+                $result = 'Booking';
+                break;
+        }
+
+        return $result;
+    }
+
 }

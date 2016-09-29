@@ -4,7 +4,7 @@ get_header();
 $list_ship = !empty($list_ship) ? $list_ship : array();
 
 ?>
-<div class="featured-rs" style="margin-bottom: 30px">
+<div class="featured-rs" style="overflow: hidden;margin-bottom: 30px">
     <div class="row">
         <?php if($list_ship['data']) {
             foreach ($list_ship['data'] as $v) { ?>

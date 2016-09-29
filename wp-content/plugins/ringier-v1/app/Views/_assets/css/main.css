@@ -2030,6 +2030,9 @@ header .top-bar .top-info li:first-child {
     .hide-on-med-and-down {
         display: none !important;
     }
+    .not-padding-mb{
+        padding:  0 !important;
+    }
 
     /*.navbar-collapse.in {
         overflow-y: auto;
@@ -2126,5 +2129,31 @@ header .top-bar .top-info li:first-child {
         padding-bottom: 30px;
     }
 
+    .list-slide-mb.owl-carousel{
+        width: 100%;
+        margin-left: 0;
+    }
+    .tile-main .btn-kep-offer{
+        position: inherit;
+        display: block;
+    }
+    .join-with{
+        background: #faf7f2;
+    }
+
+    footer .ul-mb ul{
+        padding-left: 42px;
+    }
+    footer .ul-mb ul li {
+        margin-bottom: 5px;
+        list-style: inherit;
+    }
+    footer h4{
+        color: rgb(123, 123, 124);
+    }
+    .copy-right{
+        text-align: center;
+        padding-bottom: 30px;
+    }
 }
 

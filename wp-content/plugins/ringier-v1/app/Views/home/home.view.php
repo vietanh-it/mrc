@@ -68,7 +68,9 @@ get_header();
                 </div>
 
                 <div class="text-center">
-                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i> Find now</button>
+                    <button type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i> Find now
+                    </button>
                 </div>
             </form>
         </div>
@@ -93,8 +95,8 @@ get_header();
                 <br> <img src="<?php echo VIEW_URL . '/images/line-white.png' ?>">
             </h2>
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-4">
+                <div class="row list-slide-mb">
+                    <div class="col-xs-12 col-sm-12">
                         <div class="box-why">
                             <img src="<?php echo VIEW_URL . '/images/why-1.png' ?>" alt="">
                             <div class="desc">
@@ -104,7 +106,7 @@ get_header();
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-4">
+                    <div class="col-xs-12 col-sm-12">
                         <div class="box-why">
                             <img src="<?php echo VIEW_URL . '/images/why-2.png' ?>" alt="">
                             <div class="desc">
@@ -114,7 +116,7 @@ get_header();
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-4">
+                    <div class="col-xs-12 col-sm-12">
                         <div class="box-why">
                             <img src="<?php echo VIEW_URL . '/images/why-3.png' ?>" alt="">
                             <div class="desc">
@@ -137,11 +139,11 @@ get_header();
                 <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
             </h2>
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <div class="row">
+                <div class="row list-slide-mb">
                     <?php if (!empty($list_journey_type['data'])) {
                         foreach ($list_journey_type['data'] as $v) {
                             ?>
-                            <div class="col-xs-12 col-sm-4">
+                            <div class="col-xs-12 col-sm-12 not-padding-mb">
                                 <div class="box-journey">
                                     <div class="image">
                                         <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">

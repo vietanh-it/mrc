@@ -59,11 +59,11 @@
 <footer>
     <div class="container">
         <div class="row" style="margin-bottom: 10px;">
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="col-xs-8 col-sm-10 col-sm-offset-1">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-3 hide-on-med-and-down">
+                    <div class="col-xs-12 col-sm-3">
                         <h4>Company information</h4>
-                        <ul>
+                        <ul class="hide-on-med-and-down">
                             <li><a href="<?php echo WP_SITEURL . '/about-us'; ?>" title=""> About Us </a></li>
                             <li><a href="<?php echo WP_SITEURL . '/contact-us'; ?>" title=""> Contact Us</a></li>
                             <li><a href="<?php echo WP_SITEURL . '/news/' ?>" title=""> Media Centre</a></li>
@@ -72,9 +72,9 @@
                         </ul>
                     </div>
 
-                    <div class="col-xs-12 col-sm-2 hide-on-med-and-down">
+                    <div class="col-xs-12 col-sm-2 ">
                         <h4>Ships</h4>
-                        <ul>
+                        <ul class="hide-on-med-and-down">
                             <li><a href="<?php echo WP_SITEURL . '/ships/' ?>" title="">Overview</a></li>
                             <li>
                                 <a href="<?php echo WP_SITEURL . '/ship/mekong-princess/' ?>" title="Mekong Princess">
@@ -90,9 +90,9 @@
                         </ul>
                     </div>
 
-                    <div class="col-xs-12 col-sm-2 hide-on-med-and-down">
+                    <div class="col-xs-12 col-sm-2 ">
                         <h4>Journeys</h4>
-                        <ul>
+                        <ul class="hide-on-med-and-down">
                             <li><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">Destination</a></li>
                             <li><a href="<?php echo WP_SITEURL . '/before-you-go/'; ?>" title="">Before you go</a></li>
                             <li>
@@ -108,10 +108,9 @@
                         </ul>
                     </div>
 
-
-                    <div class="col-xs-12 col-sm-2 hide-on-med-and-down">
+                    <div class="col-xs-12 col-sm-2 ">
                         <h4>Resources</h4>
-                        <ul>
+                        <ul class="hide-on-med-and-down">
                             <li><a href="<?php echo WP_SITEURL . '/resource/human-resources/'; ?>"
                                    title="Human resource">Human resource</a></li>
                             <li><a href="<?php echo WP_SITEURL . '/resource/onboard-services/'; ?>"
@@ -121,14 +120,14 @@
                         </ul>
                     </div>
 
-                    <div class="col-xs-12 col-sm-3 text-right">
+                    <div class="col-xs-12 col-sm-3 text-right hide-on-med-and-down">
                         <div class="row">
                             <!--<div class="col-md-6 col-xs-12">-->
                             <!--    <a href="javascript:void(0)">-->
                             <!--        <img src="--><?php //echo VIEW_URL . '/images/verify-web.png' ?><!--" alt="">-->
                             <!--    </a>-->
                             <!--</div>-->
-                            <div class="col-md-12 col-xs-12 hide-on-med-and-down">
+                            <div class="col-md-12 col-xs-12">
                                 <a href="javascript:void(0)">
                                     <img src="<?php echo VIEW_URL . '/images/rapidssl.gif' ?>" alt="">
                                 </a>
@@ -139,8 +138,19 @@
                         Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam <br/>
                         Tel: +84 8 3514 6033 <br/>
                     </div>
-
                 </div>
+            </div>
+            <div class="col-xs-4 hide-on-med-and-up">
+                <a href="javascript:void(0)">
+                    <img src="<?php echo VIEW_URL . '/images/rapidssl.gif' ?>" alt="" style="margin-top: 20px">
+                </a>
+            </div>
+            <div class="col-xs-12 text-left hide-on-med-and-up ul-mb">
+                <img src="<?php echo VIEW_URL.'/images/icon-location.png' ?>" alt="" style="margin-right: 10px"> MEKONG RIVER CRUISER LIMITED <br/>
+                <ul>
+                    <li>Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam </li>
+                    <li>Tel: +84 8 3514 6033 <br/></li>
+                </ul>
             </div>
         </div>
 

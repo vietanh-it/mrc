@@ -22,6 +22,16 @@ jQuery(document).ready(function ($) {
         pagination: false
     });
 
+    $(".list-slide-mb").owlCarousel({
+        autoPlay: 5000,
+        items: 3,
+        itemsDesktop: [1199, 3],
+        itemsDesktopSmall: [760, 3],
+        itemsTablet: [480, 1],
+        navigation: false,
+        pagination: false
+    });
+
     $(".list-galary").owlCarousel({
         autoPlay: 5000,
         items: 1,

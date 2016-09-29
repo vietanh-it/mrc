@@ -5,17 +5,17 @@ get_header();
 
 view('journey/quick-search');*/
 ?>
-    <div class="journey-detail">
-        <div class="featured-image" >
-            <img src="<?php echo VIEW_URL.'/images/bg-news.png' ?>" alt="bg" >
-        </div>
-    </div>
+
     <div class="container">
         <div class="row">
             <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-bottom: 40px">Why us
                 <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
             </h1>
         </div>
+    </div>
+
+    <div class="featured-image" >
+        <img src="<?php echo VIEW_URL.'/images/bg-news.png' ?>" alt="bg" style="width: 100%">
     </div>
 
     <div class="why-us" style="padding-top: 50px">

@@ -2155,5 +2155,8 @@ header .top-bar .top-info li:first-child {
         text-align: center;
         padding-bottom: 30px;
     }
+    .form-facybox{
+        width: 100%;
+    }
 }
 

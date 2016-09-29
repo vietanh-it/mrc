@@ -1417,7 +1417,13 @@ footer ul li {
     padding: 10px;
     border: 1px solid #ccc;
     margin-bottom: 30px;
-    padding-bottom: 0;
+    column-count: 3;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+}
+.list_qa_df .list_qa_df_box{
+    float: left;
+    width: 100%;
 }
 .list_qa_df a:active,
 .list_qa_df a:focus,
@@ -2015,8 +2021,8 @@ header .top-bar .top-info li:first-child {
         overflow: hidden;*/
     }
     .list_qa_df a{
-        height: 45px;
-        overflow: hidden;
+     /*   height: 45px;
+        overflow: hidden;*/
     }
 }
 

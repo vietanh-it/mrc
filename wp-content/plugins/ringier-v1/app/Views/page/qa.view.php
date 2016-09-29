@@ -18,7 +18,7 @@ $list_qa = !empty($list_qa) ? $list_qa : array();
                 <?php  if(!empty($list_qa)){
                     $list_qa_new = unserialize($list_qa);
                     foreach ($list_qa_new as $k => $v){?>
-                        <div class="col-xs-12 col-sm-4">
+                        <div class="list_qa_df_box">
                             <a href="javascript:void(0)" class="show-answer" data-id="<?php echo $k+1 ?>" title="<?php echo $v['question'] ?>">
                                 <i class="fa fa-circle" aria-hidden="true"></i>    <?php echo $v['question'] ?>
                             </a>

@@ -190,18 +190,31 @@ class Journey
             $object = (object)array_merge((array)$object, (array)$post_info);
 
 
+            // Current season
+            $current_season = $this->getJourneySeason($object->ID);
+            $object->current_season = $current_season;
+            $object->is_offer = false;
+
+
             // Journey Type info
             if (!empty($object->journey_type_id)) {
                 $journeyType = JourneyType::init();
                 $journey_type_info = $journeyType->getInfo($object->journey_type_id);
                 $object->journey_type_info = $journey_type_info;
+
+                // Room Prices
+                $room_price = $journey_type_info->room_price;
+                foreach ($room_price as $k => $v) {
+                    $offer = $this->getJourneyOffer($object->ID, $v->id);
+                    $remain = 100 - $offer;
+
+                    $v->current_season = $current_season;
+                    $v->offer = floatval($offer);
+                    $v->twin_price = ($v->{"twin_" . $current_season . "_season_price"} * $remain) / 100;
+                    $v->single_price = ($v->{"single_" . $current_season . "_season_price"} * $remain) / 100;
+                }
+                $object->room_price = $room_price;
             }
-
-
-            // Current season
-            $current_season = $this->getJourneySeason($object->ID);
-            $object->current_season = $current_season;
-            $object->is_offer = false;
 
 
             // Journey min price with offer
@@ -310,7 +323,7 @@ class Journey
         $query = "SELECT promotion FROM " . TBL_OFFER_INFO . " WHERE journey_id = {$journey_id} AND room_type_id = {$room_type_id}";
         $promotion = $this->_wpdb->get_var($query);
 
-        return $promotion;
+        return valueOrNull($promotion, 0);
     }
 
 

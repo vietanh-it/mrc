@@ -232,28 +232,20 @@ if (!function_exists('htmlPrice')) {
                 if ($season == 'high') {
                     // 1.1 High season
 
-                    if (!empty($room_type_object->twin_high_season_price_offer)) {
+                    if (!empty($room_type_object->offer)) {
                         // 1.1.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_high_season_price) . "</span>";
-                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_high_season_price_offer) . "</span>";
                     }
-                    else {
-                        // 1.1.2 No offer
-                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_high_season_price) . '</span>';
-                    }
+                    $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_price) . '</span>';
                 }
                 elseif ($season == 'low') {
                     // 1.2 Low season
 
-                    if (!empty($room_type_object->twin_low_season_price_offer)) {
+                    if (!empty($room_type_object->offer)) {
                         // 1.2.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_low_season_price) . "</span>";
-                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_low_season_price_offer) . "</span>";
                     }
-                    else {
-                        // 1.2.2 No offer
-                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_low_season_price) . '</span>';
-                    }
+                    $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_price) . '</span>';
                 }
 
             }
@@ -263,28 +255,21 @@ if (!function_exists('htmlPrice')) {
                 if ($season == 'high') {
                     // 2.1 High season
 
-                    if (!empty($room_type_object->single_high_season_price_offer)) {
+                    if (!empty($room_type_object->offer)) {
                         // 2.1.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->single_high_season_price) . "</span>";
-                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_high_season_price_offer) . "</span>";
                     }
-                    else {
-                        // 2.1.2 No offer
-                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_high_season_price) . '</span>';
-                    }
+                    // 2.1.2 No offer
+                    $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_price) . '</span>';
                 }
                 elseif ($season == 'low') {
                     // 2.2 Low season
 
-                    if (!empty($room_type_object->single_low_season_price_offer)) {
+                    if (!empty($room_type_object->offer)) {
                         // 2.2.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->single_low_season_price) . "</span>";
-                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_low_season_price_offer) . "</span>";
                     }
-                    else {
-                        // 2.2.2 No offer
-                        $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_low_season_price) . '</span>';
-                    }
+                    $result_string .= "<span class='big'>US$" . number_format($room_type_object->single_price) . '</span>';
                 }
 
             }

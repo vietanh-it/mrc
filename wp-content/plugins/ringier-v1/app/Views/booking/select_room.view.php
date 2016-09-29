@@ -76,7 +76,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 </div>
 
                                 <div class="stateroom-price-wrapper">
-                                    <?php foreach ($journey_type_info->room_price as $key => $room_type) { ?>
+                                    <?php foreach ($journey_detail->room_price as $key => $room_type) { ?>
                                         <div class="bk-box bk-box-gray">
                                             <span class="text"><?php echo $room_type->room_type_name ?>
                                                 Twin Share</span>
@@ -112,18 +112,9 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                 </div>
 
                                 <div>
-                                    <?php foreach ($journey_type_info->room_price as $key => $room_type) {
-                                        $twin_price = ($current_season == 'high') ?
-                                            valueOrNull($room_type->twin_high_season_price_offer,
-                                                $room_type->twin_high_season_price) :
-                                            valueOrNull($room_type->twin_low_season_price_offer,
-                                                $room_type->twin_low_season_price);
-
-                                        $single_price = ($current_season == 'high') ?
-                                            valueOrNull($room_type->single_high_season_price_offer,
-                                                $room_type->single_high_season_price) :
-                                            valueOrNull($room_type->single_low_season_price_offer,
-                                                $room_type->single_low_season_price); ?>
+                                    <?php foreach ($journey_detail->room_price as $key => $room_type) {
+                                        $twin_price = $room_type->twin_price;
+                                        $single_price = $room_type->single_price; ?>
 
                                         <div class="bk-box bk-box-2">
                                             <div class="row">

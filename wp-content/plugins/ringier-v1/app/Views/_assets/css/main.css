@@ -1997,8 +1997,8 @@ header .top-bar .top-info li:first-child {
         display: none !important;
     }
     .box-smal-food{
-        height: 145px ;
-        overflow: hidden;
+        /*height: 145px ;
+        overflow: hidden;*/
     }
 }
 

@@ -93,7 +93,7 @@ var_dump($list_rs_food);*/
 
                     <div class="col-xs-6 col-sm-6">
                         <div class="row">
-                            <?php foreach ($list_rs_food['data'] as $v){ ?>
+                            <?php foreach ($list_rs_food['data'] as $kf => $v){ ?>
                                 <div class="col-xs-12 col-sm-4">
                                     <div class="box-smal-food">
                                         <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
@@ -104,7 +104,11 @@ var_dump($list_rs_food);*/
                                         </a>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php
+                                if($kf == 2){
+                                    echo '<div class ="clearfix"></div>';
+                                }
+                            } ?>
                         </div>
                     </div>
                     <div class="col-xs-6 col-sm-6">

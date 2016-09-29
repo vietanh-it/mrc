@@ -3,4 +3,4 @@
  * Template name: Why-us
  */
 $ctr = \RVN\Controllers\PageController::init();
-$ctr->defaultPage();
+$ctr->pageWhyUs();

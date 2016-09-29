@@ -59,4 +59,10 @@ class PageController extends _BaseController
 
         view('page/contact');
     }
+
+    public function pageWhyUs(){
+
+
+        view('page/why-us');
+    }
 }

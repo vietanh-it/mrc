@@ -19,7 +19,7 @@ $list_qa = !empty($list_qa) ? $list_qa : array();
                     $list_qa_new = unserialize($list_qa);
                     foreach ($list_qa_new as $k => $v){?>
                         <div class="col-xs-12 col-sm-4">
-                            <a href="javascript:void(0)" class="show-answer" data-id="<?php echo $k+1 ?>">
+                            <a href="javascript:void(0)" class="show-answer" data-id="<?php echo $k+1 ?>" title="<?php echo $v['question'] ?>">
                                 <i class="fa fa-circle" aria-hidden="true"></i>    <?php echo $v['question'] ?>
                             </a>
                         </div>
@@ -34,12 +34,7 @@ $list_qa = !empty($list_qa) ? $list_qa : array();
                 foreach ($list_qa_new as $k => $v){ ?>
                     <div class="box-qa" id="box-qa-<?php echo $k+1 ?>">
                         <div class="question">
-                            <a href="javascript:void(0)" >
                                 <?php echo $v['question'] ?>
-                            </a>
-                            <!--<a href="javascript:void(0)" class="hide-answer" style="display: none">
-                                <?php /*echo $v['question'] */?>
-                            </a>-->
                         </div>
                         <div class="answer" >
                             <?php echo apply_filters('the_content',$v['answer']) ?>

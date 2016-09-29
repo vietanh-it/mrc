@@ -1438,24 +1438,14 @@ footer ul li {
 
 .box-qa {
     margin-bottom: 30px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #999;
+   /* padding-bottom: 30px;
+    border-bottom: 1px solid #999;*/
 }
 
-.box-qa .question a {
+.box-qa .question  {
     font-weight: bold;
     color: black;
 }
-
-.box-qa .question a:hover {
-    color: #e4a611;
-    text-decoration: none;
-}
-
-.box-qa .question a:active, .box-qa .question a:focus {
-    text-decoration: none;
-}
-
 .box-qa .answer {
     margin-top: 15px;
 }
@@ -2024,6 +2014,10 @@ header .top-bar .top-info li:first-child {
         /*height: 145px ;
         overflow: hidden;*/
     }
+    .list_qa_df a{
+        height: 45px;
+        overflow: hidden;
+    }
 }
 
 @media (max-width: 768px) {
@@ -2182,5 +2176,6 @@ header .top-bar .top-info li:first-child {
     .form-facybox{
         width: 100%;
     }
+
 }
 

@@ -1411,6 +1411,30 @@ footer ul li {
 .sweet-alert {
     z-index: 10000000 !important;
 }
+.list_qa_df {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+    padding-bottom: 0;
+}
+.list_qa_df a:active,
+.list_qa_df a:focus,
+.list_qa_df a:hover{
+    color: #e4a611;
+    text-decoration: none;
+}
+.list_qa_df a{
+    color: black;
+    margin-bottom: 10px;
+    display: block;
+}
+.list_qa_df i{
+    font-size: 10px;
+    padding-right: 10px;
+    color: darkgray;
+}
 
 .box-qa {
     margin-bottom: 30px;

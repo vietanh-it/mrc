@@ -537,9 +537,13 @@ jQuery(document).ready(function ($) {
 
     $('.show-answer').click(function () {
         var obj = $(this);
-        obj.closest('.box-qa').find('.answer').fadeIn();
+        var id = obj.attr('data-id');
+       /* obj.closest('.box-qa').find('.answer').fadeIn();
         obj.closest('.box-qa').find('.hide-answer').css('display', 'block');
-        obj.css('display', 'none');
+        obj.css('display', 'none');*/
+        $('html, body').animate({
+            scrollTop: $('#box-qa-'+id).offset().top - 50
+        }, 500);
     });
 
     $('.hide-answer').click(function () {

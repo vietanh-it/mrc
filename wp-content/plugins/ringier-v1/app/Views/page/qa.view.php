@@ -14,19 +14,34 @@ $list_qa = !empty($list_qa) ? $list_qa : array();
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-            <?php if(!empty($list_qa)){
-                $list_qa_new = unserialize($list_qa);
-                foreach ($list_qa_new as $v){ ?>
-                    <div class="box-qa">
-                        <div class="question">
-                            <a href="javascript:void(0)" class="show-answer">
-                                <?php echo $v['question'] ?>
-                            </a>
-                            <a href="javascript:void(0)" class="hide-answer" style="display: none">
-                                <?php echo $v['question'] ?>
+            <div class="list_qa_df">
+                <?php  if(!empty($list_qa)){
+                    $list_qa_new = unserialize($list_qa);
+                    foreach ($list_qa_new as $k => $v){?>
+                        <div class="col-xs-12 col-sm-4">
+                            <a href="javascript:void(0)" class="show-answer" data-id="<?php echo $k+1 ?>">
+                                <i class="fa fa-circle" aria-hidden="true"></i>    <?php echo $v['question'] ?>
                             </a>
                         </div>
-                        <div class="answer" style="display: none">
+                    <?php }
+                } ?>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <?php if(!empty($list_qa)){
+                $list_qa_new = unserialize($list_qa);
+                foreach ($list_qa_new as $k => $v){ ?>
+                    <div class="box-qa" id="box-qa-<?php echo $k+1 ?>">
+                        <div class="question">
+                            <a href="javascript:void(0)" >
+                                <?php echo $v['question'] ?>
+                            </a>
+                            <!--<a href="javascript:void(0)" class="hide-answer" style="display: none">
+                                <?php /*echo $v['question'] */?>
+                            </a>-->
+                        </div>
+                        <div class="answer" >
                             <?php echo apply_filters('the_content',$v['answer']) ?>
                         </div>
                     </div>

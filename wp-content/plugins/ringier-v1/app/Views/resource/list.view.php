@@ -17,7 +17,7 @@ var_dump($list_rs_food);*/
     </div>
 </div>
 <?php if(!empty($list_post['data'])){ ?>
-    <div class="featured-rs">
+    <div class="featured-rs" style="overflow: hidden">
         <div class="row">
             <div class="list-galary-3">
                 <?php foreach ($list_post['data'] as $v){ ?>

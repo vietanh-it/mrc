@@ -56,7 +56,7 @@ class Offer
         $query = "SELECT * FROM {$this->_wpdb->posts} p";
         $inner_join = " INNER JOIN " . TBL_OFFER_INFO . " oi ON p.ID = oi.object_id";
         $inner_join .= " INNER JOIN " . TBL_JOURNEY_INFO . " ji ON oi.journey_id = ji.object_id";
-        $group_by = " GROUP BY oi.object_id HAVING p.post_status = 'publish' AND ji.departure > '" . current_time('mysql') . "'";
+        $group_by = " GROUP BY oi.object_id HAVING p.post_status = 'publish' AND DATE_FORMAT(ji.departure, '%Y-%m-%d') >= '" . date('Y-m-d') . "'";
 
         $query .= $inner_join .= $group_by;
         $result = $this->_wpdb->get_results($query);

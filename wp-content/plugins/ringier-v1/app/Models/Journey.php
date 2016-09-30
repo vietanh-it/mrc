@@ -108,6 +108,11 @@ class Journey
                 $where .= " AND DATE_FORMAT(ji.departure,'%Y-%m') = '" . $month . "'";
             }
 
+            // Loại những journey đã khởi hành
+            if (empty($params['is_get_all'])) {
+                $where .= " AND DATE_FORMAT(ji.departure, '%Y-%m-%d') >= '" . date('Y-m-d') . "'";
+            }
+
 
             // Loại những journey đã có offer
             if (!empty($params['is_exclude_offered'])) {

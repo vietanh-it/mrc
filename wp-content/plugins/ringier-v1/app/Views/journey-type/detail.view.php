@@ -15,7 +15,7 @@ if (!empty($journey_type_info)) { ?>
                 <div class="info">
                     <h1><?php the_title() ?></h1>
                     <h2>
-                        <?php echo $journey_type_info->post_content ?>
+                        <?php echo limitWords($journey_type_info->post_content, 70); ?>
                     </h2>
                     <ul>
                         <li><b><?php echo $journey_type_info->duration ?></b></li>

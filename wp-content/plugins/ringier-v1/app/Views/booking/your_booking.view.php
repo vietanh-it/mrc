@@ -15,7 +15,7 @@ $modelBooking = \RVN\Models\Booking::init();
 $modelJourney = \RVN\Models\Journey::init();
 
 $user_id = get_current_user_id();
-$booking_list = $modelBooking->getBookingLists($user_id);
+$booking_list = $modelBooking->getBookingLists($user_id, false);
 
 
 get_header(); ?>
@@ -28,7 +28,7 @@ get_header(); ?>
 
             <div class="col-xs-12 col-sm-12">
                 <div class="ctn-list-journey" style="padding-top: 0">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-padding">
                         <thead>
                         <tr>
                             <th class="text-center">Booking ID</th>
@@ -62,7 +62,7 @@ get_header(); ?>
                                         </b>
                                     </a>
                                 </td>
-                                <td><?php echo $journey_detail->departure_fm; ?></td>
+                                <td><?php echo date('j M Y', strtotime($journey_detail->departure)); ?></td>
                                 <td>
                                     <?php echo $journey_detail->journey_type_info->starting_point ?>
                                     - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?>

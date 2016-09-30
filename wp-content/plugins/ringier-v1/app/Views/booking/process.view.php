@@ -16,7 +16,8 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
     $cart_info['total'] = $cart_info['total'] * $rate;
 
     $payment_type = $_GET['payment_type'];
-    $current_url = WP_SITEURL . (strtok($_SERVER["REQUEST_URI"], '?'));
+    // $current_url = WP_SITEURL . (strtok($_SERVER["REQUEST_URI"], '?'));
+    $current_url = 'https://' . $_SERVER['HTTP_HOST'] . (strtok($_SERVER["REQUEST_URI"], '?'));
 
     if ($payment_type == 'credit_card') {
         $vpc = [

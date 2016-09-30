@@ -82,9 +82,12 @@ class Booking
     }
 
 
-    public function getBookingLists($user_id)
+    public function getBookingLists($user_id, $is_get_cart = true)
     {
         $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id}";
+        if (empty($is_get_cart)) {
+            $query .= " AND status <> 'cart'";
+        }
         $result = $this->_wpdb->get_results($query);
 
         return $result;
@@ -449,7 +452,7 @@ class Booking
                 $html_path = 'normal_user/booking_confirmation.html';
                 $email_args = [
                     'first_name'         => 'Việt Anh',
-                    'booking_detail_url' => WP_SITEURL . '/your-booking'
+                    'booking_detail_url' => WP_SITEURL . '/account/your-booking'
                 ];
 
                 $user = wp_get_current_user();

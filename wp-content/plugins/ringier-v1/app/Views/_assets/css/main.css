@@ -1055,7 +1055,8 @@ footer ul li {
     border-bottom: 1px solid #e4a611;
     text-transform: uppercase;
     font-weight: normal;
-    padding: 15px 0;
+    padding: 15px 10px;
+    vertical-align: top;
 }
 
 .ctn-list-journey .table > tbody > tr > td {
@@ -1994,9 +1995,13 @@ header .top-bar .top-info li:first-child {
     transition: all 1s;
 }
 
-.list-galary-3 .owl-carousel .owl-wrapper-outer{
-    height: 580px;
+.list-galary-3 .owl-carousel .owl-wrapper-outer {
+    height: 500px;
     padding-top: 35px;
+}
+
+.table.table-padding th, .table.table-padding td {
+    padding: 10px;
 }
 
 @media (min-width: 1200px) {

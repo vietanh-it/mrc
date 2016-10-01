@@ -264,7 +264,7 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $('.contact-us').validate({
+    $('#contact-us').validate({
         ignore: [],
         rules: {
             contact_full_name: 'required',
@@ -342,102 +342,92 @@ jQuery(document).ready(function ($) {
     });
 
 
-    var flag_alert = true;
-    $('.refer-friend').fancybox({
-        helpers: {
-            title: {
-                type: 'over'
-            },
-            overlay: {
-                speedOut: 0
+    $('#form-refer-friend').validate ({
+        ignore: [],
+        rules: {
+            rf_full_name: 'required',
+            rf_subject: 'required',
+            rf_message: 'required',
+            email_friend:'required',
+            rf_email: {
+                required: true,
+                email: true
             }
         },
-        padding: 10,
-        beforeShow: function () {
+        messages: {
+            rf_full_name: 'Please enter your name.',
+            rf_subject: 'Please enter subject',
+            rf_message: 'Please enter message',
+            email_friend:'Please enter your friend email',
+            rf_email: {
+                required: 'Please enter your email',
+                email: 'Email not email'
+            }
         },
-        afterLoad: function () {
-            flag_alert = false;
-            $('#form-refer-friend').on("hover", function () {
-                var obj = $(this);
-                obj.validate({
-                    ignore: [],
-                    rules: {
-                        email_friend: {
-                            required: true,
-                            email: true
-                        }
-                    },
-                    messages: {
-                        email_friend: {
-                            required: 'Please enter your email',
-                            email: 'Email not email'
-                        }
-                    },
-                    errorPlacement: function (error, element) {
-                        if (element.attr('name') == "cate_favourite") {
-                            element.parent().attr('data-original-title', error.text())
-                                .attr('data-toggle', 'tooltip')
-                                .attr('data-placement', 'top');
-                            $(element).parent().tooltip('show');
-                        }
-                        else {
-                            element.attr('data-original-title', error.text())
-                                .attr('data-toggle', 'tooltip')
-                                .attr('data-placement', 'top');
-                            $(element).tooltip('show');
-                        }
+        errorPlacement: function (error, element) {
+            if (element.attr('name') == "cate_favourite") {
+                element.parent().attr('data-original-title', error.text())
+                    .attr('data-toggle', 'tooltip')
+                    .attr('data-placement', 'top');
+                $(element).parent().tooltip('show');
+            }
+            else {
+                element.attr('data-original-title', error.text())
+                    .attr('data-toggle', 'tooltip')
+                    .attr('data-placement', 'top');
+                $(element).tooltip('show');
+            }
 
-                    },
-                    unhighlight: function (element) {
-                        $(element)
-                            .removeAttr('data-toggle')
-                            .removeAttr('data-original-title')
-                            .removeAttr('data-placement')
-                            .removeClass('error');
-                        $(element).unbind("tooltip");
-                    },
-                    submitHandler: function (form) {
-                        $.ajax({
-                            type: "post",
-                            url: ajaxurl,
-                            dataType: 'json',
-                            data: obj.serialize(),
-                            beforeSend: function () {
-                                $('input, button[type=submit]', obj).attr('disabled', true).css({'opacity': '0.5'});
-                            },
-                            success: function (data) {
-                                $('input, button[type=submit]', obj).attr('disabled', false).css({'opacity': '1'});
-                                if (data.status == "success") {
-                                    swal({
-                                        "title": "Success",
-                                        "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
-                                        "type": "success",
-                                        html: true
-                                    });
-
-                                    flag_alert = true;
-                                    parent.jQuery.fancybox.close();
-                                }
-                                else {
-                                    var result = data.message;
-                                    var htmlErrors = "";
-                                    if (result.length > 0) {
-                                        htmlErrors += "<ul style='color: red'>";
-                                        for (var i = 0; i < result.length; i++) {
-                                            htmlErrors += "<li style='list-style: none'>" + result[i] + "</li>";
-                                        }
-                                        htmlErrors += "</ul>";
-                                    }
-                                    swal({"title": "Error", "text": htmlErrors, "type": "error", html: true});
-                                }
-                            }
+        },
+        unhighlight: function (element) {
+            $(element)
+                .removeAttr('data-toggle')
+                .removeAttr('data-original-title')
+                .removeAttr('data-placement')
+                .removeClass('error');
+            $(element).unbind("tooltip");
+        },
+        submitHandler: function (form) {
+            var obj = $(form);
+            $.ajax({
+                type: "post",
+                url: ajaxurl,
+                dataType: 'json',
+                data: obj.serialize(),
+                beforeSend: function () {
+                    $('input, button[type=submit]', obj).attr('disabled', true).css({'opacity': '0.5'});
+                },
+                success: function (data) {
+                    $('input, button[type=submit]', obj).attr('disabled', false).css({'opacity': '1'});
+                    if ( data.status == "success") {
+                        swal({
+                            "title": "Success",
+                            "text": "<p style='color: #008000;font-weight: bold'>" + data.message + "</p>",
+                            "type": "success",
+                            html: true
+                        }, function(){
+                            window.location.href = "";
                         });
-                        return false;
+                        
                     }
-                });
+                    else {
+                        var result = data.message;
+                        var htmlErrors = "";
+                        if (result.length > 0) {
+                            htmlErrors += "<ul style='color: red'>";
+                            for (var i = 0; i < result.length; i++) {
+                                htmlErrors += "<li style='list-style: none'>" + result[i] + "</li>";
+                            }
+                            htmlErrors += "</ul>";
+                        }
+                        swal({"title": "Error", "text": htmlErrors, "type": "error", html: true});
+                    }
+                }
             });
+            return false;
         }
     });
+
 
     $('.btn-kep-offer').fancybox({
         helpers: {

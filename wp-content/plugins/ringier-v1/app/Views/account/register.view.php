@@ -3,27 +3,15 @@
 If you would like to edit this file, copy it to your current theme's directory and edit it there.
 Theme My Login will always look in your theme's directory first, before using this default template.
 */
-$is_refer = 0;
-$email_refer = 0;
-$code_refer = 0;
-$user_refer_id = 0;
 
 if (!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])) {
+    $is_refer = 0;
     $user_refer_id = $_GET['id'];
 
-    $list_email_refer = get_user_meta($user_refer_id, 'email_refer');
-    $list_code_refer = get_user_meta($user_refer_id, 'code_refer');
-    if (!empty($list_email_refer)) {
-        foreach ($list_email_refer as $k => $email) {
-            if ($_GET['email'] == $email) {
-                $code = $list_code_refer[$k];
-                if ($code == $_GET['code']) {
-                    $email_refer = $email;
-                    $code_refer = $code;
-                    $is_refer = 1;
-                }
-            }
-        }
+    $User = \RVN\Models\Users::init();
+    $chekc_refer = $User->getUserRefer($user_refer_id,$_GET['email'],$_GET['code'],'pending');
+    if(!empty($chekc_refer)){
+        $is_refer =  1;
     }
 }
 
@@ -42,6 +30,17 @@ if (!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])) {
 
 <div class="row">
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+        <?php if(isset($is_refer)){ ?>
+            <div class="message">
+                <?php if($is_refer){ ?>
+                    <p class="text-success bg-success">
+                        You are invited. Please register to complete and receive many privileges.
+                    </p>
+                <?php } else { ?>
+                    <p class="text-danger bg-danger">Link inviting inaccurate or have been used. Please check again.</p>
+                <?php } ?>
+            </div>
+        <?php } ?>
         <p style="text-align: center;font-style: italic" class="font-playfair">Create your account to join the world of
             luxury cruises</p>
         <div class="text-center">
@@ -149,10 +148,12 @@ if (!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])) {
                         <input type="hidden" name="action" value="register"/>
 
                         <!--info refer-->
-                        <input type="hidden" name="is_refer" value="<?php echo $is_refer ?>"/>
-                        <input type="hidden" name="email_refer" value="<?php echo $email_refer ?>"/>
-                        <input type="hidden" name="code_refer" value="<?php echo $code_refer ?>"/>
-                        <input type="hidden" name="user_refer_id" value="<?php echo $user_refer_id ?>"/>
+                        <?php if(!empty($is_refer)){ ?>
+                            <input type="hidden" name="email_refer" value="<?php echo $_GET['email'] ?>"/>
+                            <input type="hidden" name="code_refer" value="<?php echo $_GET['code'] ?>"/>
+                            <input type="hidden" name="user_refer_id" value="<?php echo $_GET['id'] ?>"/>
+                        <?php } ?>
+
                     </p>
                 </form>
                 <div class="row">

@@ -1680,27 +1680,23 @@ footer ul li {
 }
 
 .ctn-account ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: black !important;
-    font-weight: bold !important;
-    font-family: 'Playfair Display', serif !important;
+    color: #464646 ;
+    font-weight: bold;
 }
 
 .ctn-account :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: black !important;
-    font-weight: bold !important;
-    font-family: 'Playfair Display', serif !important;
+    color: #464646 ;
+    font-weight: bold;
 }
 
 .ctn-account ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: black !important;
-    font-weight: bold !important;
-    font-family: 'Playfair Display', serif !important;
+    color: #464646 ;
+    font-weight: bold;
 }
 
 .ctn-account :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: black !important;
-    font-weight: bold !important;
-    font-family: 'Playfair Display', serif !important;
+    color: #464646 ;
+    font-weight: bold;
 }
 
 .contact-us .form-group {
@@ -1712,27 +1708,24 @@ footer ul li {
 }
 
 .contact-us ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: black !important;
-    font-weight: bold !important;
-    font-family: 'Playfair Display', serif !important;
+    color: #464646 ;
+    font-weight: bold;
+
 }
 
 .contact-us :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: black !important;
-    font-weight: bold !important;
-    font-family: 'Playfair Display', serif !important;
+    color: #464646 ;
+    font-weight: bold;
 }
 
 .contact-us ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: black !important;
-    font-family: 'Playfair Display', serif !important;
-    font-weight: bold !important;
+    color: #464646 ;
+    font-weight: bold;
 }
 
 .contact-us :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: black !important;
-    font-weight: bold !important;
-    font-family: 'Playfair Display', serif !important;
+    color: #464646 ;
+    font-weight: bold;
 }
 
 .font-playfair {

@@ -4,6 +4,7 @@ namespace RVN\Controllers;
 use RVN\Models\Offer;
 use RVN\Models\Posts;
 use RVN\Models\Ships;
+use RVN\Models\Users;
 
 class PageController extends _BaseController
 {
@@ -61,8 +62,13 @@ class PageController extends _BaseController
     }
 
     public function pageWhyUs(){
-
-
         view('page/why-us');
+    }
+
+    public function pageReferFriend(){
+        $User = Users::init();
+        $list_refer = $User->getListUserReferBY(get_current_user_id());
+
+        view('page/refer-friend',compact('list_refer'));
     }
 }

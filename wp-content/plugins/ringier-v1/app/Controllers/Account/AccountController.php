@@ -116,55 +116,47 @@ class AccountController extends _BaseController
     public function ajaxReferFriend($data)
     {
         if (is_user_logged_in()) {
+            $result = array(
+                'status' => 'error',
+                'message' => array("Please check friends' email. <br> Friend's email had not been invited and is not a member here.."),
+            );
             if ($data['email_friend']) {
-                if (is_email($data['email_friend'])) {
-                    if (email_exists($data['email_friend'])) {
-                        $result = array(
-                            'status' => 'error',
-                            'message' => array('This email is already a member.'),
-                        );
-                    } else {
-                        $list_email_refer = get_user_meta(get_current_user_id(), 'email_refer');
-                        if (in_array($data['email_friend'], $list_email_refer)) {
-                            $result = array(
-                                'status' => 'error',
-                                'message' => array('You invited this email already..'),
-                            );
-                        } else {
-                            $email = $data['email_friend'];
-                            $code = md5(time()) . '_' . get_current_user_id();
+                $args_mail = str_replace('"','',explode('\r\n',json_encode($data['email_friend'])));
+                if(!empty($args_mail)){
+                    $User = Users::init();
+                    $code = md5(time()) . '_' . get_current_user_id();
+                    foreach ($args_mail as $k => $v){
+                        if(!empty($v)){
+                            $email = trim($v);
+                            if (is_email($email) ) {
+                                if(!email_exists($email)){
+                                    $check_refer = $User->getUserRefer(get_current_user_id(),$email);
+                                    if(empty($check_refer)){
+                                        $url = wp_registration_url() . '/?email=' . $email . '&code=' . $code . '&id=' . get_current_user_id();
+                                        $data_mail = array(
+                                            'first_name' => $email,
+                                            'url_register' => $url,
+                                            'subject' => $data['rf_subject'],
+                                            'message' => $data['rf_message'],
+                                        );
+                                        sendEmailHTML( $email, $data['rf_subject'] , 'normal_user/refer_friend.html', $data_mail );
 
-                            $url = wp_registration_url() . '/?email=' . $email . '&code=' . $code . '&id=' . get_current_user_id();
+                                        $User->addUserRefer(array(
+                                            'user_id' => get_current_user_id(),
+                                            'email_refer' => $email,
+                                            'code' => $code,
+                                            'status' => 'pending',
+                                            'created_at' => current_time('mysql'),
+                                        ));
 
-                            $args_mail = array(
-                                'first_name' => $data['email_friend'],
-                                'url_register' => $url,
-                            );
-                            sendEmailHTML($data['email_friend'], 'Register invitation
-', 'normal_user/refer_friend.html', $args_mail);
-
-                            add_user_meta(get_current_user_id(), 'email_refer', $data['email_friend']);
-                            add_user_meta(get_current_user_id(), 'code_refer', $code);
-
-                            $result = array(
-                                'status' => 'success',
-                                'message' => 'Refer friend success.',
-                                'url' => $url,
-                            );
+                                        $result['status'] = 'success';
+                                        $result['message']  = 'Refer success.';
+                                    }
+                                }
+                            }
                         }
                     }
-
-                } else {
-                    $result = array(
-                        'status' => 'error',
-                        'message' => array('Email not email.'),
-                    );
                 }
-            } else {
-                $result = array(
-                    'status' => 'error',
-                    'message' => array('Please enter your email.'),
-                );
             }
         } else {
             $result = array(
@@ -173,9 +165,7 @@ class AccountController extends _BaseController
             );
         }
 
-
         return $result;
-
     }
 
     public function confirm_change_email(){

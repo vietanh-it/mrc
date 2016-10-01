@@ -20,7 +20,7 @@ while (have_posts()) : the_post();
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <p class="font-playfair" style="color: #898989;font-style: italic;text-align: center;font-size: 14px;margin-bottom: 30px">Leave us a message below or contact us via our contact information</p>
-                        <form class="contact-us">
+                        <form class="contact-us" id="contact-us">
                             <div class="form-group">
                                 <!--<label for="last_name" class="text"></label>-->
                                 <input type="text" class="form-control" id="contact_full_name" name="contact_full_name" placeholder="Your name">

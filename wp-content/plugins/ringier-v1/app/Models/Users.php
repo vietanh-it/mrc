@@ -11,6 +11,7 @@ class Users
 {
     protected $_wpdb;
     protected $_table_info;
+    protected $_table_user_refer;
 
     private static $instance;
 
@@ -23,6 +24,7 @@ class Users
         $this->_wpdb = $wpdb;
 
         $this->_table_info = $wpdb->prefix . "user_info";
+        $this->_table_user_refer = $wpdb->prefix . "user_refer";
     }
 
     public static function init()
@@ -77,23 +79,28 @@ class Users
                 //'address' => $_POST['address'],
                 'update_at' => current_time('mysql'),
             );
-            if(!empty($data['is_refer'])  && !empty($data['email_refer']) && !empty($data['code_refer']) && !empty($data['user_refer_id'])){
+            if(!empty($data['email_refer']) && !empty($data['code_refer']) && !empty($data['user_refer_id'])){
+                $chekc_refer = $this->getUserRefer($data['user_refer_id'],$data['email_refer'],$data['code_refer'],'pending');
+                if(!empty($chekc_refer)){
+                    // set is_refer cho nguoi dc moi
+                    $data_info['is_refer'] = 1;
 
-                // set is_refer cho nguoi dc moi
-                $data_info['is_refer'] = 1;
+                    //cong them 1 cho is_refer cua user mời
+                    $user_refer_info = $this->getUserInfo($data['user_refer_id']);
+                    $is_refer = $user_refer_info->is_refer;
+                    $new_refer  = 1;
+                    if(!empty($is_refer)){
+                        $new_refer = intval($is_refer + 1);
+                    }
+                    $this->_wpdb->update($this->_table_info,array('is_refer' => $new_refer),array('user_id' => $data['user_refer_id']));
 
-                //cong them 1 cho is_refer cua user mời
-                $user_refer_info = $this->getUserInfo($data['user_refer_id']);
-                $is_refer = $user_refer_info->is_refer;
-                $new_refer  = 1;
-                if(!empty($is_refer)){
-                    $new_refer = intval($is_refer + 1);
+                    // chuyen email da refer qua trang thai thanh cong
+                    $this->updateUserRefer(array(
+                        'id' => $chekc_refer->id,
+                        'status' => 'publish',
+                        'updated_at' => current_time('mysql'),
+                    ));
                 }
-                $this->_wpdb->update($this->_table_info,array('is_refer' => $new_refer),array('user_id' => $data['user_refer_id']));
-
-                // xoa cac param da luu
-                delete_user_meta($data['user_refer_id'],'email_refer',$data['email_refer']);
-                delete_user_meta($data['user_refer_id'],'code_refer',$data['code_refer']);
 
             }
             if(!$user_info){
@@ -178,5 +185,55 @@ class Users
         }
 
         return $result;
+    }
+
+    public function getListUserReferBY($user_id,$status = ''){
+        if(empty($user_id)){
+            return false;
+        }else{
+            $where = '';
+            if(!empty($status)){
+                $where .= ' AND status = "'.$status.'"';
+            }
+            $query = 'SELECT * FROM '.$this->_table_user_refer .' WHERE user_id = '.$user_id .$where;
+            return $this->_wpdb->get_results($query);
+        }
+    }
+
+    public function getUserRefer($user_id,$email_refer,$code='',$status = ''){
+        if(empty($user_id) or empty($email_refer)){
+            return false;
+        }else{
+            $where = '';
+            if(!empty($status)){
+                $where .= ' AND status = "'.$status.'"';
+            }
+            if(!empty($email_refer)){
+                $where .= ' AND email_refer = "'.$email_refer.'"';
+            }
+            if(!empty($code)){
+                $where .= ' AND code = "'.$code.'"';
+            }
+            $query = 'SELECT * FROM '.$this->_table_user_refer .' WHERE user_id = '.$user_id .$where;
+            return $this->_wpdb->get_row($query);
+        }
+    }
+
+    public function addUserRefer($args){
+        if(empty($args['user_id'])){
+            return false;
+        }else{
+            return $this->_wpdb->insert($this->_table_user_refer,$args);
+        }
+    }
+
+    public function updateUserRefer($args){
+        if(empty($args['id'])){
+            return false;
+        }else{
+            $id = $args['id'];
+            unset($args['id']);
+            return $this->_wpdb->update($this->_table_user_refer,$args,array('id' => $id));
+        }
     }
 }

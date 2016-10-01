@@ -149,7 +149,8 @@ class BookingController extends _BaseController
     public function ajaxSaveAdditionalInformation($data)
     {
         $model = Booking::init();
-        $rs = $model->saveAdditionalInformation($data['cart_id'], $data['additional_information'], $data['billing_address']);
+        $rs = $model->saveAdditionalInformation($data['cart_id'], $data['additional_information'],
+            $data['billing_address']);
 
         return [
             'status' => 'success',
@@ -205,5 +206,11 @@ class BookingController extends _BaseController
     public function bookingDetail()
     {
         view('booking/booking_detail');
+    }
+
+
+    public function tato()
+    {
+        view('booking/tato');
     }
 }

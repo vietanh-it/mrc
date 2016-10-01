@@ -808,6 +808,7 @@ footer ul li {
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 20px;
     margin: 10px 0;
+    text-align: justify;
 }
 
 .journey-detail .featured-image .info ul li:first-child {

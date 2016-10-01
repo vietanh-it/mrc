@@ -112,13 +112,16 @@ class Booking
 
     public function getDefaultCart($user_id, $journey_id)
     {
+        $m_journey = Journey::init();
+        $journey = $m_journey->getJourneyInfoByID($journey_id);
+
         $modelUser = Users::init();
         $user = $modelUser->getUserInfo($user_id);
-        $code = $this->generateBookingCode();
+        $code = $this->generateBookingCode($journey->journey_code);
 
         // Create post
         $post_id = wp_insert_post([
-            'post_title' => '#' . $code,
+            'post_title' => $code,
             'post_name'  => $code,
             'post_type'  => 'booking'
         ]);
@@ -505,10 +508,15 @@ class Booking
 
     public function generateBookingCode($prefix = '')
     {
+        $i = 1;
         do {
-            $code = $this->randomCode($prefix);
+            // $code = $this->randomCode($prefix);
+            // Sample Code: MP160816-1
+            $code = $prefix . date('dmy') . '-' . $i;
             $query = "SELECT * FROM {$this->_tbl_cart} WHERE booking_code = '{$code}'";
             $result = $this->_wpdb->get_row($query);
+
+            $i++;
         } while (!empty($result));
 
         return $code;

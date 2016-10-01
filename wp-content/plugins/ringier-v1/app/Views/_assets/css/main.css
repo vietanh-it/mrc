@@ -773,7 +773,7 @@ footer ul li {
 }
 
 .journey-detail {
-    padding-bottom: 30px;
+    padding-bottom: 60px;
 }
 
 .journey-detail .featured-image {
@@ -948,8 +948,8 @@ footer ul li {
     text-transform: uppercase;
     color: black;
     font-weight: bold;
-    margin-bottom: 50px;
-    margin-top: 20px;
+    margin-bottom: 18px;
+    margin-top: 16px;
 }
 
 .journey-detail .bk-box {
@@ -1991,6 +1991,10 @@ header .top-bar .top-info li:first-child {
 .list-galary-3 .owl-carousel .owl-wrapper-outer {
     height: 500px;
     padding-top: 35px;
+}
+
+.booking-info {
+    padding-left: 25px;
 }
 
 .table.table-padding th, .table.table-padding td {

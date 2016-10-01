@@ -118,7 +118,7 @@ class AccountController extends _BaseController
         if (is_user_logged_in()) {
             $result = array(
                 'status' => 'error',
-                'message' => array("Please check friends' email. <br> Friend's email had not been invited and is not a member here.."),
+                'message' => array("Your friends are invited or they've been already members here."),
             );
             if ($data['email_friend']) {
                 $args_mail = str_replace('"','',explode('\r\n',json_encode($data['email_friend'])));

@@ -37,7 +37,7 @@ while (have_posts()) : the_post();
                                 <input type="text" class="form-control" id="rf_subject" name="rf_subject" placeholder="Subject: [Your name] invites you to join a cruise" value="<?php echo !empty($user->display_name) ? $user->display_name .' invites you to join a cruise' : '' ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <textarea rows="5" class="form-control" name="email_friend" placeholder=" Input friends' email, one per line
+                                <textarea rows="5" class="form-control" name="email_friend" placeholder=" Input your friends's email, one per line
  Email 1
  Email 2"></textarea>
                             </div>

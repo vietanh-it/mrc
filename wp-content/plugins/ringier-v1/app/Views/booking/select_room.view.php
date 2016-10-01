@@ -35,7 +35,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 ">
                     <p class="text-tt">
-                        Check availability and book online <span>Would you like extension and service addons?</span>
+                        Check availability and book online <span>Please select guest and staterooms</span>
                     </p>
                 </div>
             </div>
@@ -67,7 +67,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
                             <!--Price table-->
                             <div>
-                                <div class="bk-box " style="padding: 20px 30px">
+                                <div class="bk-box " style="padding: 15px 30px 20px;">
                                     <span style="text-transform: uppercase;font-weight: bold">Stateroom Prices</span>
                                     (per person, including any discount)
                                     <a href="javascript:void(0)" class="stateroom-price-toggle">

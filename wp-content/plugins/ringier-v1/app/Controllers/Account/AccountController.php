@@ -435,6 +435,15 @@ class AccountController extends _BaseController
 
         return $result;
     }
+
+    public function beforeYouGo(){
+        $objUser = Users::init();
+        $user_info = $objUser->getUserInfo(get_current_user_id());
+        $Location = Location::init();
+        $country_list = $Location->getCountryList();
+
+        return view('account/before-you-go', compact('user_info','country_list'));
+    }
 }
 
 ?>

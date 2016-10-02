@@ -370,7 +370,9 @@ Class PageTATO
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <a href="#">Add new TA/TO</a>
+                                        <a href="<?php echo WP_SITEURL; ?>/wp-admin/post-new.php?post_type=tato">
+                                            Add new TA/TO
+                                        </a>
                                     </div>
                                 </div>
                             </div>

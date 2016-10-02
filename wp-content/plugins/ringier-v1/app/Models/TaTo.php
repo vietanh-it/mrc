@@ -44,8 +44,25 @@ class TaTo
         $result = $this->_wpdb->get_row($query);
 
         if (empty($result)) {
+
+            // Delete auto-draft
+            $query_delete = "SELECT * FROM {$this->_wpdb->posts} WHERE post_type = 'tato' AND post_status = 'auto-draft' AND post_author = " . get_current_user_id();
+            $delete_tatos = $this->_wpdb->get_results($query_delete);
+
+            if (!empty($delete_tatos)) {
+                foreach ($delete_tatos as $k => $v) {
+                    if ($v->ID != $tato_id) {
+                        $this->_wpdb->delete($this->_wpdb->posts, ['ID' => $v->ID]);
+                        $this->_wpdb->delete(TBL_TATO, ['object_id' => $v->ID]);
+                    }
+                }
+            }
+
+
+            // Insert new draft tato
             $this->_wpdb->insert(TBL_TATO, ['object_id' => $tato_id]);
             $result = $this->getTaToByID($tato_id);
+
         }
 
         return $result;

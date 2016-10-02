@@ -44,7 +44,8 @@ class BackendUI
     {
         echo '<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"  rel="stylesheet">';
         echo '<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css"  rel="stylesheet">';
-        echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">'; ?>
+        echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">';
+        echo '<link rel="stylesheet" href="' . VIEW_URL . '/css/grid12.css">'; ?>
 
         <style>
             .loading-wrapper {

@@ -50,7 +50,8 @@ class Ships
         if (!empty($ship_id)) {
             $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_ship_info} si ON p.ID = si.object_id WHERE p.ID = {$ship_id}";
             $result = $this->_wpdb->get_row($query);
-        } else {
+        }
+        else {
             $result = false;
         }
 
@@ -100,10 +101,12 @@ class Ships
                 if (empty($booked_rooms)) {
                     // Unbooked rooms
                     $item->html = "<div data-roomid='{$item->id}' data-roomtypeid='{$item->room_type_id}' data-type='none' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
-                } elseif (!in_array($item->id, $booked_rooms)) {
+                }
+                elseif (!in_array($item->id, $booked_rooms)) {
                     // Unbooked rooms
                     $item->html = "<div data-roomid='{$item->id}' data-roomtypeid='{$item->room_type_id}' data-type='none' style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: pointer;'><img src='" . VIEW_URL . "/images/rooms/" . $ship_id . "/" . $item->room_name . ".png'/></div>";
-                } else {
+                }
+                else {
                     // Booked rooms
                     $item->html = "<div style='overflow: hidden; position: absolute; top: {$item->top}; left: {$item->left}; width: {$item->width}; height: {$item->height}; cursor: no-drop;'>" .
                         "<img style='position: absolute; width: auto; height: auto; top: 50%; left: 50%; margin-top: -17px; margin-left: -11px;' src='" . VIEW_URL . "/images/icon-booking-locked.png'/>" .
@@ -129,7 +132,7 @@ class Ships
     public function saveRoomInfo($data)
     {
         $this->_wpdb->update($this->_tbl_rooms, [
-            'room_name' => $data['room_name'],
+            'room_name'    => $data['room_name'],
             'room_type_id' => $data['room_type_id']
         ], ['id' => $data['room_id']]);
 
@@ -142,10 +145,10 @@ class Ships
     public function saveRoomTypePricing($data)
     {
         $info = [
-            'twin_high_season_price' => $data['twin_high_price'],
-            'twin_low_season_price' => $data['twin_low_price'],
+            'twin_high_season_price'   => $data['twin_high_price'],
+            'twin_low_season_price'    => $data['twin_low_price'],
             'single_high_season_price' => $data['single_high_price'],
-            'single_low_season_price' => $data['single_low_price']
+            'single_low_season_price'  => $data['single_low_price']
         ];
         $rs = $this->_wpdb->update($this->_tbl_room_types, $info, ['id' => $data['room_type_id']]);
 
@@ -157,6 +160,23 @@ class Ships
     {
         $query = "SELECT * FROM {$this->_tbl_room_types} WHERE id = {$room_type_id}";
         $result = $this->_wpdb->get_row($query);
+
+        return $result;
+    }
+
+
+    public function getShipHaveJourney()
+    {
+        $query = "SELECT * FROM " . TBL_JOURNEY_TYPE_INFO . " GROUP BY ship";
+        $ships = $this->_wpdb->get_results($query);
+
+        $result = [];
+        if (!empty($ships)) {
+            foreach ($ships as $k => $v) {
+                $info = $this->getShipDetail($v->ship);
+                $result[$v->ship] = $info;
+            }
+        }
 
         return $result;
     }

@@ -64,4 +64,7 @@ if (!defined('DB_PREFIX')) {
 define('TBL_ADDON_OPTIONS', DB_PREFIX . 'addon_options');
 define('TBL_OFFER_INFO', DB_PREFIX . 'offer_info');
 define('TBL_JOURNEY_INFO', DB_PREFIX . 'journey_info');
+define('TBL_JOURNEY_TYPE_INFO', DB_PREFIX . 'journey_type_info');
 define('TBL_POST_INFO', DB_PREFIX . 'post_info');
+define('TBL_JOURNEY_TYPE_PORT', DB_PREFIX . 'journey_type_port');
+define('TBL_TATO', DB_PREFIX . 'tato');

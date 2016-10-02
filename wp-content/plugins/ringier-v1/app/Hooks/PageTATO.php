@@ -9,6 +9,8 @@
 namespace RVN\Hooks;
 
 use RVN\Controllers\DestinationController;
+use RVN\Models\Destinations;
+use RVN\Models\Journey;
 use RVN\Models\JourneyType;
 
 Class PageTATO
@@ -42,8 +44,11 @@ Class PageTATO
     public function tatoBooking()
     {
         $m_journey_type = JourneyType::init();
-        $destination = $m_journey_type->getDestinationHaveJourney();
-        ?>
+        $m_journey = Journey::init();
+        $m_destination = Destinations::init();
+        $destination = $m_destination->getDestinationHaveJourney(); ?>
+
+
         <style>
             h2 {
                 font-size: 32px;
@@ -169,6 +174,11 @@ Class PageTATO
                             <label>Destination</label>
                             <select id="destination" name="destination" class="select2">
                                 <option value="">--- Select destination ---</option>
+                                <?php if (!empty($destination)) {
+                                    foreach ($destination as $k => $v) {
+                                        echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
+                                    }
+                                } ?>
                             </select>
                         </div>
 

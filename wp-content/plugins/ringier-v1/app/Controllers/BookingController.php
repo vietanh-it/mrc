@@ -125,15 +125,6 @@ class BookingController extends _BaseController
     }
 
 
-    public function getCartItems($user_id, $journey_id)
-    {
-        $model = Booking::init();
-        $result = $model->getCartItems($user_id, $journey_id);
-
-        return $result;
-    }
-
-
     public function ajaxGetCart($data)
     {
         $model = Booking::init();
@@ -156,6 +147,15 @@ class BookingController extends _BaseController
             'status' => 'success',
             'data'   => $rs
         ];
+    }
+
+
+    public function getCartItems($user_id, $journey_id)
+    {
+        $model = Booking::init();
+        $result = $model->getCartItems($user_id, $journey_id);
+
+        return $result;
     }
 
 

@@ -48,6 +48,7 @@ class Destinations
         $result = $this->_wpdb->get_row($query);
 
         if (!empty($result)) {
+            $result->permalink = get_permalink($result);
             $countries = unserialize($result->countries);
             $result->countries = $countries;
         }
@@ -61,13 +62,17 @@ class Destinations
         $m_journey_type = JourneyType::init();
         $m_journey = Journey::init();
 
+        $result = [];
         $jouney_type = $m_journey_type->getJourneyTypeList();
         if (!empty($jouney_type['data'])) {
 
             foreach ($jouney_type['data'] as $k => $v) {
-
+                $destination = $this->getInfo($v->destination);
+                $result[$destination->ID] = $destination;
             }
 
         }
+
+        return $result;
     }
 }

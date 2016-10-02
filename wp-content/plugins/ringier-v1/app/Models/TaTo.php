@@ -62,7 +62,6 @@ class TaTo
             // Insert new draft tato
             $this->_wpdb->insert(TBL_TATO, ['object_id' => $tato_id]);
             $result = $this->getTaToByID($tato_id);
-
         }
 
         return $result;

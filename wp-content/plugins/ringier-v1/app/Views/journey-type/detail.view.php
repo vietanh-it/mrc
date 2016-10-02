@@ -104,7 +104,7 @@ if (!empty($journey_type_info)) { ?>
 
                                         <td> from
 
-                                            <?php if (!empty($offer)) { ?>
+                                            <?php if (!empty($offer) && ($j_min_price->min_price > $j_min_price->min_price_offer)) { ?>
                                                 <span
                                                     style="text-decoration: line-through;color: burlywood; padding-right: 5px;">
                                                 US$<?php echo number_format($j_min_price->min_price); ?>

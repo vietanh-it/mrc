@@ -8,10 +8,12 @@
 
 namespace RVN\Hooks;
 
-use RVN\Controllers\DestinationController;
 use RVN\Models\Destinations;
 use RVN\Models\Journey;
 use RVN\Models\JourneyType;
+use RVN\Models\Ports;
+use RVN\Models\Posts;
+use RVN\Models\Ships;
 
 Class PageTATO
 {
@@ -45,8 +47,16 @@ Class PageTATO
     {
         $m_journey_type = JourneyType::init();
         $m_journey = Journey::init();
+        $m_post = Posts::init();
+        $m_ships = Ships::init();
+        $m_ports = Ports::init();
         $m_destination = Destinations::init();
-        $destination = $m_destination->getDestinationHaveJourney(); ?>
+
+        $destination = $m_destination->getDestinationHaveJourney();
+        $sail_month = $m_journey->getMonthHaveJourney();
+        $list_port = $m_ports->getPortHaveJourney();
+        $list_ship = $m_ships->getShipHaveJourney();
+        ?>
 
 
         <style>
@@ -187,6 +197,11 @@ Class PageTATO
                             <label>Sail month</label>
                             <select id="sail_month" name="sail_month" class="select2">
                                 <option value="">--- Select sail month ---</option>
+                                <?php if (!empty($sail_month)) {
+                                    foreach ($sail_month as $k => $v) {
+                                        echo '<option value="' . $v->month . '">' . $v->month . '</option>';
+                                    }
+                                } ?>
                             </select>
                         </div>
 
@@ -195,6 +210,11 @@ Class PageTATO
                             <label>Departure Port</label>
                             <select id="port" name="port" class="select2">
                                 <option value="">--- Select port ---</option>
+                                <?php if (!empty($list_port)) {
+                                    foreach ($list_port as $k => $v) {
+                                        echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
+                                    }
+                                } ?>
                             </select>
                         </div>
 
@@ -203,6 +223,11 @@ Class PageTATO
                             <label>Ship</label>
                             <select id="ship" name="ship" class="select2">
                                 <option value="">--- Select ship ---</option>
+                                <?php if (!empty($list_ship)) {
+                                    foreach ($list_ship as $k => $v) {
+                                        echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
+                                    }
+                                } ?>
                             </select>
                         </div>
 
@@ -383,14 +408,136 @@ Class PageTATO
 
 
         <script>
+            var ajax_url = '<?php echo admin_url("admin-ajax.php"); ?>';
+
             var $ = jQuery.noConflict();
             $(document).ready(function ($) {
+
+
                 $('#destination').change(function () {
-                    var destination_id = $(this).val();
-
-
+                    loadJourney();
                 });
+
+                $('#sail_month').change(function () {
+                    loadJourney();
+                });
+
+                $('#port').change(function () {
+                    loadJourney();
+                });
+
+                $('#ship').change(function () {
+                    loadJourney();
+                });
+
+
+                $('#journey_id').change(function () {
+                    var journey_id = $(this).val();
+
+                    // get journey ajax
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_journey',
+                            method: 'GetJourneys',
+                            journey_id: journey_id
+                        },
+                        beforeSend: function () {
+                            switch_loading(true);
+                        },
+                        success: function (data) {
+                            switch_loading(false);
+
+                            if (data.status == 'success') {
+                                $('#journey_id').find('option:gt(0)').remove();
+
+                                $.each(data.data, function (k, v) {
+                                    $('#journey_id').append($('<option/>', {
+                                        value: v.ID,
+                                        text: v.post_title
+                                    }));
+                                });
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+
+                        }
+                    }); // end ajax
+                });
+
             });
+
+            function loadJourney() {
+                var destination = $('#destination').val();
+                var sail_month = $('#sail_month').val();
+                var port = $('#port').val();
+                var ship = $('#ship').val();
+
+                if (destination && sail_month && port && ship) {
+
+                    // get journey ajax
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_journey',
+                            method: 'GetJourneys',
+                            _destination: destination,
+                            _month: sail_month,
+                            _port: port,
+                            _ship: ship
+                        },
+                        beforeSend: function () {
+                            switch_loading(true);
+                        },
+                        success: function (data) {
+                            switch_loading(false);
+
+                            if (data.status == 'success') {
+                                $('#journey_id').find('option:gt(0)').remove();
+
+                                $.each(data.data, function (k, v) {
+                                    $('#journey_id').append($('<option/>', {
+                                        value: v.ID,
+                                        text: v.post_title
+                                    }));
+                                });
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+
+                        }
+                    }); // end ajax
+
+                }
+            }
         </script>
 
     <?php }

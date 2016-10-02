@@ -37,7 +37,7 @@ class OfferController extends _BaseController
         $argc['page'] = $page;
         $argc['limit'] = 6;
         $argc['is_paging'] = 1;
-        $list_offer = $objOffer->getListOffer($argc);
+        $list_offer = $objOffer->getOfferList($argc);
 
         view('offer/list', compact('params', 'list_offer'));
     }

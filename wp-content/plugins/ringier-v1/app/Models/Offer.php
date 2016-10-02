@@ -53,16 +53,24 @@ class Offer
      */
     public function getOfferList($params = [])
     {
+        $page = (empty($params['page'])) ? 1 : intval($params['page']);
+        $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
+        $to = ($page - 1) * $limit;
+        $order_by = " ORDER BY p.post_date DESC ";
+
         $query = "SELECT * FROM {$this->_wpdb->posts} p";
         $inner_join = " INNER JOIN " . TBL_OFFER_INFO . " oi ON p.ID = oi.object_id";
         $inner_join .= " INNER JOIN " . TBL_JOURNEY_INFO . " ji ON oi.journey_id = ji.object_id";
         $group_by = " GROUP BY oi.object_id HAVING p.post_status = 'publish' AND DATE_FORMAT(ji.departure, '%Y-%m-%d') >= '" . date('Y-m-d') . "'";
 
-        $query .= $inner_join .= $group_by;
+        $query .= $inner_join .= $group_by . $order_by . "LIMIT $to, $limit";
         $result = $this->_wpdb->get_results($query);
 
         $objImage = Images::init();
         if (!empty($result)) {
+            $m_journey = Journey::init();
+            $m_journey_type = JourneyType::init();
+
             foreach ($result as $k => $v) {
 
                 // Nếu journey gắn theo offer empty hoặc ko publish => remove offer
@@ -71,62 +79,21 @@ class Offer
                     unset($result[$k]);
                 }
 
-                $v->permalink = get_permalink($v);
+                $jt = $m_journey->getJourneyTypeByJourney($v->journey_id);
+                $journey = $m_journey->getInfo($v->journey_id);
+                $journey_type = $journey->journey_type_info;
+
                 $v->images = $objImage->getPostImages($v->ID, ['small', 'widescreen']);
+                $v->journey_info = $journey;
+                $v->permalink = $journey_type->permalink . '#j=' . $v->journey_id;
+
+                // Journey min price
+                $v->journey_min_price = $m_journey->getJourneyMinPrice($v->journey_id, true);
             }
-        }
-
-        return $result;
-    }
-
-
-    public function getListOffer($params)
-    {
-        $cacheId = __CLASS__ . 'getListOffer' . serialize($params);
-        if (!empty($params['is_cache'])) {
-            $result = wp_cache_get($cacheId);
-        }
-        else {
-            $result = false;
-        }
-        if ($result == false) {
-            $page = (empty($params['page'])) ? 1 : intval($params['page']);
-            $limit = (empty($params['limit'])) ? 6 : intval($params['limit']);
-            $to = ($page - 1) * $limit;
-            $order_by = "  p.post_date DESC ";
-            if (!empty($params['order_by'])) {
-                $order_by = $params['order_by'];
-            }
-            $today = date("Y-m-d", time());
-            $where = '  AND oi.end_date > "' . $today . '" ';
-            $join = ' INNER JOIN ' . $this->_tbl_offer_info . ' as oi ON oi.object_id = p.ID ';
-
-            $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
-            $join
-            WHERE p.post_type = 'offer' AND p.post_status='publish'
-            $where          
-            ORDER BY $order_by  LIMIT $to, $limit
-            ";
-
-            //echo $query;
-            $list = $this->_wpdb->get_results($query);
-            $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
-            if ($list) {
-                foreach ($list as $key => &$value) {
-                    $value = $this->getOfferInfo($value);
-                }
-            }
-
-            $result = [
-                'data'  => $list,
-                'total' => $total,
-            ];
-
-            wp_cache_set($cacheId, $result, CACHEGROUP, CACHETIME);
         }
 
         if (!empty($params['is_paging'])) {
-            $this->_set_paging($result['data'], $result['total'], $params['limit'], $params['page']);
+            $this->_set_paging($result, sizeof($result), $params['limit'], $params['page']);
         }
 
         return $result;

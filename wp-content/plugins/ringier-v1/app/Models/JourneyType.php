@@ -7,6 +7,7 @@
  */
 namespace RVN\Models;
 
+use RVN\Controllers\DestinationController;
 use RVN\Library\Images;
 
 class JourneyType

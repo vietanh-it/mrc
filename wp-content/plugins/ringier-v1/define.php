@@ -61,14 +61,7 @@ if (!defined('DB_PREFIX')) {
     define('DB_PREFIX', $wpdb->prefix);
 }
 
-if (!defined('TBL_ADDON_OPTIONS')) {
-    define('TBL_ADDON_OPTIONS', DB_PREFIX . 'addon_options');
-}
-
-if (!defined('TBL_OFFER_INFO')) {
-    define('TBL_OFFER_INFO', DB_PREFIX . 'offer_info');
-}
-
-if (!defined('TBL_JOURNEY_INFO')) {
-    define('TBL_JOURNEY_INFO', DB_PREFIX . 'journey_info');
-}
+define('TBL_ADDON_OPTIONS', DB_PREFIX . 'addon_options');
+define('TBL_OFFER_INFO', DB_PREFIX . 'offer_info');
+define('TBL_JOURNEY_INFO', DB_PREFIX . 'journey_info');
+define('TBL_POST_INFO', DB_PREFIX . 'post_info');

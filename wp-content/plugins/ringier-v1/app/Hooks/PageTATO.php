@@ -38,8 +38,11 @@ Class PageTATO
 
     public function initPages()
     {
-        add_menu_page('TA/TO Booking', 'TA/TO Booking', 'manage_options', 'tato-booking', [$this, 'tatoBooking'], '',
-            50);
+        // add_menu_page('TA/TO Booking', 'TA/TO Booking', 'manage_options', 'tato-booking', [$this, 'tatoBooking'], '',
+        //     50);
+        add_submenu_page('edit.php?post_type=booking', 'TA/TO Booking', 'TA/TO Booking', 'manage_options',
+            'tato-booking',
+            [$this, 'tatoBooking']);
     }
 
     // Register Navigation Menus

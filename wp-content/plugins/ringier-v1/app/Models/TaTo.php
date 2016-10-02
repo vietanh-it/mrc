@@ -66,4 +66,20 @@ class TaTo
 
         return $result;
     }
+
+
+    public function getTaToList()
+    {
+        $query = "SELECT * FROM {$this->_wpdb->posts} WHERE post_type = 'tato' AND post_status = 'publish'";
+        $result = $this->_wpdb->get_results($query);
+
+        if (!empty($result)) {
+            foreach ($result as $k => $v) {
+                $v = $this->getTaToByID($v->ID);
+            }
+        }
+
+        return $result;
+    }
+
 }

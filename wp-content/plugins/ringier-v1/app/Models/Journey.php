@@ -601,14 +601,22 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
     }
 
 
-    public function GetAvailableRooms($journey_id)
+    public function getAvailableRooms($args)
     {
         $m_booking = Booking::init();
 
-        $journey_type = $this->getJourneyTypeByJourney($journey_id);
-        $rooms = $m_booking->getBookedRoom($journey_id);
+        $journey_type = $this->getJourneyTypeByJourney($args['journey_id']);
+        $rooms = $m_booking->getBookedRoom($args['journey_id']);
 
         $query = "SELECT r.id, r.room_name, r.room_type_id, rt.room_type_name FROM " . TBL_ROOMS . " r INNER JOIN " . TBL_ROOM_TYPES . " rt ON r.room_type_id = rt.id WHERE rt.ship_id = {$journey_type->ship}";
+
+        // Get by room type id
+        if (!empty($args['room_type_id'])) {
+            if ($args['room_type_id'] != 'all') {
+                $query .= " AND rt.id = {$args['room_type_id']}";
+            }
+        }
+
         if (!empty($rooms)) {
             $not_in = '';
             foreach ($rooms as $room) {

@@ -88,6 +88,20 @@ class JourneyController extends _BaseController
     }
 
 
+    public function ajaxGetAvailableRooms($args)
+    {
+        $journey = Journey::init();
+        $list_room = $journey->getAvailableRooms($args);
+
+        $result = [
+            'status' => 'success',
+            'data'   => $list_room
+        ];
+
+        return $result;
+    }
+
+
     public function ajaxGetJourneyInfo($args)
     {
         $journey = Journey::init();

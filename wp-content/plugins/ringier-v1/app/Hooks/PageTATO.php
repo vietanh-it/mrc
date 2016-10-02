@@ -246,6 +246,7 @@ Class PageTATO
                                 <label>Room type</label>
                                 <select id="room_type" name="room_type" class="select2">
                                     <option value="">--- Select room type ---</option>
+                                    <option value="all">All room type</option>
                                 </select>
                             </div>
 
@@ -468,7 +469,7 @@ Class PageTATO
                             switch_loading(false);
 
                             if (data.status == 'success') {
-                                $('#room_type').find('option:gt(0)').remove();
+                                $('#room_type').find('option:gt(1)').remove();
 
                                 $.each(data.data, function (k, v) {
                                     $('#room_type').append($('<option/>', {
@@ -494,12 +495,6 @@ Class PageTATO
 
                         }
                     }); // end ajax
-                });
-
-
-                // --- Get room when Room Type change ---
-                $('#room_type').change(function () {
-                    var journey_id = $(this).val();
 
                     // get journey ajax
                     $.ajax({
@@ -518,12 +513,64 @@ Class PageTATO
                             switch_loading(false);
 
                             if (data.status == 'success') {
-                                $('#room_type').find('option:gt(0)').remove();
+                                $('#room').find('option:gt(0)').remove();
 
                                 $.each(data.data, function (k, v) {
-                                    $('#room_type').append($('<option/>', {
+                                    $('#room').append($('<option/>', {
                                         value: v.id,
-                                        text: v.room_type_name
+                                        text: v.room_name
+                                    }).attr('data-room-type-id', v.room_type_id));
+                                });
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+
+                        }
+                    }); // end ajax
+
+                });
+
+
+                // --- Get room when Room Type change ---
+                $('#room_type').change(function () {
+                    var room_type = $(this).val();
+
+                    // get journey ajax
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_journey',
+                            method: 'GetAvailableRooms',
+                            journey_id: $('#journey_id').val(),
+                            room_type_id: room_type
+                        },
+                        beforeSend: function () {
+                            switch_loading(true);
+                        },
+                        success: function (data) {
+                            switch_loading(false);
+
+                            if (data.status == 'success') {
+                                $('#room').find('option:gt(0)').remove();
+
+                                $.each(data.data, function (k, v) {
+                                    $('#room').append($('<option/>', {
+                                        value: v.id,
+                                        text: v.room_name
                                     }));
                                 });
                             }

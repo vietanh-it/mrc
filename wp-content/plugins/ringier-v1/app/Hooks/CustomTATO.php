@@ -141,7 +141,7 @@ class CustomTATO
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Deposit Rate (%)</label>
-                                <input type="number" name="deposit_rate" value="<?php echo $tato->deposit_rate; ?>">
+                                <input type="number" name="deposit_rate" value="<?php echo $tato->deposit_rate; ?>" min="0">
                             </div>
                         </div>
 
@@ -149,7 +149,7 @@ class CustomTATO
                             <div class="form-group">
                                 <label>Commission rate (%)</label>
                                 <input type="number" name="commission_rate"
-                                       value="<?php echo $tato->commission_rate; ?>">
+                                       value="<?php echo $tato->commission_rate; ?>" min="0">
                             </div>
                         </div>
 

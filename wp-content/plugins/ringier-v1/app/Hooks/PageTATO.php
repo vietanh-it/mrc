@@ -89,22 +89,6 @@ Class PageTATO
                 width: 100%;
             }
 
-            .row {
-                overflow: hidden;
-                max-width: 100%;
-                margin-top: 20px;
-            }
-
-            .col-md-7 {
-                width: 60%;
-                float: left;
-            }
-
-            .col-md-5 {
-                width: 40%;
-                float: left;
-            }
-
             .addon a {
                 border-radius: 50%;
                 border: 1px solid #676767;
@@ -179,64 +163,68 @@ Class PageTATO
                     <!---- Criteria 1 ---->
                     <div class="row">
 
-                        <!--Destination-->
-                        <div class="form-group">
-                            <label>Destination</label>
-                            <select id="destination" name="destination" class="select2">
-                                <option value="">--- Select destination ---</option>
-                                <?php if (!empty($destination)) {
-                                    foreach ($destination as $k => $v) {
-                                        echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
-                                    }
-                                } ?>
-                            </select>
-                        </div>
+                        <div class="col-md-12">
 
-                        <!--Sail month-->
-                        <div class="form-group">
-                            <label>Sail month</label>
-                            <select id="sail_month" name="sail_month" class="select2">
-                                <option value="">--- Select sail month ---</option>
-                                <?php if (!empty($sail_month)) {
-                                    foreach ($sail_month as $k => $v) {
-                                        echo '<option value="' . $v->month . '">' . $v->month . '</option>';
-                                    }
-                                } ?>
-                            </select>
-                        </div>
+                            <!--Destination-->
+                            <div class="form-group">
+                                <label>Destination</label>
+                                <select id="destination" name="destination" class="select2">
+                                    <option value="">--- Select destination ---</option>
+                                    <?php if (!empty($destination)) {
+                                        foreach ($destination as $k => $v) {
+                                            echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
+                                        }
+                                    } ?>
+                                </select>
+                            </div>
 
-                        <!--Port-->
-                        <div class="form-group">
-                            <label>Departure Port</label>
-                            <select id="port" name="port" class="select2">
-                                <option value="">--- Select port ---</option>
-                                <?php if (!empty($list_port)) {
-                                    foreach ($list_port as $k => $v) {
-                                        echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
-                                    }
-                                } ?>
-                            </select>
-                        </div>
+                            <!--Sail month-->
+                            <div class="form-group">
+                                <label>Sail month</label>
+                                <select id="sail_month" name="sail_month" class="select2">
+                                    <option value="">--- Select sail month ---</option>
+                                    <?php if (!empty($sail_month)) {
+                                        foreach ($sail_month as $k => $v) {
+                                            echo '<option value="' . $v->month . '">' . $v->month . '</option>';
+                                        }
+                                    } ?>
+                                </select>
+                            </div>
 
-                        <!--Ship-->
-                        <div class="form-group">
-                            <label>Ship</label>
-                            <select id="ship" name="ship" class="select2">
-                                <option value="">--- Select ship ---</option>
-                                <?php if (!empty($list_ship)) {
-                                    foreach ($list_ship as $k => $v) {
-                                        echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
-                                    }
-                                } ?>
-                            </select>
-                        </div>
+                            <!--Port-->
+                            <div class="form-group">
+                                <label>Departure Port</label>
+                                <select id="port" name="port" class="select2">
+                                    <option value="">--- Select port ---</option>
+                                    <?php if (!empty($list_port)) {
+                                        foreach ($list_port as $k => $v) {
+                                            echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
+                                        }
+                                    } ?>
+                                </select>
+                            </div>
 
-                        <!--Journey-->
-                        <div class="form-group">
-                            <label>Journey</label>
-                            <select id="journey_id" name="journey_id" class="select2">
-                                <option value="">--- Select journey ---</option>
-                            </select>
+                            <!--Ship-->
+                            <div class="form-group">
+                                <label>Ship</label>
+                                <select id="ship" name="ship" class="select2">
+                                    <option value="">--- Select ship ---</option>
+                                    <?php if (!empty($list_ship)) {
+                                        foreach ($list_ship as $k => $v) {
+                                            echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
+                                        }
+                                    } ?>
+                                </select>
+                            </div>
+
+                            <!--Journey-->
+                            <div class="form-group">
+                                <label>Journey</label>
+                                <select id="journey_id" name="journey_id" class="select2">
+                                    <option value="">--- Select journey ---</option>
+                                </select>
+                            </div>
+
                         </div>
 
                     </div>
@@ -245,20 +233,24 @@ Class PageTATO
                     <!---- Criteria 2 ---->
                     <div class="row">
 
-                        <!--Room type-->
-                        <div class="form-group">
-                            <label>Room type</label>
-                            <select name="destination" class="select2">
-                                <option value="">--- Select room type ---</option>
-                            </select>
-                        </div>
+                        <div class="col-md-12">
 
-                        <!--Room list-->
-                        <div class="form-group">
-                            <label>Room list</label>
-                            <select name="destination" class="select2">
-                                <option value="">--- Select room ---</option>
-                            </select>
+                            <!--Room type-->
+                            <div class="form-group">
+                                <label>Room type</label>
+                                <select name="destination" class="select2">
+                                    <option value="">--- Select room type ---</option>
+                                </select>
+                            </div>
+
+                            <!--Room list-->
+                            <div class="form-group">
+                                <label>Room list</label>
+                                <select name="destination" class="select2">
+                                    <option value="">--- Select room ---</option>
+                                </select>
+                            </div>
+
                         </div>
 
                     </div>
@@ -275,27 +267,29 @@ Class PageTATO
 
                     <div class="row">
 
+                        <div class="col-md-12">
 
-                        <!-- Addon -->
-                        <div class="form-group">
-                            <label>Extra</label>
-                            <div class="addon">
-                                <a href="javascript:void(0)" data-action-type="minus">-</a>
-                                <span>0</span>
-                                <a href="javascript:void(0)" data-action-type="plus">+</a>
+                            <!-- Addon -->
+                            <div class="form-group">
+                                <label>Extra</label>
+                                <div class="addon">
+                                    <a href="javascript:void(0)" data-action-type="minus">-</a>
+                                    <span>0</span>
+                                    <a href="javascript:void(0)" data-action-type="plus">+</a>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Addon -->
-                        <div class="form-group">
-                            <label>Extra</label>
-                            <div class="addon">
-                                <a href="javascript:void(0)" data-action-type="minus">-</a>
-                                <span>0</span>
-                                <a href="javascript:void(0)" data-action-type="plus">+</a>
+                            <!-- Addon -->
+                            <div class="form-group">
+                                <label>Extra</label>
+                                <div class="addon">
+                                    <a href="javascript:void(0)" data-action-type="minus">-</a>
+                                    <span>0</span>
+                                    <a href="javascript:void(0)" data-action-type="plus">+</a>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
 
                     </div>
 
@@ -363,31 +357,40 @@ Class PageTATO
                         <div class="col-md-5">
 
                             <div class="row">
-                                <div class="form-group">
-                                    <label>Choose TA/TO</label>
-                                    <select name="tato" class="select2">
-                                        <option value="">--- Select TA/TO ---</option>
-                                    </select>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Choose TA/TO</label>
+                                        <select name="tato" class="select2">
+                                            <option value="">--- Select TA/TO ---</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="form-group">
-                                    <a href="#">Add new TA/TO</a>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <a href="#">Add new TA/TO</a>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="form-group">
-                                    <label>Deposit (%)</label>
-                                    <input type="number" name="deposit">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Deposit (%)</label>
+                                        <input type="number" name="deposit">
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <i>Note: The booking is kept for only 3 days. Please tell the TA/TO for deposit as soon
-                                    as
-                                    possible.</i>
+                                <div class="col-md-12">
+                                    <i>Note: The booking is kept for only 3 days. Please tell the TA/TO for deposit as
+                                        soon
+                                        as
+                                        possible.</i>
+                                </div>
                             </div>
 
                         </div>

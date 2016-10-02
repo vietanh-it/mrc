@@ -304,8 +304,13 @@ class CustomTATO
                     <div class="btn-wrapper">
                         <?php
 
-                        if (!empty($_GET['action'] && $_GET['action'] == 'edit')) {
-                            submit_button('Save TA/TO');
+                        if (!empty($_GET['action'])) {
+                            if ($_GET['action'] == 'edit') {
+                                submit_button('Save TA/TO');
+                            }
+                            else {
+                                submit_button('Create TA/TO');
+                            }
                         }
                         else {
                             submit_button('Create TA/TO');

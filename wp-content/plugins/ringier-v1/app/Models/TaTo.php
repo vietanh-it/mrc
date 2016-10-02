@@ -40,9 +40,13 @@ class TaTo
 
     public function getTaToByID($tato_id)
     {
-
         $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN " . TBL_TATO . " tt ON p.ID = tt.object_id WHERE p.ID = {$tato_id}";
         $result = $this->_wpdb->get_row($query);
+
+        if (empty($result)) {
+            $this->_wpdb->insert(TBL_TATO, ['object_id' => $tato_id]);
+            $result = $this->getTaToByID($tato_id);
+        }
 
         return $result;
     }

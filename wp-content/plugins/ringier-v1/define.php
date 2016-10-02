@@ -68,3 +68,5 @@ define('TBL_JOURNEY_TYPE_INFO', DB_PREFIX . 'journey_type_info');
 define('TBL_POST_INFO', DB_PREFIX . 'post_info');
 define('TBL_JOURNEY_TYPE_PORT', DB_PREFIX . 'journey_type_port');
 define('TBL_TATO', DB_PREFIX . 'tato');
+define('TBL_ROOMS', DB_PREFIX . 'rooms');
+define('TBL_ROOM_TYPES', DB_PREFIX . 'room_types');

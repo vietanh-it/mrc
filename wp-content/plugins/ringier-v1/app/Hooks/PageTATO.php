@@ -10,10 +10,9 @@ namespace RVN\Hooks;
 
 use RVN\Models\Destinations;
 use RVN\Models\Journey;
-use RVN\Models\JourneyType;
 use RVN\Models\Ports;
-use RVN\Models\Posts;
 use RVN\Models\Ships;
+use RVN\Models\TaTo;
 
 Class PageTATO
 {
@@ -48,17 +47,17 @@ Class PageTATO
     // Register Navigation Menus
     public function tatoBooking()
     {
-        $m_journey_type = JourneyType::init();
         $m_journey = Journey::init();
-        $m_post = Posts::init();
         $m_ships = Ships::init();
         $m_ports = Ports::init();
         $m_destination = Destinations::init();
+        $m_tato = TaTo::init();
 
         $destination = $m_destination->getDestinationHaveJourney();
         $sail_month = $m_journey->getMonthHaveJourney();
         $list_port = $m_ports->getPortHaveJourney();
         $list_ship = $m_ships->getShipHaveJourney();
+        $list_tato = $m_tato->getTaToList();
         ?>
 
 
@@ -145,6 +144,10 @@ Class PageTATO
 
             .bold {
                 font-weight: bold;
+            }
+
+            .row {
+                margin-top: 20px;
             }
 
         </style>
@@ -241,7 +244,7 @@ Class PageTATO
                             <!--Room type-->
                             <div class="form-group">
                                 <label>Room type</label>
-                                <select name="destination" class="select2">
+                                <select id="room_type" name="room_type" class="select2">
                                     <option value="">--- Select room type ---</option>
                                 </select>
                             </div>
@@ -249,7 +252,7 @@ Class PageTATO
                             <!--Room list-->
                             <div class="form-group">
                                 <label>Room list</label>
-                                <select name="destination" class="select2">
+                                <select id="room" name="room" class="select2">
                                     <option value="">--- Select room ---</option>
                                 </select>
                             </div>
@@ -365,6 +368,11 @@ Class PageTATO
                                         <label>Choose TA/TO</label>
                                         <select name="tato" class="select2">
                                             <option value="">--- Select TA/TO ---</option>
+                                            <?php if (!empty($list_tato)) {
+                                                foreach ($list_tato as $k => $v) {
+                                                    echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
+                                                }
+                                            } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -439,6 +447,7 @@ Class PageTATO
                 });
 
 
+                // --- Get room type when Journey change ---
                 $('#journey_id').change(function () {
                     var journey_id = $(this).val();
 
@@ -449,7 +458,7 @@ Class PageTATO
                         dataType: 'json',
                         data: {
                             action: 'ajax_handler_journey',
-                            method: 'GetJourneys',
+                            method: 'GetRoomTypes',
                             journey_id: journey_id
                         },
                         beforeSend: function () {
@@ -459,12 +468,62 @@ Class PageTATO
                             switch_loading(false);
 
                             if (data.status == 'success') {
-                                $('#journey_id').find('option:gt(0)').remove();
+                                $('#room_type').find('option:gt(0)').remove();
 
                                 $.each(data.data, function (k, v) {
-                                    $('#journey_id').append($('<option/>', {
-                                        value: v.ID,
-                                        text: v.post_title
+                                    $('#room_type').append($('<option/>', {
+                                        value: v.id,
+                                        text: v.room_type_name
+                                    }));
+                                });
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+
+                        }
+                    }); // end ajax
+                });
+
+
+                // --- Get room when Room Type change ---
+                $('#room_type').change(function () {
+                    var journey_id = $(this).val();
+
+                    // get journey ajax
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_journey',
+                            method: 'GetAvailableRooms',
+                            journey_id: journey_id
+                        },
+                        beforeSend: function () {
+                            switch_loading(true);
+                        },
+                        success: function (data) {
+                            switch_loading(false);
+
+                            if (data.status == 'success') {
+                                $('#room_type').find('option:gt(0)').remove();
+
+                                $.each(data.data, function (k, v) {
+                                    $('#room_type').append($('<option/>', {
+                                        value: v.id,
+                                        text: v.room_type_name
                                     }));
                                 });
                             }

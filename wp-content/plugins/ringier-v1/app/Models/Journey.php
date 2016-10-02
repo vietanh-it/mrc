@@ -589,4 +589,38 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
         return $result;
     }
 
+
+    public function getRoomTypes($journey_id)
+    {
+        $journey_type = $this->getJourneyTypeByJourney($journey_id);
+
+        $m_ship = Ships::init();
+        $result = $m_ship->getShipRoomTypes($journey_type->ship);
+
+        return $result;
+    }
+
+
+    public function GetAvailableRooms($journey_id)
+    {
+        $m_booking = Booking::init();
+
+        $journey_type = $this->getJourneyTypeByJourney($journey_id);
+        $rooms = $m_booking->getBookedRoom($journey_id);
+
+        $query = "SELECT r.id, r.room_name, r.room_type_id, rt.room_type_name FROM " . TBL_ROOMS . " r INNER JOIN " . TBL_ROOM_TYPES . " rt ON r.room_type_id = rt.id WHERE rt.ship_id = {$journey_type->ship}";
+        if (!empty($rooms)) {
+            $not_in = '';
+            foreach ($rooms as $room) {
+                $not_in .= $room . ",";
+            }
+            $not_in = trim($not_in, ',');
+            $query .= " AND r.id NOT IN ({$not_in})";
+        }
+
+        $result = $this->_wpdb->get_results($query);
+
+        return $result;
+    }
+
 }

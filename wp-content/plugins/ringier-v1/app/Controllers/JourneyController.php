@@ -74,6 +74,20 @@ class JourneyController extends _BaseController
     }
 
 
+    public function ajaxGetRoomTypes($args)
+    {
+        $journey = Journey::init();
+        $list_room_type = $journey->getRoomTypes($args['journey_id']);
+
+        $result = [
+            'status' => 'success',
+            'data'   => $list_room_type
+        ];
+
+        return $result;
+    }
+
+
     public function ajaxGetJourneyInfo($args)
     {
         $journey = Journey::init();
@@ -81,7 +95,7 @@ class JourneyController extends _BaseController
 
         $rs = [
             'status' => 'success',
-            'data' => $info
+            'data'   => $info
         ];
 
         return $rs;

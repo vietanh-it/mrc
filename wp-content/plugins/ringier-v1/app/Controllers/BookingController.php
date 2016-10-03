@@ -150,6 +150,12 @@ class BookingController extends _BaseController
     }
 
 
+    public function ajaxGetRoomBookingInfo($room_id, $twin_single)
+    {
+        
+    }
+
+
     public function getCartItems($user_id, $journey_id)
     {
         $model = Booking::init();

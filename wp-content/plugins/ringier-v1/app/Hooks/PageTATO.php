@@ -8,6 +8,7 @@
 
 namespace RVN\Hooks;
 
+use RVN\Models\Addon;
 use RVN\Models\Destinations;
 use RVN\Models\Journey;
 use RVN\Models\Ports;
@@ -80,6 +81,7 @@ Class PageTATO
                 display: inline-block;
                 min-width: 200px;
                 margin-right: 20px;
+                margin-top: 20px;
             }
 
             .form-group label {
@@ -103,7 +105,7 @@ Class PageTATO
                 text-align: center;
                 line-height: 12px;
                 color: #676767;
-                margin-top: 2px;
+                margin-top: 6px;
                 text-decoration: none;
             }
 
@@ -125,6 +127,7 @@ Class PageTATO
             table {
                 border-collapse: collapse;
                 width: 95%;
+                text-align: left;
             }
 
             table th, table td {
@@ -134,20 +137,35 @@ Class PageTATO
                 line-height: 25px;
             }
 
-            table {
-                text-align: left;
+            table.addon-wrapper th, table.addon-wrapper td {
+                min-width: 100px;
+            }
+
+            table.addon-wrapper th {
+                color: #999999;
+            }
+
+            .addon-services-wrapper label {
+                font-weight: bold;
+                font-size: 18px;
             }
 
             .journey-no {
                 font-weight: bold;
             }
 
-            .bold {
+            .bold, .room-list-price, .room-list-subtotal {
                 font-weight: bold;
             }
 
-            .row {
-                margin-top: 20px;
+            .double-line {
+                border-top: 1px dashed #dddddd;
+                border-bottom: 1px dashed #dddddd;
+            }
+
+            .addon-list-wrapper .form-group {
+                border-right: 1px dashed #cccccc;
+                padding-right: 15px;
             }
 
         </style>
@@ -246,15 +264,13 @@ Class PageTATO
                                 <label>Room type</label>
                                 <select id="room_type" name="room_type" class="select2">
                                     <option value="">--- Select room type ---</option>
-                                    <option value="all">All room type</option>
                                 </select>
                             </div>
 
                             <!--Room list-->
                             <div class="form-group">
                                 <label>Room list</label>
-                                <select id="room" name="room" class="select2">
-                                    <option value="">--- Select room ---</option>
+                                <select id="room" name="room" class="select2" multiple>
                                 </select>
                             </div>
 
@@ -267,34 +283,16 @@ Class PageTATO
 
 
                 <!------ Addon Services ------>
-                <div class="content-wrapper" style="margin-top: 40px;">
+                <div class="content-wrapper addon-services-wrapper" style="display: none; margin-top: 40px;">
                     <h3>Create service add-ons for TA/TO</h3>
                     <hr class="line"/>
 
 
                     <div class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 addon-list-wrapper">
 
-                            <!-- Addon -->
-                            <div class="form-group">
-                                <label>Extra</label>
-                                <div class="addon">
-                                    <a href="javascript:void(0)" data-action-type="minus">-</a>
-                                    <span>0</span>
-                                    <a href="javascript:void(0)" data-action-type="plus">+</a>
-                                </div>
-                            </div>
-
-                            <!-- Addon -->
-                            <div class="form-group">
-                                <label>Extra</label>
-                                <div class="addon">
-                                    <a href="javascript:void(0)" data-action-type="minus">-</a>
-                                    <span>0</span>
-                                    <a href="javascript:void(0)" data-action-type="plus">+</a>
-                                </div>
-                            </div>
+                            <!--Load ajax-->
 
                         </div>
 
@@ -304,12 +302,13 @@ Class PageTATO
 
 
                 <!------ Booking Review ------>
-                <div class="content-wrapper box" style="margin-top: 40px;">
+                <div class="content-wrapper box booking-review" style="margin-top: 40px; display: block">
                     <h3>TA/TO Booking Review</h3>
 
                     <div class="row">
 
 
+                        <!----- Booking items ----->
                         <div class="col-md-7">
 
                             <table>
@@ -320,47 +319,55 @@ Class PageTATO
                                     <th>
                                         Price
                                     </th>
+                                    <th>Subtotal</th>
                                 </tr>
 
-                                <tr>
+                                <tr class="double-line">
                                     <td>Journey ID No #:</td>
-                                    <td class="journey-no" colspan="2">MCC1</td>
+                                    <td class="journey-no" colspan="3"></td>
                                 </tr>
-                                <tr>
-                                    <td>Room list</td>
+
+                                <tr class="room-list-wrapper double-line">
+                                    <td>Room</td>
                                     <td class="room-list">
-                                        Type 1. Room 1 <br/>
-                                        Type 2. Room 2 <br/>
-                                        Type 3. Room 3 <br/>
+                                        <div data-room="201" data-type="wait">
+                                            Apasui - 201 - <a href="#">Twin sharing</a> or <a href="#">Single use</a>
+                                        </div>
+                                        <div data-room="202" data-type="wait">
+                                            Apasui - 202 -
+                                            <span class="twin_single">
+                                                Twin sharing
+                                            </span>
+                                        </div>
                                     </td>
-                                    <td class="room-list-price bold">
-                                        $1,200 <br/>
-                                        $1,200 <br/>
-                                        $1,200 <br/>
+                                    <td class="room-list-price">
+                                        <div>?</div>
+                                        <div>$4,000</div>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>Service 1</td>
-                                    <td>2 persons</td>
-                                    <td class="bold">$600</td>
+                                    <td class="room-list-subtotal">
+                                        <div>?</div>
+                                        <div>$4,000</div>
+                                    </td>
                                 </tr>
 
                                 <tr class="line-top">
                                     <td></td>
-                                    <td>Total</td>
-                                    <td class="total bold">$3,300</td>
+                                    <td colspan="2">Total</td>
+                                    <td class="bold">$<span class="total">0</span></td>
                                 </tr>
 
                                 <tr class="line-top">
                                     <td></td>
-                                    <td>Deposit Amount (x%)</td>
-                                    <td class="total bold">$1,600</td>
+                                    <td colspan="2">Deposit Amount (%)</td>
+                                    <td class="bold">$<span class="deposit-amount">0</span></td>
                                 </tr>
 
                             </table>
 
                         </div>
 
+
+                        <!----- TA/TO ----->
                         <div class="col-md-5">
 
                             <div class="row">
@@ -448,19 +455,25 @@ Class PageTATO
                 });
 
 
-                // --- Get room type when Journey change ---
+                // --- Journey change ---
                 $('#journey_id').change(function () {
                     var journey_id = $(this).val();
 
-                    // get journey ajax
+
+                    // Show addons & review
+                    $('.addon-services-wrapper').fadeIn();
+                    $('.booking-review').fadeIn();
+
+
+                    // get journey info
                     $.ajax({
                         url: ajax_url,
                         type: 'post',
                         dataType: 'json',
                         data: {
                             action: 'ajax_handler_journey',
-                            method: 'GetRoomTypes',
-                            journey_id: journey_id
+                            method: 'GetJourneyInfo',
+                            object_id: journey_id
                         },
                         beforeSend: function () {
                             switch_loading(true);
@@ -469,14 +482,8 @@ Class PageTATO
                             switch_loading(false);
 
                             if (data.status == 'success') {
-                                $('#room_type').find('option:gt(1)').remove();
-
-                                $.each(data.data, function (k, v) {
-                                    $('#room_type').append($('<option/>', {
-                                        value: v.id,
-                                        text: v.room_type_name
-                                    }));
-                                });
+                                // Journey code
+                                $('.journey-no').html(data.data.journey_code);
                             }
                             else {
                                 var html_msg = '<div>';
@@ -496,7 +503,60 @@ Class PageTATO
                         }
                     }); // end ajax
 
-                    // get journey ajax
+
+                    // get room types ajax
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_journey',
+                            method: 'GetRoomTypes',
+                            journey_id: journey_id
+                        },
+                        beforeSend: function () {
+                            switch_loading(true);
+                        },
+                        success: function (data) {
+                            switch_loading(false);
+
+                            if (data.status == 'success') {
+                                $('#room_type').find('option:gt(0)').remove();
+                                $('#room_type').append($('<option/>', {
+                                    value: 'all',
+                                    text: 'All room type'
+                                }));
+
+                                $.each(data.data, function (k, v) {
+                                    $('#room_type').append($('<option/>', {
+                                        value: v.id,
+                                        text: v.room_type_name
+                                    }));
+                                });
+
+                                // Resolve width for select2
+                                $('.select2').select2({width: 'resolve'});
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+
+                        }
+                    }); // end ajax
+
+
+                    // get available rooms ajax
                     $.ajax({
                         url: ajax_url,
                         type: 'post',
@@ -513,7 +573,7 @@ Class PageTATO
                             switch_loading(false);
 
                             if (data.status == 'success') {
-                                $('#room').find('option:gt(0)').remove();
+                                $('#room').find('option').remove();
 
                                 $.each(data.data, function (k, v) {
                                     $('#room').append($('<option/>', {
@@ -521,6 +581,54 @@ Class PageTATO
                                         text: v.room_name
                                     }).attr('data-room-type-id', v.room_type_id));
                                 });
+
+                                // Resolve width for select2
+                                $('.select2').select2({width: 'resolve'});
+                            }
+                            else {
+                                var html_msg = '<div>';
+                                if (data.message) {
+                                    $.each(data.message, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                } else if (data.data) {
+                                    $.each(data.data, function (k_msg, msg) {
+                                        html_msg += msg + "<br/>";
+                                    });
+                                }
+                                html_msg += "</div>";
+                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                            }
+
+                        }
+                    }); // end ajax
+
+
+                    // get service addons ajax
+                    $.ajax({
+                        url: ajax_url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            action: 'ajax_handler_addon',
+                            method: 'GetAddonList',
+                            journey_id: journey_id
+                        },
+                        beforeSend: function () {
+                            switch_loading(true);
+                        },
+                        success: function (data) {
+                            switch_loading(false);
+
+                            if (data.status == 'success') {
+                                $('.addon-list-wrapper').html('');
+
+                                // Addon HTML
+                                $.each(data.data, function (k, v) {
+                                    populateAddon(v);
+                                });
+
+
                             }
                             else {
                                 var html_msg = '<div>';
@@ -573,6 +681,9 @@ Class PageTATO
                                         text: v.room_name
                                     }));
                                 });
+
+                                // Resolve width for select2
+                                $('.select2').select2({width: 'resolve'});
                             }
                             else {
                                 var html_msg = '<div>';
@@ -593,13 +704,75 @@ Class PageTATO
                     }); // end ajax
                 });
 
+
+                $('#room').change(function () {
+                    var room_id = $(this).val();
+
+                    swal({
+                        title: "Twin sharing or Single use?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#0085ba",
+                        confirmButtonText: "Twin Sharing",
+                        cancelButtonText: "Single Use",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            swal.close();
+                        } else {
+
+                            // get room info ajax
+                            $.ajax({
+                                url: ajax_url,
+                                type: 'post',
+                                dataType: 'json',
+                                data: {
+                                    action: 'ajax_handler_booking',
+                                    method: 'GetRoomBookingInfo',
+                                    room_id: room_id,
+                                    twin_single: 'single'
+                                },
+                                success: function (data) {
+                                    if (data.status == 'success') {
+
+                                    }
+                                    else {
+                                        var html_msg = '<div>';
+                                        if (data.message) {
+                                            $.each(data.message, function (k_msg, msg) {
+                                                html_msg += msg + "<br/>";
+                                            });
+                                        } else if (data.data) {
+                                            $.each(data.data, function (k_msg, msg) {
+                                                html_msg += msg + "<br/>";
+                                            });
+                                        }
+                                        html_msg += "</div>";
+                                        swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                    }
+
+                                }
+                            }); // end ajax
+
+                            swal.close();
+                        }
+                    });
+                });
+
             });
 
+
+            // --- Load journey list ---
             function loadJourney() {
                 var destination = $('#destination').val();
                 var sail_month = $('#sail_month').val();
                 var port = $('#port').val();
                 var ship = $('#ship').val();
+
+                // Load journey => hide detail
+                // $('.booking-review').fadeOut();
+                // $('.addon-services-wrapper').fadeOut();
 
                 if (destination && sail_month && port && ship) {
 
@@ -631,6 +804,9 @@ Class PageTATO
                                         text: v.post_title
                                     }));
                                 });
+
+                                // Resolve width for select2
+                                $('.select2').select2({width: 'resolve'});
                             }
                             else {
                                 var html_msg = '<div>';
@@ -651,6 +827,86 @@ Class PageTATO
                     }); // end ajax
 
                 }
+            }
+
+
+            function populateAddon(v) {
+
+                // Create service add-ons section
+                if (v.type == 'addon') {
+                    // Addon
+                    var item_html = '<div class="form-group">' +
+                        '<label>' + v.post_title + '</label>' +
+                        '<table class="addon-wrapper"><tr>' +
+                        '<th>Option</th>' +
+                        '<th>person</th></tr><tr>' +
+                        '<td>Sharing</td><td>' +
+                        '<div class="addon">' +
+                        '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
+                        '<span>0</span>' +
+                        '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Single</td>' +
+                        '<td>' +
+                        '<div class="addon">' +
+                        '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
+                        '<span>0</span>' +
+                        '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr></table></div>';
+
+                    // Booking review section
+                    var table_item = '<tr class="double-line">' +
+                        '<td>' + v.post_title + '</td>' +
+                        '<td><span data-addon-id-quantity="' + v.ID + '">0</span> persons</td>' +
+                        '<td class="bold">$<span data-addon-id-price="' + v.ID + '">0</span></td>' +
+                        '<td class="bold">$<span data-addon-id-subtotal="' + v.ID + '">0</span></td>' +
+                        '</tr>';
+                }
+                else {
+                    // Tour
+                    item_html = '<div class="form-group">' +
+                        '<label>' + v.post_title + '</label>' +
+                        '<table class="addon-wrapper">' +
+                        '<tr>' +
+                        '<th>Option</th>' +
+                        '<th>person</th>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Sharing</td>' +
+                        '<td><div class="addon">' +
+                        '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
+                        '<span>0</span>' +
+                        '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Single</td>' +
+                        '<td>' +
+                        '<div class="addon">' +
+                        '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
+                        '<span>0</span>' +
+                        '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr></table></div>';
+
+                    // Booking review section
+                    table_item = '<tr class="double-line">' +
+                        '<td>' + v.post_title + '</td>' +
+                        '<td><span data-addon-id-quantity="' + v.ID + '">0</span> persons</td>' +
+                        '<td class="bold">$<span data-addon-id-price="' + v.ID + '">0</span></td>' +
+                        '<td class="bold">$<span data-addon-id-subtotal="' + v.ID + '">0</span></td>' +
+                        '</tr>';
+                }
+                $('.addon-list-wrapper').append(item_html);
+
+                $('.room-list-wrapper').after(table_item);
             }
         </script>
 

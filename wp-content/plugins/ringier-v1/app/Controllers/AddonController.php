@@ -41,7 +41,7 @@ class AddonController extends _BaseController
 
         return [
             'status' => 'success',
-            'data'   => $result
+            'data'   => $result['data']
         ];
     }
 

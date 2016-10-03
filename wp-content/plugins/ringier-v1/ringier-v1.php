@@ -38,4 +38,5 @@ function mrcLoad()
     \RVN\Controllers\BookingController::init();
     \RVN\Controllers\Account\AccountController::init();
     \RVN\Controllers\JourneySeriesController::init();
+    \RVN\Controllers\AddonController::init();
 }

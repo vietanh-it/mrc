@@ -47,18 +47,22 @@ class MetaboxAddon
                 margin-bottom: 5px;
                 position: relative;
             }
+
             .option-box .delete_option_box {
                 position: absolute;
                 top: 10px;
                 right: 10px;
                 font-size: 20px;
             }
+
             .option-box table {
                 width: 100%;
             }
+
             .option-box input {
                 width: 90%;
             }
+
             .add-option-box {
 
             }
@@ -102,7 +106,8 @@ class MetaboxAddon
                     </a>
                 </div>
             </div>
-        <?php } else { ?>
+        <?php }
+        else { ?>
             <div class="ctn-box-option">
                 <div class="option-box-wrapper">
                     <div class="option-box acf_postbox">
@@ -180,23 +185,24 @@ class MetaboxAddon
 
     public function save()
     {
-        global $post;
-        if(!empty($post) && $post->post_type == 'addon') {
-            if(!empty($_POST)){
+        global $post, $wpdb;
+        if (!empty($post) && $post->post_type == 'addon') {
+            if (!empty($_POST)) {
                 $objAddOn = Addon::init();
                 $addon_option = $objAddOn->getAddonOptions($_POST['post_ID']);
                 if (!empty($addon_option)) {
-                    $objAddOn->delete(array('object_id' => $_POST['post_ID']));
+                    $objAddOn->delete(['object_id' => $_POST['post_ID']]);
                 }
                 if (!empty($_POST['addon_option_name']) && !empty($_POST['addon_option_price'])) {
                     foreach ($_POST['addon_option_name'] as $k => $v) {
                         if (!empty($v) && !empty($_POST['addon_option_price'][$k])) {
-                            $args = array(
-                                'object_id' => $_POST['post_ID'],
-                                'option_name' => $v,
+                            $args = [
+                                'object_id'    => $_POST['post_ID'],
+                                'option_name'  => $v,
                                 'option_price' => $_POST['addon_option_price'][$k],
-                            );
-                            $save = $objAddOn->saveAddon($args);
+                            ];
+
+                            $wpdb->insert(TBL_ADDON_OPTIONS, $args);
                         }
                     }
                 }

@@ -59,7 +59,14 @@ class Addon
         $join = '';
 
 
-        if (!empty($params['journey_type_id'])) {
+        if (!empty($params['journey_id'])) {
+            $m_journey = Journey::init();
+            $journey_type_id = $m_journey->getJourneyTypeID($params['journey_id']);
+
+            $join .= ' INNER JOIN ' . $this->_tbl_tour_journey_type . ' as ji ON ji.tour_id = p.ID';
+            $where .= ' AND ji.journey_type_id = ' . intval($journey_type_id);
+        }
+        elseif (!empty($params['journey_type_id'])) {
             $join .= ' INNER JOIN ' . $this->_tbl_tour_journey_type . ' as ji ON ji.tour_id = p.ID';
             $where .= ' AND ji.journey_type_id = ' . intval($params['journey_type_id']);
         }
@@ -75,13 +82,17 @@ class Addon
             $join
             WHERE p.post_status='publish'
             $where          
-            ORDER BY $order_by  LIMIT $to, $limit";
+            ORDER BY $order_by";
+
+        if (!empty($params['is_paging'])) {
+            $query .= " LIMIT $to, $limit";
+        }
 
         //echo $query;
 
         $list = $this->_wpdb->get_results($query);
         $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
-        if ($list) {
+        if (!empty($list)) {
             foreach ($list as $key => &$value) {
                 $value = $this->getInfo($value);
             }
@@ -183,7 +194,7 @@ class Addon
                 // Cart addon null
                 return [
                     'status' => 'fail',
-                    'data' => ['Please select addon services to add.']
+                    'data'   => ['Please select addon services to add.']
                 ];
             }
 

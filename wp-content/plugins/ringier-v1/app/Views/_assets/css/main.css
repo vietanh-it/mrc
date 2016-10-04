@@ -2019,8 +2019,8 @@ header .top-bar .top-info li:first-child {
     transition: all 1s;
 }
 
-.list-galary-3 .owl-carousel .owl-wrapper-outer {
-    height: 500px;
+.list-galary-3.resource.owl-carousel .owl-wrapper-outer {
+    height: 520px;
     padding-top: 35px;
 }
 
@@ -2090,6 +2090,15 @@ header .top-bar .top-info li:first-child {
     background: none;
     width: 10px;
     font-size: 17px;
+}
+
+.list-galary-3.ship.owl-carousel .owl-wrapper-outer {
+    height: 680px;
+    padding-top: 35px;
+}
+
+.list-content-wrapper {
+    padding-bottom: 20px;
 }
 
 @media (min-width: 1200px) {

@@ -19,7 +19,7 @@ var_dump($list_rs_food);*/
 <?php if (!empty($list_post['data'])) { ?>
     <div class="featured-rs" style="overflow: hidden">
         <div class="row">
-            <div class="list-galary-3">
+            <div class="list-galary-3 resource">
                 <?php foreach ($list_post['data'] as $v) { ?>
                     <div class="col-xs-12 col-sm-12">
                         <div class="box-ft-rs" style="position: relative">
@@ -37,7 +37,7 @@ var_dump($list_rs_food);*/
 <?php } ?>
 
 
-<div class="container">
+<div class="container list-content-wrapper">
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 main-content">
             <?php if (!empty($list_rs_people['data'])) {

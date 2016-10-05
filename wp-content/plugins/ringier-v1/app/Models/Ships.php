@@ -180,4 +180,27 @@ class Ships
 
         return $result;
     }
+
+    public function getShipInfo($ship_id){
+        $select = 'SELECT * FROM '.$this->_tbl_ship_info .' WHERE object_id = '.$ship_id;
+
+        return $this->_wpdb->get_row($select);
+    }
+
+    public function saveShipInfo($data){
+        $result = false;
+        if(!empty($data['ship_id'])){
+            $ship_id = $data['ship_id'];
+            $ship_info = $this->getShipInfo($ship_id);
+
+            if(empty($ship_info)){
+                $result = $this->_wpdb->insert($this->_tbl_ship_info,$data);
+            }else{
+                unset($data['ship_id']);
+                $result = $this->_wpdb->update($this->_tbl_ship_info,$data,array('object_id' => $ship_id));
+            }
+        }
+
+        return $result;
+    }
 }

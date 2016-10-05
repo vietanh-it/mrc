@@ -2,6 +2,9 @@
 namespace RVN\Hooks;
 
 use RVN\Controllers\ShipController;
+use RVN\Models\JourneyType;
+use RVN\Models\Posts;
+use RVN\Models\Ships;
 
 /**
  * Created by PhpStorm.
@@ -26,435 +29,724 @@ class CustomShips
 
     public function __construct()
     {
-        //add_action('add_meta_boxes', [$this, 'addRoomType']);
-        //add_action('save_post', [$this, 'save']);
+        add_action('add_meta_boxes', [$this, 'metabox']);
+        add_action('save_post', [$this, 'save']);
     }
 
 
-    public function addRoomType()
+    public function metabox()
     {
-        add_meta_box('room_info', 'Room Infomation', [$this, 'show'], 'ship', 'normal', 'high');
+        add_meta_box('decks', 'DECKS', [$this, 'show'], 'ship', 'normal', 'high');
+        add_meta_box('rooms', 'ROOMS', [$this, 'show_rooms'], 'ship', 'normal', 'high');
+
     }
+
 
 
     public function show()
     {
         global $post;
-        $ship_ctrl = ShipController::init();
-
-        // Ship detail
-        $ship_info = $ship_ctrl->getShipDetail($post->ID);
-        $room_types = $ship_ctrl->getShipRoomTypes($post->ID);
+        $objShip = Ships::init();
+        $list_deck = $objShip->getShipInfo($post->ID);
 
         ?>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload-process.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload-validate.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.iframe-transport.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/vendor/jquery.ui.widget.js"></script>
 
         <style>
-            .ship_map {
+            .box-day {
+                border: 1px solid #ccc;
+                padding: 20px;
                 position: relative;
+                margin-bottom: 20px;
+                background: #faf7f2;
+            }
+
+            .box-day input, .box-day textarea {
+                width: 100%;
+                padding: 7px;
+            }
+            .box-day select{
                 width: 100%;
             }
 
-            .ship_map img {
-                width: 100%;
-                height: auto;
+            .box-day label {
+                font-weight: bold;
             }
 
-            .room-info {
-                display: inline-block;
-                vertical-align: top;
+            .box-day .form-group {
+                margin-bottom: 20px;
+            }
+            .icon-show-hide-day{
+                position: absolute;
+                top: 8px;
+                right: 10px;
+                border-radius: 50%;
+                color: #23282d;
+                font-size: 17px;
+                width: 21px;
+                height: 21px;
+                text-align: center;
+            }
+            .icon-show-hide-day:hover{
+                color: blue;
             }
 
-            .form-table td {
-                padding: 8px 10px;
-            }
-
-            .green {
-                color: #00d277;
-            }
         </style>
 
-        <div class="ctn-box">
-            <div class="ship_map" style="width: 50%; display: inline-block;">
-                <img src="<?php echo $ship_info->map; ?>"/>
+        <?php if (!empty($list_deck->decks)) {
+        $list_deck = unserialize($list_deck->decks);
+        ?>
+        <div class="ctn-box-day">
+            <?php
 
-                <?php foreach ($ship_info->rooms as $key => $room) {
-                    echo $room->html;
-                } ?>
+            foreach ($list_deck as $k => $v) {
+                $v = unserialize($v);
+                $img= wp_get_attachment_image_src($v['img_id']);
+                if($img) $img = array_shift($img);
 
-            </div>
+                //var_dump($v);?>
+                <div class="box-day">
+                    <div class="class-show-all" style="">
+                        <div class="form-group">
+                            <label for="day_name">Title : </label>
+                            <input type="text" class="form-control day_name_key" placeholder="" name="deck_title[]" value="<?php echo $v['title'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="day_content">Content</label>
+                            <textarea class="form-control" rows="5" name="deck_content[]" ><?php echo $v['content'] ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label  for="featured_image" >Image</label>
+                            <div  class="img_featured_show">
+                        <span class="btn btn-success fileinput-button">
+                            <input class="ship_featured_image" type="file" name="featured_image" data-number ="<?php echo $k +1 ?>">
+                        </span>
+                                <div  class="progress_<?php echo $k +1 ?> hidden">
+                                    <div class="progress-bar-<?php echo $k +1 ?> progress-bar-success"></div>
+                                </div>
+                                <div class="return_images_<?php echo $k +1 ?>">
+                                    <img src="<?php echo $img ?>" alt="">
+                                </div>
+                                <input type="hidden" name="img_id[]" value="<?php echo $v['img_id']  ?>" class="img_id_<?php echo $k +1 ?>">
+                            </div>
+                        </div>
 
-            <div style="width: 49%; display: inline-block; vertical-align: top;">
+                        <a href="javascript:void" class="delete_day">Delete deck</a>
+                    </div>
+                    <div class="class-hide-all" style="display: none">
+                        <b>Deck  : <span class="number_day_change"><?php echo $v->day ?></span></b>
+                    </div>
+                    <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
+                        <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
+                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                    </a>
+                </div>
 
-                <table class="form-table room-info" style="width: 100%; display: none;">
-                    <tr>
-                        <th colspan="2">
-                            <h3 style="text-align: center; text-transform: uppercase; margin: 0;">Room Infomartion</h3>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="room_name">Room name:</label>
-                        </td>
-                        <td>
-                            <input type="text" name="room_name" id="room_name" placeholder="Enter room name" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="room_type">Room type:</label>
-                        </td>
-                        <td>
-                            <select id="room_type" name="room_type" disabled>
-                                <option>--- Select Room Type ---</option>
-                                <?php foreach ($room_types as $key => $item) {
-                                    echo "<option value='{$item->id}'>{$item->room_type_name}</option>";
-                                } ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center;">
-                            <input id="btn_save_room_info" type="button" class="button button-primary button-large"
-                                   value="Save Room Info">
-
-                            <input type="hidden" name="room_id" id="room_id" value="0">
-                        </td>
-                    </tr>
-                </table>
-
-
-                <table class="form-table room-type-info" style="width: 100%;">
-                    <tr>
-                        <th colspan="2">
-                            <h3 style="text-align: center; text-transform: uppercase; margin: 0;">Room Type Pricing</h3>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="rp_room_type">Room type:</label>
-                        </td>
-                        <td>
-                            <select id="rp_room_type">
-                                <option value="">--- Select Room Type ---</option>
-                                <?php foreach ($room_types as $key => $item) {
-                                    echo "<option value='{$item->id}'>{$item->room_type_name}</option>";
-                                } ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center; font-weight: bold;">
-                            <label><span class="green">High Season</span> Price: (1 day)</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Twin sharing:<br/> <span class="prefix-price">$</span><input type="number" min="0"
-                                                                                         name="rp_twin_high_price"
-                                                                                         id="rp_twin_high_price"
-                                                                                         placeholder="Twin sharing price">
-                        </td>
-                        <td>
-                            Single use:<br/> <span class="prefix-price">$</span><input type="number" min="0"
-                                                                                       name="rp_single_high_price"
-                                                                                       id="rp_single_high_price"
-                                                                                       placeholder="Single use price">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center; font-weight: bold;">
-                            <label><span class="green">Low Season</span> Price: (1 day)</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Twin sharing:<br/> <span class="prefix-price">$</span><input type="number" min="0"
-                                                                                         name="rp_twin_low_price"
-                                                                                         id="rp_twin_low_price"
-                                                                                         placeholder="Twin sharing price">
-                        </td>
-                        <td>
-                            Single use:<br/> <span class="prefix-price">$</span><input type="number" min="0"
-                                                                                       name="rp_single_low_price"
-                                                                                       id="rp_single_low_price"
-                                                                                       placeholder="Single use price">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center;">
-                            <input id="btn_save_price" type="button" class="button button-primary button-large"
-                                   value="Save Room Type Pricing">
-
-                            <input type="hidden" name="rp_room_type_id" id="rp_room_type_id" value="0">
-                        </td>
-                    </tr>
-                </table>
-
+            <?php } ?>
+        </div>
+        <?php
+    } else { ?>
+        <div class="ctn-box-day">
+            <div class="box-day">
+                <div class="class-show-all" style="">
+                    <div class="form-group">
+                        <label for="day_name">Title :  </label>
+                        <input type="text" class="form-control day_name_key" placeholder="" name="deck_title[]">
+                    </div>
+                    <div class="form-group">
+                        <label for="day_content">Content</label>
+                        <textarea class="form-control" rows="5" name="deck_content[]"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label  for="featured_image" >Image</label>
+                        <div  class="img_featured_show">
+                        <span class="btn btn-success fileinput-button">
+                            <input class="ship_featured_image" type="file" name="featured_image" data-number ="<?php echo 1 ?>" >
+                        </span>
+                            <div  class="progress_1 hidden">
+                                <div class="progress-bar-1 progress-bar-success"></div>
+                            </div>
+                            <div class="return_images_1"></div>
+                            <input type="hidden" name="img_id[]" value="" class="img_id_1">
+                        </div>
+                    </div>
+                    <a href="javascript:void" class="delete_day">Delete deck</a>
+                </div>
+                <div class="class-hide-all" style="display: none">
+                    <b>Deck  : <span class="number_day_change"></span></b>
+                </div>
+                <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
+                    <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                </a>
+                <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
+                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
+    <?php } ?>
+
+
+        <a href="javascript:void(0)" class="add_new_day" data-number="<?php echo (!empty($list_deck))  ? count($list_deck) + 1 : 2 ?>">Add new deck</a>
+
 
         <script>
             var $ = jQuery.noConflict();
-
             jQuery(document).ready(function ($) {
-                var ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
+                $('.add_new_day').click(function () {
+                    var obj = $(this);
+                    var number = obj.attr('data-number');
 
-                $(document).delegate('[data-roomid]', 'click', function (e) {
-
-                    $.ajax({
-                        url: ajax_url,
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            action: 'ajax_handler_ship',
-                            method: 'GetRoomInfo',
-                            room_id: $(this).attr('data-roomid')
-                        },
-                        beforeSend: function () {
-                            $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
-                        },
-                        success: function (data) {
-                            $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
-
-                            if (data.status == 'success') {
-                                $('#room_name').val(data.data.room_name);
-                                $('#room_type').val(data.data.room_type_id);
-                                $('#room_id').val(data.data.id);
-                            }
-                            else {
-                                var html_msg = '<div>';
-                                if (data.message) {
-                                    $.each(data.message, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
-                                } else if (data.data) {
-                                    $.each(data.data, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
-                                }
-                                html_msg += "</div>";
-                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                            }
-                        }
-                    }); // end ajax
-
+                    var html = '<div class="box-day"> ' +
+                        '<div class="class-show-all" style="">' +
+                        '<div class="form-group"> ' +
+                        '<label for="day_name">Title : </label> ' +
+                        '<input type="text" class="form-control day_name_key"  placeholder="" name="deck_title[]"> ' +
+                        '</div> ' +
+                        '<div class="form-group"> ' +
+                        '<label for="day_content">Content</label> ' +
+                        '<textarea class="form-control" rows="5" name="deck_content[]"></textarea> ' +
+                        '</div>' +
+                        '<div class="form-group"> ' +
+                        '<label  for="featured_image" >Image</label> ' +
+                        '<div  class="img_featured_show"> <span class="btn btn-success fileinput-button"> ' +
+                        '<input class="ship_featured_image" type="file" name="featured_image" data-number ="'+number+'" > </span> ' +
+                        '<div  class="progress_'+number+' hidden"> ' +
+                        '<div class="progress-bar-'+number+' progress-bar-success"></div> ' +
+                        '</div> ' +
+                        '<div class="return_images_'+number+'"></div> ' +
+                        '<input type="hidden" name="img_id[]" value="" class="img_id_'+number+'">' +
+                        '</div> ' +
+                        '</div> ' +
+                        ' <a href="javascript:void" class="delete_day">Delete deck</a>' +
+                        '</div>' +
+                        '<div class="class-hide-all" style="display: none"> ' +
+                        '<b>DECK  : <span class="number_day_change"></span></b> ' +
+                        '</div> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" > ' +
+                        '<i class="fa fa-sort-asc" aria-hidden="true"></i> ' +
+                        '</a> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none"> ' +
+                        '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
+                        '</a>' +
+                        '</div>';
+                    $('.ctn-box-day').append(html);
                 });
 
-                $('#btn_save_room_info').on('click', function (e) {
-                    e.preventDefault();
-
-                    var room_id = $('#room_id').val();
-                    var room_name = $('#room_name').val();
-                    var room_type = $('#room_type').val();
-
-                    if (!room_id) {
-                        swal({
-                            type: 'warning',
-                            title: 'Please select room to update'
-                        });
-                    } else {
-
-
-                        $.ajax({
-                            url: ajax_url,
-                            type: 'post',
-                            dataType: 'json',
-                            data: {
-                                action: 'ajax_handler_ship',
-                                method: 'SaveRoomInfo',
-                                room_id: room_id,
-                                room_name: room_name,
-                                room_type_id: room_type
-                            },
-                            beforeSend: function () {
-                                $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
-                            },
-                            success: function (data) {
-                                $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
-
-                                if (data.status == 'success') {
-                                    $('[data-roomid="' + data.data.id + '"]').css('background', data.data.background).html('<b>' + data.data.room_name + '</b>');
-                                }
-                                else {
-                                    var html_msg = '<div>';
-                                    if (data.message) {
-                                        $.each(data.message, function (k_msg, msg) {
-                                            html_msg += msg + "<br/>";
-                                        });
-                                    } else if (data.data) {
-                                        $.each(data.data, function (k_msg, msg) {
-                                            html_msg += msg + "<br/>";
-                                        });
-                                    }
-                                    html_msg += "</div>";
-                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                                }
-                            }
-                        }); // end ajax
-
-                    }
-
+                $(document).delegate('.delete_day', 'click', function () {
+                    $(this).closest('.box-day').remove();
                 });
 
-                $('#btn_save_price').on('click', function (e) {
-                    e.preventDefault();
-
-                    var room_type_id = $('#rp_room_type').val();
-                    if (!room_type_id) {
-                        // Chưa chọn room type
-                        swal({
-                            title: 'Please choose room type',
-                            type: 'warning'
-                        });
-                    } else {
-                        var twin_high_price = $('#rp_twin_high_price').val();
-                        var twin_low_price = $('#rp_twin_low_price').val();
-                        var single_high_price = $('#rp_single_high_price').val();
-                        var single_low_price = $('#rp_single_low_price').val();
-
-                        var is_valid = true;
-
-                        if (!twin_high_price) {
-                            is_valid = false;
-                            swal({
-                                title: 'Please enter twin sharing high season room pricing',
-                                type: 'warning'
-                            });
-                        }
-
-                        if (!twin_low_price) {
-                            is_valid = false;
-                            swal({
-                                title: 'Please enter twin sharing low season room pricing',
-                                type: 'warning'
-                            });
-                        }
-
-                        if (!single_high_price) {
-                            is_valid = false;
-                            swal({
-                                title: 'Please enter single use high season room pricing',
-                                type: 'warning'
-                            });
-                        }
-
-                        if (!single_low_price) {
-                            is_valid = false;
-                            swal({
-                                title: 'Please enter single use low season room pricing',
-                                type: 'warning'
-                            });
-                        }
-
-                        if (is_valid) {
-
-                            $.ajax({
-                                url: ajax_url,
-                                type: 'post',
-                                dataType: 'json',
-                                data: {
-                                    action: 'ajax_handler_ship',
-                                    method: 'SaveRoomTypePricing',
-                                    room_type_id: room_type_id,
-                                    twin_high_price: twin_high_price,
-                                    single_high_price: single_high_price,
-                                    twin_low_price: twin_low_price,
-                                    single_low_price: single_low_price
-                                },
-                                beforeSend: function () {
-                                    // $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
-                                },
-                                success: function (data) {
-                                    // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
-
-                                    if (data.status == 'success') {
-                                        swal({
-                                            title: 'Update room type pricing successful!',
-                                            type: 'success'
-                                        });
-                                    }
-                                    else {
-                                        var html_msg = '<div>';
-                                        if (data.message) {
-                                            $.each(data.message, function (k_msg, msg) {
-                                                html_msg += msg + "<br/>";
-                                            });
-                                        } else if (data.data) {
-                                            $.each(data.data, function (k_msg, msg) {
-                                                html_msg += msg + "<br/>";
-                                            });
-                                        }
-                                        html_msg += "</div>";
-                                        swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                                    }
-                                }
-                            }); // end ajax
-
-                        }
-                    }
+                $(document).delegate('.hide-day', 'click', function () {
+                    var obj  = $(this);
+                    obj.closest('.box-day').find('.show-day').fadeIn();
+                    obj.closest('.box-day').find('.class-hide-all').fadeIn();
+                    obj.closest('.box-day').find('.class-show-all').fadeOut();
+                    obj.fadeOut();
                 });
 
-                $('#rp_room_type').on('change', function () {
-                    var room_type_id = $(this).val();
+                $(document).delegate('.show-day', 'click', function () {
+                    var obj  = $(this);
+                    obj.closest('.box-day').find('.hide-day').fadeIn();
+                    obj.closest('.box-day').find('.class-show-all').fadeIn();
+                    obj.closest('.box-day').find('.class-hide-all').fadeOut();
 
-                    if (room_type_id) {
-                        $.ajax({
-                            url: ajax_url,
-                            type: 'post',
-                            dataType: 'json',
-                            data: {
-                                action: 'ajax_handler_ship',
-                                method: 'GetRoomTypePricing',
-                                room_type_id: room_type_id
-                            },
-                            beforeSend: function () {
-//                                $('input, select', $('.room-info')).attr('disabled', true).css('opacity', 0.5);
-                            },
-                            success: function (data) {
-                                // $('input, select', $('.room-info')).attr('disabled', false).css('opacity', 1);
-
-                                if (data.status == 'success') {
-                                    // $('[data-roomid="' + data.data.id + '"]').css('background', data.data.background).html('<b>' + data.data.room_name + '</b>');
-                                    var twin_high_price = (data.data.twin_high_season_price > 0) ? data.data.twin_high_season_price : 0;
-                                    var single_high_price = (data.data.single_high_season_price > 0) ? data.data.single_high_season_price : 0;
-                                    var twin_low_price = (data.data.twin_low_season_price > 0) ? data.data.twin_low_season_price : 0;
-                                    var single_low_price = (data.data.single_low_season_price > 0) ? data.data.single_low_season_price : 0;
-
-                                    $('#rp_twin_high_price').val(twin_high_price);
-                                    $('#rp_single_high_price').val(single_high_price);
-                                    $('#rp_twin_low_price').val(twin_low_price);
-                                    $('#rp_single_low_price').val(single_low_price);
-                                }
-                                else {
-                                    var html_msg = '<div>';
-                                    if (data.message) {
-                                        $.each(data.message, function (k_msg, msg) {
-                                            html_msg += msg + "<br/>";
-                                        });
-                                    } else if (data.data) {
-                                        $.each(data.data, function (k_msg, msg) {
-                                            html_msg += msg + "<br/>";
-                                        });
-                                    }
-                                    html_msg += "</div>";
-                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                                }
-                            }
-                        }); // end ajax
-                    }
+                    obj.fadeOut();
                 });
 
+                $(document).delegate('.day_name_key','change', function () {
+                    var obj  = $(this);
+                    var day = obj.val();
+                    obj.closest('.box-day').find('.number_day_change').text(day);
+                });
+                $(document).delegate('.day_name_key','keyup', function () {
+                    var obj  = $(this);
+                    var day = obj.val();
+                    obj.closest('.box-day').find('.number_day_change').text(day);
+                });
+
+                $(document).delegate('.ship_featured_image', 'click', function () {
+                    var obj = $(this);
+                    var  number = obj.attr('data-number');
+                    rvn_upload_photo(obj, {
+                        action: 'ajax_handler_media',
+                        method: 'UploadImages',
+                        counterField: '#counter_field_featured',
+                        image_size: 'thumbnail',
+                        progress_bar: '.progress_'+number
+                    },number);
+                });
             });
 
-        </script>
+            function rvn_upload_photo(obj, params,number=1) {
+                var defaults = {
+                    action: '',
+                    counterField: '',
+                    method: '',
+                    numberImagesCurr: 0,
+                    maxNumberOfFiles: 1,
+                    object_id: 0,
+                    image_size: 'thumbnail',
+                    progress_bar: '.progress_'+number,
+                    container: ''
+                };
 
+                $.extend(defaults, params);
+
+                var contain_error = $('<p class="errors" style="color: #d9534f"/>');
+                var obj_progress_bar = $('.progress-bar-'+number, $(defaults.progress_bar));
+
+                $(obj).fileupload({
+                        url: "<?php echo admin_url('admin-ajax.php') ?>",
+                        dataType: 'json',
+                        formData: {
+                            action: defaults.action,
+                            method: defaults.method,
+                            image_size: defaults.image_size
+                        },
+                        maxFileSize: 2 * 1024 * 1024,
+                        acceptFileTypes: /(\.|\/)(jpe?g|png)$/i,
+                        numberImagesCurr: defaults.numberImagesCurr,
+                        counterField: defaults.counterField,
+                        messages: {
+                            acceptFileTypes: 'Hình này không hợp lệ.',
+                            maxFileSize: 'Kích thước hình phải nhỏ hơn 2M'
+                        },
+                        progressall: function(e, data) {
+                            $('.progress_'+number).removeClass('hidden');
+                            var progress = parseInt(data.loaded / data.total * 100, 10) - 10;
+                            obj_progress_bar.css(
+                                'width',
+                                progress + '%'
+                            );
+                        },
+                        done: function (e, data) {
+                            $('.progress_'+number).addClass('hidden');
+                            if(data.result.status == 'success'){
+                                var images =  data.result.img;
+                                contain_error.remove();
+
+                                $('.return_images_'+number).html("<img src ='"+images+"' style='max-width:100%;padding : 10px 0' />" );
+                                $('.img_id_'+number).val(data.result.img_id);
+
+                            }else{
+                                contain_error.append('<span>' + data.result.message + '</span>');
+                                contain_error.insertBefore($(defaults.progress_bar));
+                            }
+                        },
+                        stop: function() {
+                            obj_progress_bar.css(
+                                'width', '100%'
+                            );
+                            obj_progress_bar.fadeOut(500, function() {
+                                $(this).css('width', 0);
+                            }).fadeIn();
+                        }
+                    })
+                    .on('fileuploadprocessalways', function(e, data) {
+                        var index = data.index,
+                            file = data.files[index];
+                        if(file.error) {
+                            contain_error.append('<span>' + file.name + ' : ' + file.error + '</span><br/>');
+                            contain_error.insertBefore($(defaults.progress_bar));
+                        }
+                    });
+            }
+
+        </script>
         <?php
     }
 
 
+    public function show_rooms()
+    {
+        global $post;
+        $objShip = Ships::init();
+        $ship_info = $objShip->getShipInfo($post->ID);
+
+        ?>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload-process.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload-validate.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.iframe-transport.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/vendor/jquery.ui.widget.js"></script>
+
+        <style>
+            .box-day {
+                border: 1px solid #ccc;
+                padding: 20px;
+                position: relative;
+                margin-bottom: 20px;
+                background: #faf7f2;
+            }
+
+            .box-day input, .box-day textarea {
+                width: 100%;
+                padding: 7px;
+            }
+            .box-day select{
+                width: 100%;
+            }
+
+            .box-day label {
+                font-weight: bold;
+            }
+
+            .box-day .form-group {
+                margin-bottom: 20px;
+            }
+            .icon-show-hide-day{
+                position: absolute;
+                top: 8px;
+                right: 10px;
+                border-radius: 50%;
+                color: #23282d;
+                font-size: 17px;
+                width: 21px;
+                height: 21px;
+                text-align: center;
+            }
+            .icon-show-hide-day:hover{
+                color: blue;
+            }
+
+        </style>
+
+        <?php if (!empty($ship_info->rooms_info)) {
+        $list_rooms = unserialize($ship_info->rooms_info);
+        ?>
+        <div class="ctn-box-room">
+            <?php
+
+            foreach ($list_rooms as $k => $v) {
+                $v = unserialize($v);
+                $img= wp_get_attachment_image_src($v['room_img_id']);
+                if($img) $img = array_shift($img);
+
+                //var_dump($v);?>
+                <div class="box-day">
+                    <div class="class-show-all" style="">
+                        <div class="form-group">
+                            <label for="day_name">Room title : </label>
+                            <input type="text" class="form-control day_name_key" placeholder="" name="room_title[]" value="<?php echo $v['room_title'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="day_content">Description</label>
+                            <textarea class="form-control" rows="5" name="room_description[]" ><?php echo $v['room_description'] ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="day_content">Content</label>
+                            <textarea class="form-control" rows="5" name="room_content[]" ><?php echo $v['room_content'] ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label  for="featured_image" >Image</label>
+                            <div  class="img_featured_show">
+                        <span class="btn btn-success fileinput-button">
+                            <input class="ship_featured_image" type="file" name="featured_image" data-number ="<?php echo $k +1 ?>">
+                        </span>
+                                <div  class="room_progress_<?php echo $k +1 ?> hidden">
+                                    <div class="room_progress-bar-<?php echo $k +1 ?> progress-bar-success"></div>
+                                </div>
+                                <div class="room_return_images_<?php echo $k +1 ?>">
+                                    <img src="<?php echo $img ?>" alt="">
+                                </div>
+                                <input type="hidden" name="room_img_id[]" value="<?php echo $v['room_img_id']  ?>" class="img_id_<?php echo $k +1 ?>">
+                            </div>
+                        </div>
+
+                        <a href="javascript:void" class="delete_day">Delete room</a>
+                    </div>
+                    <div class="class-hide-all" style="display: none">
+                        <b>Room  : <span class="number_day_change"><?php echo $v->day ?></span></b>
+                    </div>
+                    <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
+                        <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
+                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+            <?php } ?>
+        </div>
+        <?php
+    } else { ?>
+        <div class="ctn-box-room">
+            <div class="box-day">
+                <div class="class-show-all" style="">
+                    <div class="form-group">
+                        <label for="day_name">Title :  </label>
+                        <input type="text" class="form-control day_name_key" placeholder="" name="room_title[]">
+                    </div>
+                    <div class="form-group">
+                        <label for="day_content">Description</label>
+                        <textarea class="form-control" rows="5" name="room_description[]" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="day_content">Content</label>
+                        <textarea class="form-control" rows="5" name="room_content[]"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label  for="featured_image" >Image</label>
+                        <div  class="img_featured_show">
+                        <span class="btn btn-success fileinput-button">
+                            <input class="ship_featured_image" type="file" name="featured_image" data-number ="<?php echo 1 ?>" >
+                        </span>
+                            <div  class="room_progress_1 hidden">
+                                <div class="room_progress-bar-1 progress-bar-success"></div>
+                            </div>
+                            <div class="room_return_images_1"></div>
+                            <input type="hidden" name="room_img_id[]" value="" class="room_img_id_1">
+                        </div>
+                    </div>
+                    <a href="javascript:void" class="delete_day">Delete room</a>
+                </div>
+                <div class="class-hide-all" style="display: none">
+                    <b>Room  : <span class="number_day_change"></span></b>
+                </div>
+                <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
+                    <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                </a>
+                <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
+                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    <?php } ?>
+
+
+        <a href="javascript:void(0)" class="add_new_room" data-number="<?php echo (!empty($list_rooms))  ? count($list_rooms) + 1 : 2 ?>">Add new room</a>
+
+
+        <script>
+            var $ = jQuery.noConflict();
+            jQuery(document).ready(function ($) {
+                $('.add_new_room').click(function () {
+                    var obj = $(this);
+                    var number = obj.attr('data-number');
+
+                    var html = '<div class="box-day"> ' +
+                        '<div class="class-show-all" style="">' +
+                        '<div class="form-group"> ' +
+                        '<label for="day_name">Title : </label> ' +
+                        '<input type="text" class="form-control day_name_key"  placeholder="" name="room_title[]"> ' +
+                        '</div>' +
+                        '<div class="form-group"> ' +
+                        '<label for="day_content">Description</label> ' +
+                        '<textarea class="form-control" rows="5" name="room_description[]" ></textarea>' +
+                        '</div> ' +
+                        '<div class="form-group"> ' +
+                        '<label for="day_content">Content</label> ' +
+                        '<textarea class="form-control" rows="5" name="room_content[]"></textarea> ' +
+                        '</div>' +
+                        '<div class="form-group"> ' +
+                        '<label  for="featured_image" >Image</label> ' +
+                        '<div  class="img_featured_show"> <span class="btn btn-success fileinput-button"> ' +
+                        '<input class="ship_featured_image" type="file" name="featured_image" data-number ="'+number+'" > </span> ' +
+                        '<div  class="room_progress_'+number+' hidden"> ' +
+                        '<div class="progress-bar-'+number+' progress-bar-success"></div> ' +
+                        '</div> ' +
+                        '<div class="room_return_images_'+number+'"></div> ' +
+                        '<input type="hidden" name="room_img_id[]" value="" class="room_img_id_'+number+'">' +
+                        '</div> ' +
+                        '</div> ' +
+                        ' <a href="javascript:void" class="delete_day">Delete room</a>' +
+                        '</div>' +
+                        '<div class="class-hide-all" style="display: none"> ' +
+                        '<b>Room  : <span class="number_day_change"></span></b> ' +
+                        '</div> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" > ' +
+                        '<i class="fa fa-sort-asc" aria-hidden="true"></i> ' +
+                        '</a> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none"> ' +
+                        '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
+                        '</a>' +
+                        '</div>';
+                    $('.ctn-box-room').append(html);
+                    obj.attr('data-number',parseInt(number) + 1);
+                });
+
+                $(document).delegate('.delete_day', 'click', function () {
+                    $(this).closest('.box-day').remove();
+                });
+
+                $(document).delegate('.hide-day', 'click', function () {
+                    var obj  = $(this);
+                    obj.closest('.box-day').find('.show-day').fadeIn();
+                    obj.closest('.box-day').find('.class-hide-all').fadeIn();
+                    obj.closest('.box-day').find('.class-show-all').fadeOut();
+                    obj.fadeOut();
+                });
+
+                $(document).delegate('.show-day', 'click', function () {
+                    var obj  = $(this);
+                    obj.closest('.box-day').find('.hide-day').fadeIn();
+                    obj.closest('.box-day').find('.class-show-all').fadeIn();
+                    obj.closest('.box-day').find('.class-hide-all').fadeOut();
+
+                    obj.fadeOut();
+                });
+
+                $(document).delegate('.day_name_key','change', function () {
+                    var obj  = $(this);
+                    var day = obj.val();
+                    obj.closest('.box-day').find('.number_day_change').text(day);
+                });
+                $(document).delegate('.day_name_key','keyup', function () {
+                    var obj  = $(this);
+                    var day = obj.val();
+                    obj.closest('.box-day').find('.number_day_change').text(day);
+                });
+
+                $(document).delegate('.ship_featured_image', 'click', function () {
+                    var obj = $(this);
+                    var  number = obj.attr('data-number');
+                    rvn_upload_photo(obj, {
+                        action: 'ajax_handler_media',
+                        method: 'UploadImages',
+                        counterField: '#counter_field_featured',
+                        image_size: 'thumbnail',
+                        progress_bar: '.room_progress_'+number
+                    },number);
+                });
+            });
+
+            function rvn_upload_photo(obj, params,number=1) {
+                var defaults = {
+                    action: '',
+                    counterField: '',
+                    method: '',
+                    numberImagesCurr: 0,
+                    maxNumberOfFiles: 1,
+                    object_id: 0,
+                    image_size: 'thumbnail',
+                    progress_bar: '.room_progress_'+number,
+                    container: ''
+                };
+
+                $.extend(defaults, params);
+
+                var contain_error = $('<p class="errors" style="color: #d9534f"/>');
+                var obj_progress_bar = $('.room_progress-bar-'+number, $(defaults.progress_bar));
+
+                $(obj).fileupload({
+                        url: "<?php echo admin_url('admin-ajax.php') ?>",
+                        dataType: 'json',
+                        formData: {
+                            action: defaults.action,
+                            method: defaults.method,
+                            image_size: defaults.image_size
+                        },
+                        maxFileSize: 2 * 1024 * 1024,
+                        acceptFileTypes: /(\.|\/)(jpe?g|png)$/i,
+                        numberImagesCurr: defaults.numberImagesCurr,
+                        counterField: defaults.counterField,
+                        messages: {
+                            acceptFileTypes: 'Hình này không hợp lệ.',
+                            maxFileSize: 'Kích thước hình phải nhỏ hơn 2M'
+                        },
+                        progressall: function(e, data) {
+                            $('.room_progress_'+number).removeClass('hidden');
+                            var progress = parseInt(data.loaded / data.total * 100, 10) - 10;
+                            obj_progress_bar.css(
+                                'width',
+                                progress + '%'
+                            );
+                        },
+                        done: function (e, data) {
+                            $('.room_progress_'+number).addClass('hidden');
+                            if(data.result.status == 'success'){
+                                var images =  data.result.img;
+                                contain_error.remove();
+
+                                $('.room_return_images_'+number).html("<img src ='"+images+"' style='max-width:100%;padding : 10px 0' />" );
+                                $('.room_img_id_'+number).val(data.result.img_id);
+
+                            }else{
+                                contain_error.append('<span>' + data.result.message + '</span>');
+                                contain_error.insertBefore($(defaults.progress_bar));
+                            }
+                        },
+                        stop: function() {
+                            obj_progress_bar.css(
+                                'width', '100%'
+                            );
+                            obj_progress_bar.fadeOut(500, function() {
+                                $(this).css('width', 0);
+                            }).fadeIn();
+                        }
+                    })
+                    .on('fileuploadprocessalways', function(e, data) {
+                        var index = data.index,
+                            file = data.files[index];
+                        if(file.error) {
+                            contain_error.append('<span>' + file.name + ' : ' + file.error + '</span><br/>');
+                            contain_error.insertBefore($(defaults.progress_bar));
+                        }
+                    });
+            }
+
+        </script>
+        <?php
+    }
+
     public function save()
     {
 
+        global $post;
+        if(!empty($post) && $post->post_type == 'ship') {
+            if($_POST){
+                //var_dump($_POST);
+                $data = $_POST;
+                $args_deck =array();
+                $args_room =array();
+                if(!empty($data['deck_title']) && !empty($data['deck_content'])){
+                    foreach ($data['deck_title'] as $k => $title ){
+                        $deck = array(
+                            'title' => $title ,
+                            'content' => $data['deck_content'][$k],
+                            'img_id' => $data['img_id'][$k],
+                        );
+
+                        $args_deck[] = serialize($deck);
+                    }
+                }
+
+                if(!empty($data['room_title']) && !empty($data['room_content']) && !empty($data['room_description'])){
+                    foreach ($data['room_title'] as $k => $title ){
+                        $room = array(
+                            'room_title' => $title ,
+                            'room_content' => $data['room_content'][$k],
+                            'room_description' => $data['room_description'][$k],
+                            'room_img_id' => $data['room_img_id'][$k],
+                        );
+
+                        $args_room[] = serialize($room);
+                    }
+                }
+
+                $ship_data = array(
+                    'ship_id' => $data['post_ID'],
+                    'decks' => serialize($args_deck),
+                    'rooms_info' => serialize($args_room),
+                );
+
+                $objShips = Ships::init();
+                $objShips->saveShipInfo($ship_data);
+
+            }
+        }
     }
+
+
 
 }

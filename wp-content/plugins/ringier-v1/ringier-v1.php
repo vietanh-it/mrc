@@ -39,4 +39,5 @@ function mrcLoad()
     \RVN\Controllers\Account\AccountController::init();
     \RVN\Controllers\JourneySeriesController::init();
     \RVN\Controllers\AddonController::init();
+    \RVN\Controllers\MediaController::init();
 }

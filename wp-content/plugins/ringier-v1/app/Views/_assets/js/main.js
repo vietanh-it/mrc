@@ -547,6 +547,27 @@ jQuery(document).ready(function ($) {
         $("html, body").animate({scrollTop: 0}, 600);
         return false;
     });
+
+
+    $('.timepicker').timepicker();
+
+    $('.room_no_be').change(function () {
+        var obj = $(this);
+        var type = obj.find('option:selected').attr('data-type');
+        var id = obj.find('option:selected').attr('data-id');
+        var  hmtl = '';
+        if(type == 'single'){
+            hmtl = '<option value=""> --- Select bedding ---</option> ' +
+                '<option value="queen" >Queen</option> ' +
+                '<option value="fixed_king">Fixed King</option>';
+        } else {
+            hmtl = '<option value=""> --- Select bedding ---</option> ' +
+                '<option value="twins" >Twins</option> ' +
+                '<option value="queen" >Queen</option> ' +
+                '<option value="fixed_king">Fixed King</option>';
+        }
+        $('.bedding_note_be_'+id).html(hmtl);
+    });
 });
 
 function switch_loading(is_loading) {

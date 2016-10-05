@@ -6,5 +6,9 @@ if (!is_user_logged_in()) {
     wp_redirect(wp_login_url());
     exit;
 }
+/*if(empty($_GET['id'])){
+    wp_redirect(WP_SITEURL);
+    exit;
+}*/
 $ctr = \RVN\Controllers\Account\AccountController::init();
-$ctr->beforeYouGo();
+$ctr->beforeYouGo(!empty($_GET['id']) ? $_GET['id'] : 0);

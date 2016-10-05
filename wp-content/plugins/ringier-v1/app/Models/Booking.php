@@ -17,6 +17,8 @@ class Booking
     private $_tbl_cart_detail;
     private $_tbl_cart_addon;
     private $_tbl_transactions;
+    private $_tbl_guest;
+    private $_tbl_guest_addon;
 
 
     /**
@@ -32,6 +34,8 @@ class Booking
         $this->_tbl_cart_detail = $this->_prefix . 'cart_detail';
         $this->_tbl_cart_addon = $this->_prefix . 'cart_addon';
         $this->_tbl_transactions = $this->_prefix . 'transactions';
+        $this->_tbl_guest = $this->_prefix . 'guests';
+        $this->_tbl_guest_addon = $this->_prefix . 'guest_addon';
     }
 
 
@@ -549,4 +553,68 @@ class Booking
         return $result;
     }
 
+    public function getGuestByBookingId($booking_id){
+
+        $query = 'SELECT g.*,ga.addon_id FROM '.$this->_tbl_guest .' as g INNER JOIN  '.$this->_tbl_guest_addon.' as ga ON ga.guest_id = g.id WHERE g.booking_id = '.$booking_id  ;
+
+        return $this->_wpdb->get_results($query);
+
+    }
+
+    public function getServiceAddonByBookingId($booking_id){
+        $query = 'SELECT ca.*,p.post_title as addon_name FROM '.$this->_tbl_cart_addon .' as ca 
+        INNER JOIN  '.$this->_wpdb->posts.' as p ON p.ID = ca.object_id
+        WHERE ca.cart_id = '.$booking_id ;
+
+        return $this->_wpdb->get_results($query);
+    }
+
+    public function getRoomByBookingId($booking_id){
+        $query = 'SELECT ca.*,r.room_name FROM '.$this->_tbl_cart_detail .' as ca 
+        INNER JOIN  '.$this->_prefix.'rooms as r ON r.id = ca.room_id
+        WHERE ca.cart_id = '.$booking_id ;
+
+        return $this->_wpdb->get_results($query);
+    }
+
+    public function insertGuest($data){
+        unset($data['id']);
+        $isr=  $this->_wpdb->insert($this->_tbl_guest,$data);
+        if($isr){
+            return $this->_wpdb->insert_id;
+        }else{
+            return false;
+        }
+    }
+
+
+    public function updateGuest($data){
+        if(empty($data['id'])){
+            return false;
+        }
+        $id = $data['id'];
+        unset($data['id']);
+        return $this->_wpdb->update($this->_tbl_guest,$data,array('id' => $id));
+    }
+
+    public function getGuestAddon($guest_id,$addon_id){
+
+        $query = 'SELECT * FROM '.$this->_tbl_guest_addon .' WHERE guest_id = '.$guest_id .' AND addon_id ='.$addon_id ;
+
+        return $this->_wpdb->get_row($query);
+
+    }
+
+    public function insertGuestAddon($data){
+        $isr=  $this->_wpdb->insert($this->_tbl_guest_addon,$data);
+        if($isr){
+            return $this->_wpdb->insert_id;
+        }else{
+            return false;
+        }
+    }
+
+    public function deleteGuestAddonByBookingId($booking_id){
+        return $this->_wpdb->delete($this->_tbl_guest_addon,array('booking_id' => $booking_id));
+    }
 }

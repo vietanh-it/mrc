@@ -1490,19 +1490,44 @@ footer ul li {
     border-top: 1px solid #e4a611 !important;
     font-weight: bold;
 }
+.info-basic{
+    position: absolute;
+    padding: 20px;
+    top: 308px;
+    z-index: 99;
+    left: 650px;
+    background: rgba(231, 176, 48, 0.92);
+    color: white;
+}
 
 .info-ship {
     position: absolute;
     z-index: 999;
-    bottom: -460px;
+    top: 370px;
     background: white;
-    width: 70%;
-    padding: 30px;
-    max-height: 200px;
+    width: 635px;
+    padding: 30px 40px;
+    font-size: 13px;
+    height: 157px;
     overflow: hidden;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+    font-family: 'Playfair Display', serif;
+    color: #252525;
 }
-
+.journey-detail .featured-image-2{
+    max-height: 430px;
+    margin-bottom: 150px;
+}
+.box-deck{
+    margin-bottom: 20px;
+}
+.box-deck .title{
+    color: #e4a611;
+    text-transform: uppercase;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin-bottom: 15px;
+}
 /*.box-news:first-child {
     margin-top: 30px;
 }*/

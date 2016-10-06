@@ -379,7 +379,8 @@ class CustomShips
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload-validate.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.iframe-transport.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/vendor/jquery.ui.widget.js"></script>
-
+        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+        <script>tinymce.init({ selector:'.tniMCE textarea' });</script>
         <style>
             .box-day {
                 border: 1px solid #ccc;
@@ -419,16 +420,32 @@ class CustomShips
                 color: blue;
             }
 
+
+            .tniMCE .mce-tinymce{
+                border: 1px solid #ccc !important;
+                margin-top: 10px;
+            }
+            .tniMCE .mce-tinymce .mce-content-body,
+            .tniMCE .mce-tinymce p
+            {
+                font-size: 15px !important;
+                font-family: Arial, "Times New Roman", "Bitstream Charter", Times, serif;
+            }
         </style>
 
         <?php if (!empty($ship_info->rooms_info)) {
         $list_rooms = unserialize($ship_info->rooms_info);
         ?>
         <div class="ctn-box-room">
+            <div class="box-day" style="border:1px solid #ccaf0b ">
+                <div class="form-group">
+                    <label for="day_content">General introduction</label>
+                    <textarea class="form-control" rows="5" name="room_general_introduction" ><?php echo !empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '' ?></textarea>
+                </div>
+            </div>
             <?php
-
             foreach ($list_rooms as $k => $v) {
-                $v = unserialize($v);
+               $v = unserialize($v);
                 $img= wp_get_attachment_image_src($v['room_img_id']);
                 if($img) $img = array_shift($img);
 
@@ -443,7 +460,7 @@ class CustomShips
                             <label for="day_content">Description</label>
                             <textarea class="form-control" rows="5" name="room_description[]" ><?php echo $v['room_description'] ?></textarea>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group tniMCE">
                             <label for="day_content">Content</label>
                             <textarea class="form-control" rows="5" name="room_content[]" ><?php echo $v['room_content'] ?></textarea>
                         </div>
@@ -491,7 +508,7 @@ class CustomShips
                         <label for="day_content">Description</label>
                         <textarea class="form-control" rows="5" name="room_description[]" ></textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group tniMCE">
                         <label for="day_content">Content</label>
                         <textarea class="form-control" rows="5" name="room_content[]"></textarea>
                     </div>
@@ -544,7 +561,7 @@ class CustomShips
                         '<label for="day_content">Description</label> ' +
                         '<textarea class="form-control" rows="5" name="room_description[]" ></textarea>' +
                         '</div> ' +
-                        '<div class="form-group"> ' +
+                        '<div class="form-group tniMCE"> ' +
                         '<label for="day_content">Content</label> ' +
                         '<textarea class="form-control" rows="5" name="room_content[]"></textarea> ' +
                         '</div>' +
@@ -709,6 +726,7 @@ class CustomShips
                 $data = $_POST;
                 $args_deck =array();
                 $args_room =array();
+                $room_general_introduction = !empty($_POST['room_general_introduction']) ? $_POST['room_general_introduction'] : '';
                 if(!empty($data['deck_title']) && !empty($data['deck_content'])){
                     foreach ($data['deck_title'] as $k => $title ){
                         $deck = array(
@@ -738,6 +756,7 @@ class CustomShips
                     'ship_id' => $data['post_ID'],
                     'decks' => serialize($args_deck),
                     'rooms_info' => serialize($args_room),
+                    'room_general_introduction' => ($room_general_introduction),
                 );
 
                 $objShips = Ships::init();

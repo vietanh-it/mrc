@@ -117,7 +117,7 @@ get_header();
                         $img= wp_get_attachment_image_src($room['room_img_id'],'widescreen');
                         if($img) $img = array_shift($img);
                         ?>
-                        <div class="box-deck">
+                        <div class="box-deck box-room-2">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="title">
@@ -134,7 +134,7 @@ get_header();
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-4">
-                                    <a href="<?php echo $img_full ?>" class="fancybox" title="<?php echo $rooms['room_title'] ?>">
+                                    <a href="<?php echo $img_full ?>" class="fancybox" title="<?php echo $room['room_title'] ?>">
                                         <img src="<?php echo $img ?>" alt="<?php echo $room['room_title'] ?>" style="">
                                     </a>
                                 </div>

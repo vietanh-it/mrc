@@ -125,7 +125,7 @@ class CustomShips
                             <label  for="featured_image" >Image</label>
                             <div  class="img_featured_show">
                         <span class="btn btn-success fileinput-button">
-                            <input class="ship_featured_image" type="file" name="featured_image" data-number ="<?php echo $k +1 ?>">
+                            <input class="ship_featured_image_1" type="file" name="featured_image" data-number ="<?php echo $k +1 ?>">
                         </span>
                                 <div  class="progress_<?php echo $k +1 ?> hidden">
                                     <div class="progress-bar-<?php echo $k +1 ?> progress-bar-success"></div>
@@ -169,7 +169,7 @@ class CustomShips
                         <label  for="featured_image" >Image</label>
                         <div  class="img_featured_show">
                         <span class="btn btn-success fileinput-button">
-                            <input class="ship_featured_image" type="file" name="featured_image" data-number ="<?php echo 1 ?>" >
+                            <input class="ship_featured_image_1" type="file" name="featured_image" data-number ="<?php echo 1 ?>" >
                         </span>
                             <div  class="progress_1 hidden">
                                 <div class="progress-bar-1 progress-bar-success"></div>
@@ -217,7 +217,7 @@ class CustomShips
                         '<div class="form-group"> ' +
                         '<label  for="featured_image" >Image</label> ' +
                         '<div  class="img_featured_show"> <span class="btn btn-success fileinput-button"> ' +
-                        '<input class="ship_featured_image" type="file" name="featured_image" data-number ="'+number+'" > </span> ' +
+                        '<input class="ship_featured_image_1" type="file" name="featured_image" data-number ="'+number+'" > </span> ' +
                         '<div  class="progress_'+number+' hidden"> ' +
                         '<div class="progress-bar-'+number+' progress-bar-success"></div> ' +
                         '</div> ' +
@@ -272,10 +272,10 @@ class CustomShips
                     obj.closest('.box-day').find('.number_day_change').text(day);
                 });
 
-                $(document).delegate('.ship_featured_image', 'click', function () {
+                $(document).delegate('.ship_featured_image_1', 'click', function () {
                     var obj = $(this);
                     var  number = obj.attr('data-number');
-                    rvn_upload_photo(obj, {
+                    rvn_upload_photo_1(obj, {
                         action: 'ajax_handler_media',
                         method: 'UploadImages',
                         counterField: '#counter_field_featured',
@@ -285,7 +285,7 @@ class CustomShips
                 });
             });
 
-            function rvn_upload_photo(obj, params,number=1) {
+            function rvn_upload_photo_1(obj, params,number=1) {
                 var defaults = {
                     action: '',
                     counterField: '',
@@ -332,6 +332,7 @@ class CustomShips
                             if(data.result.status == 'success'){
                                 var images =  data.result.img;
                                 contain_error.remove();
+                                console.log(data);
 
                                 $('.return_images_'+number).html("<img src ='"+images+"' style='max-width:100%;padding : 10px 0' />" );
                                 $('.img_id_'+number).val(data.result.img_id);
@@ -379,8 +380,8 @@ class CustomShips
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload-validate.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.iframe-transport.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/vendor/jquery.ui.widget.js"></script>
-        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-        <script>tinymce.init({ selector:'.tniMCE textarea' });</script>
+        <!--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+        <script>tinymce.init({ selector:'.tniMCE textarea' });</script>-->
         <style>
             .box-day {
                 border: 1px solid #ccc;
@@ -432,17 +433,16 @@ class CustomShips
                 font-family: Arial, "Times New Roman", "Bitstream Charter", Times, serif;
             }
         </style>
-
+        <div class="box-day" style="border:1px solid #ccaf0b ;    background: white;">
+            <div class="form-group">
+                <label for="day_content">General introduction</label>
+                <textarea class="form-control" rows="5" name="room_general_introduction" ><?php echo !empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '' ?></textarea>
+            </div>
+        </div>
         <?php if (!empty($ship_info->rooms_info)) {
         $list_rooms = unserialize($ship_info->rooms_info);
         ?>
         <div class="ctn-box-room">
-            <div class="box-day" style="border:1px solid #ccaf0b ">
-                <div class="form-group">
-                    <label for="day_content">General introduction</label>
-                    <textarea class="form-control" rows="5" name="room_general_introduction" ><?php echo !empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '' ?></textarea>
-                </div>
-            </div>
             <?php
             foreach ($list_rooms as $k => $v) {
                $v = unserialize($v);
@@ -476,7 +476,7 @@ class CustomShips
                                 <div class="room_return_images_<?php echo $k +1 ?>">
                                     <img src="<?php echo $img ?>" alt="">
                                 </div>
-                                <input type="hidden" name="room_img_id[]" value="<?php echo $v['room_img_id']  ?>" class="img_id_<?php echo $k +1 ?>">
+                                <input type="hidden" name="room_img_id[]" value="<?php echo $v['room_img_id']  ?>" class="room_img_id_<?php echo $k +1 ?>">
                             </div>
                         </div>
 

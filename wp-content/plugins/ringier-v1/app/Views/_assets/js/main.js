@@ -568,6 +568,21 @@ jQuery(document).ready(function ($) {
         }
         $('.bedding_note_be_'+id).html(hmtl);
     });
+
+    $('.be-show').click(function () {
+        var  obj = $(this);
+        obj.closest('.ctn-traveller').find('.ctn-show-hide-traveller').fadeIn();
+        obj.css('display','none');
+        obj.closest('.ctn-traveller').find('.be-hide').css('display','inline-block');
+    });
+
+
+    $('.be-hide').click(function () {
+        var  obj = $(this);
+        obj.closest('.ctn-traveller').find('.ctn-show-hide-traveller').fadeOut();
+        obj.css('display','none');
+        obj.closest('.ctn-traveller').find('.be-show').css('display','inline-block');
+    });
 });
 
 function switch_loading(is_loading) {

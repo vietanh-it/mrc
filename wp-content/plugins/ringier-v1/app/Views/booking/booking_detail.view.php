@@ -33,7 +33,7 @@ switch ($booking_detail->status) {
 }
 
 // var_dump($journey_detail);
-
+$list_guest = $modelBooking->getGuestByBookingId($_GET['p']);
 get_header();
 while (have_posts()) : the_post(); ?>
     <div class="container">
@@ -122,34 +122,30 @@ while (have_posts()) : the_post(); ?>
                         <?php echo $total_people; ?>
                     </div>
                 </div>
-                <div class="row">
 
-
-                    <div class="col-xs-6 col-sm-6 ">
-                        <a href="#"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
-                        <b>Dong Tran</b>
-                    </div>
-                    <div class="col-xs-6 col-sm-6" style="line-height: 25px">
-                        Passport ID: <b>B88868</b><br>
-                        Date of issue: <b>24 July 2015</b><br>
-                        Valid until: <b>24 July 2025</b><br>
-                        Birthday: <b>20 July 1980</b><br>
-                        Gender: <b>Male</b><br>
-                        Address: <b>15 5th Avenue, New York, MA999595</b><br>
-                        Nationality: <b>Vietnamese</b><br>
-                        Country: <b>USA</b><br>
-                        Special note: <b>Vegeterian. Allergic with peanut</b>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 ">
-                        <div class="tt-left"><b>Thao Pham</b></div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6">
-                        Passport ID: <b>B88868</b>
-                    </div>
-                </div>
-
+                <?php
+                if(!empty($list_guest)){
+                    foreach ($list_guest as $g){ ?>
+                        <div class="row box-traveler-2">
+                            <div class="col-xs-6 col-sm-6 ">
+                                <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
+                                <b><?php echo $g->first_name ?> <?php echo $g->last_name ?></b>
+                            </div>
+                            <div class="col-xs-6 col-sm-6" style="line-height: 25px">
+                                Passport ID: <b><?php echo $g->passport_no ?></b><br>
+                                Date of issue: <b><?php echo  date('d M Y',
+                                        strtotime($g->passport_issue_date)) ?></b><br>
+                                <!--Valid until: <b><?php /*echo date('d M Y',strtotime($g->passport_no)) */?></b><br>-->
+                                Birthday: <b><?php echo date('d M Y',strtotime($g->birthday)) ?></b><br>
+                                Gender: <b><?php echo $g->gender ?></b><br>
+                                Address: <b><?php echo $g->address ?></b><br>
+                                Nationality: <b><?php echo $g->nationality ?></b><br>
+                                Country: <b><?php echo $g->country ?></b><br>
+                                Special note: <b><?php echo $g->speacial_assistant_note ?></b>
+                            </div>
+                        </div>
+                    <?php }
+                }?>
 
                 <div class="row" style="background: #d5b76e;font-weight: bold;color: white;margin-top: 10px;margin-bottom: 10px">
                     <div class="col-xs-6 col-sm-6 ">

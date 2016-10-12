@@ -123,29 +123,41 @@ while (have_posts()) : the_post(); ?>
                     </div>
                 </div>
 
-                <?php
-                if(!empty($list_guest)){
-                    foreach ($list_guest as $g){ ?>
-                        <div class="row box-traveler-2">
-                            <div class="col-xs-6 col-sm-6 ">
-                                <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
-                                <b><?php echo $g->first_name ?> <?php echo $g->last_name ?></b>
+                    <?php
+                    if(!empty($list_guest)){
+                        foreach ($list_guest as $g){ ?>
+                            <div class="ctn-traveller ctn-traveller-2">
+                                <div class="row" style="position: relative">
+                                    <a href="javascript:void(0)" class="bnt-action be-show" style="display: none" title="Show detail traveller ">
+                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                    </a>
+
+                                    <a href="javascript:void(0)" class="bnt-action be-hide" title="Hide detail traveller">
+                                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="col-xs-6 col-sm-6 ">
+                                        <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
+                                        <b><?php echo $g->first_name ?> <?php echo $g->last_name ?></b>
+                                    </div>
+                                    <div class="ctn-show-hide-traveller">
+                                        <div class="col-xs-6 col-sm-6" style="line-height: 25px">
+                                            Passport ID: <b><?php echo $g->passport_no ?></b><br>
+                                            Date of issue: <b><?php echo  date('d M Y',
+                                                    strtotime($g->passport_issue_date)) ?></b><br>
+                                            <!--Valid until: <b><?php /*echo date('d M Y',strtotime($g->passport_no)) */?></b><br>-->
+                                            Birthday: <b><?php echo date('d M Y',strtotime($g->birthday)) ?></b><br>
+                                            Gender: <b><?php echo $g->gender ?></b><br>
+                                            Address: <b><?php echo $g->address ?></b><br>
+                                            Nationality: <b><?php echo $g->nationality ?></b><br>
+                                            Country: <b><?php echo $g->country ?></b><br>
+                                            Special note: <b><?php echo $g->speacial_assistant_note ?></b>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6" style="line-height: 25px">
-                                Passport ID: <b><?php echo $g->passport_no ?></b><br>
-                                Date of issue: <b><?php echo  date('d M Y',
-                                        strtotime($g->passport_issue_date)) ?></b><br>
-                                <!--Valid until: <b><?php /*echo date('d M Y',strtotime($g->passport_no)) */?></b><br>-->
-                                Birthday: <b><?php echo date('d M Y',strtotime($g->birthday)) ?></b><br>
-                                Gender: <b><?php echo $g->gender ?></b><br>
-                                Address: <b><?php echo $g->address ?></b><br>
-                                Nationality: <b><?php echo $g->nationality ?></b><br>
-                                Country: <b><?php echo $g->country ?></b><br>
-                                Special note: <b><?php echo $g->speacial_assistant_note ?></b>
-                            </div>
-                        </div>
-                    <?php }
-                }?>
+                        <?php }
+                    }?>
+
 
                 <div class="row" style="background: #d5b76e;font-weight: bold;color: white;margin-top: 10px;margin-bottom: 10px">
                     <div class="col-xs-6 col-sm-6 ">

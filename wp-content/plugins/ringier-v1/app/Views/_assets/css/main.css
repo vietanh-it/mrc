@@ -2117,13 +2117,28 @@ header .top-bar .top-info li:first-child {
     width: 100%;
     margin-bottom: 50px;
 }
+.ctn-traveller-2 .row{
+    border-bottom: 1px solid #ccc;
+}
+.ctn-traveller-2:last-child .row{
+    border-bottom: 0;
+}
+.ctn-traveller-2{
+    float: none;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+}
 .ctn-traveller .bnt-action{
     position: absolute;
     right: 0;
     color: #e4a611;
+    z-index: 99;
 }
 .ctn-traveller .bnt-action:hover {
     color: #d5b76e;
+}
+.ctn-traveller-2 .bnt-action{
+    color: darkgrey;
 }
 
 .be-bnt-action  img{

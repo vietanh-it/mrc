@@ -233,7 +233,6 @@ class Booking
     public function getCartTotalPeople($cart_id)
     {
         $query = "SELECT SUM(quantity) FROM {$this->_tbl_cart_detail} WHERE cart_id = {$cart_id}";
-        echo $query;
         return $this->_wpdb->get_var($query);
     }
 

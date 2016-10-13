@@ -526,6 +526,12 @@ class Booking
     }
 
 
+    public function bookingTaTo($args)
+    {
+        
+    }
+
+
     public function getBookingStatusText($status_code)
     {
         switch ($status_code) {
@@ -552,68 +558,104 @@ class Booking
         return $result;
     }
 
-    public function getGuestByBookingId($booking_id){
+    public function getGuestByBookingId($booking_id)
+    {
 
-        $query = 'SELECT g.*,ga.addon_id FROM '.$this->_tbl_guest .' as g INNER JOIN  '.$this->_tbl_guest_addon.' as ga ON ga.guest_id = g.id WHERE g.booking_id = '.$booking_id  ;
+        $query = 'SELECT g.*,ga.addon_id FROM ' . $this->_tbl_guest . ' as g INNER JOIN  ' . $this->_tbl_guest_addon . ' as ga ON ga.guest_id = g.id WHERE g.booking_id = ' . $booking_id;
 
         return $this->_wpdb->get_results($query);
 
     }
 
-    public function getServiceAddonByBookingId($booking_id){
-        $query = 'SELECT ca.*,p.post_title as addon_name FROM '.$this->_tbl_cart_addon .' as ca 
-        INNER JOIN  '.$this->_wpdb->posts.' as p ON p.ID = ca.object_id
-        WHERE ca.cart_id = '.$booking_id ;
+    public function getServiceAddonByBookingId($booking_id)
+    {
+        $query = 'SELECT ca.*,p.post_title as addon_name FROM ' . $this->_tbl_cart_addon . ' as ca 
+        INNER JOIN  ' . $this->_wpdb->posts . ' as p ON p.ID = ca.object_id
+        WHERE ca.cart_id = ' . $booking_id;
 
         return $this->_wpdb->get_results($query);
     }
 
-    public function getRoomByBookingId($booking_id){
-        $query = 'SELECT ca.*,r.room_name FROM '.$this->_tbl_cart_detail .' as ca 
-        INNER JOIN  '.$this->_prefix.'rooms as r ON r.id = ca.room_id
-        WHERE ca.cart_id = '.$booking_id ;
+    public function getRoomByBookingId($booking_id)
+    {
+        $query = 'SELECT ca.*,r.room_name FROM ' . $this->_tbl_cart_detail . ' as ca 
+        INNER JOIN  ' . $this->_prefix . 'rooms as r ON r.id = ca.room_id
+        WHERE ca.cart_id = ' . $booking_id;
 
         return $this->_wpdb->get_results($query);
     }
 
-    public function insertGuest($data){
+    public function insertGuest($data)
+    {
         unset($data['id']);
-        $isr=  $this->_wpdb->insert($this->_tbl_guest,$data);
-        if($isr){
+        $isr = $this->_wpdb->insert($this->_tbl_guest, $data);
+        if ($isr) {
             return $this->_wpdb->insert_id;
-        }else{
+        }
+        else {
             return false;
         }
     }
 
 
-    public function updateGuest($data){
-        if(empty($data['id'])){
+    public function updateGuest($data)
+    {
+        if (empty($data['id'])) {
             return false;
         }
         $id = $data['id'];
         unset($data['id']);
-        return $this->_wpdb->update($this->_tbl_guest,$data,array('id' => $id));
+        return $this->_wpdb->update($this->_tbl_guest, $data, ['id' => $id]);
     }
 
-    public function getGuestAddon($guest_id,$addon_id){
+    public function getGuestAddon($guest_id, $addon_id)
+    {
 
-        $query = 'SELECT * FROM '.$this->_tbl_guest_addon .' WHERE guest_id = '.$guest_id .' AND addon_id ='.$addon_id ;
+        $query = 'SELECT * FROM ' . $this->_tbl_guest_addon . ' WHERE guest_id = ' . $guest_id . ' AND addon_id =' . $addon_id;
 
         return $this->_wpdb->get_row($query);
 
     }
 
-    public function insertGuestAddon($data){
-        $isr=  $this->_wpdb->insert($this->_tbl_guest_addon,$data);
-        if($isr){
+    public function insertGuestAddon($data)
+    {
+        $isr = $this->_wpdb->insert($this->_tbl_guest_addon, $data);
+        if ($isr) {
             return $this->_wpdb->insert_id;
-        }else{
+        }
+        else {
             return false;
         }
     }
 
-    public function deleteGuestAddonByBookingId($booking_id){
-        return $this->_wpdb->delete($this->_tbl_guest_addon,array('booking_id' => $booking_id));
+    public function deleteGuestAddonByBookingId($booking_id)
+    {
+        return $this->_wpdb->delete($this->_tbl_guest_addon, ['booking_id' => $booking_id]);
+    }
+
+    public function getRoomBookingInfo($args)
+    {
+        $result = [];
+
+        if (!empty($args['room_id'])) {
+            $m_ship = Ships::init();
+            $m_journey = Journey::init();
+
+            foreach ($args['room_id'] as $k => $v) {
+                $room_info = $m_ship->getRoomInfo($v);
+
+                $item = [
+                    'room_id'        => $v,
+                    'room_name'      => $room_info->room_name,
+                    'room_type_id'   => $room_info->room_type_id,
+                    'room_type_name' => $room_info->room_type_name,
+                    'twin_price'     => $m_journey->getRoomPrice($v, $args['journey_id'], 'twin'),
+                    'single_price'   => $m_journey->getRoomPrice($v, $args['journey_id'], 'single')
+                ];
+                $result[$k] = $item;
+            }
+        }
+
+        return $result;
     }
 }

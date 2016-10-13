@@ -9,6 +9,7 @@
 namespace RVN\Hooks;
 
 use RVN\Models\Addon;
+use RVN\Models\Booking;
 use RVN\Models\Destinations;
 use RVN\Models\Journey;
 use RVN\Models\Ports;
@@ -33,6 +34,9 @@ Class PageTATO
     function __construct()
     {
         add_action('admin_menu', [$this, 'initPages']);
+        // add_action('wp_trash_post', [$this, 'trashJourneySeries']);
+        // add_action('untrash_post', [$this, 'untrashJourneySeries']);
+        // add_action('delete_post', [$this, 'deleteJourneySeries']);
     }
 
 
@@ -59,6 +63,21 @@ Class PageTATO
         $list_port = $m_ports->getPortHaveJourney();
         $list_ship = $m_ships->getShipHaveJourney();
         $list_tato = $m_tato->getTaToList();
+
+        if (!empty($_POST)) {
+            $m_booking = Booking::init();
+
+            // Room list
+            $room_list = [];
+            foreach ($_POST as $key => $value) {
+                if (preg_match("@^twin_single@", $key)) {
+                    $arr = explode('_', $key);
+                    $room_list[end($arr)] = $value;
+                }
+            }
+
+            // Addon list
+        }
         ?>
 
 
@@ -168,6 +187,14 @@ Class PageTATO
                 padding-right: 15px;
             }
 
+            .room-list [data-room] {
+                white-space: nowrap;
+            }
+
+            .twin_single label:first-child {
+                padding-right: 10px;
+            }
+
         </style>
 
 
@@ -246,6 +273,8 @@ Class PageTATO
                                 <label>Journey</label>
                                 <select id="journey_id" name="journey_id" class="select2">
                                     <option value="">--- Select journey ---</option>
+                                    <option value="420">SP2 - SAIGON AND PHNOM PENH</option>
+                                    <option value="421">SP3 - SAIGON AND PHNOM PENH</option>
                                 </select>
                             </div>
 
@@ -271,6 +300,9 @@ Class PageTATO
                             <div class="form-group">
                                 <label>Room list</label>
                                 <select id="room" name="room" class="select2" multiple>
+                                    <option value="5" data-room-type-id="1">201</option>
+                                    <option value="7" data-room-type-id="2">203</option>
+                                    <option value="9" data-room-type-id="3">205</option>
                                 </select>
                             </div>
 
@@ -311,7 +343,7 @@ Class PageTATO
                         <!----- Booking items ----->
                         <div class="col-md-7">
 
-                            <table>
+                            <table class="booking-review-table">
                                 <tr class="line">
                                     <th colspan="2">
                                         Booking items
@@ -327,30 +359,15 @@ Class PageTATO
                                     <td class="journey-no" colspan="3"></td>
                                 </tr>
 
+                                <!--Rooms-->
                                 <tr class="room-list-wrapper double-line">
                                     <td>Room</td>
-                                    <td class="room-list">
-                                        <div data-room="201" data-type="wait">
-                                            Apasui - 201 - <a href="#">Twin sharing</a> or <a href="#">Single use</a>
-                                        </div>
-                                        <div data-room="202" data-type="wait">
-                                            Apasui - 202 -
-                                            <span class="twin_single">
-                                                Twin sharing
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td class="room-list-price">
-                                        <div>?</div>
-                                        <div>$4,000</div>
-                                    </td>
-                                    <td class="room-list-subtotal">
-                                        <div>?</div>
-                                        <div>$4,000</div>
-                                    </td>
+                                    <td class="room-list"></td>
+                                    <td class="room-list-price"></td>
+                                    <td class="room-list-subtotal"></td>
                                 </tr>
 
-                                <tr class="line-top">
+                                <tr class="line-top total-wrapper">
                                     <td></td>
                                     <td colspan="2">Total</td>
                                     <td class="bold">$<span class="total">0</span></td>
@@ -359,7 +376,10 @@ Class PageTATO
                                 <tr class="line-top">
                                     <td></td>
                                     <td colspan="2">Deposit Amount (%)</td>
-                                    <td class="bold">$<span class="deposit-amount">0</span></td>
+                                    <td class="bold">
+                                        <span class="deposit-amount">0</span>% = $<span
+                                            class="deposit-amount-real">0</span>
+                                    </td>
                                 </tr>
 
                             </table>
@@ -374,7 +394,7 @@ Class PageTATO
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Choose TA/TO</label>
-                                        <select name="tato" class="select2">
+                                        <select name="tato" id="tato_select" class="select2">
                                             <option value="">--- Select TA/TO ---</option>
                                             <?php if (!empty($list_tato)) {
                                                 foreach ($list_tato as $k => $v) {
@@ -400,7 +420,7 @@ Class PageTATO
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Deposit (%)</label>
-                                        <input type="number" name="deposit">
+                                        <input type="number" name="deposit_rate" id="deposit_rate">
                                     </div>
                                 </div>
                             </div>
@@ -623,6 +643,8 @@ Class PageTATO
                             if (data.status == 'success') {
                                 $('.addon-list-wrapper').html('');
 
+                                clearAddonTable();
+
                                 // Addon HTML
                                 $.each(data.data, function (k, v) {
                                     populateAddon(v);
@@ -707,60 +729,195 @@ Class PageTATO
 
                 $('#room').change(function () {
                     var room_id = $(this).val();
+                    var journey_id = $('#journey_id').val();
 
-                    swal({
-                        title: "Twin sharing or Single use?",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#0085ba",
-                        confirmButtonText: "Twin Sharing",
-                        cancelButtonText: "Single Use",
-                        closeOnConfirm: false,
-                        closeOnCancel: false
-                    }, function (isConfirm) {
-                        if (isConfirm) {
-                            swal.close();
-                        } else {
+                    if (journey_id) {
+                        // get room info ajax
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_booking',
+                                method: 'GetRoomBookingInfo',
+                                room_id: room_id,
+                                journey_id: journey_id
+                            },
+                            success: function (data) {
+                                if (data.status == 'success') {
+                                    $('.room-list').html('');
+                                    $('.room-list-price').html('');
+                                    $('.room-list-subtotal').html('');
+                                    var resp = data.data;
 
-                            // get room info ajax
-                            $.ajax({
-                                url: ajax_url,
-                                type: 'post',
-                                dataType: 'json',
-                                data: {
-                                    action: 'ajax_handler_booking',
-                                    method: 'GetRoomBookingInfo',
-                                    room_id: room_id,
-                                    twin_single: 'single'
-                                },
-                                success: function (data) {
-                                    if (data.status == 'success') {
+                                    var room_price = '';
+                                    var subtotal = '';
+                                    $.each(resp, function (k, v) {
+                                        var html = roomHtml(v.room_id, v.room_name, v.room_type_name, v.twin_price, v.single_price);
+                                        room_price += '<div>$<span class="price-room-' + v.room_id + '">' + numberFormat(v.twin_price) + '</span></div>';
+                                        subtotal += '<div>$<span class="subtotal-room-' + v.room_id + '">' + numberFormat(v.twin_price * 2) + '</span></div>';
 
-                                    }
-                                    else {
-                                        var html_msg = '<div>';
-                                        if (data.message) {
-                                            $.each(data.message, function (k_msg, msg) {
-                                                html_msg += msg + "<br/>";
-                                            });
-                                        } else if (data.data) {
-                                            $.each(data.data, function (k_msg, msg) {
-                                                html_msg += msg + "<br/>";
-                                            });
-                                        }
-                                        html_msg += "</div>";
-                                        swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                                    }
+                                        $('.room-list').append(html);
+                                    });
 
+                                    $('.room-list-price').html(room_price);
+                                    $('.room-list-subtotal').html(subtotal);
+
+                                    updateTotal();
                                 }
-                            }); // end ajax
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
 
-                            swal.close();
+                            }
+                        }); // end ajax
+                    }
+
+                });
+
+
+                // Change room twin - single
+                $(document).on('change', '.twin_single input', function () {
+                    var room_id = $(this).parents('[data-room]').attr('data-room');
+                    var price = $(this).attr('data-price');
+                    var twin_single = $(this).val();
+
+                    $('.price-room-' + room_id).html(numberFormat(price));
+                    if (twin_single == 'twin') {
+                        $('.subtotal-room-' + room_id).html(numberFormat(price * 2));
+                    } else {
+                        $('.subtotal-room-' + room_id).html(numberFormat(price));
+                    }
+
+                    updateTotal();
+                });
+
+
+                // Change quantity
+                $(document).on('click', '[data-action-type]', function () {
+                    var addon_type = $(this).parent().attr('data-addon-type');
+                    var addon_option_id = $(this).parent().attr('data-addon');
+                    var addon_option_price = $(this).parent().attr('data-price');
+                    var action_type = $(this).attr('data-action-type');
+
+                    if (addon_type == 'addon') {
+                        var obj_addon_option = $('.addon-quantity-' + addon_option_id);
+                        var obj_addon_subtotal = $('.addon-subtotal-' + addon_option_id);
+                        var quantity = parseFloat(obj_addon_option.html());
+
+                        // + or -
+                        if (action_type == 'plus') {
+                            quantity += 1;
+                        } else {
+                            if (quantity > 0) {
+                                quantity -= 1;
+                            }
                         }
-                    });
+                        obj_addon_option.html(quantity);
+
+                        var subtotal = quantity * addon_option_price;
+                        obj_addon_subtotal.html(subtotal);
+
+
+                    } else {
+                        obj_addon_option = $('.addon-quantity-' + addon_option_id + '-' + addon_type);
+                        obj_addon_subtotal = $('.addon-subtotal-' + addon_option_id + '-' + addon_type);
+                        quantity = parseFloat(obj_addon_option.html());
+
+                        var plus_quantity = addon_type == 'twin' ? 2 : 1;
+
+                        // + or -
+                        if (action_type == 'plus') {
+                            quantity += plus_quantity;
+                        } else {
+                            if (quantity > 0) {
+                                quantity -= plus_quantity;
+                            }
+                        }
+                        obj_addon_option.html(quantity);
+
+                        // subtotal
+                        subtotal = quantity * addon_option_price;
+                        obj_addon_subtotal.html(subtotal);
+                    }
+
+                    $(this).parent().find('span').html(quantity);
+
+                    updateTotal();
+                });
+
+
+                $('#tato_select').change(function () {
+                    var tato_id = $(this).val();
+
+                    if (tato_id) {
+                        $.ajax({
+                            url: ajax_url,
+                            method: 'post',
+                            dataType: 'json',
+                            data: {
+                                'action': 'ajax_handler_booking',
+                                'method': 'GetTaToInfo',
+                                'tato_id': tato_id
+                            },
+                            beforeSend: function () {
+                                switch_loading(true);
+                            },
+                            success: function (data) {
+                                switch_loading(false);
+
+                                if (data.status == 'success') {
+                                    $('#deposit_rate').val(data.data.deposit_rate);
+                                    $('.deposit-amount').html(data.data.deposit_rate);
+
+                                    updateDeposit();
+                                }
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
+                            }
+                        });
+                    }
+                });
+
+
+                $('#deposit_rate').change(function () {
+                    $('.deposit-amount').html($(this).val());
+                    updateDeposit();
                 });
 
             });
+
+
+            // Format number
+            function numberFormat(x) {
+                if (isNaN(x))return "";
+
+                n = x.toString().split('.');
+                return n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (n.length > 1 ? "." + n[1] : "");
+            }
 
 
             // --- Load journey list ---
@@ -832,53 +989,42 @@ Class PageTATO
 
             function populateAddon(v) {
 
+                var table_item = '';
+                var item_html = '<div class="form-group">' +
+                    '<label>' + v.post_title + '</label>' +
+                    '<table class="addon-wrapper"><tr>' +
+                    '<th>Option</th>' +
+                    '<th>person</th></tr>';
+
                 // Create service add-ons section
                 if (v.type == 'addon') {
                     // Addon
-                    var item_html = '<div class="form-group">' +
-                        '<label>' + v.post_title + '</label>' +
-                        '<table class="addon-wrapper"><tr>' +
-                        '<th>Option</th>' +
-                        '<th>person</th></tr><tr>' +
-                        '<td>Sharing</td><td>' +
-                        '<div class="addon">' +
-                        '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
-                        '<span>0</span>' +
-                        '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
-                        '</div>' +
-                        '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td>Single</td>' +
-                        '<td>' +
-                        '<div class="addon">' +
-                        '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
-                        '<span>0</span>' +
-                        '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
-                        '</div>' +
-                        '</td>' +
-                        '</tr></table></div>';
+                    $.each(v.addon_option, function (k, val) {
+                        item_html += '<tr>' +
+                            '<td>' + val.option_name + '</td><td>' +
+                            '<div class="addon" data-addon="' + val.id + '" data-addon-type="addon" data-price="' + val.option_price + '">' +
+                            '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
+                            '<span>0</span>' +
+                            '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
+                            '</div>' +
+                            '</td>' +
+                            '</tr>';
 
-                    // Booking review section
-                    var table_item = '<tr class="double-line">' +
-                        '<td>' + v.post_title + '</td>' +
-                        '<td><span data-addon-id-quantity="' + v.ID + '">0</span> persons</td>' +
-                        '<td class="bold">$<span data-addon-id-price="' + v.ID + '">0</span></td>' +
-                        '<td class="bold">$<span data-addon-id-subtotal="' + v.ID + '">0</span></td>' +
-                        '</tr>';
+                        // Booking review section
+                        table_item += '<tr class="double-line">' +
+                            '<td>' + v.post_title + ' - ' + val.option_name + '</td>' +
+                            '<td><span class="addon-quantity-' + val.id + '">0</span> persons</td>' +
+                            '<td class="bold">$<span class="addon-price-' + val.id + '">' + val.option_price + '</span></td>' +
+                            '<td class="bold">$<span class="addon-subtotal-' + val.id + '">0</span></td>' +
+                            '</tr>';
+                    });
                 }
                 else {
                     // Tour
-                    item_html = '<div class="form-group">' +
-                        '<label>' + v.post_title + '</label>' +
-                        '<table class="addon-wrapper">' +
-                        '<tr>' +
-                        '<th>Option</th>' +
-                        '<th>person</th>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td>Sharing</td>' +
-                        '<td><div class="addon">' +
+                    item_html += '<tr>' +
+                        '<td>Twin Sharing</td>' +
+                        '<td>' +
+                        '<div class="addon" data-addon="' + v.ID + '" data-addon-type="twin" data-price="' + v.twin_share_price + '">' +
                         '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
                         '<span>0</span>' +
                         '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
@@ -888,27 +1034,101 @@ Class PageTATO
                         '<tr>' +
                         '<td>Single</td>' +
                         '<td>' +
-                        '<div class="addon">' +
+                        '<div class="addon" data-addon="' + v.ID + '" data-addon-type="single" data-price="' + v.single_price + '">' +
                         '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
                         '<span>0</span>' +
                         '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
                         '</div>' +
                         '</td>' +
-                        '</tr></table></div>';
+                        '</tr>';
 
                     // Booking review section
-                    table_item = '<tr class="double-line">' +
-                        '<td>' + v.post_title + '</td>' +
-                        '<td><span data-addon-id-quantity="' + v.ID + '">0</span> persons</td>' +
-                        '<td class="bold">$<span data-addon-id-price="' + v.ID + '">0</span></td>' +
-                        '<td class="bold">$<span data-addon-id-subtotal="' + v.ID + '">0</span></td>' +
+                    table_item += '<tr class="double-line">' +
+                        '<td>' + v.post_title + ' - Twin Sharing</td>' +
+                        '<td><span class="addon-quantity-' + v.ID + '-twin">0</span> persons</td>' +
+                        '<td class="bold">$<span class="addon-price-' + v.ID + '-twin">' + v.twin_share_price + '</span></td>' +
+                        '<td class="bold">$<span class="addon-subtotal-' + v.ID + '-twin">0</span></td>' +
+                        '</tr>' + '<tr class="double-line">' +
+                        '<td>' + v.post_title + ' - Single Use</td>' +
+                        '<td><span class="addon-quantity-' + v.ID + '-single">0</span> persons</td>' +
+                        '<td class="bold">$<span class="addon-price-' + v.ID + '-single">' + v.single_price + '</span></td>' +
+                        '<td class="bold">$<span class="addon-subtotal-' + v.ID + '-single">0</span></td>' +
                         '</tr>';
                 }
+
+                item_html += '</table></div>';
+
+
                 $('.addon-list-wrapper').append(item_html);
 
                 $('.room-list-wrapper').after(table_item);
             }
+
+
+            function roomHtml(room_id, room_name, room_type_name, twin_price, single_price) {
+                return '<div data-room="' + room_id + '" data-twin_single="twin">' + room_type_name + ' - ' + room_name + ' - ' +
+                    '<span class="twin_single">' +
+
+                    '<label>' +
+                    '<input type="radio" name="twin_single_' + room_id + '" value="twin" data-price="' + twin_price + '" checked> Twin' +
+                    '</label>' +
+
+                    '<label>' +
+                    '<input type="radio" name="twin_single_' + room_id + '" value="single" data-price="' + single_price + '"> Single' +
+                    '</label>' +
+
+                    '</span>' +
+                    '</div>';
+            }
+
+
+            function clearAddonTable() {
+                var room_list_wrapper_index = $('.room-list-wrapper').index();
+                var total_wrapper_index = $('.total-wrapper').index();
+                var addon_selectors = $('.booking-review-table tr:lt(' + total_wrapper_index + '):gt(' + room_list_wrapper_index + ')');
+
+                addon_selectors.remove();
+            }
+
+
+            function updateTotal() {
+                var total = 0;
+                var obj_room_subtotal = $('[class^=subtotal-room]');
+                var obj_addon_subtotal = $('[class^=addon-subtotal]');
+
+                // Room
+                $(obj_room_subtotal).each(function (k, v) {
+                    if ($(v).html()) {
+                        total += parseFloat($(v).html());
+                    }
+                });
+
+                // Addon
+                $(obj_addon_subtotal).each(function (k, v) {
+                    if ($(v).html()) {
+                        total += parseFloat($(v).html());
+                    }
+                });
+
+                $('.total').html(total);
+                updateDeposit();
+            }
+
+
+            function updateDeposit() {
+                var total = $('.total').html();
+                var percent = $('.deposit-amount').html();
+                $('.deposit-amount-real').html(parseFloat(total) * parseFloat(percent) / 100);
+            }
+
         </script>
 
     <?php }
+
+
+    public function save()
+    {
+        var_dump($_POST);
+        die();
+    }
 }

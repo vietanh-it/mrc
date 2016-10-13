@@ -4,6 +4,7 @@ namespace RVN\Controllers;
 use RVN\Models\Addon;
 use RVN\Models\Booking;
 use RVN\Models\Location;
+use RVN\Models\TaTo;
 
 class BookingController extends _BaseController
 {
@@ -151,9 +152,27 @@ class BookingController extends _BaseController
     }
 
 
-    public function ajaxGetRoomBookingInfo($room_id, $twin_single)
+    public function ajaxGetRoomBookingInfo($args)
     {
-        
+        $m_booking = Booking::init();
+        $rs = $m_booking->getRoomBookingInfo($args);
+
+        return [
+            'status' => 'success',
+            'data'   => $rs
+        ];
+    }
+
+
+    public function ajaxGetTaToInfo($args)
+    {
+        $m_tato = TaTo::init();
+        $rs = $m_tato->getTaToByID($args['tato_id']);
+
+        return [
+            'status' => 'success',
+            'data'   => $rs
+        ];
     }
 
 
@@ -221,80 +240,83 @@ class BookingController extends _BaseController
         view('booking/tato');
     }
 
-    public function beforeYouGo($booking_id){
+    public function beforeYouGo($booking_id)
+    {
         $objBooking = Booking::init();
 
-        if($_POST){
-            if(!empty($_POST['first_name']) && is_array($_POST['first_name'])){
-                $a = array();
+        if ($_POST) {
+            if (!empty($_POST['first_name']) && is_array($_POST['first_name'])) {
+                $a = [];
                 $objBooking->deleteGuestAddonByBookingId($booking_id);
-                foreach ($_POST['guest_id'] as $m => $n){
-                    $a = array(
-                        'id' => $n,
-                        'first_name' => $_POST['first_name'][$m],
-                        'last_name' => $_POST['last_name'][$m],
-                        'middle_name' => $_POST['middle_name'][$m],
-                        'nickname' => $_POST['nickname'][$m],
-                        'gender' => $_POST['gender'][$m],
-                        'birthday' => date('Y-m-d', strtotime($_POST['birthday'][$m])),
-                        'country' => $_POST['country'][$m],
-                        'nationality' => $_POST['nationality'][$m],
-                        'passport_no' => $_POST['passport_no'][$m],
-                        'passport_issue_date' =>  date('Y-m-d', strtotime($_POST['passport_issue_date'][$m])),
-                        'passport_expiration_date' => date('Y-m-d', strtotime($_POST['passport_expiration_date'][$m])),
-                        'country_of_birth' => $_POST['country_of_birth'][$m],
-                        'issued_in' => $_POST['issued_in'][$m],
-                        'is_visa' => $_POST['is_visa'][$m],
-                        'travel_insurance' => $_POST['travel_insurance'][$m],
-                        'occasion_note' => $_POST['occasion_note'][$m],
-                        'diet_note' => $_POST['diet_note'][$m],
-                        'medical_note' => $_POST['medical_note'][$m],
-                        'speacial_assistant_note' => $_POST['speacial_assistant_note'][$m],
-                        'room_no' => $_POST['room_no'][$m],
-                        'bedding_note' => $_POST['bedding_note'][$m],
-                        'embarkation_date' => date('Y-m-d', strtotime($_POST['embarkation_date'][$m])),
-                        'embarkation_city' => $_POST['embarkation_city'][$m],
-                        'last_inbound_flight_no' => $_POST['last_inbound_flight_no'][$m],
-                        'last_inbound_originating_airport' => $_POST['last_inbound_originating_airport'][$m],
-                        'last_inbound_date' => date('Y-m-d', strtotime($_POST['last_inbound_date'][$m])),
-                        'last_inbound_arrival_time' => $_POST['last_inbound_arrival_time'][$m],
-                        'debarkation_date' => date('Y-m-d', strtotime($_POST['debarkation_date'][$m])),
-                        'debarkation_city' => $_POST['debarkation_city'][$m],
-                        'first_outbound_flight_no' => $_POST['first_outbound_flight_no'][$m],
+                foreach ($_POST['guest_id'] as $m => $n) {
+                    $a = [
+                        'id'                                 => $n,
+                        'first_name'                         => $_POST['first_name'][$m],
+                        'last_name'                          => $_POST['last_name'][$m],
+                        'middle_name'                        => $_POST['middle_name'][$m],
+                        'nickname'                           => $_POST['nickname'][$m],
+                        'gender'                             => $_POST['gender'][$m],
+                        'birthday'                           => date('Y-m-d', strtotime($_POST['birthday'][$m])),
+                        'country'                            => $_POST['country'][$m],
+                        'nationality'                        => $_POST['nationality'][$m],
+                        'passport_no'                        => $_POST['passport_no'][$m],
+                        'passport_issue_date'                => date('Y-m-d', strtotime($_POST['passport_issue_date'][$m])),
+                        'passport_expiration_date'           => date('Y-m-d', strtotime($_POST['passport_expiration_date'][$m])),
+                        'country_of_birth'                   => $_POST['country_of_birth'][$m],
+                        'issued_in'                          => $_POST['issued_in'][$m],
+                        'is_visa'                            => $_POST['is_visa'][$m],
+                        'travel_insurance'                   => $_POST['travel_insurance'][$m],
+                        'occasion_note'                      => $_POST['occasion_note'][$m],
+                        'diet_note'                          => $_POST['diet_note'][$m],
+                        'medical_note'                       => $_POST['medical_note'][$m],
+                        'speacial_assistant_note'            => $_POST['speacial_assistant_note'][$m],
+                        'room_no'                            => $_POST['room_no'][$m],
+                        'bedding_note'                       => $_POST['bedding_note'][$m],
+                        'embarkation_date'                   => date('Y-m-d', strtotime($_POST['embarkation_date'][$m])),
+                        'embarkation_city'                   => $_POST['embarkation_city'][$m],
+                        'last_inbound_flight_no'             => $_POST['last_inbound_flight_no'][$m],
+                        'last_inbound_originating_airport'   => $_POST['last_inbound_originating_airport'][$m],
+                        'last_inbound_date'                  => date('Y-m-d', strtotime($_POST['last_inbound_date'][$m])),
+                        'last_inbound_arrival_time'          => $_POST['last_inbound_arrival_time'][$m],
+                        'debarkation_date'                   => date('Y-m-d', strtotime($_POST['debarkation_date'][$m])),
+                        'debarkation_city'                   => $_POST['debarkation_city'][$m],
+                        'first_outbound_flight_no'           => $_POST['first_outbound_flight_no'][$m],
                         'first_outbound_destination_airport' => $_POST['first_outbound_destination_airport'][$m],
-                        'first_outbound_date' => date('Y-m-d', strtotime($_POST['first_outbound_date'][$m])),
-                        'first_outbound_departure_time' => $_POST['first_outbound_departure_time'][$m],
-                        'user_id' => get_current_user_id(),
-                        'updated_at' => current_time('mysql'),
-                        'booking_id' => $booking_id,
-                    );
+                        'first_outbound_date'                => date('Y-m-d', strtotime($_POST['first_outbound_date'][$m])),
+                        'first_outbound_departure_time'      => $_POST['first_outbound_departure_time'][$m],
+                        'user_id'                            => get_current_user_id(),
+                        'updated_at'                         => current_time('mysql'),
+                        'booking_id'                         => $booking_id,
+                    ];
 
 
-                    if(!empty($a['id'])){
+                    if (!empty($a['id'])) {
                         $guest_id = $a['id'];
                         $kq = $objBooking->updateGuest($a);
-                    }else{
+                    }
+                    else {
                         $kq = $objBooking->insertGuest($a);
                         $guest_id = $kq;
                     }
 
                     $addon_id = $_POST['service_addon'][$m];
-                    $objBooking->insertGuestAddon(array(
-                        'guest_id' => $guest_id,
-                        'addon_id' => $addon_id,
+                    $objBooking->insertGuestAddon([
+                        'guest_id'   => $guest_id,
+                        'addon_id'   => $addon_id,
                         'booking_id' => $booking_id,
-                    ));
+                    ]);
 
-                    if(!$kq){
-                        $return = array(
-                            'status' => 'error',
+                    if (!$kq) {
+                        $return = [
+                            'status'  => 'error',
                             'message' => 'An error, please try again.'
-                        );
-                    }else{
-                        $return = array(
-                            'status' => 'success',
+                        ];
+                    }
+                    else {
+                        $return = [
+                            'status'  => 'success',
                             'message' => 'Save info success.'
-                        );
+                        ];
                     }
 
                 }
@@ -304,19 +326,20 @@ class BookingController extends _BaseController
 
         $booking_code = '';
         $total_guest = 1;
-        if(empty($booking_id)){
-            $return = array(
-                'status' => 'error',
+        if (empty($booking_id)) {
+            $return = [
+                'status'  => 'error',
                 'message' => 'An error, please check again.'
-            );
-        } else {
+            ];
+        }
+        else {
             $booking_detail = $objBooking->getBookingDetail($booking_id);
 
-            if($booking_detail){
-                $cart_info  = $objBooking->getCartInfo(get_current_user_id(),$booking_detail->journey_id);
-                if(!empty($cart_info)){
+            if ($booking_detail) {
+                $cart_info = $objBooking->getCartInfo(get_current_user_id(), $booking_detail->journey_id);
+                if (!empty($cart_info)) {
                     $total_guest = intval($cart_info['total_twin']) + intval($cart_info['total_single']);
-                    if(!empty($cart_info['cart_info'])){
+                    if (!empty($cart_info['cart_info'])) {
                         $booking_code = $cart_info['cart_info']->booking_code;
                     }
                 }
@@ -324,6 +347,6 @@ class BookingController extends _BaseController
             $list_guest = $objBooking->getGuestByBookingId($booking_id);
         }
 
-        return view('booking/before-you-go', compact('list_guest','country_list','return','list_service_addon','total_guest','booking_code'));
+        return view('booking/before-you-go', compact('list_guest', 'country_list', 'return', 'list_service_addon', 'total_guest', 'booking_code'));
     }
 }

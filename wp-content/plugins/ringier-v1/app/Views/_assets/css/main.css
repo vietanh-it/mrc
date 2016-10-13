@@ -2101,16 +2101,24 @@ header .top-bar .top-info li:first-child {
     list-style: none;
     padding-right: 30px;
 }
+.be-travel a:hover,.be-travel a:focus,.be-travel a:active{
+    color: #e4a611;
+    text-decoration: none;
+}
+.be-travel a{
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    text-transform: uppercase;
+}
 .be-travel{
     border-top: 2px solid #ccc;
     border-bottom: 2px solid #ccc;
     text-align: center;
     padding: 10px 0;
-    text-transform: uppercase;
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 50px;
+}
+.ctn-traveller>.panel-heading+.panel-collapse>.panel-body{
+    border: 0;
 }
 .ctn-traveller{
     float: left;
@@ -2139,6 +2147,11 @@ header .top-bar .top-info li:first-child {
 }
 .ctn-traveller-2 .bnt-action{
     color: darkgrey;
+    font-weight: normal;
+}
+.ctn-traveller .panel-heading{
+    padding: 0;
+    border: 0;
 }
 
 .be-bnt-action  img{

@@ -12,19 +12,17 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
     $list_service_addon = $objBooking->getServiceAddonByBookingId($cart_id);
     $list_room = $objBooking->getRoomByBookingId($cart_id);
     ?>
-    <div class="ctn-traveller">
-        <div class="be-travel" style="position: relative">
-            Traveller <?php echo $k + 1 ?>
-            <a href="javascript:void(0)" class="bnt-action be-show" style="display: none" title="Show detail traveller ">
-                <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </a>
 
-            <a href="javascript:void(0)" class="bnt-action be-hide" title="Hide detail traveller">
-                <i class="fa fa-chevron-up" aria-hidden="true"></i>
-            </a>
+    <div class="ctn-traveller panel panel-default">
+        <div class="panel-heading" role="tab" id="heading_<?php echo $k + 1 ?>">
+            <div class="panel-title be-travel">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $k + 1 ?>" aria-expanded="true" aria-controls="collapseOne">
+                    Traveller <?php echo $k + 1 ?>
+                </a>
+            </div>
         </div>
-        <div class="ctn-show-hide-traveller">
-            <div class="row">
+        <div id="collapse_<?php echo $k + 1 ?>" class="panel-collapse collapse <?php echo ($k==0) ? "in" : "" ?> ctn-show-hide-traveller" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body row">
                 <div class="col-xs-12 col-sm-4">
                     <div class="form-account">
                         <p class="title ">Traveller personal information</p>
@@ -520,9 +518,9 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                     <li><a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Need support?</a></li>
                 </ul>
                 <form method="post">
-                    <div class="ctn-detail-byg">
+                    <div class="ctn-detail-byg panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                         <?php
-                       // $ctrBooking = \RVN\Controllers\BookingController::init();
+                        // $ctrBooking = \RVN\Controllers\BookingController::init();
                         if(!empty($list_guest)){
                             foreach ($list_guest as $k => $guest) {
                                 htmlDetailBeforeYouGo($_GET['id'],$k, $guest);
@@ -538,7 +536,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                     <!--<div>
                         <a href="javascript:void(0)" class="add_new_traveller" data-number="1" data-cart_id ="<?php /*echo $_GET['id'] */?>">Add new traveller</a>
                     </div>-->
-                    <div class="text-center" style="margin: 30px 0 50px">
+                    <div class="text-center" style="margin: 30px 0 50px;float: left;width:100%;">
 
                         <button type="submit" class="bnt-primary">SAVE</button>
                     </div>

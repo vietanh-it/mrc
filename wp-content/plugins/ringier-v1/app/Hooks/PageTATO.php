@@ -67,16 +67,27 @@ Class PageTATO
         if (!empty($_POST)) {
             $m_booking = Booking::init();
 
-            // Room list
+            var_dump($_POST);
+
+
             $room_list = [];
+            $addon_list = [];
             foreach ($_POST as $key => $value) {
+                // Room list
                 if (preg_match("@^twin_single@", $key)) {
                     $arr = explode('_', $key);
                     $room_list[end($arr)] = $value;
                 }
+
+                // Addon list
+                if (preg_match("@^addon-@", $key)) {
+                    $arr = explode('-', $key);
+                    $addon_list[end($arr)] = $value;
+                }
             }
 
-            // Addon list
+            var_dump($room_list, $addon_list);
+
         }
         ?>
 
@@ -853,6 +864,7 @@ Class PageTATO
                     }
 
                     $(this).parent().find('span').html(quantity);
+                    $(this).parent().find('input[type="hidden"]').val(quantity);
 
                     updateTotal();
                 });
@@ -1005,6 +1017,7 @@ Class PageTATO
                             '<div class="addon" data-addon="' + val.id + '" data-addon-type="addon" data-price="' + val.option_price + '">' +
                             '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
                             '<span>0</span>' +
+                            '<input type="hidden" name="addon-' + val.id + '" value="0">' +
                             '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
                             '</div>' +
                             '</td>' +
@@ -1027,6 +1040,7 @@ Class PageTATO
                         '<div class="addon" data-addon="' + v.ID + '" data-addon-type="twin" data-price="' + v.twin_share_price + '">' +
                         '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
                         '<span>0</span>' +
+                        '<input type="hidden" name="addon-' + v.ID + '" value="0">' +
                         '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
                         '</div>' +
                         '</td>' +
@@ -1037,6 +1051,7 @@ Class PageTATO
                         '<div class="addon" data-addon="' + v.ID + '" data-addon-type="single" data-price="' + v.single_price + '">' +
                         '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
                         '<span>0</span>' +
+                        '<input type="hidden" name="addon-' + v.ID + '" value="0">' +
                         '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
                         '</div>' +
                         '</td>' +

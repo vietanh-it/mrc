@@ -72,7 +72,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                         <div class="form-group" style="position: relative">
                             <label for="birthday">Date of birth</label>
                             <input type="text" name="birthday[]"
-                                   value="<?php echo !empty($guest->birthday) ? date('d M Y',
+                                   value="<?php echo (!empty($guest->birthday) && $guest->birthday != '0000-00-00') ? date('d M Y',
                                        strtotime($guest->birthday)) : '' ?>"
                                    class="form-control datepicker" readonly>
                             <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
@@ -126,7 +126,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                                 <div class="form-group" style="position: relative">
                                     <label for="passport_issue_date">Issued date</label>
                                     <input type="text" name="passport_issue_date[]"
-                                           value="<?php echo !empty($guest->passport_issue_date) ? date('d M Y',
+                                           value="<?php echo !empty($guest->passport_issue_date) && $guest->passport_issue_date != '0000-00-00' ? date('d M Y',
                                                strtotime($guest->passport_issue_date)) : '' ?>"
                                            class="form-control datepicker" readonly>
                                     <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
@@ -138,7 +138,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                                 <div class="form-group" style="position: relative">
                                     <label for="passport_expiration_date">Expiration Date</label>
                                     <input type="text" name="passport_expiration_date[]"
-                                           value="<?php echo !empty($guest->passport_expiration_date) ? date('d M Y',
+                                           value="<?php echo !empty($guest->passport_expiration_date) && $guest->passport_expiration_date != '0000-00-00' ? date('d M Y',
                                                strtotime($guest->passport_expiration_date)) : '' ?>"
                                            class="form-control datepicker" readonly>
                                     <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
@@ -270,7 +270,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                         <div class="form-group" style="position: relative">
                             <label for="embarkation_date">Embarkation date</label>
                             <input type="text" name="embarkation_date[]"
-                                   value="<?php echo !empty($guest->embarkation_date) ? date('d M Y',
+                                   value="<?php echo !empty($guest->embarkation_date) && $guest->embarkation_date != '0000-00-00' ? date('d M Y',
                                        strtotime($guest->embarkation_date)) : '' ?>"
                                    class="form-control datepicker" readonly>
                             <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
@@ -294,7 +294,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                         <div class="form-group" style="position: relative">
                             <label for="last_inbound_date">Last inbound date</label>
                             <input type="text" name="last_inbound_date[]"
-                                   value="<?php echo !empty($guest->last_inbound_date) ? date('d M Y',
+                                   value="<?php echo !empty($guest->last_inbound_date) && $guest->last_inbound_date != '0000-00-00' ? date('d M Y',
                                        strtotime($guest->last_inbound_date)) : '' ?>"
                                    class="form-control datepicker" readonly>
                             <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
@@ -316,7 +316,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                         <div class="form-group" style="position: relative">
                             <label for="debarkation_date">Debarkation date</label>
                             <input type="text" name="debarkation_date[]"
-                                   value="<?php echo !empty($guest->debarkation_date) ? date('d M Y',
+                                   value="<?php echo !empty($guest->debarkation_date) && $guest->debarkation_date != '0000-00-00' ? date('d M Y',
                                        strtotime($guest->debarkation_date)) : '' ?>"
                                    class="form-control datepicker" readonly>
                             <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;
@@ -341,7 +341,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                         <div class="form-group" style="position: relative">
                             <label for="first_outbound_date">First outbound date</label>
                             <input type="text" name="first_outbound_date[]"
-                                   value="<?php echo !empty($guest->first_outbound_date) ? date('d M Y',
+                                   value="<?php echo !empty($guest->first_outbound_date) && $guest->first_outbound_date != '0000-00-00' ? date('d M Y',
                                        strtotime($guest->first_outbound_date)) : '' ?>"
                                    class="form-control datepicker" readonly>
                             <img src="<?php echo VIEW_URL ?>/images/icon-date-2.png" style="position: absolute;

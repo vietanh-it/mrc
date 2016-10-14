@@ -247,6 +247,7 @@ class BookingController extends _BaseController
         if ($_POST) {
             if (!empty($_POST['first_name']) && is_array($_POST['first_name'])) {
                 $a = [];
+
                 $objBooking->deleteGuestAddonByBookingId($booking_id);
                 foreach ($_POST['guest_id'] as $m => $n) {
                     $a = [
@@ -256,12 +257,12 @@ class BookingController extends _BaseController
                         'middle_name'                        => $_POST['middle_name'][$m],
                         'nickname'                           => $_POST['nickname'][$m],
                         'gender'                             => $_POST['gender'][$m],
-                        'birthday'                           => date('Y-m-d', strtotime($_POST['birthday'][$m])),
+                        'birthday'                           => !empty($_POST['birthday'][$m]) ? date('Y-m-d', strtotime($_POST['birthday'][$m])) : '',
                         'country'                            => $_POST['country'][$m],
                         'nationality'                        => $_POST['nationality'][$m],
                         'passport_no'                        => $_POST['passport_no'][$m],
-                        'passport_issue_date'                => date('Y-m-d', strtotime($_POST['passport_issue_date'][$m])),
-                        'passport_expiration_date'           => date('Y-m-d', strtotime($_POST['passport_expiration_date'][$m])),
+                        'passport_issue_date'                => !empty($_POST['passport_issue_date'][$m]) ? date('Y-m-d', strtotime($_POST['passport_issue_date'][$m])) : '',
+                        'passport_expiration_date'           => !empty($_POST['passport_expiration_date'][$m])  ? date('Y-m-d', strtotime($_POST['passport_expiration_date'][$m])) : '',
                         'country_of_birth'                   => $_POST['country_of_birth'][$m],
                         'issued_in'                          => $_POST['issued_in'][$m],
                         'is_visa'                            => $_POST['is_visa'][$m],
@@ -272,17 +273,17 @@ class BookingController extends _BaseController
                         'speacial_assistant_note'            => $_POST['speacial_assistant_note'][$m],
                         'room_no'                            => $_POST['room_no'][$m],
                         'bedding_note'                       => $_POST['bedding_note'][$m],
-                        'embarkation_date'                   => date('Y-m-d', strtotime($_POST['embarkation_date'][$m])),
+                        'embarkation_date'                   => !empty($_POST['embarkation_date'][$m]) ? date('Y-m-d', strtotime($_POST['embarkation_date'][$m])) :'',
                         'embarkation_city'                   => $_POST['embarkation_city'][$m],
                         'last_inbound_flight_no'             => $_POST['last_inbound_flight_no'][$m],
                         'last_inbound_originating_airport'   => $_POST['last_inbound_originating_airport'][$m],
-                        'last_inbound_date'                  => date('Y-m-d', strtotime($_POST['last_inbound_date'][$m])),
+                        'last_inbound_date'                  => !empty($_POST['last_inbound_date'][$m]) ? date('Y-m-d', strtotime($_POST['last_inbound_date'][$m])) : '',
                         'last_inbound_arrival_time'          => $_POST['last_inbound_arrival_time'][$m],
-                        'debarkation_date'                   => date('Y-m-d', strtotime($_POST['debarkation_date'][$m])),
+                        'debarkation_date'                   => !empty($_POST['debarkation_date'][$m])  ? date('Y-m-d', strtotime($_POST['debarkation_date'][$m])) : '',
                         'debarkation_city'                   => $_POST['debarkation_city'][$m],
                         'first_outbound_flight_no'           => $_POST['first_outbound_flight_no'][$m],
                         'first_outbound_destination_airport' => $_POST['first_outbound_destination_airport'][$m],
-                        'first_outbound_date'                => date('Y-m-d', strtotime($_POST['first_outbound_date'][$m])),
+                        'first_outbound_date'                => !empty($_POST['first_outbound_date'][$m]) ? date('Y-m-d', strtotime($_POST['first_outbound_date'][$m])) : '',
                         'first_outbound_departure_time'      => $_POST['first_outbound_departure_time'][$m],
                         'user_id'                            => get_current_user_id(),
                         'updated_at'                         => current_time('mysql'),

@@ -129,11 +129,11 @@ while (have_posts()) : the_post(); ?>
                             <div class="ctn-traveller ctn-traveller-2">
                                 <div class="row" style="position: relative">
                                     <a href="javascript:void(0)" class="bnt-action be-show" style="display: none" title="Show detail traveller ">
-                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
                                     </a>
 
                                     <a href="javascript:void(0)" class="bnt-action be-hide" title="Hide detail traveller">
-                                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
                                     </a>
                                     <div class="col-xs-6 col-sm-6 ">
                                         <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>

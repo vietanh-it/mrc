@@ -337,16 +337,15 @@ class BookingController extends _BaseController
             $booking_detail = $objBooking->getBookingDetail($booking_id);
             $total_guest = $objBooking->getCartTotalPeople($booking_id);
             if ($booking_detail) {
-                $cart_info = $objBooking->getCartInfo(get_current_user_id(), $booking_detail->journey_id);
-                if (!empty($cart_info)) {
-                    if (!empty($cart_info['cart_info'])) {
-                        $booking_code = $cart_info['cart_info']->booking_code;
-                    }
-                }
+                $booking_code = $booking_detail->booking_code;
             }
             $list_guest = $objBooking->getGuestByBookingId($booking_id);
         }
 
         return view('booking/before-you-go', compact('list_guest', 'country_list', 'return', 'list_service_addon', 'total_guest', 'booking_code'));
+    }
+
+    public function buy_more_service($booking_id){
+        return view('booking/buy-more-service', compact('booking_id'));
     }
 }

@@ -372,6 +372,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                                 } ?>
                             </select>
                         </div>
+                        <a href="<?php echo WP_SITEURL.'/buy-more-service/?id='.$_GET['id'] ?>">Buy more service</a>
                         <!--
                     <div class="form-group">
                         <label for="transfers_only">Transfers only</label>

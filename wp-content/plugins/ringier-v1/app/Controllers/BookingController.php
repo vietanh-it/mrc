@@ -284,7 +284,7 @@ class BookingController extends _BaseController
                         'first_outbound_flight_no'           => $_POST['first_outbound_flight_no'][$m],
                         'first_outbound_destination_airport' => $_POST['first_outbound_destination_airport'][$m],
                         'first_outbound_date'                => !empty($_POST['first_outbound_date'][$m]) ? date('Y-m-d', strtotime($_POST['first_outbound_date'][$m])) : '',
-                        'first_outbound_departure_time'      => $_POST['first_outbound_departure_time'][$m],
+                        'first_outbound_departure_time'      => !empty($_POST['first_outbound_departure_time'][$m]) ? $_POST['first_outbound_departure_time'][$m] : '',
                         'user_id'                            => get_current_user_id(),
                         'updated_at'                         => current_time('mysql'),
                         'booking_id'                         => $booking_id,

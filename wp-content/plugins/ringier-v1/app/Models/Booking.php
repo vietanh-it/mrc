@@ -458,7 +458,7 @@ class Booking
                 $html_path = 'normal_user/booking_confirmation.html';
                 $email_args = [
                     'first_name'         => 'Việt Anh',
-                    'booking_detail_url' => WP_SITEURL . '/account/your-booking'
+                    'booking_detail_url' => WP_SITEURL . '/before-you-go/?id=' . $cart->id
                 ];
 
                 $user = wp_get_current_user();
@@ -470,7 +470,7 @@ class Booking
                     'data'   => ''
                 ];
 
-                wp_redirect(WP_SITEURL . '/account/your-booking');
+                wp_redirect(WP_SITEURL . '/booking/' . $cart->booking_code);
                 exit;
             }
         }

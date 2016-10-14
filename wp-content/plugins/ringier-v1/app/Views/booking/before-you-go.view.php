@@ -515,7 +515,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                     </div>
                 </div>
                 <ul class="be-dow">
-                    <li><a href="#"><i class="fa fa-download" aria-hidden="true"></i> Down load the form</a></li>
+                    <li><a href="#"><i class="fa fa-download" aria-hidden="true"></i> Download the form</a></li>
                     <li><a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Need support?</a></li>
                 </ul>
                 <form method="post">

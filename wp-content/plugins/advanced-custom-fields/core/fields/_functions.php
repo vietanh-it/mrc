@@ -314,9 +314,7 @@ class acf_field_functions
             }
             // var_dump($data);
 
-            if ($field['name'] == 'photos') {
-                return true;
-            }
+            unset($data['photos']);
 
             switch ($post->post_type) {
                 case 'ship':
@@ -337,7 +335,6 @@ class acf_field_functions
                         $data['object_id'] = $post_id;
                         $wpdb->insert($wpdb->prefix . 'ship_info', $data);
                     } else {
-                        unset($data['photos']);
                         $wpdb->update($wpdb->prefix . 'ship_info', $data, ['object_id' => $post_id]);
                     }
                     break;
@@ -346,9 +343,10 @@ class acf_field_functions
                         $data[$field['name']] = serialize($data[$field['name']]);
                     }
 
-                    if (empty($wpdb->get_row("SELECT * FROM {$wpdb->prefix}post_info WHERE object_id = {$post_id}"))) {
+                    $destination = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}post_info WHERE object_id = {$post_id}");
+                    if (empty($destination)) {
                         $data['object_id'] = $post_id;
-                        $wpdb->insert($wpdb->prefix . 'post_info', $data);
+                        $rs = $wpdb->insert($wpdb->prefix . 'post_info', $data);
                     } else {
                         $wpdb->update($wpdb->prefix . 'post_info', $data, ['object_id' => $post_id]);
                     }
@@ -479,7 +477,6 @@ class acf_field_functions
                 default:
                     break;
             }
-            unset($data['photos']);
         }
 
 

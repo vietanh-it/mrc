@@ -15,6 +15,8 @@ get_header();
                 <?php if(!empty($list_journey['data'])){
                     foreach ($list_journey['data'] as $v){
                         //var_dump($v);
+                        $m_offer = \RVN\Models\Offer::init();
+                        $offer = $m_offer->getOfferByJourney($v->ID);
                         ?>
                         <div class="col-xs-12 col-sm-12">
                             <div class="box-journey-2">
@@ -39,15 +41,19 @@ get_header();
                                                 ?>
                                             </p>
                                             <ul>
-                                                <li><b>7 nights 6 days</b></li>
-                                                <li><b>Promotion:</b> Save up to 20% on selected dates <img src="<?php echo  VIEW_URL.'/images/icon-ticket.png'?>"></li>
+                                                <li><b><?php echo $v->journey_type_info->duration ?></b></li>
+                                                <?php if(!empty($offer)){ ?>
+                                                    <li><b>Promotion:</b>   <?php echo $offer->post_title ?>
+                                                        Book by <?php echo $v->departure_fm; ?>
+                                                        and save <?php echo $offer->offers[0]->promotion; ?>%. <img src="<?php echo  VIEW_URL.'/images/icon-ticket.png'?>"></li>
+                                                <?php } ?>
                                             </ul>
                                             <a href="<?php echo $v->permalink ?>" class="explore">Explore Now >></a>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-2">
                                         <div class="bk">
-                                            <p>from US$<b>1,755</b> pp</p>
+                                            <p>from US$<b><?php echo $v->min_price ?></b> pp</p>
                                             <a href="<?php echo $v->permalink ?>">Book now</a>
                                         </div>
                                     </div>

@@ -90,7 +90,7 @@ class Booking
     {
         $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id}";
         if (empty($is_get_cart)) {
-            $query .= " AND status <> 'cart'";
+            $query .= " AND status NOT IN ('cart', 'tato')";
         }
         $result = $this->_wpdb->get_results($query);
 
@@ -531,6 +531,9 @@ class Booking
         switch ($status_code) {
             case 'cart':
                 $result = 'Booking';
+                break;
+            case 'tato':
+                $result = 'Wait For Deposit';
                 break;
             case 'before-you-go':
                 $result = 'Before you go';

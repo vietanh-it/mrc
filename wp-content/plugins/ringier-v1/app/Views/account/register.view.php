@@ -124,7 +124,7 @@ if (!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])) {
                                 <label>
                                     <input type="checkbox" value="1" name="is_agree">
                                     <a href="<?php echo WP_SITEURL . '/terms-of-use'; ?>"
-                                       class="font-playfair is-agree-terms">
+                                       class="font-playfair is-agree-terms" target="_blank">
                                         I accept Terms of Use and Privacy Policy
                                     </a>
                                 </label>

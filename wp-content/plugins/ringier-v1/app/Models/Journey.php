@@ -517,7 +517,14 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
             if (!empty($rt_prices)) {
 
                 // Initialize value
-                $min = $rt_prices[0]->{'twin_' . $current_season . '_season_price'};
+                $min = $rt_prices[0]->{'twin_' . $current_season . '_season_price'} * 2;
+
+                $result = [
+                    'room_type_id'    => $rt_prices[0]->room_type_id,
+                    'min_price'       => $min,
+                    'min_price_offer' => $min,
+                    'type'            => 'twin'
+                ];
 
                 foreach ($rt_prices as $k => $v) {
 

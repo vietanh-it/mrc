@@ -460,7 +460,7 @@ Class PageTATO
                                 </tr>
 
                                 <tr class="double-line">
-                                    <td>Journey ID No #:</td>
+                                    <td style="white-space: nowrap;">Journey ID No #:</td>
                                     <td class="journey-no" colspan="3"></td>
                                 </tr>
 

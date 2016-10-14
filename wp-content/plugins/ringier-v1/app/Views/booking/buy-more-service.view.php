@@ -32,7 +32,7 @@ if(!empty($booking_id)){
 
     <div class="journey-detail">
 
-        <?php view('blocks/booking-topbar', ['journey_id' => $booking_detail->journey_id]); ?>
+        <?php //view('blocks/booking-topbar', ['journey_id' => $booking_detail->journey_id]); ?>
 
         <div class="content-booking">
             <div class="container container-big">

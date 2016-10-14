@@ -156,7 +156,13 @@ while (have_posts()) : the_post(); ?>
                                 </div>
                             </div>
                         <?php }
-                    }?>
+                    }else{ ?>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 ">
+                                <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
+                            </div>
+                        </div>
+                    <?php }?>
 
 
                 <div class="row" style="background: #d5b76e;font-weight: bold;color: white;margin-top: 10px;margin-bottom: 10px">

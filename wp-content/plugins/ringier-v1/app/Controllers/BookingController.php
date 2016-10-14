@@ -334,11 +334,10 @@ class BookingController extends _BaseController
         }
         else {
             $booking_detail = $objBooking->getBookingDetail($booking_id);
-
+            $total_guest = $objBooking->getCartTotalPeople($booking_id);
             if ($booking_detail) {
                 $cart_info = $objBooking->getCartInfo(get_current_user_id(), $booking_detail->journey_id);
                 if (!empty($cart_info)) {
-                    $total_guest = intval($cart_info['total_twin']) + intval($cart_info['total_single']);
                     if (!empty($cart_info['cart_info'])) {
                         $booking_code = $cart_info['cart_info']->booking_code;
                     }

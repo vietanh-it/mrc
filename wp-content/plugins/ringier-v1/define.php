@@ -62,6 +62,9 @@ if (!defined('DB_PREFIX')) {
 }
 
 define('TBL_ADDON_OPTIONS', DB_PREFIX . 'addon_options');
+define('TBL_CART', DB_PREFIX . 'cart');
+define('TBL_CART_ADDON', DB_PREFIX . 'cart_addon');
+define('TBL_CART_DETAIL', DB_PREFIX . 'cart_detail');
 define('TBL_OFFER_INFO', DB_PREFIX . 'offer_info');
 define('TBL_JOURNEY_INFO', DB_PREFIX . 'journey_info');
 define('TBL_JOURNEY_TYPE_INFO', DB_PREFIX . 'journey_type_info');

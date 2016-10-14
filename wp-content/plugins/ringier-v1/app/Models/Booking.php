@@ -141,7 +141,7 @@ class Booking
         ];
         $this->_wpdb->insert($this->_tbl_cart, $cart);
 
-        return $cart;
+        return (object)$cart;
     }
 
 
@@ -365,7 +365,7 @@ class Booking
     {
         $query_cart = "SELECT * FROM {$this->_tbl_cart} c" .
             " INNER JOIN {$this->_tbl_cart_detail} cd ON c.id = cd.cart_id" .
-            " WHERE c.journey_id = {$journey_id} AND c.status IN ('before-you-go', 'ready-to-onboard', 'onboard', 'finished')";
+            " WHERE c.journey_id = {$journey_id} AND c.status IN ('before-you-go', 'ready-to-onboard', 'onboard', 'finished', 'tato')";
         $cart = $this->_wpdb->get_results($query_cart);
 
         $result = [];
@@ -523,12 +523,6 @@ class Booking
         } while (!empty($result));
 
         return $code;
-    }
-
-
-    public function bookingTaTo($args)
-    {
-        
     }
 
 

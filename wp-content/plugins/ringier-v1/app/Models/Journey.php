@@ -267,7 +267,7 @@ class Journey
     public function getMonthHaveJourney()
     {
         $query = ' SELECT DATE_FORMAT(ji.departure,\'%Y-%m\') as month
-                  FROM ' . $this->_tbl_journey_info . ' as ji  GROUP BY month';
+                  FROM ' . $this->_tbl_journey_info . ' as ji WHERE ji.departure > CURDATE() GROUP BY month';
 
         $result = $this->_wpdb->get_results($query);
         if ($result) {

@@ -55,7 +55,7 @@ get_header(); ?>
                             $status = $modelBooking->getBookingStatusText($value->status); ?>
 
                             <tr>
-                                <td>
+                                <td style="white-space: nowrap; padding-right: 5px;">
                                     <a href="<?php echo $booking_permalink; ?>" style="color: #545454;">
                                         <b>
                                             <?php echo $value->booking_code; ?>

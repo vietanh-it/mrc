@@ -6,9 +6,12 @@ use RVN\Controllers\DestinationController;
 use RVN\Controllers\JourneyController;
 use RVN\Controllers\PortController;
 use RVN\Controllers\ShipController;
+use RVN\Models\Destinations;
 use RVN\Models\JourneyType;
 use RVN\Models\Offer;
+use RVN\Models\Ports;
 use RVN\Models\Posts;
+use RVN\Models\Ships;
 
 class HomeController extends _BaseController
 {
@@ -33,10 +36,13 @@ class HomeController extends _BaseController
         $objDestination = DestinationController::init();
         $objPort = PortController::init();
         $objJourney = JourneyController::init();
+        $m_destination = Destinations::init();
+        $m_port = Ports::init();
+        $m_ship = Ships::init();
 
-        $list_destination = $objDestination->getDestinationList();
-        $list_port = $objPort->getPortList();
-        $list_ship = $objShip->getSipList();
+        $list_destination = $m_destination->getDestinationHaveJourney();
+        $list_port = $m_port->getPortHaveJourney();
+        $list_ship = $m_ship->getShipHaveJourney();
         $list_month = $objJourney->getMonth();
 
         $args = array(

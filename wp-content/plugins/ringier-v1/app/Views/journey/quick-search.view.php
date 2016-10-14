@@ -3,9 +3,11 @@ $objShip = \RVN\Controllers\ShipController::init();
 $objDestination = \RVN\Controllers\DestinationController::init();
 $objPort = \RVN\Controllers\PortController::init();
 $objJourney = \RVN\Controllers\JourneyController::init();
+$m_destination = \RVN\Models\Destinations::init();
+$m_port = \RVN\Models\Ports::init();
 
-$list_destination = $objDestination->getDestinationList();
-$list_port = $objPort->getPortList();
+$list_destination = $m_destination->getDestinationHaveJourney();
+$list_port = $m_port->getPortHaveJourney();
 $list_ship = $objShip->getSipList();
 $list_month = $objJourney->getMonth();
 
@@ -29,8 +31,8 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                             <div class="form-group">
                                 <select name="_destination" class="form-control select-2">
                                     <option value="">Choose your destination</option>
-                                    <?php if($list_destination['data']){
-                                        foreach ($list_destination['data'] as $v){ ?>
+                                    <?php if($list_destination){
+                                        foreach ($list_destination as $v){ ?>
                                             <option value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $destination ? 'selected': '' ?>> <?php echo $v->post_title ?></option>
                                         <?php }
                                     } ?>
@@ -57,8 +59,8 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                             <div class="form-group">
                                 <select name="_port" class="form-control select-2">
                                     <option value="">Choose port of departure</option>
-                                    <?php if($list_port['data']){
-                                        foreach ($list_port['data'] as $v){ ?>
+                                    <?php if($list_port){
+                                        foreach ($list_port as $v){ ?>
                                             <option value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $port ? 'selected': '' ?>> <?php echo $v->post_title ?></option>
                                         <?php }
                                     } ?>

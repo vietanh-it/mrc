@@ -57,6 +57,7 @@ Class PageTATO
         $m_ports = Ports::init();
         $m_destination = Destinations::init();
         $m_tato = TaTo::init();
+        $m_addon = Addon::init();
 
         $destination = $m_destination->getDestinationHaveJourney();
         $sail_month = $m_journey->getMonthHaveJourney();
@@ -65,28 +66,127 @@ Class PageTATO
         $list_tato = $m_tato->getTaToList();
 
         if (!empty($_POST)) {
+            global $wpdb;
             $m_booking = Booking::init();
 
-            var_dump($_POST);
+            $user_id = get_current_user_id();
+
+            if (!empty($_POST['journey_id']) && !empty($_POST['tato'])) {
+                $journey_id = $_POST['journey_id'];
+                $tato_id = $_POST['tato'];
+                $deposit_rate = $_POST['deposit_rate'];
+
+                $cart = $m_booking->getCart($user_id, $journey_id);
+
+                if (!empty($cart)) {
+                    $room_list = [];
+                    $addon_list = [];
+                    foreach ($_POST as $key => $value) {
+                        if (!empty($value)) {
+                            // Room list
+                            if (preg_match("@^twin_single@", $key)) {
+                                $arr = explode('_', $key);
+                                $room_list[end($arr)] = $value;
+                            }
+
+                            // Addon list
+                            if (preg_match("@^addon-@", $key)) {
+                                $arr = explode('-', $key);
+
+                                if ($arr[1] == 'addon') {
+                                    $addon_list[$arr[2]] = [
+                                        $arr[3] => $value
+                                    ];
+                                }
+                                else {
+                                    $addon_list[$arr[2]][$arr[1]] = $value;
+                                }
+                            }
+                        }
+                    }
 
 
-            $room_list = [];
-            $addon_list = [];
-            foreach ($_POST as $key => $value) {
-                // Room list
-                if (preg_match("@^twin_single@", $key)) {
-                    $arr = explode('_', $key);
-                    $room_list[end($arr)] = $value;
+                    $cart_total = 0;
+                    // Update cart detail
+                    foreach ($room_list as $room_id => $type) {
+                        $room_info = $m_journey->getRoomInfo($room_id);
+                        $price = $m_journey->getRoomPrice($room_id, $journey_id, $type);
+                        $quantity = ($type == 'twin') ? 2 : 1;
+                        $total = $price * $quantity;
+
+                        $cart_detail = $m_booking->getCartDetail($cart->id, $room_id);
+
+                        if (empty($cart_detail)) {
+                            $wpdb->insert(TBL_CART_DETAIL, [
+                                'cart_id'      => $cart->id,
+                                'room_id'      => $room_id,
+                                'room_type_id' => $room_info->room_type_id,
+                                'type'         => $type,
+                                'price'        => $price,
+                                'quantity'     => $quantity,
+                                'total'        => $total
+                            ]);
+                        }
+                        else {
+                            $wpdb->update(TBL_CART_DETAIL, [
+                                'type'     => $type,
+                                'price'    => $price,
+                                'quantity' => $quantity,
+                                'total'    => $total
+                            ], ['cart_id' => $cart->id, 'room_id' => $room_id]);
+                        }
+
+                        $cart_total += $total;
+                    }
+
+                    // Update cart addon
+                    foreach ($addon_list as $object_id => $addon_array) {
+                        $wpdb->delete(TBL_CART_ADDON, ['cart_id' => $cart->id]);
+
+                        foreach ($addon_array as $k => $v) {
+                            $data = [
+                                'cart_id'   => $cart->id,
+                                'status'    => 'active',
+                                'object_id' => $object_id,
+                            ];
+
+                            if ($k == 'twin' || $k == 'single') {
+                                $data['type'] = $k;
+                                $data['price'] = $m_addon->getAddonPrice([
+                                    'object_id'   => $object_id,
+                                    'twin_single' => $k
+                                ]);
+                            }
+                            else {
+                                $data['addon_option_id'] = $k;
+                                $data['price'] = $m_addon->getAddonPrice([
+                                    'object_id'       => $object_id,
+                                    'addon_option_id' => $k
+                                ]);
+                            }
+
+                            $data['total'] = $data['price'] * $v;
+                            $cart_total += $data['total'];
+
+                            $wpdb->insert(TBL_CART_ADDON, $data);
+                        }
+                    }
+
+
+                    // Update cart status
+                    $wpdb->update(TBL_CART, [
+                        'status'     => 'tato',
+                        'tato_id'    => $tato_id,
+                        'deposit'    => ($deposit_rate * $cart_total) / 100,
+                        'expired_at' => date('Y-m-d H:i:s', strtotime('+ 3 days'))
+                    ], ['id' => $cart->id]);
+
+
+                    // Publish post
+                    wp_publish_post($cart->id);
                 }
 
-                // Addon list
-                if (preg_match("@^addon-@", $key)) {
-                    $arr = explode('-', $key);
-                    $addon_list[end($arr)] = $value;
-                }
             }
-
-            var_dump($room_list, $addon_list);
 
         }
         ?>
@@ -284,8 +384,6 @@ Class PageTATO
                                 <label>Journey</label>
                                 <select id="journey_id" name="journey_id" class="select2">
                                     <option value="">--- Select journey ---</option>
-                                    <option value="420">SP2 - SAIGON AND PHNOM PENH</option>
-                                    <option value="421">SP3 - SAIGON AND PHNOM PENH</option>
                                 </select>
                             </div>
 
@@ -310,11 +408,7 @@ Class PageTATO
                             <!--Room list-->
                             <div class="form-group">
                                 <label>Room list</label>
-                                <select id="room" name="room" class="select2" multiple>
-                                    <option value="5" data-room-type-id="1">201</option>
-                                    <option value="7" data-room-type-id="2">203</option>
-                                    <option value="9" data-room-type-id="3">205</option>
-                                </select>
+                                <select id="room" name="room" class="select2" multiple></select>
                             </div>
 
                         </div>
@@ -345,7 +439,7 @@ Class PageTATO
 
 
                 <!------ Booking Review ------>
-                <div class="content-wrapper box booking-review" style="margin-top: 40px; display: block">
+                <div class="content-wrapper box booking-review" style="margin-top: 40px; display: none">
                     <h3>TA/TO Booking Review</h3>
 
                     <div class="row">
@@ -439,9 +533,9 @@ Class PageTATO
                             <div class="row">
                                 <div class="col-md-12">
                                     <i>Note: The booking is kept for only 3 days. Please tell the TA/TO for deposit as
-                                        soon
-                                        as
-                                        possible.</i>
+                                       soon
+                                       as
+                                       possible.</i>
                                 </div>
                             </div>
 
@@ -835,12 +929,13 @@ Class PageTATO
                                 quantity -= 1;
                             }
                         }
+
+                        // Quantity
                         obj_addon_option.html(quantity);
 
+                        // Subtotal
                         var subtotal = quantity * addon_option_price;
                         obj_addon_subtotal.html(subtotal);
-
-
                     } else {
                         obj_addon_option = $('.addon-quantity-' + addon_option_id + '-' + addon_type);
                         obj_addon_subtotal = $('.addon-subtotal-' + addon_option_id + '-' + addon_type);
@@ -861,6 +956,13 @@ Class PageTATO
                         // subtotal
                         subtotal = quantity * addon_option_price;
                         obj_addon_subtotal.html(subtotal);
+                    }
+
+                    // Hide or show addon review
+                    if (quantity > 0) {
+                        obj_addon_option.parents('tr').show();
+                    } else {
+                        obj_addon_option.parents('tr').hide();
                     }
 
                     $(this).parent().find('span').html(quantity);
@@ -1017,14 +1119,14 @@ Class PageTATO
                             '<div class="addon" data-addon="' + val.id + '" data-addon-type="addon" data-price="' + val.option_price + '">' +
                             '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
                             '<span>0</span>' +
-                            '<input type="hidden" name="addon-' + val.id + '" value="0">' +
+                            '<input type="hidden" name="addon-addon-' + v.ID + '-' + val.id + '" value="0">' +
                             '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
                             '</div>' +
                             '</td>' +
                             '</tr>';
 
                         // Booking review section
-                        table_item += '<tr class="double-line">' +
+                        table_item += '<tr class="double-line" style="display: none;">' +
                             '<td>' + v.post_title + ' - ' + val.option_name + '</td>' +
                             '<td><span class="addon-quantity-' + val.id + '">0</span> persons</td>' +
                             '<td class="bold">$<span class="addon-price-' + val.id + '">' + val.option_price + '</span></td>' +
@@ -1040,7 +1142,7 @@ Class PageTATO
                         '<div class="addon" data-addon="' + v.ID + '" data-addon-type="twin" data-price="' + v.twin_share_price + '">' +
                         '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
                         '<span>0</span>' +
-                        '<input type="hidden" name="addon-' + v.ID + '" value="0">' +
+                        '<input type="hidden" name="addon-twin-' + v.ID + '" value="0">' +
                         '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
                         '</div>' +
                         '</td>' +
@@ -1051,19 +1153,19 @@ Class PageTATO
                         '<div class="addon" data-addon="' + v.ID + '" data-addon-type="single" data-price="' + v.single_price + '">' +
                         '<a href="javascript:void(0)" data-action-type="minus">-</a>' +
                         '<span>0</span>' +
-                        '<input type="hidden" name="addon-' + v.ID + '" value="0">' +
+                        '<input type="hidden" name="addon-single-' + v.ID + '" value="0">' +
                         '<a href="javascript:void(0)" data-action-type="plus">+</a>' +
                         '</div>' +
                         '</td>' +
                         '</tr>';
 
                     // Booking review section
-                    table_item += '<tr class="double-line">' +
+                    table_item += '<tr class="double-line" style="display: none;">' +
                         '<td>' + v.post_title + ' - Twin Sharing</td>' +
                         '<td><span class="addon-quantity-' + v.ID + '-twin">0</span> persons</td>' +
                         '<td class="bold">$<span class="addon-price-' + v.ID + '-twin">' + v.twin_share_price + '</span></td>' +
                         '<td class="bold">$<span class="addon-subtotal-' + v.ID + '-twin">0</span></td>' +
-                        '</tr>' + '<tr class="double-line">' +
+                        '</tr>' + '<tr class="double-line" style="display: none;">' +
                         '<td>' + v.post_title + ' - Single Use</td>' +
                         '<td><span class="addon-quantity-' + v.ID + '-single">0</span> persons</td>' +
                         '<td class="bold">$<span class="addon-price-' + v.ID + '-single">' + v.single_price + '</span></td>' +
@@ -1139,11 +1241,4 @@ Class PageTATO
         </script>
 
     <?php }
-
-
-    public function save()
-    {
-        var_dump($_POST);
-        die();
-    }
 }

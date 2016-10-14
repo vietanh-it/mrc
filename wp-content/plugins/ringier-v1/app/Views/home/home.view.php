@@ -23,8 +23,8 @@ get_header();
                 <div class="form-group">
                     <select name="_destination" class="form-control select-2">
                         <option value="">Choose your destination</option>
-                        <?php if (!empty($list_destination['data'])) {
-                            foreach ($list_destination['data'] as $v) { ?>
+                        <?php if (!empty($list_destination)) {
+                            foreach ($list_destination as $v) { ?>
                                 <option value="<?php echo $v->post_name ?>"> <?php echo $v->post_title ?></option>
                             <?php }
                         } ?>
@@ -46,8 +46,8 @@ get_header();
                 <div class="form-group">
                     <select name="_port" class="form-control select-2">
                         <option value="">Choose port of departure</option>
-                        <?php if (!empty($list_port['data'])) {
-                            foreach ($list_port['data'] as $v) { ?>
+                        <?php if (!empty($list_port)) {
+                            foreach ($list_port as $v) { ?>
                                 <option value="<?php echo $v->post_name ?>"> <?php echo $v->post_title ?></option>
                             <?php }
                         } ?>
@@ -58,8 +58,8 @@ get_header();
                 <div class="form-group">
                     <select name="_ship" class="form-control select-2">
                         <option value="">Choose your ship</option>
-                        <?php if (!empty($list_ship['data'])) {
-                            foreach ($list_ship['data'] as $v) { ?>
+                        <?php if (!empty($list_ship)) {
+                            foreach ($list_ship as $v) { ?>
                                 <option value="<?php echo $v->post_name ?>"> <?php echo $v->post_title ?></option>
                             <?php }
                         } ?>

@@ -125,15 +125,15 @@ while (have_posts()) : the_post(); ?>
 
                     <?php
                     if(!empty($list_guest)){
-                        foreach ($list_guest as $g){ ?>
+                        foreach ($list_guest as $kg =>  $g){ ?>
                             <div class="ctn-traveller ctn-traveller-2">
-                                <div class="row" style="position: relative">
+                                <div class="row" style="position: relative ; <?php echo ($kg+1) == $total_people  ? 'border-bottom : 0' : ''?>">
                                     <a href="javascript:void(0)" class="bnt-action be-show" style="display: none" title="Show detail traveller ">
-                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
                                     </a>
 
                                     <a href="javascript:void(0)" class="bnt-action be-hide" title="Hide detail traveller">
-                                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
                                     </a>
                                     <div class="col-xs-6 col-sm-6 ">
                                         <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
@@ -141,22 +141,43 @@ while (have_posts()) : the_post(); ?>
                                     </div>
                                     <div class="ctn-show-hide-traveller">
                                         <div class="col-xs-6 col-sm-6" style="line-height: 25px">
-                                            Passport ID: <b><?php echo $g->passport_no ?></b><br>
-                                            Date of issue: <b><?php echo  date('d M Y',
-                                                    strtotime($g->passport_issue_date)) ?></b><br>
-                                            <!--Valid until: <b><?php /*echo date('d M Y',strtotime($g->passport_no)) */?></b><br>-->
-                                            Birthday: <b><?php echo date('d M Y',strtotime($g->birthday)) ?></b><br>
-                                            Gender: <b><?php echo $g->gender ?></b><br>
-                                            Address: <b><?php echo $g->address ?></b><br>
-                                            Nationality: <b><?php echo $g->nationality ?></b><br>
-                                            Country: <b><?php echo $g->country ?></b><br>
-                                            Special note: <b><?php echo $g->speacial_assistant_note ?></b>
+                                            <?php if(!empty($g->passport_no)){?>
+                                                Passport ID: <b><?php echo $g->passport_no ?></b><br>
+                                            <?php } ?>
+                                            <?php if(!empty($g->passport_issue_date)){?>
+                                                Date of issue: <b><?php echo  date('d M Y',
+                                                        strtotime($g->passport_issue_date)) ?></b><br>
+                                            <?php } ?>
+                                            <?php if(!empty($g->birthday) && $g->birthday != '0000-00-00'){?>
+                                                Birthday: <b><?php echo date('d M Y',strtotime($g->birthday)) ?></b><br>
+                                            <?php } ?>
+                                            <?php if(!empty($g->gender)){?>
+                                                Gender: <b><?php echo $g->gender ?></b><br>
+                                            <?php } ?>
+                                            <?php if(!empty($g->address)){?>
+                                                Address: <b><?php echo $g->address ?></b><br>
+                                            <?php } ?>
+                                            <?php if(!empty($g->nationality)){?>
+                                                Nationality: <b><?php echo $g->nationality ?></b><br>
+                                            <?php } ?>
+                                            <?php if(!empty($g->country)){?>
+                                                Country: <b><?php echo $g->country ?></b><br>
+                                            <?php } ?>
+                                            <?php if(!empty($g->speacial_assistant_note)){?>
+                                                Special note: <b><?php echo $g->speacial_assistant_note ?></b>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         <?php }
-                    }?>
+                    }else{ ?>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 ">
+                                <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
+                            </div>
+                        </div>
+                    <?php }?>
 
 
                 <div class="row" style="background: #d5b76e;font-weight: bold;color: white;margin-top: 10px;margin-bottom: 10px">

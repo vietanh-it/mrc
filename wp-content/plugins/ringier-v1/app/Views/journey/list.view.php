@@ -41,6 +41,7 @@ get_header();
                                                 ?>
                                             </p>
                                             <ul>
+                                                <li><b>Departure :</b> <?php echo $v->departure_fm ?></li>
                                                 <li><b><?php echo $v->journey_type_info->duration ?></b></li>
                                                 <?php if(!empty($offer)){ ?>
                                                     <li><b>Promotion:</b>   <?php echo $offer->post_title ?>

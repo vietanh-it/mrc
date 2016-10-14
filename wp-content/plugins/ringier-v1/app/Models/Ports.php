@@ -40,7 +40,6 @@ class Ports
 
     public function getPortHaveJourney()
     {
-
         $query = "SELECT * FROM " . TBL_JOURNEY_TYPE_PORT . " GROUP BY port_id";
         $ports = $this->_wpdb->get_results($query);
 

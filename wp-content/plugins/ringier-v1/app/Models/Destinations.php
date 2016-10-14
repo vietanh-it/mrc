@@ -68,7 +68,9 @@ class Destinations
 
             foreach ($jouney_type['data'] as $k => $v) {
                 $destination = $this->getInfo($v->destination);
-                $result[$destination->ID] = $destination;
+                if (!empty($destination)) {
+                    $result[$destination->ID] = $destination;
+                }
             }
 
         }

@@ -184,8 +184,8 @@ class JourneyType
             }
 
             // days, nights, duration
-            $object->days = !empty($object->nights) ? intval($object->nights) + 1 : 1;
-            $object->duration = $object->days . " days " . !empty($object->nights) ? intval($object->nights) : 1 . " nights";
+            $object->days = intval($object->nights) + 1;
+            $object->duration = $object->days . " days " . intval($object->nights) . " nights";
 
             // ship_info
             if ($object->ship) {

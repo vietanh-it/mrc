@@ -33,7 +33,7 @@ switch ($booking_detail->status) {
 }
 
 // var_dump($journey_detail);
-$list_guest = $modelBooking->getGuestByBookingId($_GET['p']);
+$list_guest = $modelBooking->getGuestByBookingId($post->ID);
 get_header();
 while (have_posts()) : the_post(); ?>
     <div class="container">
@@ -136,7 +136,7 @@ while (have_posts()) : the_post(); ?>
                                         <i class="fa fa-angle-up" aria-hidden="true"></i>
                                     </a>
                                     <div class="col-xs-6 col-sm-6 ">
-                                        <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
+                                        <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$post->ID ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
                                         <b><?php echo $g->first_name ?> <?php echo $g->last_name ?></b>
                                     </div>
                                     <div class="ctn-show-hide-traveller">
@@ -174,7 +174,7 @@ while (have_posts()) : the_post(); ?>
                     }else{ ?>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 ">
-                                <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$_GET['p'] ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
+                                <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$post->ID ?>"><img src="<?php echo VIEW_URL . '/images/icon-edit-2.png' ?>" style="margin-right: 20%"></a>
                             </div>
                         </div>
                     <?php }?>

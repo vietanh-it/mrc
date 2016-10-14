@@ -9,6 +9,7 @@
 namespace RVN\Controllers;
 
 use RVN\Models\Addon;
+use RVN\Models\Posts;
 
 class AddonController extends _BaseController
 {
@@ -43,6 +44,19 @@ class AddonController extends _BaseController
             'status' => 'success',
             'data'   => $result['data']
         ];
+    }
+
+    public function tour_addon_detail(){
+        $Post = Posts::init();
+        global $post;
+
+        $list_related = $Post->getList(array(
+            'posts_per_page' => 5,
+            'post_type' => $post->post_type,
+            'post__not_in' => array($post->ID),
+        ));
+
+        view('tour-addon/detail',compact('list_related'));
     }
 
 }

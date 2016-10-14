@@ -66,7 +66,7 @@ jQuery(document).ready(function ($) {
         changeYear: true,
         showButtonPanel: true,
         dateFormat: 'dd M yy',
-        yearRange: '-100:+0',
+        yearRange: '-100:+50',
         closeText: "Close"
     });
     /* $('.month-year-input').attr('readonly', true);

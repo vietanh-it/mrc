@@ -96,36 +96,30 @@ get_header();
             </h2>
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row list-slide-mb">
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="box-why">
-                            <img src="<?php echo VIEW_URL . '/images/why-1.png' ?>" alt="">
-                            <div class="desc">
-                                <p class="title">The differences</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
-                                    ipsum eget mollis. Duis pulvinar nibh ornare.</p>
+                    <?php
+                    $page_WU = get_page_by_path('why-us');
+                    for ($i= 1;$i <=3 ; $i++){
+                        $title = get_post_meta($page_WU->ID,'title'.$i,true);
+                        $content = get_post_meta($page_WU->ID,'content'.$i,true);
+                        $image = get_post_meta($page_WU->ID,'image'.$i,true);
+
+                        $img_full= wp_get_attachment_image_src($image,'featured');
+                        if($img_full) $img_full = array_shift($img_full);
+                        ?>
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="box-why">
+                                <div class="image">
+                                    <img src="<?php echo $img_full ?>" alt="" class="img-main">
+                                    <img src="<?php echo VIEW_URL.'/images/why-'.$i.'.png' ?>" class="img-icon">
+                                </div>
+                                <div class="desc">
+                                    <p class="title"><?php echo $title ?></p>
+                                    <p><?php echo $content ?></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="box-why">
-                            <img src="<?php echo VIEW_URL . '/images/why-2.png' ?>" alt="">
-                            <div class="desc">
-                                <p class="title">Our care</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
-                                    ipsum eget mollis. Duis pulvinar nibh ornare.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="box-why">
-                            <img src="<?php echo VIEW_URL . '/images/why-3.png' ?>" alt="">
-                            <div class="desc">
-                                <p class="title">Ship owner and partner</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus scelerisque
-                                    ipsum eget mollis. Duis pulvinar nibh ornare.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php }
+                    ?>
                 </div>
             </div>
         </div>

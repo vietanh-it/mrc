@@ -37,15 +37,22 @@ class MenuSettings
     // Register Navigation Menus
     public function mrcSettings()
     { ?>
+        <style>
+            .menu-title {
+                border-bottom: 1px dashed #aaaaaa;
+                padding-bottom: 10px;
+            }
+        </style>
 
         <form action='' method='post'>
 
             <h2>MRC Settings</h2>
 
-            <section class="wrap">
-                <h3>Food & Beverage Gallery</h3>
-                <div class="content-wrapper">
+            <section>
+                <h3 class="menu-title">Why Us</h3>
 
+                <div class="content-wrapper">
+                    
                 </div>
             </section>
 

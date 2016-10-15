@@ -184,6 +184,9 @@ Class PageTATO
 
                     // Publish post
                     wp_publish_post($cart->id);
+
+
+                    // sendEmailHTML()
                 }
 
             }

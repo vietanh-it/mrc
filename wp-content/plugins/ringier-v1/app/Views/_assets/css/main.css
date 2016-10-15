@@ -626,7 +626,8 @@ nav ul.navbar-nav li.active a {
     position: absolute;
     bottom: -20px;
     /* margin: 0 auto; */
-    left: 41%;
+    left: 50%;
+    margin-left: -35px;
 }
 .box-why img.img-main{
     border: 1px solid white;

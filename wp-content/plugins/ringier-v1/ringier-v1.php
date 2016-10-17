@@ -19,7 +19,7 @@ function mrcLoad()
     //call hooks
     RVN\Hooks\Rewrite::init();
     RVN\Hooks\BackendUI::init();
-    RVN\Hooks\MenuSettings::init();
+    // RVN\Hooks\MenuSettings::init();
     RVN\Hooks\PageTATO::init();
     RVN\Hooks\Shortcode::init();
     RVN\Hooks\CustomJourney::init();

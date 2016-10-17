@@ -33,21 +33,154 @@ Class PageTATO
 
     function __construct()
     {
-        add_action('admin_menu', [$this, 'initPages']);
+        add_action('admin_menu', [$this, 'adminMenu']);
+        add_action('add_meta_boxes', [$this, 'metaboxTaToBooking']);
+        add_action('save_post', [$this, 'save']);
         // add_action('wp_trash_post', [$this, 'trashJourneySeries']);
         // add_action('untrash_post', [$this, 'untrashJourneySeries']);
         // add_action('delete_post', [$this, 'deleteJourneySeries']);
     }
 
 
-    public function initPages()
+    public function adminMenu()
     {
-        // add_menu_page('TA/TO Booking', 'TA/TO Booking', 'manage_options', 'tato-booking', [$this, 'tatoBooking'], '',
-        //     50);
-        add_submenu_page('edit.php?post_type=booking', 'TA/TO Booking', 'TA/TO Booking', 'manage_options',
-            'tato-booking',
-            [$this, 'tatoBooking']);
+        // Add menu link Ta/To
+        global $submenu;
+        $submenu['edit.php?post_type=booking'][] = [
+            'TA/TO Booking',
+            'edit_posts',
+            'post-new.php?post_type=booking&type=tato'
+        ];
     }
+
+
+    public function metaboxTaToBooking()
+    {
+        if (isset($_GET['type']) && $_GET['type'] == 'tato') {
+            add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
+            add_meta_box('tato-select', 'TA/TO', [$this, 'tatoSelect'], 'booking', 'side', 'high');
+
+            add_action('admin_head');
+
+            remove_meta_box('submitdiv', 'booking', 'side');
+            remove_meta_box('wpseo_meta', 'booking', 'normal');
+        }
+    }
+
+
+    public function tatoSelect()
+    {
+        $m_tato = TaTo::init();
+        $list_tato = $m_tato->getTaToList();
+        ?>
+
+        <style>
+            #tato-select .form-group {
+                width: 100%;
+            }
+
+            #tato-select .form-group:first-child {
+                margin-top: 0;
+            }
+
+            #deposit_rate {
+                width: 100%;
+            }
+
+            #tato-select.fixed {
+                position: fixed;
+                top: 60px;
+                max-width: 280px;
+            }
+
+            #tato-select .submit {
+                text-align: center;
+                margin-bottom: 0;
+                padding-bottom: 10px;
+                padding-top: 10px;
+            }
+
+            #post-body-content {
+                display: none;
+            }
+        </style>
+
+        <div class="row">
+            <!----- TA/TO ----->
+            <div class="col-md-12">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Choose TA/TO</label>
+                            <select name="tato" id="tato_select" class="select2">
+                                <option value="">--- Select TA/TO ---</option>
+                                <?php if (!empty($list_tato)) {
+                                    foreach ($list_tato as $k => $v) {
+                                        echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
+                                    }
+                                } ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding: 15px 0;">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <a href="<?php echo WP_SITEURL; ?>/wp-admin/post-new.php?post_type=tato">
+                                Add new TA/TO
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Deposit (%)</label>
+                            <input type="number" name="deposit_rate" id="deposit_rate">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <i>Note: The booking is kept for only 3 days. Please tell the TA/TO for deposit as
+                           soon
+                           as
+                           possible.</i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <?php submit_button('Save TA/TO Booking'); ?>
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            var $ = jQuery.noConflict();
+            $(document).ready(function () {
+
+                $(document).on("scroll", function () {
+                    var scrollPos = $(document).scrollTop();
+
+                    if (scrollPos < 60) {
+                        $('#tato-select').removeClass('fixed');
+                    } else {
+                        $('#tato-select').addClass('fixed');
+                    }
+
+                });
+
+            });
+        </script>
+
+        <?php
+    }
+
 
     // Register Navigation Menus
     public function tatoBooking()
@@ -56,142 +189,11 @@ Class PageTATO
         $m_ships = Ships::init();
         $m_ports = Ports::init();
         $m_destination = Destinations::init();
-        $m_tato = TaTo::init();
-        $m_addon = Addon::init();
 
         $destination = $m_destination->getDestinationHaveJourney();
         $sail_month = $m_journey->getMonthHaveJourney();
         $list_port = $m_ports->getPortHaveJourney();
         $list_ship = $m_ships->getShipHaveJourney();
-        $list_tato = $m_tato->getTaToList();
-
-        if (!empty($_POST)) {
-            global $wpdb;
-            $m_booking = Booking::init();
-
-            $user_id = get_current_user_id();
-
-            if (!empty($_POST['journey_id']) && !empty($_POST['tato'])) {
-                $journey_id = $_POST['journey_id'];
-                $tato_id = $_POST['tato'];
-                $deposit_rate = $_POST['deposit_rate'];
-
-                $cart = $m_booking->getCart($user_id, $journey_id);
-
-                if (!empty($cart)) {
-                    $room_list = [];
-                    $addon_list = [];
-                    foreach ($_POST as $key => $value) {
-                        if (!empty($value)) {
-                            // Room list
-                            if (preg_match("@^twin_single@", $key)) {
-                                $arr = explode('_', $key);
-                                $room_list[end($arr)] = $value;
-                            }
-
-                            // Addon list
-                            if (preg_match("@^addon-@", $key)) {
-                                $arr = explode('-', $key);
-
-                                if ($arr[1] == 'addon') {
-                                    $addon_list[$arr[2]] = [
-                                        $arr[3] => $value
-                                    ];
-                                }
-                                else {
-                                    $addon_list[$arr[2]][$arr[1]] = $value;
-                                }
-                            }
-                        }
-                    }
-
-
-                    $cart_total = 0;
-                    // Update cart detail
-                    foreach ($room_list as $room_id => $type) {
-                        $room_info = $m_journey->getRoomInfo($room_id);
-                        $price = $m_journey->getRoomPrice($room_id, $journey_id, $type);
-                        $quantity = ($type == 'twin') ? 2 : 1;
-                        $total = $price * $quantity;
-
-                        $cart_detail = $m_booking->getCartDetail($cart->id, $room_id);
-
-                        if (empty($cart_detail)) {
-                            $wpdb->insert(TBL_CART_DETAIL, [
-                                'cart_id'      => $cart->id,
-                                'room_id'      => $room_id,
-                                'room_type_id' => $room_info->room_type_id,
-                                'type'         => $type,
-                                'price'        => $price,
-                                'quantity'     => $quantity,
-                                'total'        => $total
-                            ]);
-                        }
-                        else {
-                            $wpdb->update(TBL_CART_DETAIL, [
-                                'type'     => $type,
-                                'price'    => $price,
-                                'quantity' => $quantity,
-                                'total'    => $total
-                            ], ['cart_id' => $cart->id, 'room_id' => $room_id]);
-                        }
-
-                        $cart_total += $total;
-                    }
-
-                    // Update cart addon
-                    foreach ($addon_list as $object_id => $addon_array) {
-                        $wpdb->delete(TBL_CART_ADDON, ['cart_id' => $cart->id]);
-
-                        foreach ($addon_array as $k => $v) {
-                            $data = [
-                                'cart_id'   => $cart->id,
-                                'status'    => 'active',
-                                'object_id' => $object_id,
-                            ];
-
-                            if ($k == 'twin' || $k == 'single') {
-                                $data['type'] = $k;
-                                $data['price'] = $m_addon->getAddonPrice([
-                                    'object_id'   => $object_id,
-                                    'twin_single' => $k
-                                ]);
-                            }
-                            else {
-                                $data['addon_option_id'] = $k;
-                                $data['price'] = $m_addon->getAddonPrice([
-                                    'object_id'       => $object_id,
-                                    'addon_option_id' => $k
-                                ]);
-                            }
-
-                            $data['total'] = $data['price'] * $v;
-                            $cart_total += $data['total'];
-
-                            $wpdb->insert(TBL_CART_ADDON, $data);
-                        }
-                    }
-
-
-                    // Update cart status
-                    $wpdb->update(TBL_CART, [
-                        'status'     => 'tato',
-                        'tato_id'    => $tato_id,
-                        'deposit'    => ($deposit_rate * $cart_total) / 100,
-                        'expired_at' => date('Y-m-d H:i:s', strtotime('+ 3 days'))
-                    ], ['id' => $cart->id]);
-
-
-                    // Publish post
-                    wp_publish_post($cart->id);
-
-
-                    // sendEmailHTML()
-                }
-
-            }
-
-        }
         ?>
 
 
@@ -309,12 +311,19 @@ Class PageTATO
                 padding-right: 10px;
             }
 
+            .crit-2 {
+                display: none;
+            }
+
+            .wrap {
+                margin: 10px 20px 20px 2px;
+            }
+
         </style>
 
 
         <form action='' method='post'>
 
-            <h2>Booking</h2>
             <div class="sub">Please create only 1 booking per journey</div>
 
             <section class="wrap">
@@ -396,7 +405,7 @@ Class PageTATO
 
 
                     <!---- Criteria 2 ---->
-                    <div class="row">
+                    <div class="row crit-2">
 
                         <div class="col-md-12">
 
@@ -449,7 +458,7 @@ Class PageTATO
 
 
                         <!----- Booking items ----->
-                        <div class="col-md-7">
+                        <div class="col-md-12">
 
                             <table class="booking-review-table">
                                 <tr class="line">
@@ -495,66 +504,12 @@ Class PageTATO
                         </div>
 
 
-                        <!----- TA/TO ----->
-                        <div class="col-md-5">
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Choose TA/TO</label>
-                                        <select name="tato" id="tato_select" class="select2">
-                                            <option value="">--- Select TA/TO ---</option>
-                                            <?php if (!empty($list_tato)) {
-                                                foreach ($list_tato as $k => $v) {
-                                                    echo '<option value="' . $v->ID . '">' . $v->post_title . '</option>';
-                                                }
-                                            } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <a href="<?php echo WP_SITEURL; ?>/wp-admin/post-new.php?post_type=tato">
-                                            Add new TA/TO
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Deposit (%)</label>
-                                        <input type="number" name="deposit_rate" id="deposit_rate">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <i>Note: The booking is kept for only 3 days. Please tell the TA/TO for deposit as
-                                       soon
-                                       as
-                                       possible.</i>
-                                </div>
-                            </div>
-
-                        </div>
-
-
                     </div>
 
 
                 </div>
 
             </section>
-
-            <?php
-            submit_button();
-            ?>
 
         </form>
 
@@ -589,194 +544,206 @@ Class PageTATO
 
 
                     // Show addons & review
-                    $('.addon-services-wrapper').fadeIn();
-                    $('.booking-review').fadeIn();
+                    if (journey_id) {
+                        $('.addon-services-wrapper').fadeIn();
+                        $('.booking-review').fadeIn();
+                        $('.crit-2').fadeIn();
 
 
-                    // get journey info
-                    $.ajax({
-                        url: ajax_url,
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            action: 'ajax_handler_journey',
-                            method: 'GetJourneyInfo',
-                            object_id: journey_id
-                        },
-                        beforeSend: function () {
-                            switch_loading(true);
-                        },
-                        success: function (data) {
-                            switch_loading(false);
+                        // get journey info
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_journey',
+                                method: 'GetJourneyInfo',
+                                object_id: journey_id
+                            },
+                            beforeSend: function () {
+                                switch_loading(true);
+                            },
+                            success: function (data) {
+                                switch_loading(false);
 
-                            if (data.status == 'success') {
-                                // Journey code
-                                $('.journey-no').html(data.data.journey_code);
-                            }
-                            else {
-                                var html_msg = '<div>';
-                                if (data.message) {
-                                    $.each(data.message, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
-                                } else if (data.data) {
-                                    $.each(data.data, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
+                                if (data.status == 'success') {
+                                    // Journey code
+                                    $('.journey-no').html(data.data.journey_code);
                                 }
-                                html_msg += "</div>";
-                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
+
                             }
-
-                        }
-                    }); // end ajax
+                        }); // end ajax
 
 
-                    // get room types ajax
-                    $.ajax({
-                        url: ajax_url,
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            action: 'ajax_handler_journey',
-                            method: 'GetRoomTypes',
-                            journey_id: journey_id
-                        },
-                        beforeSend: function () {
-                            switch_loading(true);
-                        },
-                        success: function (data) {
-                            switch_loading(false);
+                        // get room types ajax
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_journey',
+                                method: 'GetRoomTypes',
+                                journey_id: journey_id
+                            },
+                            beforeSend: function () {
+                                switch_loading(true);
+                            },
+                            success: function (data) {
+                                switch_loading(false);
 
-                            if (data.status == 'success') {
-                                $('#room_type').find('option:gt(0)').remove();
-                                $('#room_type').append($('<option/>', {
-                                    value: 'all',
-                                    text: 'All room type'
-                                }));
-
-                                $.each(data.data, function (k, v) {
+                                if (data.status == 'success') {
+                                    $('#room_type').find('option:gt(0)').remove();
                                     $('#room_type').append($('<option/>', {
-                                        value: v.id,
-                                        text: v.room_type_name
+                                        value: 'all',
+                                        text: 'All room type'
                                     }));
-                                });
 
-                                // Resolve width for select2
-                                $('.select2').select2({width: 'resolve'});
-                            }
-                            else {
-                                var html_msg = '<div>';
-                                if (data.message) {
-                                    $.each(data.message, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
+                                    $.each(data.data, function (k, v) {
+                                        $('#room_type').append($('<option/>', {
+                                            value: v.id,
+                                            text: v.room_type_name
+                                        }));
                                     });
-                                } else if (data.data) {
-                                    $.each(data.data, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
+
+                                    // Resolve width for select2
+                                    $('.select2').select2({width: 'resolve'});
                                 }
-                                html_msg += "</div>";
-                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                            }
-
-                        }
-                    }); // end ajax
-
-
-                    // get available rooms ajax
-                    $.ajax({
-                        url: ajax_url,
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            action: 'ajax_handler_journey',
-                            method: 'GetAvailableRooms',
-                            journey_id: journey_id
-                        },
-                        beforeSend: function () {
-                            switch_loading(true);
-                        },
-                        success: function (data) {
-                            switch_loading(false);
-
-                            if (data.status == 'success') {
-                                $('#room').find('option').remove();
-
-                                $.each(data.data, function (k, v) {
-                                    $('#room').append($('<option/>', {
-                                        value: v.id,
-                                        text: v.room_name
-                                    }).attr('data-room-type-id', v.room_type_id));
-                                });
-
-                                // Resolve width for select2
-                                $('.select2').select2({width: 'resolve'});
-                            }
-                            else {
-                                var html_msg = '<div>';
-                                if (data.message) {
-                                    $.each(data.message, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
-                                } else if (data.data) {
-                                    $.each(data.data, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
                                 }
-                                html_msg += "</div>";
-                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                            }
-
-                        }
-                    }); // end ajax
-
-
-                    // get service addons ajax
-                    $.ajax({
-                        url: ajax_url,
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            action: 'ajax_handler_addon',
-                            method: 'GetAddonList',
-                            journey_id: journey_id
-                        },
-                        beforeSend: function () {
-                            switch_loading(true);
-                        },
-                        success: function (data) {
-                            switch_loading(false);
-
-                            if (data.status == 'success') {
-                                $('.addon-list-wrapper').html('');
-
-                                clearAddonTable();
-
-                                // Addon HTML
-                                $.each(data.data, function (k, v) {
-                                    populateAddon(v);
-                                });
-
 
                             }
-                            else {
-                                var html_msg = '<div>';
-                                if (data.message) {
-                                    $.each(data.message, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
+                        }); // end ajax
+
+
+                        // get available rooms ajax
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_journey',
+                                method: 'GetAvailableRooms',
+                                journey_id: journey_id
+                            },
+                            beforeSend: function () {
+                                switch_loading(true);
+                            },
+                            success: function (data) {
+                                switch_loading(false);
+
+                                if (data.status == 'success') {
+                                    $('#room').find('option').remove();
+
+                                    $.each(data.data, function (k, v) {
+                                        $('#room').append($('<option/>', {
+                                            value: v.id,
+                                            text: v.room_name
+                                        }).attr('data-room-type-id', v.room_type_id));
                                     });
-                                } else if (data.data) {
-                                    $.each(data.data, function (k_msg, msg) {
-                                        html_msg += msg + "<br/>";
-                                    });
+
+                                    // Resolve width for select2
+                                    $('.select2').select2({width: 'resolve'});
                                 }
-                                html_msg += "</div>";
-                                swal({"title": "Error", "text": html_msg, "type": "error", html: true});
-                            }
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
 
-                        }
-                    }); // end ajax
+                            }
+                        }); // end ajax
+
+
+                        // get service addons ajax
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_addon',
+                                method: 'GetAddonList',
+                                journey_id: journey_id
+                            },
+                            beforeSend: function () {
+                                switch_loading(true);
+                            },
+                            success: function (data) {
+                                switch_loading(false);
+
+                                if (data.status == 'success') {
+                                    $('.addon-list-wrapper').html('');
+
+                                    clearAddonTable();
+
+                                    // Addon HTML
+                                    $.each(data.data, function (k, v) {
+                                        populateAddon(v);
+                                    });
+
+
+                                }
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
+
+                            }
+                        }); // end ajax
+
+
+                        // get booking code for title
+
+
+                    } else {
+                        $('.addon-services-wrapper').hide();
+                        $('.booking-review').hide();
+                        $('.crit-2').hide();
+                    }
 
                 });
 
@@ -1244,4 +1211,136 @@ Class PageTATO
         </script>
 
     <?php }
+
+
+    public function save()
+    {
+        global $wpdb, $post;
+        if (!empty($post) && $post->post_type == 'booking') {
+            if (!empty($_POST)) {
+                $m_booking = Booking::init();
+                $m_journey = Journey::init();
+                $m_addon = Addon::init();
+
+                $user_id = get_current_user_id();
+
+                if (!empty($_POST['journey_id']) && !empty($_POST['tato'])) {
+                    $journey_id = $_POST['journey_id'];
+                    $tato_id = $_POST['tato'];
+                    $deposit_rate = $_POST['deposit_rate'];
+
+                    $cart = $m_booking->getCart($user_id, $journey_id);
+
+                    if (!empty($cart)) {
+                        $room_list = [];
+                        $addon_list = [];
+                        foreach ($_POST as $key => $value) {
+                            if (!empty($value)) {
+                                // Room list
+                                if (preg_match("@^twin_single@", $key)) {
+                                    $arr = explode('_', $key);
+                                    $room_list[end($arr)] = $value;
+                                }
+
+                                // Addon list
+                                if (preg_match("@^addon-@", $key)) {
+                                    $arr = explode('-', $key);
+
+                                    if ($arr[1] == 'addon') {
+                                        $addon_list[$arr[2]] = [
+                                            $arr[3] => $value
+                                        ];
+                                    }
+                                    else {
+                                        $addon_list[$arr[2]][$arr[1]] = $value;
+                                    }
+                                }
+                            }
+                        }
+
+
+                        $cart_total = 0;
+                        // Update cart detail
+                        foreach ($room_list as $room_id => $type) {
+                            $room_info = $m_journey->getRoomInfo($room_id);
+                            $price = $m_journey->getRoomPrice($room_id, $journey_id, $type);
+                            $quantity = ($type == 'twin') ? 2 : 1;
+                            $total = $price * $quantity;
+
+                            $cart_detail = $m_booking->getCartDetail($cart->id, $room_id);
+
+                            if (empty($cart_detail)) {
+                                $wpdb->insert(TBL_CART_DETAIL, [
+                                    'cart_id'      => $cart->id,
+                                    'room_id'      => $room_id,
+                                    'room_type_id' => $room_info->room_type_id,
+                                    'type'         => $type,
+                                    'price'        => $price,
+                                    'quantity'     => $quantity,
+                                    'total'        => $total
+                                ]);
+                            }
+                            else {
+                                $wpdb->update(TBL_CART_DETAIL, [
+                                    'type'     => $type,
+                                    'price'    => $price,
+                                    'quantity' => $quantity,
+                                    'total'    => $total
+                                ], ['cart_id' => $cart->id, 'room_id' => $room_id]);
+                            }
+
+                            $cart_total += $total;
+                        }
+
+                        // Update cart addon
+                        foreach ($addon_list as $object_id => $addon_array) {
+                            $wpdb->delete(TBL_CART_ADDON, ['cart_id' => $cart->id]);
+
+                            foreach ($addon_array as $k => $v) {
+                                $data = [
+                                    'cart_id'   => $cart->id,
+                                    'status'    => 'active',
+                                    'object_id' => $object_id,
+                                ];
+
+                                if ($k == 'twin' || $k == 'single') {
+                                    $data['type'] = $k;
+                                    $data['price'] = $m_addon->getAddonPrice([
+                                        'object_id'   => $object_id,
+                                        'twin_single' => $k
+                                    ]);
+                                }
+                                else {
+                                    $data['addon_option_id'] = $k;
+                                    $data['price'] = $m_addon->getAddonPrice([
+                                        'object_id'       => $object_id,
+                                        'addon_option_id' => $k
+                                    ]);
+                                }
+
+                                $data['total'] = $data['price'] * $v;
+                                $cart_total += $data['total'];
+
+                                $wpdb->insert(TBL_CART_ADDON, $data);
+                            }
+                        }
+
+
+                        // Update cart status
+                        $wpdb->update(TBL_CART, [
+                            'status'     => 'tato',
+                            'tato_id'    => $tato_id,
+                            'deposit'    => ($deposit_rate * $cart_total) / 100,
+                            'expired_at' => date('Y-m-d H:i:s', strtotime('+ 3 days'))
+                        ], ['id' => $cart->id]);
+
+
+                        // sendEmailHTML()
+                    }
+
+                }
+            }
+        }
+
+    }
 }

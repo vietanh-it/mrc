@@ -25,9 +25,9 @@ class FilterBooking
     function __construct()
     {
         add_action('restrict_manage_posts', [$this, 'showFilter']);
-        add_filter('pre_get_posts', [$this, 'filter']);
         add_filter('posts_join', [$this, 'join']);
         add_filter('posts_where', [$this, 'where']);
+        add_filter('manage_posts_columns', [$this, 'columnHead']);
     }
 
 
@@ -73,20 +73,6 @@ class FilterBooking
     }
 
 
-    public function filter()
-    {
-        global $pagenow, $wp_query;
-        $type = 'booking';
-        if (isset($_GET['post_type'])) {
-            $type = $_GET['post_type'];
-        }
-
-        if ('booking' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['booking_status']) && $_GET['booking_status'] != '') {
-
-        }
-    }
-
-
     public function join($join)
     {
         global $pagenow, $wpdb;
@@ -116,6 +102,31 @@ class FilterBooking
         }
 
         return $where;
+    }
+
+
+    public function columnHead($columns)
+    {
+        global $pagenow, $wpdb;
+        $type = 'booking';
+        if (isset($_GET['post_type'])) {
+            $type = $_GET['post_type'];
+        }
+
+        if ('booking' == $type && is_admin() && $pagenow == 'edit.php') {
+            $columns['booking_status_column'] = 'Booking Status';
+        }
+
+        // Add button 'Add new TA/TO Booking' on page title
+        ?>
+        <script>
+            var $ = jQuery.noConflict();
+            $(document).ready(function () {
+                $('.wrap h1').append('<a href="<?php echo WP_SITEURL; ?>/wp-admin/post-new.php?post_type=booking&type=tato" class="page-title-action" style="margin-left: 10px;">Add New TA/TO Booking</a>');
+            });
+        </script>
+        <?php
+        return $columns;
     }
 
 }

@@ -116,22 +116,19 @@ class Booking
 
     public function getDefaultCart($user_id, $journey_id)
     {
+        global $post, $wpdb;
         $m_journey = Journey::init();
         $journey = $m_journey->getJourneyInfoByID($journey_id);
-
-        $modelUser = Users::init();
-        $user = $modelUser->getUserInfo($user_id);
         $code = $this->generateBookingCode($journey->journey_code);
 
-        // Create post
-        $post_id = wp_insert_post([
-            'post_title' => $code,
-            'post_name'  => $code,
-            'post_type'  => 'booking'
-        ]);
+        $wpdb->update($wpdb->posts, [
+            'post_title'  => $code,
+            'post_status' => 'publish',
+            'post_name'   => sanitize_title($code)
+        ], ['ID' => $post->ID]);
 
         $cart = [
-            'id'           => $post_id,
+            'id'           => $post->ID,
             'user_id'      => $user_id,
             'journey_id'   => $journey_id,
             'booking_code' => $code,

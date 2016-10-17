@@ -1114,7 +1114,7 @@ Class PageTATO
                     '<th>person</th></tr>';
 
                 // Create service add-ons section
-                if (v.type == 'addon') {
+                if (v.post_type == 'addon') {
                     // Addon
                     $.each(v.addon_option, function (k, val) {
                         item_html += '<tr>' +

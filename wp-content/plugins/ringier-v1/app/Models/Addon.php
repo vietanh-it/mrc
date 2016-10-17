@@ -115,31 +115,34 @@ class Addon
             $object = get_post($object);
         }
 
+
         // images, permalink
         $objImages = Images::init();
         $object->images = $objImages->getPostImages($object->ID, ['thumbnail', 'featured', 'small', 'full']);
         $object->permalink = get_permalink($object->ID);
 
-        if ($object->post_type = 'tour') {
+
+        if ($object->post_type == 'tour') {
+            // Merge tour info
             $query = 'SELECT * FROM ' . $this->_tbl_tour_info . ' WHERE object_id = ' . $object->ID;
             $post_info = $this->_wpdb->get_row($query);
+            $object = (object)array_merge((array)$object, (array)$post_info);
 
             // Default value
             $post_info->length = valueOrNull($post_info->length, 0);
             $post_info->twin_share_price = valueOrNull($post_info->twin_share_price, 0);
             $post_info->single_price = valueOrNull($post_info->single_price, 0);
-
-            $object = (object)array_merge((array)$object, (array)$post_info);
         }
 
-        if ($object->post_type = 'addon') {
+
+        if ($object->post_type == 'addon') {
             $addon_option = $this->getAddonOptions($object->ID);
             $object->addon_option = $addon_option;
+            $object->type = 'addon';
         }
 
-        $result = $object;
 
-        return $result;
+        return $object;
     }
 
 

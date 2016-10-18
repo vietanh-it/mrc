@@ -537,7 +537,7 @@ function wpses_mail($to, $subject, $message, $headers = '', $attachments = '') {
     if (is_array($to)) {
         $to = implode(",", $to);
     }
-    extract(apply_filters('wp_mail', compact('to', 'subject', 'message', 'headers')));
+    extract([apply_filters('wp_mail', compact('to', 'subject', 'message', 'headers'))]);
     wpses_log('wpses_mail ' . $to . "\t" . $headers);
     wpses_check_SES();
 

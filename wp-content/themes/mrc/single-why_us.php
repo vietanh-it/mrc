@@ -1,6 +1,4 @@
 <?php
-/**
- * Template name: Why-us
- */
+global $post;
 $ctr = \RVN\Controllers\WhyUsController::init();
-$ctr->listWhyUs();
+$ctr->detail($post->ID);

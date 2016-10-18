@@ -612,9 +612,15 @@ nav ul.navbar-nav li.active a {
     padding-top: 10px;
 }
 
+.box-why .desc .title a:hover{
+    color: wheat;
+}
 .box-why .desc .title {
-    font-weight: bold;
     margin-top: 35px;
+}
+.box-why .desc .title a{
+    font-weight: bold;
+    color: white;
     text-transform: uppercase;
     font-size: 18px;
     font-family: 'Playfair Display', serif;

@@ -97,28 +97,25 @@ get_header();
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row list-slide-mb">
                     <?php
-                    $page_WU = get_page_by_path('why-us');
-                    for ($i= 1;$i <=3 ; $i++){
-                        $title = get_post_meta($page_WU->ID,'title'.$i,true);
-                        $content = get_post_meta($page_WU->ID,'content'.$i,true);
-                        $image = get_post_meta($page_WU->ID,'image'.$i,true);
-
-                        $img_full= wp_get_attachment_image_src($image,'featured');
-                        if($img_full) $img_full = array_shift($img_full);
-                        ?>
-                        <div class="col-xs-12 col-sm-12">
-                            <div class="box-why">
-                                <div class="image">
-                                    <img src="<?php echo $img_full ?>" alt="" class="img-main">
-                                    <img src="<?php echo VIEW_URL.'/images/why-'.$i.'.png' ?>" class="img-icon">
-                                </div>
-                                <div class="desc">
-                                    <p class="title"><?php echo $title ?></p>
-                                    <p><?php echo $content ?></p>
+                    if(!empty($list_whyus['data'])){
+                        foreach ($list_whyus['data'] as $k => $p){
+                            $i = $k + 1;
+                            if($i > 3) $i =3;
+                            ?>
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="box-why">
+                                    <div class="image">
+                                        <a href="<?php echo $p->permalink ?>" > <img src="<?php echo $p->images->featured ?>" alt="" class="img-main"></a>
+                                        <img src="<?php echo VIEW_URL.'/images/why-'.$i.'.png' ?>" class="img-icon">
+                                    </div>
+                                    <div class="desc">
+                                        <p class="title"><a href="<?php echo $p->permalink ?>" > <?php echo $p->post_title ?></a></p>
+                                        <p><?php echo cut_string_by_char(strip_tags($p->post_content),150) ?></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php }
+                        <?php }
+                    }
                     ?>
                 </div>
             </div>

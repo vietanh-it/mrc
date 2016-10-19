@@ -77,9 +77,16 @@ class HomeController extends _BaseController
             'post__not_in' => array($not_in),
         ));
 
+
+        $args = array(
+            'posts_per_page' => 20,
+            'post_type' => 'why_us',
+        );
+        $list_whyus = $Post->getList($args);
+
         return view('home/home',
             compact('list_destination', 'list_ship', 'list_port', 'list_journey_type', 'list_offer', 'list_month',
-                'list_room_items', 'list_room_items_featured'));
+                'list_room_items', 'list_room_items_featured','list_whyus'));
     }
 }
 

@@ -1,11 +1,7 @@
 <?php
 namespace RVN\Hooks;
 
-use RVN\Controllers\ShipController;
-use RVN\Library\CPTColumns;
-use RVN\Models\JourneyType;
-use RVN\Models\Posts;
-use RVN\Models\Ships;
+use RVN\Models\Booking;
 
 class FilterBooking
 {
@@ -28,6 +24,7 @@ class FilterBooking
         add_filter('posts_join', [$this, 'join']);
         add_filter('posts_where', [$this, 'where']);
         add_filter('manage_posts_columns', [$this, 'columnHead']);
+        add_filter('manage_posts_custom_column', [$this, 'columnContent']);
     }
 
 
@@ -107,7 +104,7 @@ class FilterBooking
 
     public function columnHead($columns)
     {
-        global $pagenow, $wpdb;
+        global $pagenow;
         $type = 'booking';
         if (isset($_GET['post_type'])) {
             $type = $_GET['post_type'];
@@ -127,6 +124,64 @@ class FilterBooking
         </script>
         <?php
         return $columns;
+    }
+
+
+    public function columnContent($column_name)
+    { ?>
+
+        <style>
+            .badge {
+                padding: 4px 10px;
+                border-radius: 4px;
+            }
+
+            .badge.badge-cart {
+                background: #34495e;
+                color: #ffffff;
+            }
+
+            .badge.badge-tato {
+                background: #e67e22;
+                color: #ffffff;
+            }
+
+            .badge.badge-cancel {
+                background: #ecf0f1;
+                color: #aaaaaa;
+            }
+
+            .badge.badge-before-you-go {
+                background: #3498db;
+                color: #ffffff;
+            }
+
+            .badge.badge-ready-to-onboard {
+                background: #2ecc71;
+                color: #ffffff;
+            }
+
+            .badge.badge-onboard {
+                background: #1abc9c;
+                color: #ffffff;
+            }
+
+            .badge.badge-finished {
+                background: #aaaaaa;
+                color: #ffffff;
+            }
+        </style>
+
+        <?php if ($column_name == 'booking_status_column') {
+        global $post;
+
+        $m_booking = Booking::init();
+        $booking_detail = $m_booking->getBookingDetail($post->ID);
+        $status = $m_booking->getBookingStatusText($booking_detail->status);
+
+        echo '<span class="badge badge-' . $booking_detail->status . '">' . $status . '</span>';
+    }
+
     }
 
 }

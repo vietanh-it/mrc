@@ -72,13 +72,15 @@ class Booking
         $query1 = "SELECT p.ID, c.* FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_cart} c ON p.ID = c.id WHERE p.ID = {$booking_id}";
         $result = $this->_wpdb->get_row($query1);
 
-        // Cart detail
-        $query2 = "SELECT * FROM {$this->_tbl_cart_detail} WHERE cart_id = {$result->ID}";
-        $result->cart_detail = $this->_wpdb->get_results($query2);
+        if (!empty($result)) {
+            // Cart detail
+            $query2 = "SELECT * FROM {$this->_tbl_cart_detail} WHERE cart_id = {$result->ID}";
+            $result->cart_detail = $this->_wpdb->get_results($query2);
 
-        // Cart addon
-        $query3 = "SELECT * FROM {$this->_tbl_cart_addon} WHERE cart_id = {$result->ID} AND status = 'active'";
-        $result->cart_addon = $this->_wpdb->get_results($query3);
+            // Cart addon
+            $query3 = "SELECT * FROM {$this->_tbl_cart_addon} WHERE cart_id = {$result->ID} AND status = 'active'";
+            $result->cart_addon = $this->_wpdb->get_results($query3);
+        }
 
         // Guests
 
@@ -530,7 +532,7 @@ class Booking
                 $result = 'Booking';
                 break;
             case 'tato':
-                $result = 'Wait For Deposit';
+                $result = 'TA/TO - Wait for deposit';
                 break;
             case 'before-you-go':
                 $result = 'Before you go';
@@ -544,6 +546,9 @@ class Booking
             case 'finished':
                 $result = 'Finished';
                 break;
+            case 'cancel':
+                $result = 'Cancelled';
+                break;
             default:
                 $result = 'Booking';
                 break;
@@ -551,6 +556,24 @@ class Booking
 
         return $result;
     }
+
+
+    public function getCartByID($cart_id)
+    {
+        $query = "SELECT * FROM " . TBL_CART . " WHERE id = {$cart_id}";
+        $result = $this->_wpdb->get_row($query);
+
+        return $result;
+    }
+
+
+    public function switchBookingStatus($cart_id, $status)
+    {
+        if (!empty($cart_id)) {
+            $cart = $this->getCartByID($cart_id);
+        }
+    }
+
 
     public function getGuestByBookingId($booking_id)
     {

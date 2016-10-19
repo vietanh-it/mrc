@@ -1,38 +1,31 @@
 <?php
-$booking_id = !empty($booking_id) ? $booking_id : 0;
+$booking = \RVN\Models\Booking::init();
+$booking_ctrl = \RVN\Controllers\BookingController::init();
 
-if(!empty($booking_id)){
-    $booking_ctrl = \RVN\Controllers\BookingController::init();
-    $booking = \RVN\Models\Booking::init();
+if(!empty($_GET['booking_id'])) {
+
+    $booking_id = $_GET['booking_id'];
+
+    global $post;
+    $journey_id = $post->ID;
+    $user_id = get_current_user_id();
     $booking_detail = $booking->getBookingDetail($booking_id);
 
-    $user_id = get_current_user_id();
-
-// Journey detail
     $journey_ctrl = \RVN\Controllers\JourneyController::init();
-    $journey_detail = $journey_ctrl->getJourneyDetail($booking_detail->journey_id);
-// var_dump($journey_detail);
+    $journey_detail = $journey_ctrl->getJourneyDetail($journey_id);
 
-// Cart detail
-    /*$cart_info = $booking->getCartInfo($user_id, $booking_detail->journey_id);
-    if (empty($cart_info['total'])) {
-        // Redirect to step select room
-        $url = WP_SITEURL . strtok($_SERVER["REQUEST_URI"], '?');
-        wp_redirect($url);
-        exit;
-    }*/
 
-// Add-ons
     $addon_model = \RVN\Models\Addon::init();
     $addon_list = $addon_model->getList(['journey_type_id' => $journey_detail->journey_type_info->ID]);
 
-
+//var_dump($addon_list);
     get_header();
     ?>
 
     <div class="journey-detail">
 
-        <?php //view('blocks/booking-topbar', ['journey_id' => $booking_detail->journey_id]); ?>
+        <?php //view('blocks/booking-topbar', ['journey_id' => $booking_detail->journey_id]);
+        ?>
 
         <div class="content-booking">
             <div class="container container-big">
@@ -51,7 +44,7 @@ if(!empty($booking_id)){
                     if (!empty($addon_list['data'])) {
                         view('blocks/list-addon', [
                             'list_addon' => $addon_list['data'],
-                            'cart_id'    => $booking_id
+                            'cart_id' => $booking_id
                         ]);
                     } ?>
 
@@ -69,4 +62,5 @@ if(!empty($booking_id)){
     <?php
 
     get_footer();
-} ?>
+}
+?>

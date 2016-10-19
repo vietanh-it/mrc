@@ -344,9 +344,5 @@ class BookingController extends _BaseController
 
         return view('booking/before-you-go', compact('list_guest', 'country_list', 'return', 'list_service_addon', 'total_guest', 'booking_code'));
     }
-
-    public function buy_more_service($booking_id)
-    {
-        return view('booking/buy-more-service', compact('booking_id'));
-    }
+    
 }

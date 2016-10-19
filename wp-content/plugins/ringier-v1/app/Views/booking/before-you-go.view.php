@@ -11,6 +11,10 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
     $objBooking = \RVN\Models\Booking::init();
     $list_service_addon = $objBooking->getServiceAddonByBookingId($cart_id);
     $list_room = $objBooking->getRoomByBookingId($cart_id);
+
+    $booking_detail = $objBooking->getBookingDetail($cart_id);
+    $journey = get_post($booking_detail->journey_id);
+    $journey_permalink = get_permalink($journey->ID);
     ?>
 
     <div class="ctn-traveller panel panel-default">
@@ -372,7 +376,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                                 } ?>
                             </select>
                         </div>
-                        <a href="<?php echo WP_SITEURL.'/buy-more-service/?id='.$_GET['id'] ?>">Buy more service</a>
+                        <a href="<?php echo $journey_permalink.'?step=buy-more-service&booking_id='.$_GET['id'] ?>">Buy more service</a>
                         <!--
                     <div class="form-group">
                         <label for="transfers_only">Transfers only</label>

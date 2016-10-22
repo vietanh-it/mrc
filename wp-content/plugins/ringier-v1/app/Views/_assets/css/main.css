@@ -2480,5 +2480,40 @@ header .top-bar .top-info li:first-child {
     .ctn-account input[type="checkbox"]{
         margin-top: -3px !important;
     }
+    .journey-detail .featured-image{
+        max-height: none;
+    }
+    .journey-detail .featured-image .info{
+        position: initial;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        background: white;
+        padding: 10px 0;
+    }
+    .journey-detail .featured-image .info h1{
+        color: black;
+    }
+    .ctn-list-journey .title{
+        float: left;
+    }
+    .journey-detail .featured-image .info span{
+        display: none;
+    }
+    .ctn-list-journey{
+        overflow-x: auto;
+    }
+    /*.box-room .title{
+        margin-top: 10px;
+        position: initial;
+        display: block;
+        color: black;
+    }*/
+    /*.offer-home .owl-carousel .owl-buttons .owl-next{
+        margin-right: 0;
+    }*/
+    .owl-carousel .owl-buttons{
+        display: none;
+    }
 }
 

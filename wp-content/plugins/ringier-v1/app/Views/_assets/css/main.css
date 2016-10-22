@@ -2449,5 +2449,33 @@ header .top-bar .top-info li:first-child {
         padding-bottom: 20px;
         margin-bottom: 20px;
     }
+    .box-journey-2 .bk{
+        padding-top: 10px;
+    }
+    #modelUser {
+        top: 50px;
+    }
+    #modelUser a:last-child{
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    #modelUser a{
+        color: #e4a611;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 10px;
+        /*border-bottom: 1px solid #e4a611;*/
+        padding-bottom: 10px ;
+    }
+    .ctn-account .tml-register a,
+    .ctn-account .tml-login a{
+        color: #999;
+        display: block;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+   /* .ctn-account .tml{
+        padding: 0 10px;
+    }*/
 }
 

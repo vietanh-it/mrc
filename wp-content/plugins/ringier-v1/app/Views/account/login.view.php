@@ -12,7 +12,6 @@ Theme My Login will always look in your theme's directory first, before using th
     }
 </style>
 
-<div class="row">
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
         <p style="text-align: center;font-style: italic" class="font-playfair">Welcome to the world of luxury
             cruises</p>
@@ -93,7 +92,6 @@ Theme My Login will always look in your theme's directory first, before using th
         </div>
 
     </div>
-</div>
 
 <div><!--open close div of .main-content-->
 

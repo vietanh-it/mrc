@@ -28,7 +28,6 @@ if (!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])) {
     }
 </style>
 
-<div class="row">
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
         <?php if(isset($is_refer)){ ?>
             <div class="message">
@@ -164,7 +163,6 @@ if (!empty($_GET['email']) && !empty($_GET['code']) && !empty($_GET['id'])) {
             </div>
         </div>
     </div>
-</div>
 
 <div>
 

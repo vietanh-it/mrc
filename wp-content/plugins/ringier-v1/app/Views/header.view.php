@@ -178,9 +178,39 @@ if (is_single()) {
                     <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png" width="100%" style="margin-top: 10px"></a>
                 </div>
                 <div class="col-xs-2 hide-on-med-and-up">
-                    <a href="#" class="user-mobile">
+                    <a href="#" class="user-mobile" data-toggle="modal" data-target="#modelUser">
                         <img src="<?php echo VIEW_URL.'/images/icon-user-2.png' ?>" alt="">
                     </a>
+                    <div class="modal fade" id="modelUser" tabindex="-1" role="dialog" aria-labelledby="modelUserLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <?php if (!is_user_logged_in()) { ?>
+                                    <a href="<?php echo wp_login_url(get_permalink()); ?>">
+                                        Sign in
+                                    </a>
+                                    <a href="<?php echo wp_registration_url(); ?>">
+                                        Sign up
+                                    </a>
+                                </div>
+                                <?php } else {
+                                    $objUser = \RVN\Models\Users::init();
+                                    $user_info = $objUser->getUserInfo(get_current_user_id());
+                                    ?>
+                                    <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
+                                        Hello <?php echo $user_info->display_name ?>
+                                    </a>
+                                    <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
+                                        View profile
+                                    </a>
+                                    <a href="<?php echo wp_logout_url() ?>">
+                                        Log out
+                                    </a>
+                                <?php } ?>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-xs-12 hide-on-med-and-up">

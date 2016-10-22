@@ -14,7 +14,6 @@ Theme My Login will always look in your theme's directory first, before using th
     }
 </style>
 
-<div class="row">
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
         <div class="ctn-account" style="text-align: center">
             <div class="tml tml-lostpassword" id="theme-my-login<?php $template->the_instance(); ?>">
@@ -51,6 +50,5 @@ Theme My Login will always look in your theme's directory first, before using th
             </div>
         </div>
     </div>
-</div>
 
 <div>

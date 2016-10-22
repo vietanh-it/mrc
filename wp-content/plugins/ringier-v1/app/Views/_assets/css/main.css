@@ -2477,5 +2477,8 @@ header .top-bar .top-info li:first-child {
    /* .ctn-account .tml{
         padding: 0 10px;
     }*/
+    .ctn-account input[type="checkbox"]{
+        margin-top: -3px !important;
+    }
 }
 

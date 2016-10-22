@@ -94,7 +94,7 @@ var_dump($list_rs_food);*/
                         <h3 class="title-sm">Food and Beverage</h3>
                     </div>
 
-                    <div class="col-xs-6 col-sm-6">
+                    <div class="col-xs-12 col-sm-6">
                         <div class="row">
                             <?php foreach ($list_rs_food['data'] as $kf => $v) { ?>
                                 <div class="col-xs-12 col-sm-4">
@@ -115,7 +115,7 @@ var_dump($list_rs_food);*/
                             } ?>
                         </div>
                     </div>
-                    <div class="col-xs-6 col-sm-6">
+                    <div class="col-xs-12 col-sm-6">
                         <div class="list-galary-2">
                             <?php foreach ($list_rs_food['data'] as $v) {
                                 $gallery = $v->gallery;

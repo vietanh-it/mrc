@@ -2333,27 +2333,27 @@ header .top-bar .top-info li:first-child {
         display: none;
     }
 
-    .icon-n.icon-location {
+    .form-find-journey .icon-n.icon-location {
         background: url("../images/icon-location-mb.png");
         z-index: 9999999;
     }
 
-    .icon-n.icon-date {
+    .form-find-journey .icon-n.icon-date {
         background: url("../images/icon-date-mb.png");
         z-index: 9999999;
     }
 
-    .icon-n.icon-port {
+    .form-find-journey .icon-n.icon-port {
         background: url("../images/icon-port-mb.png");
         z-index: 9999999;
     }
 
-    .icon-n.icon-ship {
+    .form-find-journey  .icon-n.icon-ship {
         background: url("../images/icon-dns-mb.png");
         z-index: 9999999;
     }
 
-    .form-find-journey .form-group {
+    .form-find-journey  .form-find-journey .form-group {
         margin-bottom: 20px;
     }
 
@@ -2411,5 +2411,43 @@ header .top-bar .top-info li:first-child {
         width: 100%;
     }
 
+    .quick-search-journey {
+        padding-bottom: 30px;
+    }
+    .quick-search-journey .text-right{
+        text-align: center;
+    }
+    .info-ship{
+        position: initial;
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .info-basic{
+        position: initial;
+        margin-bottom: 20px;
+        height: auto;
+    }
+    .journey-detail .featured-image-2{
+        height: auto;
+        margin-bottom: 30px;
+    }
+
+    .box-ft-rs .title{
+        display: block;
+    }
+    .list-galary-3.resource.owl-carousel .owl-wrapper-outer{
+        height: auto;
+    }
+    .box-rs-people{
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    .title-sm{
+        border-bottom: 1px solid;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
 }
 

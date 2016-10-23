@@ -139,9 +139,11 @@ class CustomShips
 
                         <a href="javascript:void" class="delete_day">Delete deck</a>
                     </div>
-                    <div class="class-hide-all" style="display: none">
-                        <b>Deck  : <span class="number_day_change"><?php echo $v->day ?></span></b>
-                    </div>
+                    <?php if (!empty($v->day)) { ?>
+                        <div class="class-hide-all" style="display: none">
+                            <b>Deck : <span class="number_day_change"><?php echo $v->day ?></span></b>
+                        </div>
+                    <?php } ?>
                     <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
                         <i class="fa fa-sort-asc" aria-hidden="true"></i>
                     </a>
@@ -482,9 +484,11 @@ class CustomShips
 
                         <a href="javascript:void" class="delete_day">Delete room</a>
                     </div>
-                    <div class="class-hide-all" style="display: none">
-                        <b>Room  : <span class="number_day_change"><?php echo $v->day ?></span></b>
-                    </div>
+                    <?php if (!empty($v->day)) { ?>
+                        <div class="class-hide-all" style="display: none">
+                            <b>Room : <span class="number_day_change"><?php echo $v->day ?></span></b>
+                        </div>
+                    <?php } ?>
                     <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
                         <i class="fa fa-sort-asc" aria-hidden="true"></i>
                     </a>

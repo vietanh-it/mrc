@@ -112,17 +112,19 @@ class FilterBooking
 
         if ('booking' == $type && is_admin() && $pagenow == 'edit.php') {
             $columns['booking_status_column'] = 'Booking Status';
+
+            // Add button 'Add new TA/TO Booking' on page title
+            ?>
+            <script>
+                var $ = jQuery.noConflict();
+                $(document).ready(function () {
+                    $('.wrap h1 a').remove();
+                    $('.wrap h1').append('<a href="<?php echo WP_SITEURL; ?>/wp-admin/post-new.php?post_type=booking&type=tato" class="page-title-action" style="margin-left: 10px;">Add New TA/TO Booking</a>');
+                });
+            </script>
+            <?php
         }
 
-        // Add button 'Add new TA/TO Booking' on page title
-        ?>
-        <script>
-            var $ = jQuery.noConflict();
-            $(document).ready(function () {
-                $('.wrap h1').append('<a href="<?php echo WP_SITEURL; ?>/wp-admin/post-new.php?post_type=booking&type=tato" class="page-title-action" style="margin-left: 10px;">Add New TA/TO Booking</a>');
-            });
-        </script>
-        <?php
         return $columns;
     }
 

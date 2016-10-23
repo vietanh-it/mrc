@@ -32,7 +32,7 @@ $list_ship = !empty($list_ship) ? $list_ship : array();
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
             <div class="row">
                 <?php if($list_ship['data']){
-                    foreach ($list_ship['data'] as $v){
+                    foreach ($list_ship['data'] as $k => $v){
                         ?>
                         <div class="col-xs-12 col-sm-4">
                             <div class="box-journey">
@@ -48,7 +48,11 @@ $list_ship = !empty($list_ship) ? $list_ship : array();
                                 </div>
                             </div>
                         </div>
-                    <?php }
+                    <?php
+                    if($k == 2 or $k == 5 or $k == 8){
+                        echo '<div class="clear-fix"></div>';
+                    }
+                    }
                     if (function_exists('wp_pagenavi')) wp_pagenavi(array(
                         'before' => '  <div class="wrap-pagination">',
                         'after' => '</div>'

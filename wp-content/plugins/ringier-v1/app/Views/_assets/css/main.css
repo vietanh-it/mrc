@@ -2509,11 +2509,14 @@ header .top-bar .top-info li:first-child {
         display: block;
         color: black;
     }*/
-    /*.offer-home .owl-carousel .owl-buttons .owl-next{
-        margin-right: 0;
-    }*/
-    .owl-carousel .owl-buttons{
-        display: none;
+    .offer-home .owl-carousel .owl-buttons .owl-prev{
+        margin-left: 0;
     }
+    .offer-home .owl-carousel .owl-buttons .owl-next{
+        margin-right: 0;
+    }
+    /*.owl-carousel .owl-buttons{
+        display: none;
+    }*/
 }
 

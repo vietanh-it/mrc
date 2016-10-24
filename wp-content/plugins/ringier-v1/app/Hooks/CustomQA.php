@@ -212,18 +212,27 @@ class CustomQA
                 #postdivrich,#pageparentdiv,#postimagediv,#side-sortables,#edit-slug-box,#wpseo_meta,h1,#titlediv,#screen-meta-links{
                     display: none;
                 }
+                ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu>li.current>a.current:after{
+                    display: none;
+                }
+                #adminmenu .current div.wp-menu-image:before, #adminmenu .wp-has-current-submenu div.wp-menu-image:before, #adminmenu a.current:hover div.wp-menu-image:before, #adminmenu a.wp-has-current-submenu:hover div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu a:focus div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu.opensub div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu:hover div.wp-menu-image:before{
+                    color: #9a9a9a;
+                }
                 #poststuff #post-body.columns-2{
                     margin-right: 0;
                 }
                 #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu{
                     background: none;
+                    color: rgb(238, 238, 238);
                 }
                 #adminmenu .wp-has-current-submenu .wp-submenu{
                     display: none;
                 }
+                #adminmenu #toplevel_page_home_slider div.wp-menu-image:before{
+                    color: white !important;
+                }
                 .toplevel_page_home_slider{
                     background : #0073aa;
-                    color: white !important;
                 }
             </style>
         <?php }

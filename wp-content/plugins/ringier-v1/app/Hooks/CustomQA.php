@@ -39,65 +39,87 @@ class CustomQA
     {
         global $post;
 
-        ?>
-        <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-        <style>
-            .box-day {
-                border: 1px solid #ccc;
-                padding: 20px;
-                position: relative;
-                margin-bottom: 20px;
-                background: #faf7f2;
-            }
+        if($post->post_name == 'faq'){ ?>
+            <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+            <style>
+                .box-day {
+                    border: 1px solid #ccc;
+                    padding: 20px;
+                    position: relative;
+                    margin-bottom: 20px;
+                    background: #faf7f2;
+                }
 
-            .box-day input, .box-day textarea {
-                width: 100%;
-                padding: 7px;
-            }
-            .box-day select{
-                width: 100%;
-            }
+                .box-day input, .box-day textarea {
+                    width: 100%;
+                    padding: 7px;
+                }
+                .box-day select{
+                    width: 100%;
+                }
 
-            .box-day label {
-                font-weight: bold;
-            }
+                .box-day label {
+                    font-weight: bold;
+                }
 
-            .box-day .form-group {
-                margin-bottom: 20px;
-            }
-            .icon-show-hide-day{
-                position: absolute;
-                top: 8px;
-                right: 10px;
-                border-radius: 50%;
-                color: #23282d;
-                font-size: 17px;
-                width: 21px;
-                height: 21px;
-                text-align: center;
-            }
-            .icon-show-hide-day:hover{
-                color: blue;
-            }
+                .box-day .form-group {
+                    margin-bottom: 20px;
+                }
+                .icon-show-hide-day{
+                    position: absolute;
+                    top: 8px;
+                    right: 10px;
+                    border-radius: 50%;
+                    color: #23282d;
+                    font-size: 17px;
+                    width: 21px;
+                    height: 21px;
+                    text-align: center;
+                }
+                .icon-show-hide-day:hover{
+                    color: blue;
+                }
 
-        </style>
+            </style>
 
-        <div class="ctn-box-day">
-            <?php
-            $list_qa = get_post_meta($post->ID,'list_qa',true);
-            if(!empty($list_qa)){
-                $list_qa_new = unserialize($list_qa);
-                foreach ($list_qa_new as $v){ ?>
+            <div class="ctn-box-day">
+                <?php
+                $list_qa = get_post_meta($post->ID,'list_qa',true);
+                if(!empty($list_qa)){
+                    $list_qa_new = unserialize($list_qa);
+                    foreach ($list_qa_new as $v){ ?>
+                        <div class="box-day">
+                            <div class="class-show-all" style="">
+                                <div class="form-group">
+                                    <label for="question">Question : </label>
+                                    <input type="text" class="form-control day_name_key" placeholder="" value="<?php echo $v['question'] ?>" name="question[]">
+                                </div>
+                                <div class="form-group">
+                                    <label for="answer">Answer : </label>
+                                    <textarea class="form-control" rows="10" name="answer[]"><?php echo $v['answer'] ?></textarea>
+                                </div>
+                                <a href="javascript:void" class="delete_day">Delete Q&A</a>
+                            </div>
+
+                            <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
+                                <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                            </a>
+                            <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
+                                <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    <?php }
+                }else{ ?>
                     <div class="box-day">
                         <div class="class-show-all" style="">
                             <div class="form-group">
                                 <label for="question">Question : </label>
-                                <input type="text" class="form-control day_name_key" placeholder="" value="<?php echo $v['question'] ?>" name="question[]">
+                                <input type="text" class="form-control day_name_key" placeholder="" name="question[]">
                             </div>
                             <div class="form-group">
                                 <label for="answer">Answer : </label>
-                                <textarea class="form-control" rows="10" name="answer[]"><?php echo $v['answer'] ?></textarea>
+                                <textarea class="form-control" rows="10" name="answer[]"></textarea>
                             </div>
                             <a href="javascript:void" class="delete_day">Delete Q&A</a>
                         </div>
@@ -110,94 +132,99 @@ class CustomQA
                         </a>
                     </div>
                 <?php }
-            }else{ ?>
-                <div class="box-day">
-                    <div class="class-show-all" style="">
-                        <div class="form-group">
-                            <label for="question">Question : </label>
-                            <input type="text" class="form-control day_name_key" placeholder="" name="question[]">
-                        </div>
-                        <div class="form-group">
-                            <label for="answer">Answer : </label>
-                            <textarea class="form-control" rows="10" name="answer[]"></textarea>
-                        </div>
-                        <a href="javascript:void" class="delete_day">Delete Q&A</a>
-                    </div>
-
-                    <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
-                        <i class="fa fa-sort-asc" aria-hidden="true"></i>
-                    </a>
-                    <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
-                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                    </a>
-                </div>
-            <?php }
-            ?>
-        </div>
-        <a href="javascript:void" class="add_new_day">Add new Q&A</a>
+                ?>
+            </div>
+            <a href="javascript:void" class="add_new_day">Add new Q&A</a>
 
 
-        <script>
-            var $ = jQuery.noConflict();
-            jQuery(document).ready(function ($) {
 
-                var html = '<div class="box-day"> ' +
-                    '<div class="class-show-all" style=""> ' +
-                    '<div class="form-group"> ' +
-                    '<label for="question">Question : </label> ' +
-                    '<input type="text" class="form-control day_name_key" placeholder="" name="question[]"> ' +
-                    '</div> ' +
-                    '<div class="form-group"> ' +
-                    '<label for="answer">Answer : </label> ' +
-                    '<textarea class="form-control" rows="10" name="answer[]"></textarea> ' +
-                    '</div> ' +
-                    '<a href="javascript:void" class="delete_day">Delete Q&A</a> ' +
-                    '</div> ' +
-                    '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" > ' +
-                    '<i class="fa fa-sort-asc" aria-hidden="true"></i> ' +
-                    '</a> ' +
-                    '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none"> ' +
-                    '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
-                    '</a> ' +
-                    '</div>';
-                $('.add_new_day').click(function () {
-                    $('.ctn-box-day').append(html);
+            <script>
+                var $ = jQuery.noConflict();
+                jQuery(document).ready(function ($) {
+
+                    var html = '<div class="box-day"> ' +
+                        '<div class="class-show-all" style=""> ' +
+                        '<div class="form-group"> ' +
+                        '<label for="question">Question : </label> ' +
+                        '<input type="text" class="form-control day_name_key" placeholder="" name="question[]"> ' +
+                        '</div> ' +
+                        '<div class="form-group"> ' +
+                        '<label for="answer">Answer : </label> ' +
+                        '<textarea class="form-control" rows="10" name="answer[]"></textarea> ' +
+                        '</div> ' +
+                        '<a href="javascript:void" class="delete_day">Delete Q&A</a> ' +
+                        '</div> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" > ' +
+                        '<i class="fa fa-sort-asc" aria-hidden="true"></i> ' +
+                        '</a> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none"> ' +
+                        '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
+                        '</a> ' +
+                        '</div>';
+                    $('.add_new_day').click(function () {
+                        $('.ctn-box-day').append(html);
+                    });
+
+                    $(document).delegate('.delete_day', 'click', function () {
+                        $(this).closest('.box-day').remove();
+                    });
+
+                    $(document).delegate('.hide-day', 'click', function () {
+                        var obj  = $(this);
+                        obj.closest('.box-day').find('.show-day').fadeIn();
+                        obj.closest('.box-day').find('.class-hide-all').fadeIn();
+                        obj.closest('.box-day').find('.class-show-all').fadeOut();
+                        obj.fadeOut();
+                    });
+
+                    $(document).delegate('.show-day', 'click', function () {
+                        var obj  = $(this);
+                        obj.closest('.box-day').find('.hide-day').fadeIn();
+                        obj.closest('.box-day').find('.class-show-all').fadeIn();
+                        obj.closest('.box-day').find('.class-hide-all').fadeOut();
+
+                        obj.fadeOut();
+                    });
+
+                    $(document).delegate('.day_name_key','change', function () {
+                        var obj  = $(this);
+                        var day = obj.val();
+                        obj.closest('.box-day').find('.number_day_change').text(day);
+                    });
+                    $(document).delegate('.day_name_key','keyup', function () {
+                        var obj  = $(this);
+                        var day = obj.val();
+                        obj.closest('.box-day').find('.number_day_change').text(day);
+                    });
                 });
 
-                $(document).delegate('.delete_day', 'click', function () {
-                    $(this).closest('.box-day').remove();
-                });
+            </script>
+        <?php }else{ ?>
+            <style>
+                #qa{
+                    display: none;
+                }
+            </style>
+        <?php }
+        //custom css page home slider
+        if($post->post_name =='home-slider'){?>
+            <style>
+                #postdivrich,#pageparentdiv,#postimagediv,#side-sortables,#edit-slug-box,#wpseo_meta,h1,#titlediv,#screen-meta-links{
+                    display: none;
+                }
+                #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu{
+                    background: none;
+                }
+                #adminmenu .wp-has-current-submenu .wp-submenu{
+                    display: none;
+                }
+                .toplevel_page_home_slider{
+                    background : #0073aa;
+                }
+            </style>
+        <?php }
+        ?>
 
-                $(document).delegate('.hide-day', 'click', function () {
-                    var obj  = $(this);
-                    obj.closest('.box-day').find('.show-day').fadeIn();
-                    obj.closest('.box-day').find('.class-hide-all').fadeIn();
-                    obj.closest('.box-day').find('.class-show-all').fadeOut();
-                    obj.fadeOut();
-                });
-
-                $(document).delegate('.show-day', 'click', function () {
-                    var obj  = $(this);
-                    obj.closest('.box-day').find('.hide-day').fadeIn();
-                    obj.closest('.box-day').find('.class-show-all').fadeIn();
-                    obj.closest('.box-day').find('.class-hide-all').fadeOut();
-
-                    obj.fadeOut();
-                });
-
-                $(document).delegate('.day_name_key','change', function () {
-                    var obj  = $(this);
-                    var day = obj.val();
-                    obj.closest('.box-day').find('.number_day_change').text(day);
-                });
-                $(document).delegate('.day_name_key','keyup', function () {
-                    var obj  = $(this);
-                    var day = obj.val();
-                    obj.closest('.box-day').find('.number_day_change').text(day);
-                });
-            });
-
-        </script>
         <?php
     }
 
@@ -222,7 +249,6 @@ class CustomQA
                         add_post_meta($_POST['post_ID'],'list_qa',serialize($args));
                     }
                 }
-
             }
         }
 

@@ -79,10 +79,16 @@ get_header();
     </div>
     <div class="ctn-slide hide-on-med-and-down">
         <div class="owl-carousel">
-            <div><img src="<?php echo VIEW_URL . '/images/bn1.jpg' ?>" alt=""></div>
-            <div><img src="<?php echo VIEW_URL . '/images/bn2.jpg' ?>" alt=""></div>
-            <div><img src="<?php echo VIEW_URL . '/images/bn3.jpg' ?>" alt=""></div>
-            <div><img src="<?php echo VIEW_URL . '/images/bn4.jpg' ?>" alt=""></div>
+            <?php if(!empty($home_page_info) && !empty($home_page_info->gallery)){
+                foreach ($home_page_info->gallery as $img){ ?>
+                    <div><img src="<?php echo $img->full ?>" alt=""></div>
+                <?php }
+            }else{ ?>
+                <div><img src="<?php echo VIEW_URL . '/images/bn1.jpg' ?>" alt=""></div>
+                <div><img src="<?php echo VIEW_URL . '/images/bn2.jpg' ?>" alt=""></div>
+                <div><img src="<?php echo VIEW_URL . '/images/bn3.jpg' ?>" alt=""></div>
+                <div><img src="<?php echo VIEW_URL . '/images/bn4.jpg' ?>" alt=""></div>
+            <?php } ?>
         </div>
     </div>
 

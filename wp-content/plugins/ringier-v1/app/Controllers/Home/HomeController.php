@@ -77,6 +77,9 @@ class HomeController extends _BaseController
             'post__not_in' => array($not_in),
         ));
 
+        $objPost = Posts::init();
+        $slider_page = get_page_by_path('home-slider');
+        $home_page_info = $objPost->getInfo($slider_page);
 
         $args = array(
             'posts_per_page' => 20,
@@ -86,7 +89,7 @@ class HomeController extends _BaseController
 
         return view('home/home',
             compact('list_destination', 'list_ship', 'list_port', 'list_journey_type', 'list_offer', 'list_month',
-                'list_room_items', 'list_room_items_featured','list_whyus'));
+                'list_room_items', 'list_room_items_featured','list_whyus','home_page_info'));
     }
 }
 

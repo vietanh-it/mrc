@@ -24,7 +24,7 @@ class HomeSlider
         add_menu_page(
             'Home Slider',
             'Home Slider',
-            'edit_posts',
+            'create_users',
             'home_slider',
             [$this, 'home_slider_show'],
             '',

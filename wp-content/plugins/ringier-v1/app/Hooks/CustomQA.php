@@ -220,6 +220,7 @@ class CustomQA
                 }
                 .toplevel_page_home_slider{
                     background : #0073aa;
+                    color: white !important;
                 }
             </style>
         <?php }

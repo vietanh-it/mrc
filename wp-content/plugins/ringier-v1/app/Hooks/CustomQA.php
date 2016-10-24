@@ -212,6 +212,9 @@ class CustomQA
                 #postdivrich,#pageparentdiv,#postimagediv,#side-sortables,#edit-slug-box,#wpseo_meta,h1,#titlediv,#screen-meta-links{
                     display: none;
                 }
+                #poststuff #post-body.columns-2{
+                    margin-right: 0;
+                }
                 #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu{
                     background: none;
                 }

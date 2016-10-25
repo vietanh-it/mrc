@@ -12,12 +12,17 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
     $booking_model = \RVN\Models\Booking::init();
     $cart_info = $booking_model->getCartInfo(get_current_user_id(), $post->ID);
 
-    $rate = 22200;
+    $rate = 22300;
     $cart_info['total'] = $cart_info['total'] * $rate;
 
     $payment_type = $_GET['payment_type'];
     // $current_url = WP_SITEURL . (strtok($_SERVER["REQUEST_URI"], '?'));
     $current_url = 'https://' . $_SERVER['HTTP_HOST'] . (strtok($_SERVER["REQUEST_URI"], '?'));
+
+    $vpcOrderInfo = $cart_info['cart_info']->booking_code . ' - ' . date('ymdHis');
+    if (strlen($vpcOrderInfo) > 40) {
+        $vpcOrderInfo = get_current_user_id() . ' - ' . date('Y-m-d H:i:s');
+    }
 
     if ($payment_type == 'credit_card') {
         $vpc = [
@@ -25,7 +30,7 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'vpc_AccessCode'  => '6BEB2546',
             'vpc_Version'     => 2,
             'vpc_MerchTxnRef' => get_current_user_id() . '_' . date('YmdHis'),
-            'vpc_OrderInfo'   => 'Booking ID: ' . $cart_info['cart_info']->booking_code . ' - ' . date('YmdHis'),
+            'vpc_OrderInfo'   => $vpcOrderInfo,
             'vpc_ReturnURL'   => $current_url . '?step=return',
             'vpc_Amount'      => $cart_info['total'] * 100,
             'vpc_Command'     => 'pay',
@@ -75,7 +80,7 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'vpc_AccessCode'  => 'D67342C2',
             'vpc_Version'     => 2,
             'vpc_MerchTxnRef' => get_current_user_id() . '_' . date('YmdHis'),
-            'vpc_OrderInfo'   => 'Booking ID: ' . $cart_info['cart_info']->booking_code . ' - ' . date('YmdHis'),
+            'vpc_OrderInfo'   => $vpcOrderInfo,
             'vpc_ReturnURL'   => $current_url . '?step=return',
             'vpc_Amount'      => $cart_info['total'] * 100,
             'vpc_Command'     => 'pay',

@@ -178,13 +178,15 @@ if (!empty($journey_type_info)) { ?>
                     if (!empty($journey_type_info->itinerary)) {
                         $itinerary = ($journey_type_info->itinerary);
                         foreach ($itinerary as $it) {
-                            ?>
-                            <div class="box-day-in">
-                                <div class="day-in">
-                                    DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?></div>
-                                <p><?php echo apply_filters('the_content', $it->content) ?></p>
-                            </div>
-                        <?php }
+                            if (!empty($it->day)) {
+                                ?>
+                                <div class="box-day-in">
+                                    <div class="day-in">
+                                        DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?></div>
+                                    <p><?php echo apply_filters('the_content', $it->content) ?></p>
+                                </div>
+                            <?php }
+                        }
                     } ?>
                     <div class="title-main">WHAT’S INCLUDED</div>
                     <p><b>Cruise Price Includes:</b> <?php echo $journey_type_info->include ?></p>

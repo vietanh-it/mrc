@@ -415,7 +415,6 @@ class BoxJourneySeries
                         if($journey_id == 0){
                             $args_post = array(
                                 'post_title' => $_POST['prefix'].$code .' - '.$journey_type->post_title,
-                                'post_name' => $journey_type->post_name .'-'.sanitize_title($_POST['prefix'].$code),
                                 'post_author' => get_current_user_id(),
                                 'post_status' => 'publish',
                                 'post_type' => 'journey',

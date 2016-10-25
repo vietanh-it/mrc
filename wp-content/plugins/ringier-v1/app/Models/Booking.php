@@ -123,14 +123,20 @@ class Booking
         $journey = $m_journey->getJourneyInfoByID($journey_id);
         $code = $this->generateBookingCode($journey->journey_code);
 
-        $wpdb->update($wpdb->posts, [
+        // $wpdb->update($wpdb->posts, [
+        //     'post_title'  => $code,
+        //     'post_status' => 'publish',
+        //     'post_name'   => sanitize_title($code)
+        // ], ['ID' => $post->ID]);
+
+        wp_insert_post([
+            'post_type'   => 'booking',
             'post_title'  => $code,
-            'post_status' => 'publish',
-            'post_name'   => sanitize_title($code)
-        ], ['ID' => $post->ID]);
+            'post_status' => 'publish'
+        ]);
 
         $cart = [
-            'id'           => $post->ID,
+            'id'           => $wpdb->insert_id,
             'user_id'      => $user_id,
             'journey_id'   => $journey_id,
             'booking_code' => $code,

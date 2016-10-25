@@ -421,7 +421,9 @@ class BoxJourneySeries
                                 'post_type' => 'journey',
                                 'post_date' => current_time('mysql')
                             );
+                            remove_action('save_post', [$this, 'save']);
                             $journey_id = $objJourney->insertJourney($args_post);
+                            add_action('save_post', [$this, 'save']);
                         }
 
                         $argc = array(
@@ -434,7 +436,7 @@ class BoxJourneySeries
 
                         $objJourney->insertJourneyDetail($argc);
                     }
-                    
+
                 }
             }
         }

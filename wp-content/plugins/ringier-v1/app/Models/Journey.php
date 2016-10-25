@@ -435,7 +435,8 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
 
     public function insertJourney($data)
     {
-        $this->_wpdb->insert($this->_wpdb->posts, $data);
+        // $this->_wpdb->insert($this->_wpdb->posts, $data);
+        wp_insert_post($data);
         $result = $this->_wpdb->insert_id;
         return $result;
     }

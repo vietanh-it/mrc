@@ -43,4 +43,7 @@ function mrcLoad()
     \RVN\Controllers\JourneySeriesController::init();
     \RVN\Controllers\AddonController::init();
     \RVN\Controllers\MediaController::init();
+
+    // cron
+    \RVN\Crons\BookingCron::init();
 }

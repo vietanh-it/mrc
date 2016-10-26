@@ -14,8 +14,8 @@ $cart_detail = $m_booking->getCartInfo($user_id, $post->ID);
 
 
 // Booking drop reminder
-$timestamp = wp_next_scheduled('booking_drop_reminder');
-wp_unschedule_event($timestamp, 'booking_drop_reminder');
+$timestamp = wp_next_scheduled('booking_drop_reminder', [$cart_detail['cart_info']->id]);
+wp_unschedule_event($timestamp, 'booking_drop_reminder', [$cart_detail['cart_info']->id]);
 wp_schedule_single_event(strtotime('+30 minutes'), 'booking_drop_reminder', [$cart_detail['cart_info']->id]);
 
 

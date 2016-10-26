@@ -1,7 +1,6 @@
 <?php
 namespace RVN\Crons;
 
-use RVN\Models\Booking;
 use RVN\Models\Journey;
 
 class BookingCron
@@ -19,38 +18,42 @@ class BookingCron
     }
 
 
-    function __construct()
+    protected function __construct()
     {
-        add_action('booking_drop_reminder', [$this, 'bookingDropReminder'], 10, 3);
+        global $wpdb;
+        $this->_wpdb = $wpdb;
+        $this->_prefix = $wpdb->prefix;
+
+        add_action('booking_drop_reminder', [$this, 'bookingDropReminder']);
     }
 
-
-    public function bookingDropReminder($cart_id)
+    public function bookingDropReminder($cart_id = 0)
     {
-        // Send booking drop email reminder if 30 minutes passed and booking status is still 'cart'
-        $m_booking = Booking::init();
-        $cart = $m_booking->getCartByID($cart_id);
+        if (!empty($cart_id)) {
 
-        if (!empty($cart)) {
-            if ($cart->status == 'cart') {
-                // get journey
-                $m_journey = Journey::init();
-                $journey_info = $m_journey->getInfo($cart->journey_id);
+            // Send booking drop email reminder if 30 minutes passed and booking status is still 'cart'
+            $query = "SELECT * FROM " . TBL_CART . " WHERE id = '{$cart_id}'";
+            $cart = $this->_wpdb->get_row($query);
 
-                // get user
-                $user_data = get_userdata($cart->user_id);
+            if (!empty($cart)) {
+                if ($cart->status == 'cart') {
+                    // get journey
+                    $m_journey = Journey::init();
+                    $journey_info = $m_journey->getInfo($cart->journey_id);
 
-                $args = [
-                    'first_name'             => $user_data->data->display_name,
-                    'journey_url'            => $journey_info->permalink,
-                    'journey_departure_date' => date('d/m/Y', strtotime($journey_info->departure))
-                ];
+                    // get user
+                    $user_data = get_userdata($cart->user_id);
 
-                // Send email
-                // sendEmailHTML($user_data->data->user_email, 'Uncompleted booking, Reservation ID #' . $cart->booking_code, 'normal_user/booking_drop_reminder.html', $args);
-                sendEmailHTML('vietanh@ringier.com.vn', 'Uncompleted booking, Reservation ID #' . $cart->booking_code, 'normal_user/booking_drop_reminder.html', $args);
+                    $args = [
+                        'first_name'             => $user_data->data->display_name,
+                        'journey_url'            => $journey_info->permalink,
+                        'journey_departure_date' => date('d/m/Y', strtotime($journey_info->departure))
+                    ];
+                    // Send email
+                    sendEmailHTML($user_data->data->user_email, 'Uncompleted booking, Reservation ID #' . $cart->booking_code, 'normal_user/booking_drop_reminder.html', $args);
+                }
             }
         }
-    }
 
+    }
 }

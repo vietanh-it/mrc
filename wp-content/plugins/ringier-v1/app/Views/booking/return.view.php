@@ -21,10 +21,14 @@ if (isset($_GET['vpc_TxnResponseCode']) && $_GET['vpc_TxnResponseCode'] == '0') 
         $transaction_status = 'failed';
     }
 
+    $journey_id = $_GET['jid'];
+
     unset($_GET['step']);
+    unset($_GET['jid']);
+
     $data = $_GET;
     $data['trans_status'] = $transaction_status;
-    $result = $booking->finishBooking(get_current_user_id(), $post->ID, $data);
+    $result = $booking->finishBooking(get_current_user_id(), $journey_id, $data);
 }
 else {
     wp_redirect(WP_SITEURL);

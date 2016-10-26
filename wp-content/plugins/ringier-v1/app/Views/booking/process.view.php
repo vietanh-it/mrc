@@ -18,7 +18,7 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
     $payment_type = $_GET['payment_type'];
     // $current_url = WP_SITEURL . (strtok($_SERVER["REQUEST_URI"], '?'));
     // $current_url = 'https://' . $_SERVER['HTTP_HOST'] . (strtok($_SERVER["REQUEST_URI"], '?'));
-    $current_url = WP_SITEURL . '/account/payment-return?step=return';
+    $current_url = WP_SITEURL . '/account/payment-return?jid=' . $post->ID;
 
     $vpcOrderInfo = $cart_info['cart_info']->booking_code . ' - ' . date('ymdHis');
     if (strlen($vpcOrderInfo) > 32) {

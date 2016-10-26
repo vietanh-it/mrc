@@ -13,10 +13,7 @@ if (empty($_GET['step'])) {
     view('booking/review');
 } elseif ($_GET['step'] == 'process') {
     view('booking/process');
-} elseif ($_GET['step'] == 'return') {
-    view('booking/return');
-}
-elseif ($_GET['step'] == 'buy-more-service') {
+} elseif ($_GET['step'] == 'buy-more-service') {
     view('booking/buy-more-service');
 } else {
     // Redirect to step select room

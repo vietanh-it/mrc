@@ -17,22 +17,25 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
 
     $payment_type = $_GET['payment_type'];
     // $current_url = WP_SITEURL . (strtok($_SERVER["REQUEST_URI"], '?'));
-    $current_url = 'https://' . $_SERVER['HTTP_HOST'] . (strtok($_SERVER["REQUEST_URI"], '?'));
+    // $current_url = 'https://' . $_SERVER['HTTP_HOST'] . (strtok($_SERVER["REQUEST_URI"], '?'));
+    $current_url = WP_SITEURL . '/account/payment-return?step=return';
 
     $vpcOrderInfo = $cart_info['cart_info']->booking_code . ' - ' . date('ymdHis');
-    if (strlen($vpcOrderInfo) > 40) {
-        $vpcOrderInfo = get_current_user_id() . ' - ' . date('Y-m-d H:i:s');
+    if (strlen($vpcOrderInfo) > 32) {
+        $vpcOrderInfo = get_current_user_id() . ' - ' . date('ymdHis');
     }
+
+    $total = ceil($cart_info['total']) * 100;
 
     if ($payment_type == 'credit_card') {
         $vpc = [
             'vpc_Merchant'    => 'TESTONEPAY',
             'vpc_AccessCode'  => '6BEB2546',
             'vpc_Version'     => 2,
-            'vpc_MerchTxnRef' => get_current_user_id() . '_' . date('YmdHis'),
+            'vpc_MerchTxnRef' => $vpcOrderInfo,
             'vpc_OrderInfo'   => $vpcOrderInfo,
-            'vpc_ReturnURL'   => $current_url . '?step=return',
-            'vpc_Amount'      => $cart_info['total'] * 100,
+            'vpc_ReturnURL'   => $current_url,
+            'vpc_Amount'      => $total,
             'vpc_Command'     => 'pay',
             'vpc_Locale'      => 'en',
             'vpc_TicketNo'    => $_SERVER ['REMOTE_ADDR'],
@@ -79,10 +82,10 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'vpc_Merchant'    => 'ONEPAY',
             'vpc_AccessCode'  => 'D67342C2',
             'vpc_Version'     => 2,
-            'vpc_MerchTxnRef' => get_current_user_id() . '_' . date('YmdHis'),
+            'vpc_MerchTxnRef' => $vpcOrderInfo,
             'vpc_OrderInfo'   => $vpcOrderInfo,
-            'vpc_ReturnURL'   => $current_url . '?step=return',
-            'vpc_Amount'      => $cart_info['total'] * 100,
+            'vpc_ReturnURL'   => $current_url,
+            'vpc_Amount'      => $total,
             'vpc_Command'     => 'pay',
             'vpc_Locale'      => 'vn',
             'vpc_Currency'    => 'VND',

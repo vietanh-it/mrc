@@ -554,3 +554,18 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
 
 
 <?php get_footer() ?>
+
+<?php if (isset($_GET['stt']) && $_GET['stt'] == 'success') { ?>
+    <script>
+        var $ = jQuery.noConflict();
+        $(document).ready(function () {
+            swal({
+                title: 'Payment Success',
+                text: 'Thank you for your booking. You paid your booking and now please prepare for your journey.',
+                confirmButtonColor: '#e4a611'
+            }, function () {
+                    // location.href = location.origin + ''
+            });
+        });
+    </script>
+<?php } ?>

@@ -475,7 +475,7 @@ class Booking
                     'data'   => ''
                 ];
 
-                wp_redirect(WP_SITEURL . '/booking/' . $cart->booking_code);
+                wp_redirect(WP_SITEURL . '/before-you-go?id=' . $cart->id . '&stt=success');
                 exit;
             }
         }

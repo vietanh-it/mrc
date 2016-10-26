@@ -306,6 +306,7 @@ if (!empty($list_addon)) {
                 var object_id = parent.attr('data-addon-object-id');
                 var addon_option = parent.attr('data-addon-option');
 
+                switch_loading(true);
                 // Save cart addon ajax
                 $.ajax({
                     url: ajax_url,
@@ -322,6 +323,7 @@ if (!empty($list_addon)) {
                         addon_status: parent.parents('table').attr('data-status')
                     },
                     success: function (data) {
+                        switch_loading(false);
 
                         if (data.status == 'success') {
                             switch_status = true;

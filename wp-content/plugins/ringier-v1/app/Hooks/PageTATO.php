@@ -56,14 +56,22 @@ Class PageTATO
 
     public function metaboxTaToBooking()
     {
+        global $pagenow, $post;
+
+        // get booking type
+        $m_booking = Booking::init();
+        $booking = $m_booking->getBookingDetail($post->ID);
+
+
         if (isset($_GET['type']) && $_GET['type'] == 'tato') {
             add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
             add_meta_box('tato-select', 'TA/TO', [$this, 'tatoSelect'], 'booking', 'side', 'high');
 
-            add_action('admin_head');
-
             remove_meta_box('submitdiv', 'booking', 'side');
             remove_meta_box('wpseo_meta', 'booking', 'normal');
+        }
+        elseif (!empty($booking->is_tato)) {
+            add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
         }
     }
 
@@ -185,10 +193,21 @@ Class PageTATO
     // Register Navigation Menus
     public function tatoBooking()
     {
+        global $pagenow, $post;
         $m_journey = Journey::init();
         $m_ships = Ships::init();
         $m_ports = Ports::init();
         $m_destination = Destinations::init();
+        $m_booking = Booking::init();
+
+
+        $booking_detail = null;
+        if (isset($_GET['action']) && $_GET['action'] == 'edit') {
+            $booking_detail = $m_booking->getBookingDetail($post->ID);
+            $edit_journey_info = $m_journey->getJourneyInfoByID($booking_detail->journey_id);
+            // var_dump($booking_detail);
+        }
+
 
         $destination = $m_destination->getDestinationHaveJourney();
         $sail_month = $m_journey->getMonthHaveJourney();
@@ -198,6 +217,10 @@ Class PageTATO
 
 
         <style>
+            #adminmenuback {
+                display: none;
+            }
+
             h2 {
                 font-size: 32px;
                 margin-bottom: 15px;
@@ -396,6 +419,9 @@ Class PageTATO
                                 <label>Journey</label>
                                 <select id="journey_id" name="journey_id" class="select2">
                                     <option value="">--- Select journey ---</option>
+                                    <?php if (!empty($edit_journey_info)) {
+                                        echo '<option value="' . $edit_journey_info->journey_id . '" selected>' . $edit_journey_info->journey_code . '</option>';
+                                    } ?>
                                 </select>
                             </div>
 
@@ -905,7 +931,7 @@ Class PageTATO
 
                         // Subtotal
                         var subtotal = quantity * addon_option_price;
-                        obj_addon_subtotal.html(subtotal);
+                        obj_addon_subtotal.html(numberFormat(subtotal));
                     } else {
                         obj_addon_option = $('.addon-quantity-' + addon_option_id + '-' + addon_type);
                         obj_addon_subtotal = $('.addon-subtotal-' + addon_option_id + '-' + addon_type);
@@ -925,7 +951,7 @@ Class PageTATO
 
                         // subtotal
                         subtotal = quantity * addon_option_price;
-                        obj_addon_subtotal.html(subtotal);
+                        obj_addon_subtotal.html(numberFormat(subtotal));
                     }
 
                     // Hide or show addon review
@@ -991,6 +1017,15 @@ Class PageTATO
                     $('.deposit-amount').html($(this).val());
                     updateDeposit();
                 });
+
+                // button add new TA/TO booking
+                $('.wrap h1').append('<a href="<?php echo WP_SITEURL; ?>/wp-admin/post-new.php?post_type=booking&type=tato" class="page-title-action" style="margin-left: 10px;">Add New TA/TO Booking</a>');
+
+                <?php if (!empty($edit_journey_info)) { ?>
+
+                $('#journey_id').trigger('change');
+
+                <?php } ?>
 
             });
 
@@ -1186,24 +1221,24 @@ Class PageTATO
                 // Room
                 $(obj_room_subtotal).each(function (k, v) {
                     if ($(v).html()) {
-                        total += parseFloat($(v).html());
+                        total += parseFloat($(v).html().replace(',', ''));
                     }
                 });
 
                 // Addon
                 $(obj_addon_subtotal).each(function (k, v) {
                     if ($(v).html()) {
-                        total += parseFloat($(v).html());
+                        total += parseFloat($(v).html().replace(',', ''));
                     }
                 });
 
-                $('.total').html(total);
+                $('.total').html(numberFormat(total));
                 updateDeposit();
             }
 
 
             function updateDeposit() {
-                var total = $('.total').html();
+                var total = $('.total').html().replace(',', '');
                 var percent = $('.deposit-amount').html();
                 $('.deposit-amount-real').html(parseFloat(total) * parseFloat(percent) / 100);
             }
@@ -1229,7 +1264,34 @@ Class PageTATO
                     $tato_id = $_POST['tato'];
                     $deposit_rate = $_POST['deposit_rate'];
 
-                    $cart = $m_booking->getCart($user_id, $journey_id);
+                    $cart = $m_booking->getTatoCart($user_id, $journey_id);
+
+                    if (empty($cart)) {
+                        $journey = $m_journey->getJourneyInfoByID($journey_id);
+                        $code = $m_booking->generateBookingCode($journey->journey_code);
+
+                        // Insert booking post
+                        remove_action('save_post', [$this, 'save']);
+                        wp_update_post([
+                            'post_type'   => 'booking',
+                            'post_title'  => $code,
+                            'post_status' => 'publish'
+                        ]);
+                        add_action('save_post', [$this, 'save']);
+
+                        $cart = [
+                            'id'           => $post->ID,
+                            'user_id'      => $user_id,
+                            'journey_id'   => $journey_id,
+                            'booking_code' => $code,
+                            'status'       => 'cart',
+                            'created_at'   => current_time('mysql'),
+                            'updated_at'   => current_time('mysql')
+                        ];
+                        $wpdb->insert(TBL_CART, $cart);
+
+                        $cart = (object)$cart;
+                    }
 
                     if (!empty($cart)) {
                         $room_list = [];
@@ -1330,12 +1392,20 @@ Class PageTATO
                         $wpdb->update(TBL_CART, [
                             'status'     => 'tato',
                             'tato_id'    => $tato_id,
+                            'is_tato'    => 1,
                             'deposit'    => ($deposit_rate * $cart_total) / 100,
                             'expired_at' => date('Y-m-d H:i:s', strtotime('+ 3 days'))
                         ], ['id' => $cart->id]);
 
 
                         // sendEmailHTML()
+                        $m_tato = TaTo::init();
+                        $tato = $m_tato->getTaToByID($tato_id);
+                        $email_args = [
+                            'first_name' => $tato->first_name
+                        ];
+                        sendEmailHTML($tato->email, 'Reservation confirmation, reservation ID #' . $cart->booking_code,
+                            'ta_to/reservation_for_ta_to.html', $email_args);
                     }
 
                 }

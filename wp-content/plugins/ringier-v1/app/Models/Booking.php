@@ -150,6 +150,17 @@ class Booking
     }
 
 
+    public function getTatoCart($user_id, $journey_id)
+    {
+        // $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id} AND journey_id = {$journey_id} AND status = 'cart'";
+        $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_cart} c ON p.ID = c.id" .
+            " WHERE p.post_status <> 'trash' AND c.user_id = {$user_id} AND c.journey_id = {$journey_id} AND c.status = 'cart' AND is_tato = 1";
+        $cart = $this->_wpdb->get_row($query);
+
+        return $cart;
+    }
+
+
     public function saveCart($data)
     {
         if (!is_user_logged_in()) {

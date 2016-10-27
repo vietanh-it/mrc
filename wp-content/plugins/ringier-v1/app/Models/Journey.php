@@ -446,7 +446,7 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
     {
         $result = false;
         if ($journey_id) {
-            $result = $this->_wpdb->delete($this->_wpdb->posts, ['ID' => $journey_id]);
+            $result = $this->_wpdb->update($this->_wpdb->posts,array('post_status'=>'draft'), ['ID' => $journey_id]);
         }
 
         return $result;

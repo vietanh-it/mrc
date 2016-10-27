@@ -344,5 +344,26 @@ class BookingController extends _BaseController
 
         return view('booking/before-you-go', compact('list_guest', 'country_list', 'return', 'list_service_addon', 'total_guest', 'booking_code'));
     }
+
+    public function ajaxSaveSessionBuyMoreService($data){
+        if(!empty($data['cart_id']) && !empty($data['object_id'])){
+            if(empty($_SESSION['cart_addon'][$data['cart_id']]))
+
+            $_SESSION['cart_addon'][$data['cart_id']] = array($data['object_id']);
+
+            $result = [
+                'status' => 'success',
+                'message' => 'success',
+            ];
+        }else{
+            $result = [
+                'status' => 'error',
+                'message' => array('An error, please try again.'),
+            ];
+        }
+
+
+        return $result;
+    }
     
 }

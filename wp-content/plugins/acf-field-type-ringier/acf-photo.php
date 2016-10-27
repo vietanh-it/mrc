@@ -23,7 +23,7 @@ class r_photo {
             //'url'   => ''
             'param_name' => 'files',
             'image_file_types' => '/\.(gif|jpe?g|png)$/i',
-            'max_file_size' => 2*1024*1024, //2M
+            'max_file_size' => 5*1024*1024, //5M
             'min_file_size' => 1024,
             'limit_upload_file' => 5,
             'image_versions' => array(

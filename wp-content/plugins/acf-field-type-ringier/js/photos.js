@@ -8,12 +8,12 @@ jQuery(document).ready(function($) {
             action: 'r_photo_upload_custom_photo',
             post_id: post_id
         },
-        maxFileSize: 2 * 1024 * 1024,
+        maxFileSize: 5 * 1024 * 1024,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         messages: {
             maxNumberOfFiles: 'Bạn chỉ được chọn 5 hình.',
             acceptFileTypes: 'Hình này không hợp lệ.',
-            maxFileSize: 'Kích thước hình phải nhỏ hơn 2M'
+            maxFileSize: 'Kích thước hình phải nhỏ hơn 5M'
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10) - 10;

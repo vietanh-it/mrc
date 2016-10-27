@@ -20,6 +20,7 @@ if(!empty($_GET['booking_id'])) {
 
 //var_dump($addon_list);
     get_header();
+
     ?>
 
     <div class="journey-detail">
@@ -45,13 +46,13 @@ if(!empty($_GET['booking_id'])) {
                         $list_addon = $addon_list['data'];
                         if (!empty($list_addon)) {
                             $addon_model = \RVN\Models\Addon::init();
-                            $cart_id = valueOrNull($cart_id, 0);
+                            $booking_id = valueOrNull($booking_id, 0);
                             foreach ($list_addon as $key => $item) {
                             if ($item->type == 'addon' && empty($item->addon_option)) {
                                 break;
                             }
-
-                            /*$cart_addons = $addon_model->getCartAddon($cart_id, $item->ID);
+                            $cart_addon_status = 'buy-more';
+                            /*$cart_addons = $addon_model->getCartAddon($booking_id, $item->ID);
                             if (!empty($cart_addons)) {
                                 $cart_addon_status = $cart_addons[0]->status;
                             }
@@ -95,7 +96,7 @@ if(!empty($_GET['booking_id'])) {
                                             <div class="desc">
                                                 <p><b><?php echo $item->post_title; ?></b></p>
                                                 <div class="row">
-                                                    <div class="col-xs-12 col-sm-9">
+                                                    <div class="col-xs-12 col-sm-12">
 
                                                         <?php if ($item->type == 'addon') {
                                                             $addon_options = $addon_model->getAddonOptions($item->ID); ?>
@@ -118,7 +119,7 @@ if(!empty($_GET['booking_id'])) {
 
                                                                     foreach ($addon_options as $k => $v) {
                                                                         // Cart addon
-                                                                        $addon = $addon_model->getCartAddon($cart_id, $v->object_id, $v->id);
+                                                                        $addon = $addon_model->getCartAddon($booking_id, $v->object_id, $v->id);
                                                                         $addon = array_shift($addon);
 
                                                                         // Addon options total
@@ -132,7 +133,7 @@ if(!empty($_GET['booking_id'])) {
                                                                                 <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
 
                                                             <span style="padding: 0 10px; float: left;" class="option-person">
-                                                                <?php echo valueOrNull($addon->quantity, 0); ?>
+                                                                <?php echo /*valueOrNull($addon->quantity, 0);*/ 0 ?>
                                                             </span>
 
                                                                                 <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
@@ -152,7 +153,7 @@ if(!empty($_GET['booking_id'])) {
                                                                     </td>
                                                                     <td>
                                                                         <b>
-                                                                            US$<span class="addon-total"><?php echo number_format($addon_total); ?></span>
+                                                                            US$<span class="addon-total"><?php echo /*number_format($addon_total);*/ 0 ?></span>
                                                                         </b>
                                                                     </td>
                                                                 </tr>
@@ -162,13 +163,13 @@ if(!empty($_GET['booking_id'])) {
                                                         <?php }
                                                         else {
                                                             // Twin
-                                                            $tour_info_twin = $addon_model->getCartAddon($cart_id, $item->ID, 0, 'twin');
+                                                            $tour_info_twin = $addon_model->getCartAddon($booking_id, $item->ID, 0, 'twin');
                                                             if (!empty($tour_info_twin)) {
                                                                 $tour_info_twin = array_shift($tour_info_twin);
                                                             }
 
                                                             // Single
-                                                            $tour_info_single = $addon_model->getCartAddon($cart_id, $item->ID, 0, 'single');
+                                                            $tour_info_single = $addon_model->getCartAddon($booking_id, $item->ID, 0, 'single');
                                                             if (!empty($tour_info_single)) {
                                                                 $tour_info_single = array_shift($tour_info_single);
                                                             }
@@ -200,14 +201,14 @@ if(!empty($_GET['booking_id'])) {
                                                                         <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
 
                                                     <span style="float: left; padding: 0 10px;">
-                                                        <?php echo !empty($tour_info_twin->quantity) ? ($tour_info_twin->quantity) : 0; ?>
+                                                        <?php echo /*!empty($tour_info_twin->quantity) ? ($tour_info_twin->quantity) : 0; */ 0?>
                                                     </span>
 
                                                                         <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
 
                                                                     </td>
                                                                     <td>
-                                                                        US$<span class="addon-subtotal"><?php echo !empty($tour_info_twin->total) ? number_format(valueOrNull($tour_info_twin->total, 0)) : 0; ?></span>
+                                                                        US$<span class="addon-subtotal"><?php echo  /*echo !empty($tour_info_twin->total) ? number_format(valueOrNull($tour_info_twin->total, 0)) : 0;*/ 0 ?></span>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -224,7 +225,7 @@ if(!empty($_GET['booking_id'])) {
                                                                         <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
 
                                                                     </td>
-                                                                    <td>US$<span class="addon-subtotal"><?php echo !empty($tour_info_single->total) ? number_format(valueOrNull($tour_info_single->total, 0)) : 0; ?></span>
+                                                                    <td>US$<span class="addon-subtotal"><?php echo /*!empty($tour_info_single->total) ? number_format(valueOrNull($tour_info_single->total, 0)) : 0;*/ 0 ?></span>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -233,7 +234,7 @@ if(!empty($_GET['booking_id'])) {
                                                                     </td>
                                                                     <td>
                                                                         <b>
-                                                                            US$<span class="addon-total"><?php echo number_format($tour_total); ?></span>
+                                                                            US$<span class="addon-total"><?php echo /*number_format($tour_total);*/ 0 ?></span>
                                                                         </b>
                                                                     </td>
                                                                 </tr>
@@ -243,19 +244,13 @@ if(!empty($_GET['booking_id'])) {
                                                         <?php } ?>
 
                                                     </div>
-                                                    <div class="col-xs-12 col-sm-3">
+                                                    <!--<div class="col-xs-12 col-sm-3">
                                                         Add this service?
-                                                        <?php //if ($cart_addon_status == 'inactive') { ?>
-                                                            <a class="add-addon" data-object-id="<?php echo $item->ID; ?>" href="javascript:void(0)">
+                                                        <?php /*//if ($cart_addon_status == 'inactive') { */?>
+                                                            <a class="add-addon" data-object-id="<?php /*echo $item->ID; */?>" href="javascript:void(0)">
                                                                 Yes, please
                                                             </a>
-                                                        <?php //}
-                                                      //  else { ?>
-                                                            <!--<a class="add-addon active" data-object-id="<?php /*echo $item->ID; */?>" href="javascript:void(0)">
-                                                                No, thanks
-                                                            </a>-->
-                                                        <?php// } ?>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
                                             </div>
 
@@ -291,25 +286,16 @@ if(!empty($_GET['booking_id'])) {
                                                 dataType: 'json',
                                                 data: {
                                                     action: 'ajax_handler_booking',
-                                                    method: 'SwitchAddonStatus',
+                                                    method: 'SaveSessionBuyMoreService',
                                                     object_id: object_id,
-                                                    cart_id: <?php echo $cart_id ?>
+                                                    cart_id: <?php echo $booking_id ?>
                                                 },
                                                 success: function (data) {
                                                     switch_loading(false);
 
                                                     if (data.status == 'success') {
                                                         switch_status = true;
-                                                        $('.booking-total').html(data.data.cart_total_text);
-
-                                                        // process button
-                                                        if (data.data.current_status == 'active') {
-                                                            $('[data-object-id="' + object_id + '"]').html('No, thanks').addClass('active');
-                                                        } else {
-                                                            $('[data-object-id="' + object_id + '"]').html('Yes, please').removeClass('active');
-                                                        }
-
-                                                        $('[data-item-id="' + object_id + '"]').attr('data-status', data.data.current_status);
+                                                        $('[data-object-id="' + object_id + '"]').html('No, thanks').addClass('active');
                                                     }
                                                     else {
                                                         var html_msg = '<div>';
@@ -349,7 +335,7 @@ if(!empty($_GET['booking_id'])) {
                                             data: {
                                                 action: 'ajax_handler_booking',
                                                 method: 'SaveAddon',
-                                                cart_id: <?php echo $cart_id ?>,
+                                                cart_id: <?php echo $booking_id ?>,
                                                 object_id: object_id,
                                                 addon_option_id: addon_option,
                                                 action_type: action_type,
@@ -413,8 +399,8 @@ if(!empty($_GET['booking_id'])) {
                     <div class="text-center btt-box">
                         <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>
 
-                        <a href="<?php echo $journey_detail->permalink; ?>" class="back">Back</a>
-                        <a href="<?php echo $journey_detail->permalink . '?step=booking-review'; ?>" class="btn-main">Continue</a>
+                        <a href="<?php echo WP_SITEURL.'/before-you-go/?id='.$booking_id; ?>" class="back">Back</a>
+                        <a href="<?php echo $journey_detail->permalink . '?step=buy-more-service-review&booking_id='.$booking_id; ?>" class="btn-main">Continue</a>
                     </div>
                 </div>
             </div>

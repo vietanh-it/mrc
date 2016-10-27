@@ -20,7 +20,7 @@
                         <ul class="social-icon">
                             <li>
                                 <a href="#" title="" target="_blank" rel="nofollow"><img
-                                        src="<?php echo VIEW_URL . '/images/icon-twiter.png' ?>" alt=""></a>
+                                        src="<?php echo VIEW_URL . '/images/icon-twiter.png?v2' ?>" alt=""></a>
                             </li>
 
                             <li>
@@ -45,7 +45,7 @@
 
                             <li>
                                 <a href="#" title="" target="_blank" rel="nofollow"><img
-                                        src="<?php echo VIEW_URL . '/images/icon-google.png' ?>" alt=""></a>
+                                        src="<?php echo VIEW_URL . '/images/icon-google.png?v2' ?>" alt=""></a>
                             </li>
                         </ul>
                     </div>

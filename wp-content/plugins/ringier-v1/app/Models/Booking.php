@@ -601,11 +601,15 @@ class Booking
 
     }
 
-    public function getServiceAddonByBookingId($booking_id)
+    public function getServiceAddonByBookingId($booking_id,$status = '')
     {
+        $where = '';
+        if(!empty($status)){
+            $where = ' AND ca.status = "'.$status.'"';
+        }
         $query = 'SELECT ca.*,p.post_title as addon_name FROM ' . $this->_tbl_cart_addon . ' as ca 
         INNER JOIN  ' . $this->_wpdb->posts . ' as p ON p.ID = ca.object_id
-        WHERE ca.cart_id = ' . $booking_id;
+        WHERE ca.cart_id = ' . $booking_id . $where;
 
         return $this->_wpdb->get_results($query);
     }
@@ -691,5 +695,13 @@ class Booking
         }
 
         return $result;
+    }
+
+    public function getListAddonBuyMore($booking_id){
+        $query = 'SELECT ca.*,p.post_title as addon_name FROM ' . $this->_tbl_cart_addon . ' as ca 
+        INNER JOIN  ' . $this->_wpdb->posts . ' as p ON p.ID = ca.object_id
+        WHERE ca.cart_id = ' . $booking_id;
+
+        return $this->_wpdb->get_results($query);
     }
 }

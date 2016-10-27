@@ -546,7 +546,7 @@ class Booking
     {
         switch ($status_code) {
             case 'cart':
-                $result = 'Booking';
+                $result = 'In Cart';
                 break;
             case 'tato':
                 $result = 'TA/TO - Wait for deposit';

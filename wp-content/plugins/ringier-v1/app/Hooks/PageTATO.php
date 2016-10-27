@@ -58,21 +58,27 @@ Class PageTATO
     {
         global $pagenow, $post;
 
+        $current_post_type = get_post_type();
+
         // get booking type
         $m_booking = Booking::init();
         $booking = $m_booking->getBookingDetail($post->ID);
 
 
-        if (isset($_GET['type']) && $_GET['type'] == 'tato') {
-            add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
+        if ($current_post_type == 'booking') {
             add_meta_box('tato-select', 'TA/TO', [$this, 'tatoSelect'], 'booking', 'side', 'high');
 
-            remove_meta_box('submitdiv', 'booking', 'side');
-            remove_meta_box('wpseo_meta', 'booking', 'normal');
+            if (isset($_GET['type']) && $_GET['type'] == 'tato') {
+                add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
+
+                remove_meta_box('submitdiv', 'booking', 'side');
+                remove_meta_box('wpseo_meta', 'booking', 'normal');
+            }
+            elseif (!empty($booking->is_tato)) {
+                add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
+            }
         }
-        elseif (!empty($booking->is_tato)) {
-            add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
-        }
+
     }
 
 
@@ -202,10 +208,19 @@ Class PageTATO
 
 
         $booking_detail = null;
+        $edit_journey_info = null;
+        $edit_room = null;
         if (isset($_GET['action']) && $_GET['action'] == 'edit') {
             $booking_detail = $m_booking->getBookingDetail($post->ID);
-            $edit_journey_info = $m_journey->getJourneyInfoByID($booking_detail->journey_id);
-            // var_dump($booking_detail);
+            $edit_journey_info = $m_journey->getInfo($booking_detail->journey_id);
+            foreach ($booking_detail->cart_detail as $k => $v) {
+                $room = $m_ships->getRoomInfo($v->room_id);
+                $edit_room[] = [
+                    'room_id'      => $v->room_id,
+                    'room_name'    => $room->room_name,
+                    'room_type_id' => $room->room_type_id
+                ];
+            }
         }
 
 
@@ -218,7 +233,7 @@ Class PageTATO
 
         <style>
             #adminmenuback {
-                display: none;
+                /*display: none;*/
             }
 
             h2 {
@@ -420,7 +435,7 @@ Class PageTATO
                                 <select id="journey_id" name="journey_id" class="select2">
                                     <option value="">--- Select journey ---</option>
                                     <?php if (!empty($edit_journey_info)) {
-                                        echo '<option value="' . $edit_journey_info->journey_id . '" selected>' . $edit_journey_info->journey_code . '</option>';
+                                        echo '<option value="' . $edit_journey_info->ID . '" selected>' . $edit_journey_info->post_title . '</option>';
                                     } ?>
                                 </select>
                             </div>
@@ -545,7 +560,6 @@ Class PageTATO
 
             var $ = jQuery.noConflict();
             $(document).ready(function ($) {
-
 
                 $('#destination').change(function () {
                     loadJourney();
@@ -692,6 +706,18 @@ Class PageTATO
                                             text: v.room_name
                                         }).attr('data-room-type-id', v.room_type_id));
                                     });
+
+
+                                    <?php if (!empty($edit_room)) {
+                                    // Insert room in cart
+                                    foreach ($edit_room as $k => $v)  { ?>
+                                    $('#room').append($('<option/>', {
+                                        value: '<?php echo $v['room_id'] ?>',
+                                        text: '<?php echo $v['room_name'] ?>'
+                                    }).attr('data-room-type-id', <?php echo $v['room_type_id']; ?>).attr('selected', true));
+                                    <?php }
+                                    } ?>
+
 
                                     // Resolve width for select2
                                     $('.select2').select2({width: 'resolve'});
@@ -1023,7 +1049,22 @@ Class PageTATO
 
                 <?php if (!empty($edit_journey_info)) { ?>
 
+                $('#tato_select').val(<?php echo $booking_detail->tato_id; ?>);
+
                 $('#journey_id').trigger('change');
+                $('#tato_select').trigger('change');
+
+                <?php foreach ($booking_detail->cart_detail as $k => $v) {
+                //TODO load room that already book if in editing screen ?>
+
+                $('#room').find('option[value="<?php echo $v->id; ?>"]').attr('selected', true);
+
+                <?php } ?>
+
+                setTimeout(function () {
+                    console.log('change');
+                    $('#room').trigger('change');
+                }, 2000);
 
                 <?php } ?>
 

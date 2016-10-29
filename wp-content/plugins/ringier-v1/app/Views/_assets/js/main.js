@@ -28,6 +28,8 @@ jQuery(document).ready(function ($) {
         slidesToShow: 3,
         arrows: true,
         centerMode: false,
+        autoplay: true,
+        autoplaySpeed: 3000,
         responsive: [
             {
                 breakpoint: 768,

@@ -20,32 +20,32 @@
                         <ul class="social-icon">
                             <li>
                                 <a href="#" title="" target="_blank" rel="nofollow"><img
-                                        src="<?php echo VIEW_URL . '/images/icon-twiter.png?v2' ?>" alt=""></a>
+                                        src="<?php echo VIEW_URL . '/images/icon-twiter.png?v2' ?>" alt="" width="32" style="width: 32px;"></a>
                             </li>
 
                             <li>
                                 <a href="#" title="" target="_blank" rel="nofollow"><img
-                                        src="<?php echo VIEW_URL . '/images/icon-prin.png' ?>" alt=""></a>
+                                        src="<?php echo VIEW_URL . '/images/icon-prin.png' ?>" alt="" width="32" style="width: 32px;"></a>
                             </li>
 
                             <li>
                                 <a href="#" title="" target="_blank" rel="nofollow"><img
-                                        src="<?php echo VIEW_URL . '/images/icon-facebook.png' ?>" alt=""></a>
+                                        src="<?php echo VIEW_URL . '/images/icon-facebook.png' ?>" alt="" width="32" style="width: 32px;"></a>
                             </li>
 
                             <li>
                                 <a href="#" title="" target="_blank" rel="nofollow"><img
-                                        src="<?php echo VIEW_URL . '/images/icon-youtube.png' ?>" alt=""></a>
+                                        src="<?php echo VIEW_URL . '/images/icon-youtube.png' ?>" alt="" width="32" style="width: 32px;"></a>
                             </li>
 
                             <li>
                                 <a href="#" title="" target="_blank" rel="nofollow"><img
-                                        src="<?php echo VIEW_URL . '/images/icon-insta.png' ?>" alt=""></a>
+                                        src="<?php echo VIEW_URL . '/images/icon-insta.png' ?>" alt="" width="32" style="width: 32px;"></a>
                             </li>
 
                             <li>
                                 <a href="#" title="" target="_blank" rel="nofollow"><img
-                                        src="<?php echo VIEW_URL . '/images/icon-google.png?v2' ?>" alt=""></a>
+                                        src="<?php echo VIEW_URL . '/images/icon-google.png?v2' ?>" alt="" width="32" style="width: 32px;"></a>
                             </li>
                         </ul>
                     </div>

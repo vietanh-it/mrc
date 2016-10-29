@@ -2521,5 +2521,14 @@ header .top-bar .top-info li:first-child {
     /*.owl-carousel .owl-buttons{
         display: none;
     }*/
+    .slick-slide .desc{
+        display: none;
+    }
+    .slick-slide.slick-active .desc{
+        display: block;
+    }
+    .slick-dotted.slick-slider{
+        z-index: 9;
+    }
 }
 

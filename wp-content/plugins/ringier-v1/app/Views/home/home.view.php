@@ -140,7 +140,7 @@ get_header();
                     <?php if (!empty($list_journey_type['data'])) {
                         foreach ($list_journey_type['data'] as $v) {
                             ?>
-                            <div class="col-xs-12 col-sm-12 not-padding-mb">
+                            <div class="col-xs-12 col-sm-12 ">
                                 <div class="box-journey">
                                     <div class="image">
                                         <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">

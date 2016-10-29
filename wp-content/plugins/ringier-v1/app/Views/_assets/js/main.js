@@ -22,14 +22,30 @@ jQuery(document).ready(function ($) {
         pagination: false
     });
 
-    $(".list-slide-mb").owlCarousel({
-        autoPlay: 5000,
-        items: 3,
-        itemsDesktop: [1199, 3],
-        itemsDesktopSmall: [760, 3],
-        itemsTablet: [480, 1],
-        navigation: false,
-        pagination: false
+    $(".list-slide-mb").slick({
+        dots: false,
+        infinite: true,
+        slidesToShow: 3,
+        arrows: true,
+        centerMode: false,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: true,
+                    slidesToShow: 3,
+                    centerMode: false
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    slidesToShow: 1
+                }
+            }
+        ]
     });
 
     $(".list-galary").owlCarousel({
@@ -584,6 +600,38 @@ jQuery(document).ready(function ($) {
         obj.css('display','none');
         obj.closest('.ctn-traveller').find('.be-show').css('display','inline-block');
     });
+
+
+
+    var jssor_1_options = {
+        $AutoPlay: true,
+        $SlideWidth: 600,
+        $Cols: 2,
+        $Align: 100,
+        $ArrowNavigatorOptions: {
+            $Class: $JssorArrowNavigator$
+        },
+        $BulletNavigatorOptions: {
+            $Class: $JssorBulletNavigator$
+        }
+    };
+
+    //slider mobile
+    var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+    function ScaleSlider() {
+        var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+        if (refSize) {
+            refSize = Math.min(refSize, 800);
+            jssor_1_slider.$ScaleWidth(refSize);
+        }
+        else {
+            window.setTimeout(ScaleSlider, 30);
+        }
+    }
+    ScaleSlider();
+    $(window).bind("load", ScaleSlider);
+    $(window).bind("resize", ScaleSlider);
+    $(window).bind("orientationchange", ScaleSlider);
 });
 
 function switch_loading(is_loading) {

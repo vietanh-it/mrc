@@ -136,7 +136,7 @@ if (is_single()) {
         <div class="container container-big">
             <div class="row">
                 <div class="col-sm-3 col-xs-12 hide-on-med-and-down">
-                    <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png"
+                    <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png?v=1"
                                                             width="203" style="width: 203px;"></a>
                 </div>
                 <div class="col-sm-7 col-xs-2">
@@ -175,7 +175,7 @@ if (is_single()) {
                     </div>
                 </div>
                 <div class="col-xs-8 hide-on-med-and-up">
-                    <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png" style="margin-top: 10px; width: 203px;"></a>
+                    <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png?v=1" style="margin-top: 10px; width: 203px;"></a>
                 </div>
                 <div class="col-xs-2 hide-on-med-and-up">
                     <a href="#" class="user-mobile" data-toggle="modal" data-target="#modelUser">

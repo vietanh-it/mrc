@@ -551,6 +551,12 @@ class Booking
             case 'tato':
                 $result = 'TA/TO - Wait for deposit';
                 break;
+            case 'tato-deposited':
+                $result = 'TA/TO - Deposited';
+                break;
+            case 'tato-full':
+                $result = 'TA/TO - Full payment';
+                break;
             case 'before-you-go':
                 $result = 'Before you go';
                 break;

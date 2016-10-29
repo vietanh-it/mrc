@@ -28,6 +28,7 @@ function mrcLoad()
     RVN\Hooks\CustomOffer::init();
     RVN\Hooks\CustomShips::init();
     RVN\Hooks\CustomTATO::init();
+    RVN\Hooks\CustomBooking::init();
     RVN\Hooks\Users::init();
     RVN\Hooks\MetaboxAddon::init();
     RVN\Hooks\BoxJourneySeries::init();

@@ -10,10 +10,17 @@ get_header();
 <div class="home-slider" id="home-slider">
     <div class="ctn-slide hide-on-med-and-up">
         <div class="owl-carousel">
-            <div><img src="<?php echo VIEW_URL . '/images/bn1.jpg' ?>" alt=""></div>
-            <div><img src="<?php echo VIEW_URL . '/images/bn2.jpg' ?>" alt=""></div>
-            <div><img src="<?php echo VIEW_URL . '/images/bn3.jpg' ?>" alt=""></div>
-            <div><img src="<?php echo VIEW_URL . '/images/bn4.jpg' ?>" alt=""></div>
+            <?php if (!empty($home_page_info) && !empty($home_page_info->gallery)) {
+                foreach ($home_page_info->gallery as $img) { ?>
+                    <div><img src="<?php echo $img->full ?>" alt=""></div>
+                <?php }
+            }
+            else { ?>
+                <div><img src="<?php echo VIEW_URL . '/images/bn1.jpg' ?>" alt=""></div>
+                <div><img src="<?php echo VIEW_URL . '/images/bn2.jpg' ?>" alt=""></div>
+                <div><img src="<?php echo VIEW_URL . '/images/bn3.jpg' ?>" alt=""></div>
+                <div><img src="<?php echo VIEW_URL . '/images/bn4.jpg' ?>" alt=""></div>
+            <?php } ?>
         </div>
     </div>
     <div class="container">
@@ -79,11 +86,12 @@ get_header();
     </div>
     <div class="ctn-slide hide-on-med-and-down">
         <div class="owl-carousel">
-            <?php if(!empty($home_page_info) && !empty($home_page_info->gallery)){
-                foreach ($home_page_info->gallery as $img){ ?>
+            <?php if (!empty($home_page_info) && !empty($home_page_info->gallery)) {
+                foreach ($home_page_info->gallery as $img) { ?>
                     <div><img src="<?php echo $img->full ?>" alt=""></div>
                 <?php }
-            }else{ ?>
+            }
+            else { ?>
                 <div><img src="<?php echo VIEW_URL . '/images/bn1.jpg' ?>" alt=""></div>
                 <div><img src="<?php echo VIEW_URL . '/images/bn2.jpg' ?>" alt=""></div>
                 <div><img src="<?php echo VIEW_URL . '/images/bn3.jpg' ?>" alt=""></div>
@@ -103,20 +111,25 @@ get_header();
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row list-slide-mb">
                     <?php
-                    if(!empty($list_whyus['data'])){
-                        foreach ($list_whyus['data'] as $k => $p){
+                    if (!empty($list_whyus['data'])) {
+                        foreach ($list_whyus['data'] as $k => $p) {
                             $i = $k + 1;
-                            if($i > 3) $i =3;
+                            if ($i > 3) {
+                                $i = 3;
+                            }
                             ?>
                             <div class="col-xs-12 col-sm-12">
                                 <div class="box-why">
                                     <div class="image">
-                                        <a href="<?php echo $p->permalink ?>" > <img src="<?php echo $p->images->featured ?>" alt="" class="img-main"></a>
-                                        <img src="<?php echo VIEW_URL.'/images/why-'.$i.'.png' ?>" class="img-icon">
+                                        <a href="<?php echo $p->permalink ?>"> <img
+                                                src="<?php echo $p->images->featured ?>" alt="" class="img-main"></a>
+                                        <img src="<?php echo VIEW_URL . '/images/why-' . $i . '.png' ?>"
+                                             class="img-icon">
                                     </div>
                                     <div class="desc">
-                                        <p class="title"><a href="<?php echo $p->permalink ?>" > <?php echo $p->post_title ?></a></p>
-                                        <p><?php echo cut_string_by_char(strip_tags($p->post_content),150) ?></p>
+                                        <p class="title"><a
+                                                href="<?php echo $p->permalink ?>"> <?php echo $p->post_title ?></a></p>
+                                        <p><?php echo cut_string_by_char(strip_tags($p->post_content), 150) ?></p>
                                     </div>
                                 </div>
                             </div>

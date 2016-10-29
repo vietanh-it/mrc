@@ -2406,8 +2406,12 @@ header .top-bar .top-info li:first-child {
     }
 
     .copy-right {
-        text-align: center;
+        text-align: center !important;
         padding-bottom: 30px;
+    }
+
+    .copy-right .text-right {
+        text-align: center;
     }
 
     .form-facybox {

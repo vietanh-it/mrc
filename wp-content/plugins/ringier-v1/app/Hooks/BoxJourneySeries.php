@@ -46,21 +46,21 @@ class BoxJourneySeries
         global $post;
         $objJourneyType = JourneyType::init();
         $objJourney = Journey::init();
-        $list_journey_type = $objJourneyType->getJourneyTypeList(array(
+        $list_journey_type = $objJourneyType->getJourneyTypeList([
             'limit' => 10000,
-        ));
+        ]);
 
         $objJourneySeries = JourneySeries::init();
         $journey_series_info = $objJourneySeries->getJourneySeriesInfo($post->ID);
 
-        if(!empty($journey_series_info->journey_type_id)){
+        if (!empty($journey_series_info->journey_type_id)) {
             $journey_type_info_current = $objJourneyType->getInfo($journey_series_info->journey_type_id);
         }
 
         $list_journey_series = $objJourneySeries->getListJourneySeries();
-        $list_prefix = array();
-        foreach ($list_journey_series as $s){
-            if($s->object_id != $post->ID){
+        $list_prefix = [];
+        foreach ($list_journey_series as $s) {
+            if ($s->object_id != $post->ID) {
                 $list_prefix[] = $s->prefix;
             }
         }
@@ -89,26 +89,30 @@ class BoxJourneySeries
             .form-group {
                 margin: 10px auto;
             }
-            .box-journey-series label{
+
+            .box-journey-series label {
                 font-weight: bold;
             }
-            .box-journey-series input,.box-journey-series select,.box-journey-series textarea{
+
+            .box-journey-series input, .box-journey-series select, .box-journey-series textarea {
                 width: 100%;
                 margin-top: 10px;
                 margin-bottom: 10px;
             }
-            .box-journey-series .single-journey{
+
+            .box-journey-series .single-journey {
                 position: relative;
                 overflow: hidden;
             }
-            .box-journey-series .delete_journey{
+
+            .box-journey-series .delete_journey {
                 position: absolute;
                 top: 10px;
                 right: 10px;
                 font-size: 17px;
             }
 
-            .box-journey-series .edit_journey{
+            .box-journey-series .edit_journey {
                 position: absolute;
                 width: 100%;
                 height: 100%;
@@ -131,21 +135,27 @@ class BoxJourneySeries
                     <label>Journey Type</label>
                     <select name="journey_type" id="journey_type">
                         <option value="">--- Select Journey Type ---</option>
-                        <?php if($list_journey_type['data']){
-                            foreach ($list_journey_type['data'] as $jt){
+                        <?php if ($list_journey_type['data']) {
+                            foreach ($list_journey_type['data'] as $jt) {
                                 ?>
-                                <option value="<?php echo $jt->ID  ?>" data-duration="<?php echo $jt->nights ?>" <?php echo (!empty($journey_series_info->journey_type_id) && $journey_series_info->journey_type_id == $jt->ID) ? 'selected': '' ?>><?php echo $jt->post_title ?></option>
+                                <option value="<?php echo $jt->ID ?>"
+                                        data-duration="<?php echo $jt->nights ?>" <?php echo (!empty($journey_series_info->journey_type_id) && $journey_series_info->journey_type_id == $jt->ID) ? 'selected' : '' ?>><?php echo $jt->post_title ?></option>
                             <?php }
                         } ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Journey Prefix</label>
-                    <input type="text" placeholder="Enter journey prefix" name="prefix" value="<?php echo !empty($journey_series_info->prefix) ? $journey_series_info->prefix : ''  ?>" style="margin-bottom: 0" data-list_prefix='<?php echo json_encode($list_prefix) ?>' autocomplete="off">
+                    <input type="text" placeholder="Enter journey prefix" name="prefix"
+                           value="<?php echo !empty($journey_series_info->prefix) ? $journey_series_info->prefix : '' ?>"
+                           style="margin-bottom: 0" data-list_prefix='<?php echo json_encode($list_prefix) ?>'
+                           autocomplete="off">
                     <p style="color: orangered;display: none" class="error-prefix">Prefix has coincided</p>
                 </div>
                 <div class="form-group">
-                    <b>Journey Duration : </b> <span class="duration" style="font-weight: bold;font-size: 15px"><?php echo (!empty($journey_type_info_current)) ? $journey_type_info_current->nights : 0 ?></span> nights
+                    <b>Journey Duration : </b> <span class="duration"
+                                                     style="font-weight: bold;font-size: 15px"><?php echo (!empty($journey_type_info_current)) ? $journey_type_info_current->nights : 0 ?></span>
+                    nights
                 </div>
             </div>
 
@@ -155,61 +165,84 @@ class BoxJourneySeries
                 <?php
                 $journey_list = $objJourney->getJourneyDetailByJourneySeries($post->ID);
                 $number = 2;
-                if(!empty($journey_list)){
-                    foreach ($journey_list as $kj => $j){
-                        $journey_code = str_replace($journey_series_info->prefix,'',$j->journey_code);
+                if (!empty($journey_list)) {
+                    foreach ($journey_list as $kj => $j) {
+                        $journey_code = str_replace($journey_series_info->prefix, '', $j->journey_code);
+                        if(empty($journey_code)) {
+                            $journey_code = date('ymd');
+                        }
                         //var_dump($journey_code);
                         $number = intval($journey_code) + 1;
                         $class = 'journey-disable';
-                        if($kj == 0){
+                        if ($kj == 0) {
                             $class = 'journey-main';
                         }
                         ?>
                         <div class="single-journey <?php echo $class ?>">
                             <div class="form-group">
                                 <label>Journey Code:</label>
-                                <span style="padding-left: 20px;color: #ccaf0b;font-weight: bold"><span class="prefix"><?php echo !empty($journey_series_info->prefix) ? $journey_series_info->prefix : ''  ?></span><span class="code-number"><?php echo $journey_code ?></span></span>
-                                <input class="journey-code" type="hidden" name="journey-code[]" value="<?php echo $journey_code ?>">
+                                <span style="padding-left: 20px;color: #ccaf0b;font-weight: bold"><span
+                                        class="prefix"><?php echo !empty($journey_series_info->prefix) ? $journey_series_info->prefix : '' ?></span><span
+                                        class="code-number first_code_number"><?php echo $journey_code ?></span></span>
+                                <input class="journey-code" type="hidden" name="journey-code[]"
+                                       value="<?php echo $journey_code ?>">
                             </div>
                             <div class="form-group">
                                 <label>Departure:</label>
-                                <input type="text" class="<?php echo $kj == 0 ? 'datepicker' : '' ?> departure" name="departure[]" placeholder="" value="<?php echo $j->departure ?>">
+                                <input type="text" class="<?php echo $kj == 0 ? 'datepicker' : '' ?> departure first_departure"
+                                       name="departure[]" placeholder="" value="<?php echo $j->departure ?>">
                             </div>
                             <div class="form-group">
                                 <label>Navigation</label>
                                 <select name="navigation[]" class="navigation">
-                                    <?php if($kj == 0){ ?>
-                                        <option value="upstream" <?php echo $j->navigation == 'upstream' ? 'selected' : '' ?>  >Upstream</option>
-                                        <option value="downstream" <?php echo $j->navigation == 'downstream' ? 'selected' : '' ?> >Downstream</option>
-                                    <?php }else{
-                                        if($j->navigation == 'downstream'){ ?>
-                                            <option value="downstream"  >Downstream</option>
-                                        <?php }else{ ?>
-                                            <option value="upstream"  >Upstream</option>
+                                    <?php if ($kj == 0) { ?>
+                                        <option
+                                            value="upstream" <?php echo $j->navigation == 'upstream' ? 'selected' : '' ?> >
+                                            Upstream
+                                        </option>
+                                        <option
+                                            value="downstream" <?php echo $j->navigation == 'downstream' ? 'selected' : '' ?> >
+                                            Downstream
+                                        </option>
+                                    <?php }
+                                    else {
+                                        if ($j->navigation == 'downstream') { ?>
+                                            <option value="downstream">Downstream</option>
+                                        <?php }
+                                        else { ?>
+                                            <option value="upstream">Upstream</option>
                                         <?php }
                                     } ?>
                                 </select>
                             </div>
                             <input type="hidden" name="journey_id[]" value="<?php echo $j->object_id ?>">
 
-                            <?php if($kj == 0){ ?>
-                                <a href="javascript:void(0)" class="edit_journey"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
-                            <?php }else{ ?>
-                                <a href="javascript:void(0)" class="delete_journey" data-journey="<?php echo $j->object_id ?>"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                            <?php if ($kj == 0) { ?>
+                                <a href="javascript:void(0)" class="edit_journey"><i class="fa fa-pencil-square-o"
+                                                                                     aria-hidden="true"></i> Edit</a>
+                            <?php }
+                            else { ?>
+                                <a href="javascript:void(0)" class="delete_journey"
+                                   data-journey="<?php echo $j->object_id ?>"><i class="fa fa-times-circle"
+                                                                                 aria-hidden="true"></i></a>
                             <?php } ?>
                         </div>
                     <?php }
-                }else{
+                }
+                else {
                     ?>
                     <div class="single-journey journey-main journey-main-empty">
                         <div class="form-group">
                             <label>Journey Code:</label>
-                            <span style="padding-left: 20px;color: #ccaf0b;font-weight: bold"><span class="prefix"><?php echo !empty($journey_series_info->prefix) ? $journey_series_info->prefix : ''  ?></span><span class="code-number">01</span></span>
-                            <input class="journey-code" type="hidden" name="journey-code[]" value="1">
+                            <span style="padding-left: 20px;color: #ccaf0b;font-weight: bold"><span
+                                    class="prefix"><?php echo(!empty($journey_series_info->prefix) ? $journey_series_info->prefix . date('ymd') : ''); ?></span><span
+                                    class="code-number first_code_number"></span></span>
+                            <input class="journey-code" type="hidden" name="journey-code[]"
+                                   value="<?php echo(!empty($journey_series_info->prefix) ? $journey_series_info->prefix . date('ymd') : ''); ?>">
                         </div>
                         <div class="form-group">
                             <label>Departure:</label>
-                            <input type="text" class="datepicker departure" name="departure[]" placeholder="">
+                            <input type="text" class="datepicker departure first_departure" name="departure[]" placeholder="">
                         </div>
                         <div class="form-group">
                             <label>Navigation</label>
@@ -227,31 +260,37 @@ class BoxJourneySeries
 
             </div>
 
-            <button class="btn-add-new-item button button-primary button-large" style="margin-top: 20px;" data-number="<?php echo $number ?>" data-prefix="<?php echo !empty($journey_series_info->prefix) ? $journey_series_info->prefix : ''  ?>">Add new Journey</button>
+            <button class="btn-add-new-item button button-primary button-large" style="margin-top: 20px;"
+                    data-number="<?php echo $number ?>"
+                    data-prefix="<?php echo !empty($journey_series_info->prefix) ? $journey_series_info->prefix : '' ?>">
+                Add new Journey
+            </button>
 
         </div>
         <script>
             var $ = jQuery.noConflict();
             var ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
             $(document).ready(function () {
-                $(document).delegate(".edit_journey", "click", function() {
+                $(document).delegate(".edit_journey", "click", function () {
                     var obj = $(this);
-                    swal({   title: "Are you sure edit main journey?",
-                        text: "When you edit the main journey, the journey will be lost!",
-                        type: "warning",   showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, edit it!",
-                        closeOnConfirm: false },
-                        function(){
+                    swal({
+                            title: "Are you sure edit main journey?",
+                            text: "When you edit the main journey, the journey will be lost!",
+                            type: "warning", showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, edit it!",
+                            closeOnConfirm: false
+                        },
+                        function () {
                             obj.closest('.journey-main').addClass('journey-main-empty');
                             $('.journey-disable .delete_journey').click();
                             obj.remove();
-                            $('.btn-add-new-item').attr('data-number',2);
+                            $('.btn-add-new-item').attr('data-number', 2);
                             swal.close();
                         });
                 });
 
-                $('.single-journey input,select').attr('readonly',true);
+                $('.single-journey input,select').attr('readonly', true);
 
                 $('.btn-add-new-item').on('click', function (e) {
                     e.preventDefault();
@@ -262,16 +301,16 @@ class BoxJourneySeries
                     var navigation = $('.navigation:last').val();
                     var departure = $('.departure:last').val();
 
-                    var  duration = $('.duration').text();
-                    if(journey_type == ''){
+                    var duration = $('.duration').text();
+                    if (journey_type == '') {
                         alert('Please select journey type');
-                    }else {
-                        if(prefix == ''){
+                    } else {
+                        if (prefix == '') {
                             alert('Please enter prefix');
-                        }else {
-                            if(departure == ''){
+                        } else {
+                            if (departure == '') {
                                 alert('Please select departure');
-                            }else {
+                            } else {
                                 $.ajax({
                                     url: ajax_url,
                                     type: 'post',
@@ -284,9 +323,9 @@ class BoxJourneySeries
                                     },
                                     success: function (data) {
                                         var new_departure = '';
-                                        if(data){
+                                        if (data) {
                                             new_departure = data.date;
-                                            var html = singleJourneySeries(prefix,data.raw_date,navigation,new_departure);
+                                            var html = singleJourneySeries(prefix, data.raw_date, navigation, new_departure);
                                             $('.item-wrapper').append(html);
 
                                             $('.journey-main-empty').append('<a href="javascript:void(0)" class="edit_journey"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>');
@@ -294,25 +333,30 @@ class BoxJourneySeries
                                         }
                                     }
                                 });
-                                $(this).attr('data-number',(parseInt(number) + 1));
+                                $(this).attr('data-number', (parseInt(number) + 1));
                             }
                         }
                     }
                 });
 
-                $(document).delegate(".delete_journey", "click", function() {
+                $(document).delegate(".delete_journey", "click", function () {
                     var obj = $(this);
                     var journey_id = obj.attr('data-journey');
-                    if(journey_id != 0){
-                        $('.list-journey-remove').append('<input type="hidden" name="journey_remove[]" value="'+journey_id+'">');
+                    if (journey_id != 0) {
+                        $('.list-journey-remove').append('<input type="hidden" name="journey_remove[]" value="' + journey_id + '">');
                     }
                     obj.closest('.single-journey').remove();
                 });
-                $(document).delegate(".datepicker", "hover", function() {
+                $(document).delegate(".datepicker", "hover", function () {
                     $(this).datepicker({
                         changeYear: true,
                         dateFormat: 'yy-mm-dd'
                     });
+                });
+
+                $('.first_departure').on('change', function () {
+                    var date = $.datepicker.formatDate('ymd', new Date($('.first_departure').val()));
+                    $('.first_code_number').html(date);
                 });
 
                 $('#journey_type').change(function () {
@@ -321,27 +365,27 @@ class BoxJourneySeries
                     $('.duration').text(duration);
                 });
 
-                $(document).delegate("input[name='prefix']", "keyup change", function() {
+                $(document).delegate("input[name='prefix']", "keyup change", function () {
                     var obj = $(this);
                     var prefix = obj.val();
                     var list_prefix = obj.attr('data-list_prefix');
 
                     var is_prefix_true = true;
 
-                    if(list_prefix){
+                    if (list_prefix) {
                         list_prefix = JSON.parse(list_prefix);
-                        var in_arr = $.inArray( prefix, list_prefix );
-                        if(in_arr != -1){
+                        var in_arr = $.inArray(prefix, list_prefix);
+                        if (in_arr != -1) {
                             is_prefix_true = false;
                         }
                     }
 
-                    if(is_prefix_true){
+                    if (is_prefix_true) {
                         $('.prefix').text(prefix);
-                        $('.btn-add-new-item').attr('data-prefix',prefix);
+                        $('.btn-add-new-item').attr('data-prefix', prefix);
                         $('.error-prefix').fadeOut();
                     }
-                    else{
+                    else {
                         $('.error-prefix').fadeIn();
                     }
 
@@ -349,30 +393,30 @@ class BoxJourneySeries
 
             });
 
-            function singleJourneySeries(prefix,number,navigation,departure) {
-                var  text_number = number;
+            function singleJourneySeries(prefix, number, navigation, departure) {
+                var text_number = number;
                 var html = '';
 
                 html += '<div class="single-journey journey-disable">' +
                     '<div class="form-group">' +
                     '<label>Journey Code:</label>' +
-                    '<span style="padding-left: 20px;color: #ccaf0b;font-weight: bold"><span class="prefix">'+prefix+'</span><span class="code-number">'+text_number+'</span></span> ' +
-                    '<input class="journey-code" type="hidden" name="journey-code[]" value="'+number+'">' +
+                    '<span style="padding-left: 20px;color: #ccaf0b;font-weight: bold"><span class="prefix">' + prefix + '</span><span class="code-number">' + text_number + '</span></span> ' +
+                    '<input class="journey-code" type="hidden" name="journey-code[]" value="' + number + '">' +
                     '</div>' +
                     '<div class="form-group">' +
                     '<label>Departure:</label>' +
-                    '<input type="text" class="departure" readonly name="departure[]" placeholder="" value="'+departure+'">' +
+                    '<input type="text" class="departure" readonly name="departure[]" placeholder="" value="' + departure + '">' +
                     '</div>' +
                     '<div class="form-group">' +
                     '<label>Navigation</label>' +
-                    '<select name="navigation[]" class="navigation">' ;
-                if(navigation == 'upstream'){
-                    html += '<option value="downstream" selected>Downstream</option>' ;
-                }else {
-                    html += '<option value="upstream" selected>Upstream</option>' ;
+                    '<select name="navigation[]" class="navigation">';
+                if (navigation == 'upstream') {
+                    html += '<option value="downstream" selected>Downstream</option>';
+                } else {
+                    html += '<option value="upstream" selected>Upstream</option>';
                 }
 
-                html +='</select>' +
+                html += '</select>' +
                     '</div>' +
                     '<input type="hidden" name="journey_id[]" value="0">' +
                     '<a href="javascript:void(0)" class="delete_journey" data-journey="0"><i class="fa fa-times-circle" aria-hidden="true"></i></a>' +
@@ -389,49 +433,49 @@ class BoxJourneySeries
     public function save()
     {
         global $post;
-        if(!empty($post) && $post->post_type == 'journey_series') {
-            if(!empty($_POST['prefix']) && !empty($_POST['journey_type'])) {
+        if (!empty($post) && $post->post_type == 'journey_series') {
+            if (!empty($_POST['prefix']) && !empty($_POST['journey_type'])) {
                 $objJourneySeries = JourneySeries::init();
                 $objJourney = Journey::init();
-                $data_journey_series_info = array(
-                    'object_id' => $_POST['post_ID'],
+                $data_journey_series_info = [
+                    'object_id'       => $_POST['post_ID'],
                     'journey_type_id' => $_POST['journey_type'],
-                    'prefix' => $_POST['prefix'],
-                );
+                    'prefix'          => $_POST['prefix'],
+                ];
                 $objJourneySeries->saveJourneySeriesInfo($data_journey_series_info);
                 $journey_type = get_post($_POST['journey_type']);
 
 
-                if(!empty($_POST['journey-code'])){
+                if (!empty($_POST['journey-code'])) {
                     $objJourney->deleteJourneyDetail($_POST['post_ID']);
-                    if(!empty($_POST['journey_remove']) && is_array($_POST['journey_remove'])){
-                        foreach ($_POST['journey_remove'] as $jr){
+                    if (!empty($_POST['journey_remove']) && is_array($_POST['journey_remove'])) {
+                        foreach ($_POST['journey_remove'] as $jr) {
                             $objJourney->deleteJourney($jr);
                         }
                     }
-                    foreach ($_POST['journey-code'] as $k => $code){
+                    foreach ($_POST['journey-code'] as $k => $code) {
                         $journey_id = $_POST['journey_id'][$k];
 
-                        if($journey_id == 0){
-                            $args_post = array(
-                                'post_title' => $_POST['prefix'].$code .' - '.$journey_type->post_title,
+                        if ($journey_id == 0) {
+                            $args_post = [
+                                'post_title'  => $_POST['prefix'] . $code . ' - ' . $journey_type->post_title,
                                 'post_author' => get_current_user_id(),
                                 'post_status' => 'publish',
-                                'post_type' => 'journey',
-                                'post_date' => current_time('mysql')
-                            );
+                                'post_type'   => 'journey',
+                                'post_date'   => current_time('mysql')
+                            ];
                             remove_action('save_post', [$this, 'save']);
                             $journey_id = $objJourney->insertJourney($args_post);
                             add_action('save_post', [$this, 'save']);
                         }
 
-                        $argc = array(
-                            'object_id' =>$journey_id,
-                            'journey_series_id' =>$_POST['post_ID'],
-                            'journey_code' => $_POST['prefix'].$code,
-                            'departure' => $_POST['departure'][$k],
-                            'navigation' =>$_POST['navigation'][$k],
-                        );
+                        $argc = [
+                            'object_id'         => $journey_id,
+                            'journey_series_id' => $_POST['post_ID'],
+                            'journey_code'      => $_POST['prefix'] . $code,
+                            'departure'         => $_POST['departure'][$k],
+                            'navigation'        => $_POST['navigation'][$k],
+                        ];
 
                         $objJourney->insertJourneyDetail($argc);
                     }

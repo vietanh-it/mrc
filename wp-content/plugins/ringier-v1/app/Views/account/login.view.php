@@ -24,14 +24,14 @@ Theme My Login will always look in your theme's directory first, before using th
                 <p style="margin: 25px 0 17px;color: black;font-size: 17px;text-align: center;font-family: 'Playfair Display', serif;">
                     Sign In with</p>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6">
+                    <div class="col-xs-6 col-sm-6">
                         <a href="javascript:void(0)" onclick="login_fb()" title="Login with facebook">
-                            <img src="<?php echo VIEW_URL . '/images/login-facebook.png' ?>" alt="">
+                            <img src="<?php echo VIEW_URL . '/images/login-facebook.png' ?>" alt="" style="max-width: 145px;">
                         </a>
                     </div>
-                    <div class="col-xs-12 col-sm-6" style="text-align: right">
+                    <div class="col-xs-6 col-sm-6" style="text-align: right">
                         <a href="javascript:void(0)" title="Login with google" class="google-plus-signin">
-                            <img src="<?php echo VIEW_URL . '/images/glogin.png' ?>" alt="">
+                            <img src="<?php echo VIEW_URL . '/images/glogin.png' ?>" alt="" style="max-width: 145px;">
                         </a>
                     </div>
                 </div>

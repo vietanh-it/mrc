@@ -65,4 +65,9 @@ if (!empty($journey_id)) {
         </div>
     </div>
 
+    <div class="bottom-fixed-mobile">
+        <span class="total-price">Total: US$<span
+                class="booking-total"><?php echo number_format($cart_detail['total']); ?></span></span>
+    </div>
+
 <?php } ?>

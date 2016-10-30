@@ -285,8 +285,8 @@ class BoxJourneySeries
                                     success: function (data) {
                                         var new_departure = '';
                                         if(data){
-                                            new_departure = data;
-                                            var html = singleJourneySeries(prefix,number,navigation,new_departure);
+                                            new_departure = data.date;
+                                            var html = singleJourneySeries(prefix,data.raw_date,navigation,new_departure);
                                             $('.item-wrapper').append(html);
 
                                             $('.journey-main-empty').append('<a href="javascript:void(0)" class="edit_journey"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>');

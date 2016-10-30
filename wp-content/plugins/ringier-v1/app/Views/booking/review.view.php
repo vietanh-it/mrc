@@ -85,7 +85,8 @@ global $post;
                                     <tr>
                                         <td><?php echo $room_info->room_type_name . ' ' . $room_size . ' - Room ' . $room_info->room_name; ?></td>
                                         <td><?php echo $quantity; ?></td>
-                                        <td class="text-right color-main">US$<?php echo number_format($v->total); ?></td>
+                                        <td class="text-right color-main">
+                                            US$<?php echo number_format($v->total); ?></td>
                                     </tr>
 
                                 <?php }
@@ -93,7 +94,8 @@ global $post;
 
                             <tr>
                                 <td colspan="3" class="text-right">
-                                    <b>Total:<span class="color-main" style="font-size: 17px"> US$<?php echo number_format($stateroom_total); ?></span></b>
+                                    <b>Total:<span class="color-main"
+                                                   style="font-size: 17px"> US$<?php echo number_format($stateroom_total); ?></span></b>
                                 </td>
                             </tr>
 
@@ -125,7 +127,8 @@ global $post;
                                             <td>
                                                 <?php echo $value->quantity; ?>
                                             </td>
-                                            <td class="text-right color-main">US$<?php echo number_format($value->total); ?></td>
+                                            <td class="text-right color-main">
+                                                US$<?php echo number_format($value->total); ?></td>
                                         </tr>
 
                                     <?php }
@@ -135,17 +138,20 @@ global $post;
                             <!--<----- >-->
                             <tr>
                                 <td colspan="3" class="text-right">
-                                    <b>Total:<span class="color-main" style="font-size: 17px"> US$<?php echo number_format($addon_total); ?></span></b>
+                                    <b>Total:<span class="color-main"
+                                                   style="font-size: 17px"> US$<?php echo number_format($addon_total); ?></span></b>
                                 </td>
                             </tr>
                             <tr style="background: #d5b76e">
                                 <td colspan="3" class="text-right">
-                                    Grand Total:<b><span style="font-size: 17px;color: white">  US$<?php echo number_format($stateroom_total + $addon_total); ?></span></b>
+                                    Grand Total:<b><span
+                                            style="font-size: 17px;color: white">  US$<?php echo number_format($stateroom_total + $addon_total); ?></span></b>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right">
-                                    <b style="color: #e4a611">Deposit Due: US$<?php echo number_format($stateroom_total + $addon_total); ?></b>
+                                    <b style="color: #e4a611">Deposit Due:
+                                        US$<?php echo number_format($stateroom_total + $addon_total); ?></b>
                                 </td>
                             </tr>
                             </tbody>
@@ -161,7 +167,8 @@ global $post;
                                 <p class="b-addr-showing"></p>
                                 <div class="b-addr-hidden">
                                     <input type="text" name="billing_address" id="billing_address" class="form-control">
-                                    <a href="javascript:void(0)" class="btn btn-main btn-change-bill-addr" style="margin-top: 15px;">Confirm</a>
+                                    <a href="javascript:void(0)" class="btn btn-main btn-change-bill-addr"
+                                       style="margin-top: 15px;">Confirm</a>
                                 </div>
                             </div>
 
@@ -176,11 +183,13 @@ global $post;
                             <label class="title" style="margin: 30px 0 10px">
                                 <b>Additional information</b>
                             </label>
-                            <textarea class="form-control" rows="5" name="comment" id="additional_information" placeholder="Additional information"></textarea>
+                            <textarea class="form-control" rows="5" name="comment" id="additional_information"
+                                      placeholder="Additional information"></textarea>
 
                             <div class="checkbox">
                                 <label>
-                                    <a href="<?php echo WP_SITEURL . '/terms-of-use'; ?>" style="color: #333333;" target="_blank"> I have read and agree to the terms & conditions</a>
+                                    <a href="<?php echo WP_SITEURL . '/terms-of-use'; ?>" style="color: #333333;"
+                                       target="_blank"> I have read and agree to the terms & conditions</a>
                                     <input id="agree_terms" type="checkbox" value="1">
                                 </label>
                             </div>
@@ -189,12 +198,18 @@ global $post;
                                 <?php $url = strtok($_SERVER["REQUEST_URI"], '?'); ?>
 
                                 <a href="<?php echo $url . '?step=services-addons' ?>" class="back">Back</a>
-                                <a href="<?php echo $url . '?step=process&payment_type=credit_card' ?>" class="btn-main btn-pay">Pay Deposit</a>
+                                <a href="<?php echo $url . '?step=process&payment_type=credit_card' ?>"
+                                   class="btn-main btn-pay">Pay Deposit</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <?php
+                $m_user = \RVN\Models\Users::init();
+                $user_info = $m_user->getUserInfo(get_current_user_id());
+                var_dump($user_info);
+                ?>
                 <input type="hidden" name="billing_address" value="">
             </form>
         </div>

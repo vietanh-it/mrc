@@ -32,7 +32,8 @@ class JourneySeriesController extends _BaseController
     {
         $result = '';
         if (!empty($data['departure']) && !empty($data['duration'])) {
-            $result = date('Y-m-d', strtotime($data['departure']) + intval($data['duration']) * 24 * 60 * 60);
+            $result['date'] = date('Y-m-d', strtotime($data['departure']) + intval($data['duration']) * 24 * 60 * 60);
+            $result['raw_date'] = date('ymd', strtotime($data['departure']) + intval($data['duration']) * 24 * 60 * 60);
         }
 
         return $result;

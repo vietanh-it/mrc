@@ -28,7 +28,7 @@ if (!empty($journey_type_info)) { ?>
                     </ul>
                     <a href="javascript:void(0)" class="btn-show-journey"
                        data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
-                    <span>from US$<span class="price-if"><?php echo number_format($min_price) ?></span> pp</span>
+                    <span>from US$<span class="price-if"><?php echo number_format($min_price) ?></span> per person</span>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@ if (!empty($journey_type_info)) { ?>
                                 <th>Departure date</th>
                                 <th>From - to</th>
                                 <th>Ship</th>
-                                <th>
+                                <th style="display: none;">
                                     <a href="javascript:void(0)" class="order-navigation active" data-navigation="all">All</a>
                                     |
                                     <a href="javascript:void(0)" class="order-navigation" data-navigation="upstream">Upstream</a>
@@ -100,7 +100,7 @@ if (!empty($journey_type_info)) { ?>
                                             </a>
                                         </td>
 
-                                        <td> <?php echo $v->navigation; ?></td>
+                                        <td style="display: none;"> <?php echo $v->navigation; ?></td>
 
                                         <td> from
 

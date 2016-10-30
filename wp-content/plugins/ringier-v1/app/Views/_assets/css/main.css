@@ -1547,6 +1547,21 @@ footer ul li {
     color: #252525;
 }
 
+.btn-ship-detail-list {
+    position: absolute;
+    top: 486px;
+    z-index: 99;
+    left: 650px;
+    background: rgba(231, 176, 48, 0.92);
+    padding: 10px 20px;
+    color: #ffffff;
+    border-radius: 0 5px 5px 0;
+}
+
+.btn-ship-detail-list a {
+    color: #ffffff;
+}
+
 .journey-detail .featured-image-2 {
     max-height: 430px;
     margin-bottom: 150px;

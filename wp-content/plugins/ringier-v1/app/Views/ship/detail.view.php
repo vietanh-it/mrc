@@ -14,7 +14,7 @@ get_header();
                     <?php echo apply_filters('the_content',$ship_detail->basic_specs) ?>
                 </div>
 
-                <div class="btn-list">
+                <div class="btn-ship-detail-list">
                     <a href="<?php echo WP_SITEURL; ?>/journeys?_destination=&_month=&_port=&_ship=<?php echo $ship_detail->post_name; ?>">
                         See journeys of this ship
                     </a>

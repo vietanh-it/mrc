@@ -113,6 +113,19 @@ class CustomBooking
             if (!empty($_POST['booking_status'])) {
                 $m_booking = Booking::init();
                 $m_booking->changeBookingStatus($post->ID, $_POST['booking_status']);
+
+                if ($_POST['booking_status'] == 'finished') {
+                    $booking_detail = $m_booking->getBookingDetail($post->ID);
+                    $user = get_user_by('ID', $booking_detail->user_id);
+
+                    $args = [
+                        'first_name' => $user->data->display_name,
+                        'review_url' => 'https://www.tripadvisor.com/'
+                    ];
+                    sendEmailHTML($user->data->user_email, 'Thank you for going with us',
+                        'normal_user/thank_you_email.html', $args);
+                }
+
             }
         }
 

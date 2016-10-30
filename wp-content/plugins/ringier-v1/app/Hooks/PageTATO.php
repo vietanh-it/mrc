@@ -75,7 +75,7 @@ Class PageTATO
                 remove_meta_box('wpseo_meta', 'booking', 'normal');
             }
             elseif (!empty($booking->is_tato)) {
-                add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
+                // add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
             }
         }
 

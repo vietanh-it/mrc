@@ -66,10 +66,10 @@ Class PageTATO
 
 
         if ($current_post_type == 'booking') {
-            add_meta_box('tato-select', 'TA/TO', [$this, 'tatoSelect'], 'booking', 'side', 'high');
 
             if (isset($_GET['type']) && $_GET['type'] == 'tato') {
                 add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
+                add_meta_box('tato-select', 'TA/TO', [$this, 'tatoSelect'], 'booking', 'side', 'high');
 
                 remove_meta_box('submitdiv', 'booking', 'side');
                 remove_meta_box('wpseo_meta', 'booking', 'normal');

@@ -398,4 +398,27 @@ class Addon
         return $result;
     }
 
+
+    public function getAddonInfo($addon_id, $addon_option_id = 0)
+    {
+        $result = [];
+
+        $query = "SELECT * FROM {$this->_wpdb->posts} p INNER JOIN {$this->_tbl_tour_info} ti ON p.ID = ti.object_id WHERE ti.object_id = {$addon_id}";
+        $object = $this->_wpdb->get_row($query);
+        $result['name'] = $object->post_title;
+
+        if ($object->type == 'addon' && !empty($addon_option_id)) {
+            $query = "SELECT option_name FROM {$this->_tbl_addon_options} WHERE object_id = {$addon_id} AND id = {$addon_option_id}";
+            $result['extra_name'] = $this->_wpdb->get_var($query);
+        }
+        elseif ($object->type == 'pre-tour') {
+            $result['extra_name'] = 'Pre-tour';
+        }
+        elseif ($object->type == 'post-tour') {
+            $result['extra_name'] = 'Post-tour';
+        }
+
+        return (object)$result;
+    }
+
 }

@@ -19,7 +19,7 @@ add_action('after_setup_theme', 'r_theme_setup');
 
 function r_scripts_styles()
 {
-    $version = '20160116_1205';
+    $version = '20160116_1206';
 
     wp_enqueue_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
     wp_enqueue_style('jquery-ui', 'https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css');
@@ -31,6 +31,7 @@ function r_scripts_styles()
     wp_enqueue_style('timepicker-css', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css');
     wp_enqueue_style('slick-css', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
     wp_enqueue_style('slick-theme-css', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css');
+    wp_enqueue_style('custom-scroll-css', VIEW_URL . '/js/mcustom-scroll/jquery.mCustomScrollbar.min.css');
 
 
     wp_enqueue_style('animate-css', VIEW_URL . '/css/animate.css', array(), '2.0');
@@ -53,6 +54,7 @@ function r_scripts_styles()
     wp_enqueue_script('timepicker', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.js', array(), false, true);
     //wp_enqueue_script('jquery-cycle', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle/3.0.3/jquery.cycle.all.min.js', array(), false, true);
     wp_enqueue_script('jquery-MonthPicker', VIEW_URL . '/js/MonthPicker.min.js', array(), '3.0', true);
+    wp_enqueue_script('jquery-custom-scroll', VIEW_URL . '/js/mcustom-scroll/jquery.mCustomScrollbar.concat.min.js', array(), '3.0', true);
 
     wp_enqueue_script('my-app-ext', VIEW_URL . '/js/main.js', array('jquery'), $version, true);
     wp_localize_script('my-app-ext', 'MyAjax', array('ajax_url' => admin_url('admin-ajax.php') ,'app_fb_id' => FACEBOOK_APP_ID ));

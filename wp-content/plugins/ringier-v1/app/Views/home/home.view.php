@@ -54,9 +54,11 @@ get_header();
                     <select name="_port" class="form-control select-2">
                         <option value="">Choose port of departure</option>
                         <?php if (!empty($list_port)) {
-                            foreach ($list_port as $v) { ?>
-                                <option value="<?php echo $v->post_name ?>"> <?php echo $v->post_title ?></option>
-                            <?php }
+                            foreach ($list_port as $v) {
+                                if (!empty($v->post_name) && !empty($v->post_title)) { ?>
+                                    <option value="<?php echo $v->post_name ?>"> <?php echo $v->post_title ?></option>
+                                <?php }
+                            }
                         } ?>
                     </select>
                     <span class="icon-n icon-port"></span>
@@ -340,3 +342,40 @@ get_header();
 
 
 <?php get_footer() ?>
+
+<script>
+    var $ = jQuery.noConflict();
+    $(document).ready(function () {
+        var jssor_1_options = {
+            $AutoPlay: true,
+            $SlideWidth: 600,
+            $Cols: 2,
+            $Align: 100,
+            $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$
+            },
+            $BulletNavigatorOptions: {
+                $Class: $JssorBulletNavigator$
+            }
+        };
+
+        //slider mobile
+        var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+        function ScaleSlider() {
+            var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+            if (refSize) {
+                refSize = Math.min(refSize, 800);
+                jssor_1_slider.$ScaleWidth(refSize);
+            }
+            else {
+                window.setTimeout(ScaleSlider, 30);
+            }
+        }
+
+        ScaleSlider();
+        $(window).bind("load", ScaleSlider);
+        $(window).bind("resize", ScaleSlider);
+        $(window).bind("orientationchange", ScaleSlider);
+    });
+</script>

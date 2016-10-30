@@ -47,7 +47,9 @@ class Ports
         if (!empty($ports)) {
             foreach ($ports as $k => $v) {
                 $info = get_post($v->port_id);
-                $info->permalink = get_permalink($info);
+                if (!empty($info)) {
+                    $info->permalink = get_permalink($info);
+                }
                 $result[$v->port_id] = $info;
             }
         }

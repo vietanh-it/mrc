@@ -6,12 +6,18 @@ get_header();
     <div class="container container-big">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <div class="info-ship">
+                <div class="info-ship mCustomScrollbar">
                     <?php echo strip_tags($ship_detail->post_content) ?>
                 </div>
 
                 <div class="info-basic">
                     <?php echo apply_filters('the_content',$ship_detail->basic_specs) ?>
+                </div>
+
+                <div class="btn-list">
+                    <a href="<?php echo WP_SITEURL; ?>/journeys?_destination=&_month=&_port=&_ship=<?php echo $ship_detail->post_name; ?>">
+                        See journeys of this ship
+                    </a>
                 </div>
             </div>
         </div>
@@ -148,3 +154,10 @@ get_header();
     </div>
 </div>
 <?php get_footer() ?>
+
+<script>
+    var $ = jQuery.noConflict();
+    $(document).ready(function () {
+        $('.info-ship').mCustomScrollbar();
+    });
+</script>

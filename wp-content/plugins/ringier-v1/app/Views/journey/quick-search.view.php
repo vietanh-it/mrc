@@ -13,7 +13,7 @@ $list_month = $objJourney->getMonth();
 
 
 $destination = !empty($_GET['_destination']) ? $_GET['_destination'] : '';
-$ship = !empty($_GET['_destination']) ? $_GET['_ship'] : '';
+$ship = !empty($_GET['_ship']) ? $_GET['_ship'] : '';
 $port = !empty($_GET['_port']) ? $_GET['_port'] : '';
 $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
 
@@ -31,9 +31,10 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                             <div class="form-group">
                                 <select name="_destination" class="form-control select-2">
                                     <option value="">Choose your destination</option>
-                                    <?php if($list_destination){
-                                        foreach ($list_destination as $v){ ?>
-                                            <option value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $destination ? 'selected': '' ?>> <?php echo $v->post_title ?></option>
+                                    <?php if ($list_destination) {
+                                        foreach ($list_destination as $v) { ?>
+                                            <option
+                                                value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $destination ? 'selected' : '' ?>> <?php echo $v->post_title ?></option>
                                         <?php }
                                     } ?>
                                 </select>
@@ -42,12 +43,13 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="form-group">
-                                <!--<input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month" value="<?php /*echo $month */?>">-->
+                                <!--<input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month" value="<?php /*echo $month */ ?>">-->
                                 <select name="_month" class="form-control select-2">
                                     <option value="">Choose sail month</option>
-                                    <?php if($list_month){
-                                        foreach ($list_month as $v){ ?>
-                                            <option value="<?php echo $v->month ?>" <?php echo $v->month == $month ? 'selected': '' ?>> <?php echo $v->month ?></option>
+                                    <?php if ($list_month) {
+                                        foreach ($list_month as $v) { ?>
+                                            <option
+                                                value="<?php echo $v->month ?>" <?php echo $v->month == $month ? 'selected' : '' ?>> <?php echo $v->month ?></option>
                                         <?php }
                                     } ?>
                                 </select>
@@ -59,10 +61,13 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                             <div class="form-group">
                                 <select name="_port" class="form-control select-2">
                                     <option value="">Choose port of departure</option>
-                                    <?php if($list_port){
-                                        foreach ($list_port as $v){ ?>
-                                            <option value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $port ? 'selected': '' ?>> <?php echo $v->post_title ?></option>
-                                        <?php }
+                                    <?php if ($list_port) {
+                                        foreach ($list_port as $v) {
+                                            if (!empty($v->post_name) && !empty($v->post_title)) { ?>
+                                                <option
+                                                    value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $port ? 'selected' : '' ?>> <?php echo $v->post_title ?></option>
+                                            <?php }
+                                        }
                                     } ?>
                                 </select>
                                 <span class="icon-n icon-port"></span>
@@ -73,9 +78,10 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                             <div class="form-group">
                                 <select name="_ship" class="form-control select-2">
                                     <option value="">Choose your ship</option>
-                                    <?php if($list_ship['data']){
-                                        foreach ($list_ship['data'] as $v){ ?>
-                                            <option value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $ship ? 'selected': '' ?>> <?php echo $v->post_title ?></option>
+                                    <?php if ($list_ship['data']) {
+                                        foreach ($list_ship['data'] as $v) { ?>
+                                            <option
+                                                value="<?php echo $v->post_name ?>" <?php echo $v->post_name == $ship ? 'selected' : '' ?>> <?php echo $v->post_title ?></option>
                                         <?php }
                                     } ?>
                                 </select>
@@ -87,7 +93,7 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
 
                 <div class="col-xs-12 col-sm-2">
                     <div class="text-right">
-                        <button type="submit"> <i class="fa fa-search" aria-hidden="true"></i> Find now</button>
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i> Find now</button>
                     </div>
                 </div>
             </div>

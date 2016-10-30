@@ -4,6 +4,7 @@ namespace RVN\Hooks;
 use RVN\Controllers\ShipController;
 use RVN\Models\Addon;
 use RVN\Models\Booking;
+use RVN\Models\Journey;
 use RVN\Models\JourneyType;
 use RVN\Models\Location;
 use RVN\Models\Posts;
@@ -41,9 +42,11 @@ class CustomBooking
 
     public function metabox()
     {
-        add_meta_box('switch_booking', 'Change Booking Status', [$this, 'show'], 'booking', 'normal', 'high');
-        add_meta_box('booking_info', 'Booking Information', [$this, 'showInfo'], 'booking', 'normal', 'high');
-        remove_meta_box('submitdiv', 'booking', 'side');
+        if (empty($_GET['type'])) {
+            add_meta_box('switch_booking', 'Change Booking Status', [$this, 'show'], 'booking', 'normal', 'high');
+            add_meta_box('booking_info', 'Booking Information', [$this, 'showInfo'], 'booking', 'normal', 'high');
+            remove_meta_box('submitdiv', 'booking', 'side');
+        }
     }
 
 
@@ -55,15 +58,31 @@ class CustomBooking
         $m_location = Location::init();
         $m_ship = Ships::init();
         $m_addon = Addon::init();
+        $m_journey = Journey::init();
 
         $booking_detail = $m_booking->getBookingDetail($post->ID);
         $user_info = $m_user->getUserInfo($booking_detail->user_id);
-        // var_dump($booking_detail);
+        $journey_info = $m_journey->getInfo($booking_detail->journey_id);
         $country = $m_location->getCountryName($user_info->country);
         ?>
 
         <section>
             <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h3>Journey Info</h3>
+                    <div>
+                        Journey name: <b><?php echo $journey_info->post_title; ?></b> <br/><br/>
+                        Departure date: <b><?php echo $journey_info->departure_fm; ?></b> <br/><br/>
+                        Duration: <b><?php echo $journey_info->journey_type_info->duration; ?></b> <br/><br/>
+                        Starting point: <b><?php echo $journey_info->journey_type_info->starting_point; ?></b>
+                        <br/><br/>
+                        Destination:
+                        <b><?php echo $journey_info->journey_type_info->destination_info->post_title; ?></b> <br/><br/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="border-top: 1px dashed #dddddd;">
                 <div class="col-xs-6">
                     <h3>Customer info</h3>
                     <div class="col-xs-12">
@@ -212,17 +231,36 @@ class CustomBooking
             if (!empty($_POST['booking_status'])) {
                 $m_booking = Booking::init();
                 $m_booking->changeBookingStatus($post->ID, $_POST['booking_status']);
+                $booking_detail = $m_booking->getBookingDetail($post->ID);
+                $user = get_user_by('ID', $booking_detail->user_id);
 
-                if ($_POST['booking_status'] == 'finished') {
-                    $booking_detail = $m_booking->getBookingDetail($post->ID);
-                    $user = get_user_by('ID', $booking_detail->user_id);
-
-                    $args = [
-                        'first_name' => $user->data->display_name,
-                        'review_url' => 'https://www.tripadvisor.com/'
-                    ];
-                    sendEmailHTML($user->data->user_email, 'Thank you for going with us',
-                        'normal_user/thank_you_email.html', $args);
+                switch ($_POST['booking_status']) {
+                    case 'finished':
+                        $args = [
+                            'first_name' => $user->data->display_name,
+                            'review_url' => 'https://www.tripadvisor.com/'
+                        ];
+                        sendEmailHTML($user->data->user_email, 'Thank you for going with us',
+                            'normal_user/thank_you_email.html', $args);
+                        break;
+                    case 'tato-deposited':
+                        $args = [
+                            'first_name'   => $user->data->display_name,
+                            'booking_code' => $booking_detail->booking_code
+                        ];
+                        sendEmailHTML($user->data->user_email,
+                            'Deposit confirmation, booking ID #' . $booking_detail->booking_code,
+                            'ta_to/deposit_confirmation_for_ta_to.html', $args);
+                        break;
+                    case 'tato-full':
+                        $args = [
+                            'first_name'   => $user->data->display_name,
+                            'booking_code' => $booking_detail->booking_code
+                        ];
+                        sendEmailHTML($user->data->user_email,
+                            'Full-payment confirmation, booking ID #' . $booking_detail->booking_code,
+                            'ta_to/full_payment_confirmation_for_ta_to.html', $args);
+                        break;
                 }
 
             }

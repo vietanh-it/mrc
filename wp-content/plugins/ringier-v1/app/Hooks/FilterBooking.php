@@ -42,6 +42,8 @@ class FilterBooking
             $values = [
                 'cart'             => 'In Cart',
                 'tato'             => 'TA/TO - Wait for deposit',
+                'tato-deposited'   => 'TA/TO - Deposited',
+                'tato-full'        => 'TA/TO - Full payment',
                 'before-you-go'    => 'Before you go',
                 'ready-to-onboard' => 'Ready to on-board',
                 'on-board'         => 'On-board',

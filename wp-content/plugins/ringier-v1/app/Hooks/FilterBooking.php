@@ -150,6 +150,16 @@ class FilterBooking
                 color: #ffffff;
             }
 
+            .badge.badge-tato-deposited {
+                background: #e67e22;
+                color: #ffffff;
+            }
+
+            .badge.badge-tato-full {
+                background: #e67e22;
+                color: #ffffff;
+            }
+
             .badge.badge-cancel {
                 background: #ecf0f1;
                 color: #aaaaaa;

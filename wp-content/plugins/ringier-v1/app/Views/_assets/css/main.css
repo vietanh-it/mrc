@@ -2267,6 +2267,22 @@ header .top-bar .top-info li:first-child {
 
 }
 
+.btn-jt-navigation {
+    text-transform: uppercase;
+    position: absolute;
+    top: 32px;
+    right: 0;
+    color: #e4a611;
+    border: 1px solid #e4a611;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.btn-jt-navigation:hover, .btn-jt-navigation:active, .btn-jt-navigation:focus {
+    color: #ffffff;
+    background: #e4a611;
+}
+
 @media (min-width: 1200px) {
 
     .container {

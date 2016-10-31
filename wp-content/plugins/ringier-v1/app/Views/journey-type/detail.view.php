@@ -22,7 +22,7 @@ if (!empty($journey_type_info)) { ?>
                         <?php if (!empty($journey_type_info->offer_main_info)) { ?>
                             <li>
                                 <b>Promotion:</b> Save up
-                                to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
+                                                  to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
                             </li>
                         <?php } ?>
                     </ul>
@@ -175,6 +175,12 @@ if (!empty($journey_type_info)) { ?>
                 <div class="col-xs-12 col-sm-8">
                     <h3 class="title-main">Itinerary</h3>
                     <?php
+                    if (!empty($journey_type_info->related_journey_type)) {
+                        $related = get_permalink($journey_type_info->related_journey_type); ?>
+                        <a href="<?php echo $related ?>" class="btn-jt-navigation">
+                            <?php echo $journey_type_info->navigation == 'upstream' ? 'Downstream' : 'Upstream'; ?>
+                        </a>
+                    <?php }
                     if (!empty($journey_type_info->itinerary)) {
                         $itinerary = ($journey_type_info->itinerary);
                         foreach ($itinerary as $it) {
@@ -190,7 +196,9 @@ if (!empty($journey_type_info)) { ?>
                         }
                     } ?>
                     <div class="title-main">WHAT’S INCLUDED</div>
-                    <p><b>Cruise Price Includes:</b> <?php echo apply_filters('the_content',$journey_type_info->include )?></p>
+                    <p>
+                        <b>Cruise Price Includes:</b> <?php echo apply_filters('the_content', $journey_type_info->include) ?>
+                    </p>
                 </div>
             </div>
             <?php if (!empty($list_add_on['data'])) { ?>

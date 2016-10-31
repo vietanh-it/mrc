@@ -9,9 +9,12 @@ global $post;
 $m_booking = \RVN\Models\Booking::init();
 $m_ship = \RVN\Models\Ships::init();
 $m_addon = \RVN\Models\Addon::init();
+$m_user = \RVN\Models\Users::init();
 
 $cart_detail = $m_booking->getCartInfo($user_id, $post->ID);
 
+$user_info = $m_user->getUserInfo(get_current_user_id());
+$billing_address = empty($user_info->address) ? '' : $user_info->address;
 
 // Booking drop reminder
 $timestamp = wp_next_scheduled('booking_drop_reminder', [$cart_detail['cart_info']->id]);
@@ -151,7 +154,7 @@ global $post;
                             <tr>
                                 <td colspan="3" class="text-right">
                                     <b style="color: #e4a611">Deposit Due:
-                                        US$<?php echo number_format($stateroom_total + $addon_total); ?></b>
+                                                              US$<?php echo number_format($stateroom_total + $addon_total); ?></b>
                                 </td>
                             </tr>
                             </tbody>
@@ -164,9 +167,9 @@ global $post;
                                     <b>Billing address</b>
                                     <a href="javascript:void(0)" class="pull-right btn-edit-address">EDIT</a>
                                 </label>
-                                <p class="b-addr-showing"></p>
+                                <p class="b-addr-showing"><?php echo $billing_address; ?></p>
                                 <div class="b-addr-hidden">
-                                    <input type="text" name="billing_address" id="billing_address" class="form-control">
+                                    <input type="text" name="billing_address" id="billing_address" class="form-control" value="<?php echo $billing_address; ?>">
                                     <a href="javascript:void(0)" class="btn btn-main btn-change-bill-addr"
                                        style="margin-top: 15px;">Confirm</a>
                                 </div>
@@ -205,12 +208,7 @@ global $post;
                     </div>
                 </div>
 
-                <?php
-                $m_user = \RVN\Models\Users::init();
-                $user_info = $m_user->getUserInfo(get_current_user_id());
-                var_dump($user_info);
-                ?>
-                <input type="hidden" name="billing_address" value="">
+                <input type="hidden" name="billing_address" value="<?php echo $billing_address; ?>">
             </form>
         </div>
     </div>

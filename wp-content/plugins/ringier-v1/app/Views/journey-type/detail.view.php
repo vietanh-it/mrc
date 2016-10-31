@@ -189,7 +189,7 @@ if (!empty($journey_type_info)) { ?>
                         }
                     } ?>
                     <div class="title-main">WHAT’S INCLUDED</div>
-                    <p><b>Cruise Price Includes:</b> <?php echo $journey_type_info->include ?></p>
+                    <p><b>Cruise Price Includes:</b> <?php echo apply_filters('the_content',$journey_type_info->include )?></p>
                 </div>
             </div>
             <?php if (!empty($list_add_on['data'])) { ?>

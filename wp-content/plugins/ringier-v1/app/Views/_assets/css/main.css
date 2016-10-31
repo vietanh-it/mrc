@@ -2247,7 +2247,12 @@ header .top-bar .top-info li:first-child {
 .list-content-wrapper {
     padding-bottom: 20px;
 }
-
+.see-more-lc{
+    color: #e4a611;
+}
+.see-more-lc:hover{
+    color: #d5b76e;
+}
 @media (min-width: 1200px) {
 
     .container {

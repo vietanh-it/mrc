@@ -184,7 +184,7 @@ if (!empty($journey_type_info)) { ?>
                                     <div class="day-in">
                                         DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?></div>
                                     <p><?php echo apply_filters('the_content', $it->content) ?></p>
-                                    <a href="<?php echo $it->location_info->permalink ?>">See more about <?php echo $it->location_info->post_title ?>  </a>
+                                    <a href="<?php echo $it->location_info->permalink ?>" class="see-more-lc">See more about <?php echo $it->location_info->post_title ?>  </a>
                                 </div>
                             <?php }
                         }

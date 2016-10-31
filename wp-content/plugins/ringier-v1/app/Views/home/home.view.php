@@ -168,6 +168,12 @@ get_header();
                                     <div class="desc">
                                         <a href="<?php echo $v->permalink ?>" class="title"
                                            title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+
+                                        <ul>
+                                            <li><b><?php echo $v->starting_point . ' - ' . $v->destination_info->post_title; ?></b></li>
+                                            <li><b><?php echo $v->duration ?></b></li>
+                                        </ul>
+
                                         <p><?php echo cut_string_by_char(($v->post_excerpt), 150) ?></p>
                                         <a href="<?php echo $v->permalink ?>" class="explore" title="">Explore</a>
                                     </div>

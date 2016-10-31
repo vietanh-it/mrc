@@ -183,12 +183,19 @@ if (!empty($journey_type_info)) { ?>
                     <?php }
                     if (!empty($journey_type_info->itinerary)) {
                         $itinerary = ($journey_type_info->itinerary);
-                        foreach ($itinerary as $it) {
+                        foreach ($itinerary as $k => $it) {
                             if (!empty($it->day)) {
+                                $extra_text = '';
+                                if($k == 0) {
+                                    $extra_text = '/ EMBARKATION';
+                                }
+                                if($k == (count($itinerary) - 1)) {
+                                    $extra_text = '/ DISEMBARKATION';
+                                }
                                 ?>
                                 <div class="box-day-in">
                                     <div class="day-in">
-                                        DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?></div>
+                                        DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?> <?php echo $extra_text; ?></div>
                                     <p><?php echo apply_filters('the_content', $it->content) ?></p>
                                     <a href="<?php echo $it->location_info->permalink ?>" class="see-more-lc">See more about <?php echo $it->location_info->post_title ?>  </a>
                                 </div>

@@ -2253,6 +2253,15 @@ header .top-bar .top-info li:first-child {
 .see-more-lc:hover{
     color: #d5b76e;
 }
+
+#introduction{
+    padding: 50px 0;
+    background: url("../images/icon-trong-dong.png") no-repeat right;
+}
+#introduction {
+
+}
+
 @media (min-width: 1200px) {
 
     .container {

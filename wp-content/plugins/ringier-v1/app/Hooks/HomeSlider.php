@@ -25,8 +25,8 @@ class HomeSlider
 
     public function add_menu_items(){
         add_menu_page(
-            'Slider, Introduction And Cover',
-            'Slider, Introduction And Cover',
+            'Mrc Setting',
+            'Mrc Setting',
             'create_users',
             'home_slider',
             [$this, 'home_slider_show'],

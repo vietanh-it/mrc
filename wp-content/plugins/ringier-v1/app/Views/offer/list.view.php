@@ -4,6 +4,7 @@ $list_offer = !empty($list_offer) ? $list_offer : [];
 $JourneyType = \RVN\Controllers\JourneyTypeController::init();
 ?>
 
+<?php  view('blocks/introduction'); ?>
 
 <?php if (!empty($list_offer)) { ?>
     <div class="container">

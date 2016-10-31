@@ -104,6 +104,8 @@ get_header();
 
 </div>
 
+<?php  view('blocks/introduction'); ?>
+
 <div class="why-us">
     <div class="container ">
         <div class="row">

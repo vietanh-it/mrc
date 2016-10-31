@@ -4,6 +4,7 @@ get_header();
 $list_ship = !empty($list_ship) ? $list_ship : array();
 
 ?>
+
 <div class="featured-rs" style="overflow: hidden;margin-bottom: 30px">
     <div class="row">
         <div class="list-galary-3 ship">
@@ -24,6 +25,8 @@ $list_ship = !empty($list_ship) ? $list_ship : array();
         </div>
     </div>
 </div>
+<?php  view('blocks/introduction'); ?>
+
 <div class="container list-content-wrapper">
     <div class="row">
         <h1 class="col-xs-12 col-sm-12 tile-main">Our Ships

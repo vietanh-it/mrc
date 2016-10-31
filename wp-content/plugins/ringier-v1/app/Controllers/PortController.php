@@ -35,4 +35,15 @@ class PortController extends _BaseController
 
     }
 
+    public function detail($id){
+        $objPost = Posts::init();
+        $list_related = $objPost->getList(array(
+            'posts_per_page' => 5,
+            'post_type' => array('port','excursion'),
+            'post__not_in' => array($id),
+        ));
+
+        view('port/detail');
+    }
+
 }

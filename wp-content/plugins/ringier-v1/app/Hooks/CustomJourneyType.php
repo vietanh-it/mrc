@@ -50,7 +50,18 @@ class CustomJourneyType
 
         </style>
         <div class="form-group">
-            <textarea class="form-control" rows="5" name="include" ><?php echo !empty($jt_info->include) ? $jt_info->include :''  ?></textarea>
+            <!--<textarea class="form-control" rows="5" name="include" ><?php /*echo !empty($jt_info->include) ? $jt_info->include :''  */?></textarea>-->
+            <?php
+            $acf_field_wysiwyg = new \acf_field_wysiwyg();
+            $field = array(
+                'id' => 'include',
+                'name' => 'include',
+                'value' => !empty($jt_info->include) ? $jt_info->include :'' ,
+                'toolbar' => 'full',
+                'media_upload' => 'yes',
+            );
+            $acf_field_wysiwyg->create_field($field);
+            ?>
         </div>
     <?php }
 
@@ -107,12 +118,14 @@ class CustomJourneyType
             }
 
         </style>
+        <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+
 
         <?php if (!empty($list_itinerary)) { ?>
         <div class="ctn-box-day">
             <?php
 
-            foreach ($list_itinerary as $v) {
+            foreach ($list_itinerary as $k => $v) {
                 //var_dump($v);?>
                 <div class="box-day">
                     <div class="class-show-all" style="">
@@ -134,9 +147,19 @@ class CustomJourneyType
                         </div>
                         <div class="form-group">
                             <label for="day_content">Content</label>
-                            <textarea class="form-control" rows="5" name="day_content[]" ><?php echo $v->content ?></textarea>
+                            <?php
+                            $acf_field_wysiwyg = new \acf_field_wysiwyg();
+                            $field = array(
+                                'id' => 'day_'.$k ,
+                                'name' => 'day_content[]',
+                                'value' => $v->content,
+                                'toolbar' => 'full',
+                                'media_upload' => 'yes',
+                            );
+                            $acf_field_wysiwyg->create_field($field);
+                            ?>
                         </div>
-                        <a href="javascript:void" class="delete_day">Delete day</a>
+                        <a href="javascript:void(0)" class="delete_day">Delete day</a>
                     </div>
                     <div class="class-hide-all" style="display: none">
                         <b>Day  : <span class="number_day_change"><?php echo $v->day ?></span></b>
@@ -174,9 +197,19 @@ class CustomJourneyType
                     </div>
                     <div class="form-group">
                         <label for="day_content">Content</label>
-                        <textarea class="form-control" rows="5" name="day_content[]"></textarea>
+                        <?php
+                        $acf_field_wysiwyg = new \acf_field_wysiwyg();
+                        $field = array(
+                            'id' => 'day_1',
+                            'name' => 'day_content[]',
+                            'value' => '',
+                            'toolbar' => 'full',
+                            'media_upload' => 'yes',
+                        );
+                        $acf_field_wysiwyg->create_field($field);
+                        ?>
                     </div>
-                    <a href="javascript:void" class="delete_day">Delete day</a>
+                    <a href="javascript:void(0)" class="delete_day">Delete day</a>
                 </div>
                 <div class="class-hide-all" style="display: none">
                     <b>Day  : <span class="number_day_change"></span></b>
@@ -192,8 +225,7 @@ class CustomJourneyType
     <?php } ?>
 
 
-        <a href="javascript:void" class="add_new_day">Add new day</a>
-
+        <a href="javascript:void(0)" class="add_new_day">Add new day</a>
 
         <script>
             var $ = jQuery.noConflict();
@@ -217,14 +249,14 @@ class CustomJourneyType
                     });
                 }
 
-                    html +='</select>' +
+                html +='</select>' +
                     '<!--<input type="text" class="form-control"  placeholder="" name="day_port[]">--> ' +
                     '</div> ' +
                     '<div class="form-group"> ' +
                     '<label for="day_content">Content</label> ' +
-                    '<textarea class="form-control" rows="5" name="day_content[]"></textarea> ' +
+                    '<textarea name="day_content[]" class="tinimce_n" rows="5"></textarea>'+
                     '</div> ' +
-                    ' <a href="javascript:void" class="delete_day">Delete day</a>' +
+                    '<a href="javascript:void(0)" class="delete_day">Delete day</a>' +
                     '</div>' +
                     '<div class="class-hide-all" style="display: none"> ' +
                     '<b>Day  : <span class="number_day_change"></span></b> ' +
@@ -236,8 +268,10 @@ class CustomJourneyType
                     '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
                     '</a>' +
                     '</div>';
+
                 $('.add_new_day').click(function () {
                     $('.ctn-box-day').append(html);
+                    tinymce.init({ selector:'textarea.tinimce_n' });
                 });
 
                 $(document).delegate('.delete_day', 'click', function () {
@@ -414,6 +448,8 @@ class CustomJourneyType
 
     public function save()
     {
+        /*var_dump($_POST);
+        exit();*/
         global $post;
         if(!empty($post) && $post->post_type == 'journey_type') {
             if(!empty($_POST)){

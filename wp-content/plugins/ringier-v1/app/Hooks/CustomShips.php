@@ -57,6 +57,7 @@ class CustomShips
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload-validate.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.iframe-transport.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/vendor/jquery.ui.widget.js"></script>
+        <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
 
         <style>
             .box-day {
@@ -119,7 +120,18 @@ class CustomShips
                         </div>
                         <div class="form-group">
                             <label for="day_content">Content</label>
-                            <textarea class="form-control" rows="5" name="deck_content[]" ><?php echo $v['content'] ?></textarea>
+                            <!--<textarea class="form-control" rows="5" name="deck_content[]" ><?php /*echo $v['content'] */?></textarea>-->
+                            <?php
+                            $acf_field_wysiwyg = new \acf_field_wysiwyg();
+                            $field = array(
+                                'id' => 'deck_'.$k ,
+                                'name' => 'deck_content[]',
+                                'value' => $v['content'],
+                                'toolbar' => 'full',
+                                'media_upload' => 'yes',
+                            );
+                            $acf_field_wysiwyg->create_field($field);
+                            ?>
                         </div>
                         <div class="form-group">
                             <label  for="featured_image" >Image</label>
@@ -165,7 +177,18 @@ class CustomShips
                     </div>
                     <div class="form-group">
                         <label for="day_content">Content</label>
-                        <textarea class="form-control" rows="5" name="deck_content[]"></textarea>
+                       <!-- <textarea class="form-control" rows="5" name="deck_content[]"></textarea>-->
+                        <?php
+                        $acf_field_wysiwyg = new \acf_field_wysiwyg();
+                        $field = array(
+                            'id' => 'deck_1' ,
+                            'name' => 'deck_content[]',
+                            'value' => '',
+                            'toolbar' => 'full',
+                            'media_upload' => 'yes',
+                        );
+                        $acf_field_wysiwyg->create_field($field);
+                        ?>
                     </div>
                     <div class="form-group">
                         <label  for="featured_image" >Image</label>
@@ -214,7 +237,7 @@ class CustomShips
                         '</div> ' +
                         '<div class="form-group"> ' +
                         '<label for="day_content">Content</label> ' +
-                        '<textarea class="form-control" rows="5" name="deck_content[]"></textarea> ' +
+                        '<textarea class="form-control tinimce_n" rows="5" name="deck_content[]"></textarea> ' +
                         '</div>' +
                         '<div class="form-group"> ' +
                         '<label  for="featured_image" >Image</label> ' +
@@ -240,6 +263,8 @@ class CustomShips
                         '</a>' +
                         '</div>';
                     $('.ctn-box-day').append(html);
+
+                    tinymce.init({ selector:'textarea.tinimce_n' });
                 });
 
                 $(document).delegate('.delete_day', 'click', function () {
@@ -438,7 +463,18 @@ class CustomShips
         <div class="box-day" style="border:1px solid #ccaf0b ;    background: white;">
             <div class="form-group">
                 <label for="day_content">General introduction</label>
-                <textarea class="form-control" rows="5" name="room_general_introduction" ><?php echo !empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '' ?></textarea>
+               <!-- <textarea class="form-control" rows="5" name="room_general_introduction" ><?php /*echo !empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '' */?></textarea>-->
+                <?php
+                $acf_field_wysiwyg = new \acf_field_wysiwyg();
+                $field = array(
+                    'id' => 'room_general_introduction' ,
+                    'name' => 'room_general_introduction',
+                    'value' => !empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '',
+                    'toolbar' => 'full',
+                    'media_upload' => 'yes',
+                );
+                $acf_field_wysiwyg->create_field($field);
+                ?>
             </div>
         </div>
         <?php if (!empty($ship_info->rooms_info)) {
@@ -464,7 +500,18 @@ class CustomShips
                         </div>
                         <div class="form-group tniMCE">
                             <label for="day_content">Content</label>
-                            <textarea class="form-control" rows="5" name="room_content[]" ><?php echo $v['room_content'] ?></textarea>
+                            <!--<textarea class="form-control" rows="5" name="room_content[]" ><?php /*echo $v['room_content'] */?></textarea>-->
+                            <?php
+                            $acf_field_wysiwyg = new \acf_field_wysiwyg();
+                            $field = array(
+                                'id' => 'room_content_'.$k ,
+                                'name' => 'room_content[]',
+                                'value' => $v['room_content'],
+                                'toolbar' => 'full',
+                                'media_upload' => 'yes',
+                            );
+                            $acf_field_wysiwyg->create_field($field);
+                            ?>
                         </div>
                         <div class="form-group">
                             <label  for="featured_image" >Image</label>
@@ -514,7 +561,17 @@ class CustomShips
                     </div>
                     <div class="form-group tniMCE">
                         <label for="day_content">Content</label>
-                        <textarea class="form-control" rows="5" name="room_content[]"></textarea>
+                        <?php
+                        $acf_field_wysiwyg = new \acf_field_wysiwyg();
+                        $field = array(
+                            'id' => 'room_content_1' ,
+                            'name' => 'room_content[]',
+                            'value' => '',
+                            'toolbar' => 'full',
+                            'media_upload' => 'yes',
+                        );
+                        $acf_field_wysiwyg->create_field($field);
+                        ?>
                     </div>
                     <div class="form-group">
                         <label  for="featured_image" >Image</label>
@@ -558,16 +615,16 @@ class CustomShips
                     var html = '<div class="box-day"> ' +
                         '<div class="class-show-all" style="">' +
                         '<div class="form-group"> ' +
-                        '<label for="day_name">Title : </label> ' +
+                        '<label for="room_title">Title : </label> ' +
                         '<input type="text" class="form-control day_name_key"  placeholder="" name="room_title[]"> ' +
                         '</div>' +
                         '<div class="form-group"> ' +
-                        '<label for="day_content">Description</label> ' +
+                        '<label for="room_description">Description</label> ' +
                         '<textarea class="form-control" rows="5" name="room_description[]" ></textarea>' +
                         '</div> ' +
                         '<div class="form-group tniMCE"> ' +
-                        '<label for="day_content">Content</label> ' +
-                        '<textarea class="form-control" rows="5" name="room_content[]"></textarea> ' +
+                        '<label for="room_content">Content</label> ' +
+                        '<textarea class="form-control tinimce_n" rows="5" name="room_content[]"></textarea> ' +
                         '</div>' +
                         '<div class="form-group"> ' +
                         '<label  for="featured_image" >Image</label> ' +
@@ -594,6 +651,8 @@ class CustomShips
                         '</div>';
                     $('.ctn-box-room').append(html);
                     obj.attr('data-number',parseInt(number) + 1);
+
+                    tinymce.init({ selector:'textarea.tinimce_n' });
                 });
 
                 $(document).delegate('.delete_day', 'click', function () {

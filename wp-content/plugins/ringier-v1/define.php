@@ -16,6 +16,8 @@ define("GOOGLE_CLIENT_SECRET", "RDJcby4lI0vodEt7mmTM-fG5");
 define("PATH_VIEW", __DIR__ . '/app/Views/');
 define("VIEW_URL", WP_SITEURL . '/wp-content/plugins/ringier-v1/app/Views/_assets');
 
+define('PAGE_HOME_SLIDER_SLUG','home-slider');
+
 if (!defined('CACHEGROUP')) {
     define('CACHEGROUP', 'default');
 }

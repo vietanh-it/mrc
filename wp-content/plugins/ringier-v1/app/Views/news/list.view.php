@@ -4,11 +4,20 @@ get_header();
 $list_post = !empty($list_post) ? $list_post : array();
 
 ?>
-<div class="journey-detail" style="margin-bottom: 40px">
-    <div class="featured-image" >
-        <img src="<?php echo VIEW_URL.'/images/bg-news.png' ?>" alt="bg" >
-    </div>
-</div>
+
+<?php
+$slider_page = get_page_by_path(PAGE_HOME_SLIDER_SLUG);
+$cover_id = get_post_meta($slider_page->ID,'cover_whyus',true);
+if($cover_id){
+    $cover= wp_get_attachment_image_src($cover_id,'full');
+    if($cover){ $cover = array_shift($cover); ?>
+        <div class="journey-detail" style="margin-bottom: 40px">
+            <div class="featured-image" >
+                <img src="<?php echo $cover ?>" alt="bg" >
+            </div>
+        </div>
+    <?php }
+} ?>
 
 
 <div class="container">

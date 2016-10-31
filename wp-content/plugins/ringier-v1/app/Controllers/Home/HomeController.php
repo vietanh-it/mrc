@@ -78,7 +78,7 @@ class HomeController extends _BaseController
         ));
 
         $objPost = Posts::init();
-        $slider_page = get_page_by_path('home-slider');
+        $slider_page = get_page_by_path(PAGE_HOME_SLIDER_SLUG);
         $home_page_info = $objPost->getInfo($slider_page);
 
         $args = array(

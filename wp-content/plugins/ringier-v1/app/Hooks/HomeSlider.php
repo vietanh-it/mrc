@@ -22,8 +22,8 @@ class HomeSlider
 
     public function add_menu_items(){
         add_menu_page(
-            'Home Slider',
-            'Home Slider',
+            'Home Slider And Cover',
+            'Home Slider And Cover',
             'create_users',
             'home_slider',
             [$this, 'home_slider_show'],
@@ -33,7 +33,7 @@ class HomeSlider
     }
 
     public function home_slider_show(){
-        $slider_page = get_page_by_path('home-slider');
+        $slider_page = get_page_by_path(PAGE_HOME_SLIDER_SLUG);
         if(!empty($slider_page)){
             wp_redirect(WP_SITEURL.'/wp-admin/post.php?post='.$slider_page->ID.'&action=edit');
         }

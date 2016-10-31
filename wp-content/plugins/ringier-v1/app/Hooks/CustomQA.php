@@ -207,20 +207,20 @@ class CustomQA
             </style>
         <?php }
         //custom css page home slider
-        if($post->post_name =='home-slider'){?>
+        if($post->post_name ==PAGE_HOME_SLIDER_SLUG){?>
             <style>
-                #postdivrich,#pageparentdiv,#postimagediv,#side-sortables,#edit-slug-box,#wpseo_meta,h1,#titlediv,#screen-meta-links{
-                    display: none;
+                #postdivrich,#pageparentdiv,#postimagediv,#misc-publishing-actions,#revisionsdiv,#minor-publishing,#delete-action,#edit-slug-box,#wpseo_meta,h1,#titlediv,#screen-meta-links{
+                    display: none !important;
                 }
-                ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu>li.current>a.current:after{
+                /*ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu>li.current>a.current:after{
                     display: none;
-                }
+                }*/
                 #adminmenu .current div.wp-menu-image:before, #adminmenu .wp-has-current-submenu div.wp-menu-image:before, #adminmenu a.current:hover div.wp-menu-image:before, #adminmenu a.wp-has-current-submenu:hover div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu a:focus div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu.opensub div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu:hover div.wp-menu-image:before{
                     color: #9a9a9a;
                 }
-                #poststuff #post-body.columns-2{
+                /*#poststuff #post-body.columns-2{
                     margin-right: 0;
-                }
+                }*/
                 #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu{
                     background: none;
                     color: rgb(238, 238, 238);

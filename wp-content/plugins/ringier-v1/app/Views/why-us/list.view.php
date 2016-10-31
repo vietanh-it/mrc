@@ -12,9 +12,18 @@ $list_post = !empty($list_post) ? $list_post : array();
         </div>
     </div>
 
-    <div class="featured-image" >
-        <img src="<?php echo VIEW_URL.'/images/bg-news.png' ?>" alt="bg" style="width: 100%">
-    </div>
+<?php
+$slider_page = get_page_by_path(PAGE_HOME_SLIDER_SLUG);
+$cover_id = get_post_meta($slider_page->ID,'cover_whyus',true);
+if($cover_id){
+    $cover= wp_get_attachment_image_src($cover_id,'full');
+    if($cover){ $cover = array_shift($cover);
+        ?>
+        <div class="featured-image" >
+            <img src="<?php echo $cover ?>" alt="bg" style="width: 100%">
+        </div>
+    <?php }
+} ?>
 
     <div class="why-us" style="padding-top: 50px">
         <div class="container ">

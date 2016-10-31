@@ -386,6 +386,11 @@ nav ul.navbar-nav li.active a {
     max-width: 290px;
 }
 
+.box-journey .desc ul {
+    padding-left: 18px;
+    padding-top: 5px;
+}
+
 .box-journey .image img {
     width: 100%;
 }

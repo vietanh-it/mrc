@@ -68,7 +68,7 @@ class CustomBooking
 
         <section>
             <div class="row">
-                <div class="col-xs-12 text-center">
+                <div class="col-xs-12">
                     <h3>Journey Info</h3>
                     <div>
                         Journey name: <b><?php echo $journey_info->post_title; ?></b> <br/><br/>

@@ -1,7 +1,7 @@
 <?php
 
 get_header();
-$list_journey_type = !empty($list_journey_type) ? $list_journey_type : array();
+$list_journey_type = !empty($list_journey_type) ? $list_journey_type : [];
 
 view('journey/quick-search');
 ?>
@@ -13,8 +13,8 @@ view('journey/quick-search');
         </h1>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
             <div class="row">
-                <?php if($list_journey_type['data']){
-                    foreach ($list_journey_type['data'] as $v){
+                <?php if ($list_journey_type['data']) {
+                    foreach ($list_journey_type['data'] as $v) {
                         ?>
                         <div class="col-xs-12 col-sm-4">
                             <div class="box-journey">
@@ -25,17 +25,26 @@ view('journey/quick-search');
                                 </div>
                                 <div class="desc">
                                     <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
-                                    <p><?php echo cut_string_by_char($v->post_excerpt,150) ?></p>
+
+                                    <ul>
+                                        <li><b><?php echo $v->starting_point . ' - ' . $v->destination_info->post_title; ?></b></li>
+                                        <li><b><?php echo $v->duration ?></b></li>
+                                    </ul>
+
+                                    <p><?php echo cut_string_by_char($v->post_excerpt, 150) ?></p>
                                     <a href="<?php echo $v->permalink ?>" class="explore" title="">Explore</a>
                                 </div>
                             </div>
                         </div>
                     <?php }
-                    if (function_exists('wp_pagenavi')) wp_pagenavi(array(
-                        'before' => '  <div class="wrap-pagination">',
-                        'after' => '</div>'
-                    ));
-                } else { ?>
+                    if (function_exists('wp_pagenavi')) {
+                        wp_pagenavi([
+                            'before' => '  <div class="wrap-pagination">',
+                            'after'  => '</div>'
+                        ]);
+                    }
+                }
+                else { ?>
                     <div class="col-xs-12 col-sm-12" style="    margin: 0 0 20px;">No journey match found</div>
                 <?php } ?>
             </div>

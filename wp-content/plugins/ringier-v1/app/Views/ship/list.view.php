@@ -25,7 +25,7 @@ $list_ship = !empty($list_ship) ? $list_ship : array();
         </div>
     </div>
 </div>
-<?php  view('blocks/introduction'); ?>
+<?php  view('blocks/introduction', ['intro_type' => 'ship_introduction']); ?>
 
 <div class="container list-content-wrapper">
     <div class="row">
@@ -67,3 +67,11 @@ $list_ship = !empty($list_ship) ? $list_ship : array();
 </div>
 
 <?php get_footer() ?>
+
+<script>
+    var $ = jQuery.noConflict();
+    $(document).ready(function () {
+        var sliderHeight = $('.owl-carousel .owl-wrapper').height() + 70;
+        $('.list-galary-3.ship.owl-carousel .owl-wrapper-outer').height(sliderHeight);
+    });
+</script>

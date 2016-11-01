@@ -378,7 +378,7 @@ class AccountController extends _BaseController
     {
         $result= array(
             'status' => 'error',
-            'message' => 'An error, please try again!'
+            'message' => ['An error, please try again!']
         );
         if(!empty($data['user_data'])){
             $data = $data['user_data'];

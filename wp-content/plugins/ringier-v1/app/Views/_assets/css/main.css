@@ -2283,6 +2283,11 @@ header .top-bar .top-info li:first-child {
     background: #e4a611;
 }
 
+.cover-img {
+    max-height: 500px;
+    overflow: hidden;
+}
+
 @media (min-width: 1200px) {
 
     .container {

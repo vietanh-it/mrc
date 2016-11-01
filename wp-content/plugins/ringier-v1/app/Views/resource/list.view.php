@@ -11,7 +11,7 @@ var_dump($list_rs_food);*/
 ?>
 <div class="container">
     <div class="row">
-        <h1 class="col-xs-12 col-sm-12 tile-main">resources
+        <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;">resources
             <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
         </h1>
     </div>
@@ -142,3 +142,11 @@ var_dump($list_rs_food);*/
 
 
 <?php get_footer() ?>
+
+<script>
+    var $ = jQuery.noConflict();
+    $(document).ready(function () {
+        var sliderHeight = $('.owl-carousel .owl-wrapper').height() + 40;
+        $('.list-galary-3.resource.owl-carousel .owl-wrapper-outer').height(sliderHeight);
+    });
+</script>

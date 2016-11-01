@@ -112,7 +112,7 @@ get_header();
 
 </div>
 
-<?php view('blocks/introduction'); ?>
+<?php view('blocks/introduction', ['intro_type' => 'home_introduction']); ?>
 
 <div class="why-us">
     <div class="container ">

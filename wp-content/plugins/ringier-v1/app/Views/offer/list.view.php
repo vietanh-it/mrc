@@ -5,18 +5,19 @@ $JourneyType = \RVN\Controllers\JourneyTypeController::init();
 ?>
 <?php
 $slider_page = get_page_by_path(PAGE_HOME_SLIDER_SLUG);
-$cover_id = get_post_meta($slider_page->ID,'cover_offer',true);
-if($cover_id){
-    $cover= wp_get_attachment_image_src($cover_id,'full');
-    if($cover){ $cover = array_shift($cover); ?>
-        <div class="journey-detail" >
-            <div class="featured-image" >
-                <img src="<?php echo $cover ?>" alt="bg" >
+$cover_id = get_post_meta($slider_page->ID, 'cover_offer', true);
+if ($cover_id) {
+    $cover = wp_get_attachment_image_src($cover_id, 'full');
+    if ($cover) {
+        $cover = array_shift($cover); ?>
+        <div class="journey-detail">
+            <div class="featured-image cover-img">
+                <img src="<?php echo $cover ?>" alt="bg">
             </div>
         </div>
     <?php }
 } ?>
-<?php  view('blocks/introduction'); ?>
+<?php view('blocks/introduction', ['intro_type' => 'offer_introduction']); ?>
 
 <?php if (!empty($list_offer)) { ?>
     <div class="container">

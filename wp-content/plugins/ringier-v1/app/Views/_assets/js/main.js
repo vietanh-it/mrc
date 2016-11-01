@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
         itemsDesktop: [1199, 3],
         itemsDesktopSmall: [760, 3],
         navigation: false,
-        pagination: true
+        pagination: false
     });
 
     $(".owl-carousel .owl-next").html('<i class="fa fa-angle-right" aria-hidden="true"></i>');

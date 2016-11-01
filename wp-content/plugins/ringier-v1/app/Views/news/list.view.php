@@ -7,7 +7,7 @@ $list_post = !empty($list_post) ? $list_post : array();
 
 <?php
 $slider_page = get_page_by_path(PAGE_HOME_SLIDER_SLUG);
-$cover_id = get_post_meta($slider_page->ID,'cover_whyus',true);
+$cover_id = get_post_meta($slider_page->ID,'cover_news',true);
 if($cover_id){
     $cover= wp_get_attachment_image_src($cover_id,'full');
     if($cover){ $cover = array_shift($cover); ?>

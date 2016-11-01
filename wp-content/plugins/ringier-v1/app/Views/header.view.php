@@ -186,33 +186,31 @@ if (is_single()) {
                             <div class="modal-content">
                                 <div class="modal-body">
                                     <?php if (!is_user_logged_in()) { ?>
-                                    <a href="<?php echo wp_login_url(get_permalink()); ?>">
-                                        Sign in
-                                    </a>
-                                    <a href="<?php echo wp_registration_url(); ?>">
-                                        Sign up
-                                    </a>
+                                        <a href="<?php echo wp_login_url(get_permalink()); ?>">
+                                            Sign in
+                                        </a>
+                                        <a href="<?php echo wp_registration_url(); ?>">
+                                            Sign up
+                                        </a>
+                                    <?php } else {
+                                        $objUser = \RVN\Models\Users::init();
+                                        $user_info = $objUser->getUserInfo(get_current_user_id());
+                                        ?>
+                                        <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
+                                            Hello <?php echo $user_info->display_name ?>
+                                        </a>
+                                        <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
+                                            View profile
+                                        </a>
+                                        <a href="<?php echo wp_logout_url() ?>">
+                                            Log out
+                                        </a>
+                                    <?php } ?>
                                 </div>
-                                <?php } else {
-                                    $objUser = \RVN\Models\Users::init();
-                                    $user_info = $objUser->getUserInfo(get_current_user_id());
-                                    ?>
-                                    <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
-                                        Hello <?php echo $user_info->display_name ?>
-                                    </a>
-                                    <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
-                                        View profile
-                                    </a>
-                                    <a href="<?php echo wp_logout_url() ?>">
-                                        Log out
-                                    </a>
-                                <?php } ?>
-                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xs-12 hide-on-med-and-up">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                         <ul class="nav navbar-nav">

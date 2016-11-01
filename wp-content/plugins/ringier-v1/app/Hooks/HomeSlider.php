@@ -65,6 +65,10 @@ class HomeSlider
         $home_intro = get_option('home_introduction');
         $offer_intro = get_option('offer_introduction');
         $ship_intro = get_option('ship_introduction');
+
+        $home_intro = stripslashes($home_intro);
+        $offer_intro = stripslashes($offer_intro);
+        $ship_intro = stripslashes($ship_intro);
         ?>
         <div class="row">
             <div class="col-xs-12">
@@ -151,10 +155,17 @@ class HomeSlider
 
     public function save()
     {
-        // Introduction
-        update_option('home_introduction', $_POST['home_introduction']);
-        update_option('offer_introduction', $_POST['offer_introduction']);
-        update_option('ship_introduction', $_POST['ship_introduction']);
+        global $post;
+        if ($post->post_name == PAGE_HOME_SLIDER_SLUG) {
+            $home_intro = stripslashes($_POST['home_introduction']);
+            $offer_intro = stripslashes($_POST['offer_introduction']);
+            $ship_intro = stripslashes($_POST['ship_introduction']);
+
+            // Introduction
+            update_option('home_introduction', $home_intro);
+            update_option('offer_introduction', $offer_intro);
+            update_option('ship_introduction', $ship_intro);
+        }
     }
 }
 

@@ -44,61 +44,69 @@ get_header(); ?>
                         </thead>
                         <tbody>
 
-                        <?php foreach ($booking_list as $key => $value) {
+                        <?php
+                        if (!empty($booking_list)) {
+                            foreach ($booking_list as $key => $value) {
 
-                            $booking_permalink = get_permalink($value->id);
+                                $booking_permalink = get_permalink($value->id);
 
-                            $journey_detail = $modelJourney->getInfo($value->journey_id);
-                            $total = $modelBooking->getCartTotalByID($value->id);
-                            $total = number_format($total);
-                            $total_people = $modelBooking->getCartTotalPeople($value->id);
-                            $status = $modelBooking->getBookingStatusText($value->status); ?>
+                                $journey_detail = $modelJourney->getInfo($value->journey_id);
+                                $total = $modelBooking->getCartTotalByID($value->id);
+                                $total = number_format($total);
+                                $total_people = $modelBooking->getCartTotalPeople($value->id);
+                                $status = $modelBooking->getBookingStatusText($value->status); ?>
 
-                            <tr>
-                                <td style="white-space: nowrap; padding-right: 5px;">
-                                    <a href="<?php echo $booking_permalink; ?>" style="color: #545454;">
-                                        <b>
-                                            <?php echo $value->booking_code; ?>
-                                        </b>
-                                    </a>
-                                </td>
-                                <td><?php echo date('j M Y', strtotime($journey_detail->departure)); ?></td>
-                                <td>
-                                    <?php echo $journey_detail->journey_type_info->starting_point ?>
-                                    - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?>
-                                    nights
-                                </td>
-                                <td style="text-decoration: underline">
-                                    <a href="<?php echo $journey_detail->permalink; ?>"
-                                       target="_blank" style="color: rgb(84, 84, 84);">
-                                        <?php echo $journey_detail->journey_type_info->post_title . ' - ' . $journey_detail->post_title; ?>
-                                    </a>
-                                </td>
-                                <td style="text-decoration: underline">
-                                    <a href="<?php echo $journey_detail->journey_type_info->ship_info->permalink; ?>"
-                                       target="_blank" style="color: rgb(84, 84, 84);">
-                                        <?php echo $journey_detail->journey_type_info->ship_info->post_title; ?>
-                                    </a>
-                                </td>
-                                <td style="text-align: center;">
-                                    <?php echo $total_people; ?>
-                                </td>
-                                <td>
-                                    <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo $total; ?></b>
-                                </td>
-                                <td>
+                                <tr>
+                                    <td style="white-space: nowrap; padding-right: 5px;">
+                                        <a href="<?php echo $booking_permalink; ?>" style="color: #545454;">
+                                            <b>
+                                                <?php echo $value->booking_code; ?>
+                                            </b>
+                                        </a>
+                                    </td>
+                                    <td><?php echo date('j M Y', strtotime($journey_detail->departure)); ?></td>
+                                    <td>
+                                        <?php echo $journey_detail->journey_type_info->starting_point ?>
+                                        - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?>
+                                        nights
+                                    </td>
+                                    <td style="text-decoration: underline">
+                                        <a href="<?php echo $journey_detail->permalink; ?>"
+                                           target="_blank" style="color: rgb(84, 84, 84);">
+                                            <?php echo $journey_detail->journey_type_info->post_title . ' - ' . $journey_detail->post_title; ?>
+                                        </a>
+                                    </td>
+                                    <td style="text-decoration: underline">
+                                        <a href="<?php echo $journey_detail->journey_type_info->ship_info->permalink; ?>"
+                                           target="_blank" style="color: rgb(84, 84, 84);">
+                                            <?php echo $journey_detail->journey_type_info->ship_info->post_title; ?>
+                                        </a>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?php echo $total_people; ?>
+                                    </td>
+                                    <td>
+                                        <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo $total; ?></b>
+                                    </td>
+                                    <td>
                                     <span style="color: #e4a611">
                                         <?php echo $status; ?>
                                     </span>
-                                </td>
-                                <td style="text-align: center">
-                                    <a href="javascript:void(0)">
-                                        <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>"
-                                             class="img-icon">
-                                    </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a href="javascript:void(0)">
+                                            <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>"
+                                                 class="img-icon">
+                                        </a>
+                                    </td>
+                                </tr>
 
+                            <?php }
+                        }
+                        else { ?>
+                            <tr>
+                                <td colspan="9" class="text-center">No result</td>
+                            </tr>
                         <?php } ?>
 
                         </tbody>

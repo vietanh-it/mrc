@@ -92,7 +92,7 @@ class Booking
     {
         $query = "SELECT * FROM {$this->_tbl_cart} WHERE user_id = {$user_id}";
         if (empty($is_get_cart)) {
-            $query .= " AND status NOT IN ('cart', 'tato')";
+            $query .= " AND status NOT IN ('cart', 'tato', 'tato-deposited')";
         }
         $result = $this->_wpdb->get_results($query);
 

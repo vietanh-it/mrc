@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
         itemsDesktop: [1199, 3],
         itemsDesktopSmall: [760, 3],
         navigation: false,
-        pagination: false
+        pagination: true
     });
 
     $(".owl-carousel .owl-next").html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
@@ -604,8 +604,36 @@ jQuery(document).ready(function ($) {
     });
 
 
+    $(window).scroll(function() {
+        var currentPosition = $(window).scrollTop();
+        console.log(currentPosition);
+        if(currentPosition !=0){
+            $("nav").addClass('scrool-top-event');
+        }else{
+            $("nav").removeClass('scrool-top-event');
+        }
+    });
 
+    $('html').on('mouseup', function(e) {
+        if(!$(e.target).closest('button.navbar-toggle').length){
+            $(".navbar-collapse").removeClass("in");
+            $(".navbar-collapse").attr("aria-expanded",'false');
+            $("button.navbar-toggle").find('i').attr('class','fa fa-bars');
+            $("button.navbar-toggle").attr('aria-expanded','false');
+        }
+    });
 
+    $('button.navbar-toggle').click(function () {
+        var obj = $(this);
+        var expanded = obj.attr('aria-expanded');
+        console.log(expanded);
+        if(expanded == 'false'){
+            obj.find('i').attr('class','fa fa-times');
+
+        }else {
+            obj.find('i').attr('class','fa fa-bars');
+        }
+    })
 });
 
 function switch_loading(is_loading) {

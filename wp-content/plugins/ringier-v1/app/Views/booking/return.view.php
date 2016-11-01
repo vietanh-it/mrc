@@ -31,7 +31,11 @@ if (isset($_GET['vpc_TxnResponseCode']) && $_GET['vpc_TxnResponseCode'] == '0') 
     $result = $booking->finishBooking(get_current_user_id(), $journey_id, $data);
 }
 else {
-    wp_redirect(WP_SITEURL);
+    $return_url = WP_SITEURL;
+    if (isset($_GET['vpc_TxnResponseCode'])) {
+        $return_url .= '?resp=' . $_GET['vpc_TxnResponseCode'];
+    }
+    wp_redirect($return_url);
     exit; ?>
 
 <?php }

@@ -5,6 +5,14 @@
  * Date: 7/14/2016
  * Time: 7:54 PM
  */
+
+
+// Response from failed payment
+if (!empty($_GET['resp'])) {
+    $m_bank = \RVN\Models\Bank::init();
+    $response = $m_bank->getResponseDescription($_GET['resp']);
+}
+
 get_header();
 ?>
 <div class="home-slider" id="home-slider">
@@ -104,7 +112,7 @@ get_header();
 
 </div>
 
-<?php  view('blocks/introduction'); ?>
+<?php view('blocks/introduction'); ?>
 
 <div class="why-us">
     <div class="container ">
@@ -170,7 +178,9 @@ get_header();
                                            title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
 
                                         <ul>
-                                            <li><b><?php echo $v->starting_point . ' - ' . $v->destination_info->post_title; ?></b></li>
+                                            <li>
+                                                <b><?php echo $v->starting_point . ' - ' . $v->destination_info->post_title; ?></b>
+                                            </li>
                                             <li><b><?php echo $v->duration ?></b></li>
                                         </ul>
 
@@ -354,6 +364,16 @@ get_header();
 <script>
     var $ = jQuery.noConflict();
     $(document).ready(function () {
+        <?php if(!empty($response)) { ?>
+        swal({
+            title: 'Payment Failed',
+            text: '<?php echo $response; ?>',
+            confirmButtonColor: '#e4a611',
+            type: 'error'
+        }, function () {
+            history.replaceState({}, 'popup done', '/');
+        });
+        <?php } ?>
         // var jssor_1_options = {
         //     $AutoPlay: true,
         //     $SlideWidth: 600,

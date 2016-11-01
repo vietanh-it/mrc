@@ -52,10 +52,10 @@ class Bank
                 $result = "No Reply from Bank";
                 break;
             case "4" :
-                $result = "Expired Card";
+                $result = "Your card is expired";
                 break;
             case "5" :
-                $result = "Insufficient funds";
+                $result = "You have insufficient funds";
                 break;
             case "6" :
                 $result = "Error Communicating with Bank";

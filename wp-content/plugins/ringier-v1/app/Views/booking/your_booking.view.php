@@ -27,7 +27,7 @@ get_header(); ?>
             </h1>
 
             <div class="col-xs-12 col-sm-12">
-                <div class="ctn-list-journey" style="padding-top: 0">
+                <div class="ctn-list-journey hide-on-med-and-down" style="padding-top: 0">
                     <table class="table table-striped table-padding">
                         <thead>
                         <tr>
@@ -111,6 +111,111 @@ get_header(); ?>
 
                         </tbody>
                     </table>
+                </div>
+
+                <div class="ctn-list-journey-mb hide-on-med-and-up">
+                    <?php
+                    if (!empty($booking_list)) {
+                        foreach ($booking_list as $key => $value) {
+
+                            $booking_permalink = get_permalink($value->id);
+
+                            $journey_detail = $modelJourney->getInfo($value->journey_id);
+                            $total = $modelBooking->getCartTotalByID($value->id);
+                            $total = number_format($total);
+                            $total_people = $modelBooking->getCartTotalPeople($value->id);
+                            $status = $modelBooking->getBookingStatusText($value->status); ?>
+
+                            <div class="panel-heading" role="tab" id="heading_<?php echo $key + 1 ?>">
+                                <div class="panel-title be-travel">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $key + 1 ?>" aria-expanded="true" aria-controls="collapseOne">
+                                        <?php echo $value->booking_code; ?>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div id="collapse_<?php echo $key + 1 ?>" class="panel-collapse collapse  ctn-show-hide-traveller" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Booking ID </b>:
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <?php echo $value->booking_code; ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Departure  </b>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <?php echo date('j M Y', strtotime($journey_detail->departure)); ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>From - to </b>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <?php echo $journey_detail->journey_type_info->starting_point ?>
+                                            - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?>
+                                            nights
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Journey </b>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <a href="<?php echo $journey_detail->permalink; ?>"
+                                               target="_blank" style="#e4a611">
+                                                <?php echo $journey_detail->journey_type_info->post_title . ' - ' . $journey_detail->post_title; ?>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Ship </b>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <a href="<?php echo $journey_detail->journey_type_info->ship_info->permalink; ?>"
+                                               target="_blank" style="color: #e4a611">
+                                                <?php echo $journey_detail->journey_type_info->ship_info->post_title; ?>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Travellers </b>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <?php echo $total_people; ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Payment </b>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo $total; ?></b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Status </b>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <?php echo $status; ?>
+                                        </div>
+                                    </div>
+                                    <div class="select-mb">
+                                        <a href="<?php echo $booking_permalink ?>" class="bnt-jn">View</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        <?php }
+                    }?>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 text-center" style="margin : 50px 0">

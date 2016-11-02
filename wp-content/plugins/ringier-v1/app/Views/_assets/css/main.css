@@ -2743,5 +2743,55 @@ header .top-bar .top-info li:first-child {
         display: block;
         margin-top: -3px;
     }
+
+    .ctn-list-journey-mb{
+        margin-top: 30px;
+    }
+    .ctn-list-journey-mb .panel-heading{
+        padding: 10px 0 10px;
+        border: 2px solid #ccc;
+        margin-top: 10px;
+    }
+    .ctn-list-journey-mb .be-travel {
+        border: 0;
+        padding: 0;
+    }
+    .ctn-list-journey-mb .be-travel a{
+        font-size: 17px;
+    }
+    .ctn-list-journey-mb .panel-body .row:last-child{
+        border-bottom: 0;
+        margin-bottom: 0;
+    }
+    .ctn-list-journey-mb .panel-body .row{
+        padding-bottom: 5px;
+        border-bottom: 1px dotted #ccc;
+        margin-bottom: 5px;
+    }
+    .ctn-list-journey-mb .panel-body{
+        overflow: hidden;
+        border-left:2px solid #ccc;
+        border-right:2px solid #ccc;
+        border-top: 0;
+        border-bottom: 2px solid #ccc;;
+        padding: 5px;
+    }
+
+    .ctn-list-journey-mb .select-mb a{
+        padding: 3px 0;
+        border: 1px solid #e4a611;
+        background: #e4a611;
+        color: white;
+        text-transform: uppercase;
+        border-radius: 5px;
+        font-family: 'Playfair Display', serif;
+        display: block;
+        width: 90px;
+        text-align: center;
+        margin: 15px auto;
+    }
+    .detail-your-booking .tt-left{
+        padding-left: 0;
+    }
 }
 

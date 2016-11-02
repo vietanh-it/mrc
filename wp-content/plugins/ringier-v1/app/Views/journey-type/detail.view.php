@@ -38,7 +38,7 @@ if (!empty($journey_type_info)) { ?>
              data-img_ticket="<?php echo VIEW_URL . '/images/icon-ticket.png' ?>">
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
-                    <div class="ctn-list-journey">
+                    <div class="ctn-list-journey hide-on-med-and-down">
                         <div class="title">Check availability and book online
                             <span>Prices shown are per person in USD$ and include all discounts.</span></div>
                         <table class="table table-striped">
@@ -132,6 +132,107 @@ if (!empty($journey_type_info)) { ?>
 
                             </tbody>
                         </table>
+                    </div>
+                    <div class="ctn-list-journey-mb hide-on-med-and-up">
+                        <?php if (!empty($journey_list['data'])) {
+
+                            $m_journey = \RVN\Models\Journey::init();
+                            $m_offer = \RVN\Models\Offer::init();
+
+                            foreach ($journey_list['data'] as $k => $v) {
+                                $jt_info = $v->journey_type_info;
+                                $offer = $m_offer->getOfferByJourney($v->ID);
+                                $j_min_price = $m_journey->getJourneyMinPrice($v->ID, true);
+                                ?>
+
+                                <div class="panel-heading" role="tab" id="heading_<?php echo $k + 1 ?>">
+                                    <div class="panel-title be-travel">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $k + 1 ?>" aria-expanded="true" aria-controls="collapseOne">
+                                            <?php echo date('d M Y', strtotime($v->departure)); ?>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div id="collapse_<?php echo $k + 1 ?>" class="panel-collapse collapse in ctn-show-hide-traveller" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <b>Departure </b>:
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <?php echo date('d M Y', strtotime($v->departure)); ?>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <b>From - to </b>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <?php echo $jt_info->starting_point ?>
+                                                - <?php echo $jt_info->destination_info->post_title; ?>
+                                                <br>
+                                                <?php echo $jt_info->duration; ?>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <b>Ship </b>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <a href="<?php echo $jt_info->ship_info->permalink; ?>" target="_blank"
+                                                   style="color: #e4a611;">
+                                                    <?php echo $jt_info->ship_info->post_title; ?>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <b>Offer </b>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <?php if (!empty($offer)) { ?>
+
+                                                    <b>
+                                                        <?php echo $offer->post_title ?> <br>
+                                                        Book by <?php echo $v->departure_fm; ?>
+                                                        and save <?php echo $offer->offers[0]->promotion; ?>%.
+                                                    </b>
+
+                                                    <img src="<?php echo VIEW_URL ?>/images/icon-ticket.png">
+
+                                                <?php }else{
+                                                    echo 'none';
+                                                } ?>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <b>Price </b>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                from
+
+                                                <?php if (!empty($offer) && ($j_min_price->min_price > $j_min_price->min_price_offer)) { ?>
+                                                    <span
+                                                        style="text-decoration: line-through;color: burlywood; padding-right: 5px;">
+                                                US$<?php echo number_format($j_min_price->min_price); ?>
+                                            </span>
+                                                <?php } ?>
+
+                                                <b style="color: #e4a611">
+                                                    US$<?php echo number_format($j_min_price->min_price_offer); ?>
+                                                </b> pp
+                                                <br>based on <?php echo $j_min_price->type; ?> cabin
+                                            </div>
+                                        </div>
+                                        <div class="select-mb">
+                                            <a href="<?php echo $v->permalink; ?>" class="bnt-jn">Select</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            <?php }
+                        }?>
                     </div>
                 </div>
             </div>

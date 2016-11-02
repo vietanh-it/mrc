@@ -105,15 +105,21 @@ global $post;
                             </tbody>
                         </table>
 
-                        <b class="title color-main">Extension and service addon</b>
+                        <?php if (!empty($cart_detail['cart_addon'])) { ?>
+                            <b class="title color-main">Extension and service addon</b>
+                        <?php } ?>
+
                         <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Person</th>
-                                <th class="text-right">Sub Total</th>
-                            </tr>
-                            </thead>
+                            <?php if (!empty($cart_detail['cart_addon'])) { ?>
+                                <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Person</th>
+                                    <th class="text-right">Sub Total</th>
+                                </tr>
+                                </thead>
+                            <?php } ?>
+
                             <tbody>
 
                             <?php $addon_total = 0;
@@ -135,16 +141,17 @@ global $post;
                                         </tr>
 
                                     <?php }
-                                }
-                            } ?>
+                                } ?>
 
-                            <!--<----- >-->
-                            <tr>
-                                <td colspan="3" class="text-right">
-                                    <b>Total:<span class="color-main"
-                                                   style="font-size: 17px"> US$<?php echo number_format($addon_total); ?></span></b>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right">
+                                        <b>Total:<span class="color-main"
+                                                       style="font-size: 17px"> US$<?php echo number_format($addon_total); ?></span></b>
+                                    </td>
+                                </tr>
+
+                            <?php } ?>
+
                             <tr style="background: #d5b76e">
                                 <td colspan="3" class="text-right">
                                     Grand Total:<b><span

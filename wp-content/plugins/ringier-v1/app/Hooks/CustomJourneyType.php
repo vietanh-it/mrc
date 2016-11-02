@@ -51,17 +51,10 @@ class CustomJourneyType
         </style>
         <div class="form-group">
             <!--<textarea class="form-control" rows="5" name="include" ><?php /*echo !empty($jt_info->include) ? $jt_info->include :''  */?></textarea>-->
-            <?php
-            $acf_field_wysiwyg = new \acf_field_wysiwyg();
-            $field = array(
-                'id' => 'include',
-                'name' => 'include',
-                'value' => !empty($jt_info->include) ? $jt_info->include :'' ,
-                'toolbar' => 'full',
-                'media_upload' => 'yes',
-            );
-            $acf_field_wysiwyg->create_field($field);
-            ?>
+            <?php wp_editor(!empty($jt_info->include) ? $jt_info->include :'', 'include', [
+                'textarea_rows' => 5,
+                'textarea_name'=>'include'
+            ]); ?>
         </div>
     <?php }
 
@@ -147,17 +140,10 @@ class CustomJourneyType
                         </div>
                         <div class="form-group">
                             <label for="day_content">Content</label>
-                            <?php
-                            $acf_field_wysiwyg = new \acf_field_wysiwyg();
-                            $field = array(
-                                'id' => 'day_'.$k ,
-                                'name' => 'day_content[]',
-                                'value' => $v->content,
-                                'toolbar' => 'full',
-                                'media_upload' => 'yes',
-                            );
-                            $acf_field_wysiwyg->create_field($field);
-                            ?>
+                            <?php wp_editor($v->content, 'day_content_'.$k, [
+                                'textarea_rows' => 5,
+                                'textarea_name'=>'day_content[]'
+                            ]); ?>
                         </div>
                         <a href="javascript:void(0)" class="delete_day">Delete day</a>
                     </div>
@@ -197,17 +183,10 @@ class CustomJourneyType
                     </div>
                     <div class="form-group">
                         <label for="day_content">Content</label>
-                        <?php
-                        $acf_field_wysiwyg = new \acf_field_wysiwyg();
-                        $field = array(
-                            'id' => 'day_1',
-                            'name' => 'day_content[]',
-                            'value' => '',
-                            'toolbar' => 'full',
-                            'media_upload' => 'yes',
-                        );
-                        $acf_field_wysiwyg->create_field($field);
-                        ?>
+                        <?php wp_editor('', 'day_content_1', [
+                            'textarea_rows' => 5,
+                            'textarea_name'=>'day_content[]'
+                        ]); ?>
                     </div>
                     <a href="javascript:void(0)" class="delete_day">Delete day</a>
                 </div>

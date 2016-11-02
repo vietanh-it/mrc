@@ -121,17 +121,10 @@ class CustomShips
                         <div class="form-group">
                             <label for="day_content">Content</label>
                             <!--<textarea class="form-control" rows="5" name="deck_content[]" ><?php /*echo $v['content'] */?></textarea>-->
-                            <?php
-                            $acf_field_wysiwyg = new \acf_field_wysiwyg();
-                            $field = array(
-                                'id' => 'deck_'.$k ,
-                                'name' => 'deck_content[]',
-                                'value' => $v['content'],
-                                'toolbar' => 'full',
-                                'media_upload' => 'yes',
-                            );
-                            $acf_field_wysiwyg->create_field($field);
-                            ?>
+                            <?php wp_editor($v['content'], 'deck_content_'.$k, [
+                                'textarea_rows' => 5,
+                                'textarea_name'=>'deck_content[]'
+                            ]); ?>
                         </div>
                         <div class="form-group">
                             <label  for="featured_image" >Image</label>
@@ -178,17 +171,11 @@ class CustomShips
                     <div class="form-group">
                         <label for="day_content">Content</label>
                        <!-- <textarea class="form-control" rows="5" name="deck_content[]"></textarea>-->
-                        <?php
-                        $acf_field_wysiwyg = new \acf_field_wysiwyg();
-                        $field = array(
-                            'id' => 'deck_1' ,
-                            'name' => 'deck_content[]',
-                            'value' => '',
-                            'toolbar' => 'full',
-                            'media_upload' => 'yes',
-                        );
-                        $acf_field_wysiwyg->create_field($field);
-                        ?>
+
+                        <?php wp_editor('', 'deck_content_1', [
+                            'textarea_rows' => 5,
+                            'textarea_name'=>'deck_content[]'
+                        ]); ?>
                     </div>
                     <div class="form-group">
                         <label  for="featured_image" >Image</label>
@@ -464,17 +451,10 @@ class CustomShips
             <div class="form-group">
                 <label for="day_content">General introduction</label>
                <!-- <textarea class="form-control" rows="5" name="room_general_introduction" ><?php /*echo !empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '' */?></textarea>-->
-                <?php
-                $acf_field_wysiwyg = new \acf_field_wysiwyg();
-                $field = array(
-                    'id' => 'room_general_introduction' ,
-                    'name' => 'room_general_introduction',
-                    'value' => !empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '',
-                    'toolbar' => 'full',
-                    'media_upload' => 'yes',
-                );
-                $acf_field_wysiwyg->create_field($field);
-                ?>
+                <?php wp_editor(!empty($ship_info->room_general_introduction) ? $ship_info->room_general_introduction : '', 'room_general_introduction', [
+                    'textarea_rows' => 5,
+                    'textarea_name'=>'room_general_introduction'
+                ]); ?>
             </div>
         </div>
         <?php if (!empty($ship_info->rooms_info)) {
@@ -501,17 +481,10 @@ class CustomShips
                         <div class="form-group tniMCE">
                             <label for="day_content">Content</label>
                             <!--<textarea class="form-control" rows="5" name="room_content[]" ><?php /*echo $v['room_content'] */?></textarea>-->
-                            <?php
-                            $acf_field_wysiwyg = new \acf_field_wysiwyg();
-                            $field = array(
-                                'id' => 'room_content_'.$k ,
-                                'name' => 'room_content[]',
-                                'value' => $v['room_content'],
-                                'toolbar' => 'full',
-                                'media_upload' => 'yes',
-                            );
-                            $acf_field_wysiwyg->create_field($field);
-                            ?>
+                            <?php wp_editor($v['room_content'], 'room_content_'.$k, [
+                                'textarea_rows' => 5,
+                                'textarea_name'=>'room_content[]'
+                            ]); ?>
                         </div>
                         <div class="form-group">
                             <label  for="featured_image" >Image</label>
@@ -561,17 +534,10 @@ class CustomShips
                     </div>
                     <div class="form-group tniMCE">
                         <label for="day_content">Content</label>
-                        <?php
-                        $acf_field_wysiwyg = new \acf_field_wysiwyg();
-                        $field = array(
-                            'id' => 'room_content_1' ,
-                            'name' => 'room_content[]',
-                            'value' => '',
-                            'toolbar' => 'full',
-                            'media_upload' => 'yes',
-                        );
-                        $acf_field_wysiwyg->create_field($field);
-                        ?>
+                        <?php wp_editor('', 'room_content_1', [
+                            'textarea_rows' => 5,
+                            'textarea_name'=>'room_content[]'
+                        ]); ?>
                     </div>
                     <div class="form-group">
                         <label  for="featured_image" >Image</label>

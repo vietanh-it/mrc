@@ -2729,11 +2729,19 @@ header .top-bar .top-info li:first-child {
     nav ul.navbar-nav li.active a{
         color: #e4a611;
     }
-    .navbar-header i{
+    .navbar-header i,.navbar-toggle-2 i.fa{
         color: #e4a611;
         font-size: 25px;
         margin-top: -3px;
         font-weight: normal;
+    }
+
+    .icon-ac{
+        width: 24px;
+        height: 24px;
+        background: url(../images/icon-user-2.png) 100%;
+        display: block;
+        margin-top: -3px;
     }
 }
 

@@ -141,7 +141,7 @@ if (is_single()) {
                 </div>
                 <div class="col-sm-7 col-xs-2">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        <button type="button" class="navbar-toggle collapsed navbar-toggle-1" data-toggle="collapse"
                                 data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
                             <i class="fa fa-bars" aria-hidden="true"></i>
@@ -176,38 +176,13 @@ if (is_single()) {
                     <a href="<?php echo WP_SITEURL ?>"><img src="<?php echo VIEW_URL ?>/images/logo.png?v=1" style="margin-top: 10px; width: 203px;"></a>
                 </div>
                 <div class="col-xs-2 hide-on-med-and-up">
-                    <a href="#" class="user-mobile" data-toggle="modal" data-target="#modelUser">
-                        <img src="<?php echo VIEW_URL.'/images/icon-user-2.png' ?>" alt="">
-                    </a>
-                    <div class="modal fade" id="modelUser" tabindex="-1" role="dialog" aria-labelledby="modelUserLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <?php if (!is_user_logged_in()) { ?>
-                                        <a href="<?php echo wp_login_url(get_permalink()); ?>">
-                                            Sign in
-                                        </a>
-                                        <a href="<?php echo wp_registration_url(); ?>">
-                                            Sign up
-                                        </a>
-                                    <?php } else {
-                                        $objUser = \RVN\Models\Users::init();
-                                        $user_info = $objUser->getUserInfo(get_current_user_id());
-                                        ?>
-                                        <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
-                                            Hello <?php echo $user_info->display_name ?>
-                                        </a>
-                                        <a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
-                                            View profile
-                                        </a>
-                                        <a href="<?php echo wp_logout_url() ?>">
-                                            Log out
-                                        </a>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="button" class="navbar-toggle collapsed navbar-toggle-2" data-toggle="collapse" style="width: 100%"
+                            data-target="#bs-example-navbar-collapse-3" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="icon-ac">
+                            <!--<img src="<?php /*echo VIEW_URL.'/images/icon-user-2.png' */?>" alt="" style="width: 100%">-->
+                        </i>
+                    </button>
                 </div>
                 <div class="col-xs-12 hide-on-med-and-up">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
@@ -231,6 +206,31 @@ if (is_single()) {
 
                             <li class="<?php echo ((!empty($page_name) && $page_name == 'news') or $post_type == 'new') ? 'active' : '' ?>">
                                 <a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
+                        </ul>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                        <ul class="nav navbar-nav">
+                            <?php if (!is_user_logged_in()) { ?>
+                                <li><a href="<?php echo wp_login_url(get_permalink()); ?>">
+                                    Sign in
+                                </a></li>
+                                <li><a href="<?php echo wp_registration_url(); ?>">
+                                    Sign up
+                                </a></li>
+                            <?php } else {
+                                $objUser = \RVN\Models\Users::init();
+                                $user_info = $objUser->getUserInfo(get_current_user_id());
+                                ?>
+                                <li><a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
+                                        Hello <?php echo $user_info->display_name ?>
+                                    </a></li>
+                                <li><a href="<?php echo WP_SITEURL . '/account/profile/' ?>">
+                                        View profile
+                                    </a></li>
+                                <li><a href="<?php echo wp_logout_url() ?>">
+                                        Log out
+                                    </a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>

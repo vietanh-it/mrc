@@ -208,7 +208,7 @@ get_header();
                         <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
 
                         <a class="btn-kep-offer" href="#form-kep-offer"><img
-                                src="<?php echo VIEW_URL . '/images/icon-email-2.png' ?>" style="padding-right: 10px">
+                                src="<?php echo VIEW_URL . '/images/icon-email-2.png?v2' ?>" style="padding-right: 10px;width: 30px">
                             Keep in touch with best offer</a>
 
                         <form id="form-kep-offer" style="display: none" class="form-facybox">

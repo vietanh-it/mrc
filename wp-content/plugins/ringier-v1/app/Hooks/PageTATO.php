@@ -891,6 +891,7 @@ Class PageTATO
                                     $('.room-list-subtotal').html(subtotal);
 
                                     updateTotal();
+                                    isEmptyBooking();
                                 }
                                 else {
                                     var html_msg = '<div>';
@@ -1036,6 +1037,8 @@ Class PageTATO
                             }
                         });
                     }
+
+                    isEmptyBooking();
                 });
 
 
@@ -1068,6 +1071,9 @@ Class PageTATO
 
                 <?php } ?>
 
+
+                // Hide save button if not book
+                isEmptyBooking();
             });
 
 
@@ -1282,6 +1288,19 @@ Class PageTATO
                 var total = $('.total').html().replace(',', '');
                 var percent = $('.deposit-amount').html();
                 $('.deposit-amount-real').html(parseFloat(total) * parseFloat(percent) / 100);
+            }
+
+
+            function isEmptyBooking() {
+                var room_count = $('.room-list-wrapper [data-room]').length;
+                var tato_select = $('#tato_select').val();
+
+                if (!room_count || !tato_select) {
+                    console.log('hide');
+                    $('#submit').hide();
+                } else {
+                    $('#submit').fadeIn();
+                }
             }
 
         </script>

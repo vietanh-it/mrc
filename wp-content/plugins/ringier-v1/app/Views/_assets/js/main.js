@@ -211,8 +211,8 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
 
             // remove parameters
-            window.location.href = location.protocol + '//' + location.host + location.pathname;
-            // swal({'title': 'Warning', "text": 'Please choose one of the options', "type": "warning", html: true});
+            //window.location.href = location.protocol + '//' + location.host + location.pathname;
+             swal({'title': 'Warning', "text": 'Please choose one of the options', "type": "warning", html: true});
         }
     });
 

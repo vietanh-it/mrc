@@ -92,7 +92,7 @@ if (is_single()) {
                         </li>
                         <!--<li class="hide-on-med-and-down"><a href="--><?php //echo WP_SITEURL . '/news/' ?><!--"> Media centre </a></li>-->
                         <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/faq/' ?>"> FAQ </a></li>
-                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL; ?>/terms-of-use"> Terms and Conditions</a></li>
+                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL; ?>/terms-and-conditions"> Terms and Conditions</a></li>
                     </ul>
                 </div>
                 <div class="col-xs-6 col-sm-6">

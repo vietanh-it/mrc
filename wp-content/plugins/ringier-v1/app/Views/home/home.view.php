@@ -13,6 +13,22 @@ if (!empty($_GET['resp'])) {
     $response = $m_bank->getResponseDescription($_GET['resp']);
 }
 
+// header('Content-Type: application/openxmlformats-officedocument.spreadsheetml.sheet');
+// header('Content-Disposition: attachment;filename="manifest.xlsx";');
+// header('Cache-Control: max-age=0');
+//
+// // Do your stuff here
+// $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+// $objPHPExcel = $objReader->load(PATH_VIEW . '/_assets/test.xlsx');
+//
+// $active_sheet = $objPHPExcel->getActiveSheet();
+//
+// $active_sheet->insertNewRowBefore(7,2);
+//
+// $obj = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+// $obj->save('php://output');
+// exit();
+
 get_header();
 ?>
 <div class="home-slider" id="home-slider">

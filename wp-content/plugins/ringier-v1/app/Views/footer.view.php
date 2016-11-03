@@ -163,8 +163,8 @@
                             Mekong River Cruiser.
                         </div>
                         <div class="col-xs-12 col-sm-6 text-right">
-                            <a href="<?php echo WP_SITEURL . '/terms-of-use'; ?>" title="">
-                                Terms of Use
+                            <a href="<?php echo WP_SITEURL . '/terms-and-conditions'; ?>" title="">
+                                Terms and Conditions
                             </a> |
                             <a href="<?php echo WP_SITEURL . '/privacy-policy'; ?>" title="">
                                 Privacy Policy

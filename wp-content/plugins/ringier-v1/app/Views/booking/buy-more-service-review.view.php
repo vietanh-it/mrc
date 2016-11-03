@@ -134,7 +134,7 @@ if(!empty($booking_id)) {
 
                                 <div class="checkbox">
                                     <label>
-                                        <a href="<?php echo WP_SITEURL . '/terms-of-use'; ?>" style="color: #333333;"
+                                        <a href="<?php echo WP_SITEURL . '/terms-and-conditions'; ?>" style="color: #333333;"
                                            target="_blank"> I have read and agree to the terms & conditions</a>
                                         <input id="agree_terms" type="checkbox" value="1">
                                     </label>

@@ -67,7 +67,7 @@ if (is_single()) {
                 <div class="col-xs-6 col-sm-6">
                     <ul class="top-info">
                         <li><a href="<?php echo WP_SITEURL.'/refer-friends/'?>" class="refer-friend">
-                                <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>"> Refer friends</a>
+                                <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>" style="width: 16px"> Refer friends</a>
                             <?php /*if (is_user_logged_in()) { */?><!--
                                 <form id="form-refer-friend" style="display: none" class="form-facybox">
                                     <div class="form-group">
@@ -99,7 +99,7 @@ if (is_single()) {
                     <ul class="top-info text-right">
                         <li><a href="<?php echo WP_SITEURL . '/account/your-booking'; ?>">
                                 <img src="<?php echo VIEW_URL . '/images/icon-date-2.png' ?>"
-                                     style="margin-top: -3px;margin-right: 5px" alt=""> Your booking</a>
+                                     style="margin-top: -3px;margin-right: 5px;width: 16px" alt=""> Your booking</a>
                         </li>
                         <?php if (!is_user_logged_in()) { ?>
                             <li class="sign-up hide-on-med-and-down">

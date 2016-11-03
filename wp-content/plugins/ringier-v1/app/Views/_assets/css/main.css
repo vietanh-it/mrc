@@ -644,6 +644,7 @@ nav ul.navbar-nav li.active a {
     /* margin: 0 auto; */
     left: 50%;
     margin-left: -35px;
+    width: 70px;
 }
 
 .box-why img.img-main {
@@ -2742,6 +2743,7 @@ header .top-bar .top-info li:first-child {
         background: url(../images/icon-user-2.png) 100%;
         display: block;
         margin-top: -3px;
+        background-size: 25px;
     }
 
     .ctn-list-journey-mb{

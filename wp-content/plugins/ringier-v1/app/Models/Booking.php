@@ -362,7 +362,11 @@ class Booking
         $query = "SELECT SUM(total) FROM {$this->_tbl_cart_addon} WHERE cart_id = {$cart_id} AND status = 'active'";
         $addon_total = $this->_wpdb->get_var($query);
 
-        $final_total = valueOrNull($room_total, 0) + valueOrNull($addon_total, 0);
+        // Commission value
+        $query = "SELECT commission_value FROM " . TBL_CART . " WHERE id = {$cart_id}";
+        $commission_value = $this->_wpdb->get_var($query);
+
+        $final_total = valueOrNull($room_total, 0) + valueOrNull($addon_total, 0) - valueOrNull($commission_value, 0);
 
         return $final_total;
     }

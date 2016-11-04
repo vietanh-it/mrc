@@ -156,7 +156,7 @@ class HomeSlider
     public function save()
     {
         global $post;
-        if ($post->post_name == PAGE_HOME_SLIDER_SLUG) {
+        if (!empty($post) && $post->post_name == PAGE_HOME_SLIDER_SLUG) {
             $home_intro = stripslashes($_POST['home_introduction']);
             $offer_intro = stripslashes($_POST['offer_introduction']);
             $ship_intro = stripslashes($_POST['ship_introduction']);

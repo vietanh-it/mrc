@@ -152,7 +152,11 @@ class CustomBooking
             <div class="row">
                 <div class="col-xs-12"
                      style="border-top: 1px dashed #dddddd; padding-top: 20px; margin-top: 20px; text-align: center; padding-bottom: 20px; font-size: 20px;">
-                    TOTAL: <b>$<?php echo number_format($m_booking->getCartTotalByID($booking_detail->id)); ?></b>
+                    <?php if (!empty($booking_detail->commission_value)) { ?>
+                        <div style="margin-bottom: 10px; font-size: 16px;">COMMISSION: <b>- $<?php echo $booking_detail->commission_value ?></b></div>
+                    <?php } ?>
+                    <div>TOTAL: <b>$<?php echo number_format($m_booking->getCartTotalByID($booking_detail->id)); ?></b>
+                    </div>
                 </div>
             </div>
         </section>

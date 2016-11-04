@@ -160,6 +160,20 @@ Class PageTATO
 
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="form-group">
+                            <label style="margin-top: 10px;">
+                                <span class="cb-commission-wrapper" style="display: none;">
+                                    <input type="checkbox" name="is_commission" id="is_commission"> Include commission (<span class="cm-percent"></span>%) on booking
+                                </span>
+                                <input type="hidden" name="commission_percent" id="commission_percent" value="0">
+                                <input type="hidden" name="commission_value" id="commission_value" value="0">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
                         <i>Note: The booking is kept for only 3 days. Please tell the TA/TO for deposit as
                            soon
                            as
@@ -523,6 +537,19 @@ Class PageTATO
                                     <td class="room-list"></td>
                                     <td class="room-list-price"></td>
                                     <td class="room-list-subtotal"></td>
+                                </tr>
+
+                                <tr class="line-top subtotal-wrapper">
+                                    <td></td>
+                                    <td colspan="2">Subtotal</td>
+                                    <td class="bold">$<span class="subtotal">0</span></td>
+                                </tr>
+
+                                <tr class="line-top commission-wrapper" style="display: none;">
+                                    <td></td>
+                                    <td colspan="2">Commission</td>
+                                    <td class="bold">- <span class="percent">0</span>% = $<span class="value">0</span>
+                                    </td>
                                 </tr>
 
                                 <tr class="line-top total-wrapper">
@@ -1018,6 +1045,11 @@ Class PageTATO
                                     $('#deposit_rate').val(data.data.deposit_rate);
                                     $('.deposit-amount').html(data.data.deposit_rate);
 
+                                    $('#commission_percent').val(data.data.commission_rate);
+
+                                    $('.cb-commission-wrapper .cm-percent').html(data.data.commission_rate);
+                                    $('.cb-commission-wrapper').show();
+
                                     updateDeposit();
                                 }
                                 else {
@@ -1036,6 +1068,8 @@ Class PageTATO
                                 }
                             }
                         });
+                    } else {
+                        $('.cb-commission-wrapper').hide();
                     }
 
                     isEmptyBooking();
@@ -1070,6 +1104,12 @@ Class PageTATO
                 }, 2000);
 
                 <?php } ?>
+
+
+                // Update commission
+                $('#is_commission').change(function () {
+                    updateCommission();
+                });
 
 
                 // Hide save button if not book
@@ -1253,7 +1293,7 @@ Class PageTATO
 
             function clearAddonTable() {
                 var room_list_wrapper_index = $('.room-list-wrapper').index();
-                var total_wrapper_index = $('.total-wrapper').index();
+                var total_wrapper_index = $('.subtotal-wrapper').index();
                 var addon_selectors = $('.booking-review-table tr:lt(' + total_wrapper_index + '):gt(' + room_list_wrapper_index + ')');
 
                 addon_selectors.remove();
@@ -1279,8 +1319,10 @@ Class PageTATO
                     }
                 });
 
+                $('.subtotal').html(numberFormat(total));
                 $('.total').html(numberFormat(total));
                 updateDeposit();
+                updateCommission();
             }
 
 
@@ -1291,12 +1333,38 @@ Class PageTATO
             }
 
 
+            function updateCommission() {
+                var subtotal = $('.subtotal').html().replace(',', '');
+                var is_commission = $('#is_commission').is(':checked');
+                var commission_percent = $('#commission_percent').val();
+
+                if (is_commission) {
+                    var commission_value = parseFloat(subtotal) * parseFloat(commission_percent) / 100;
+                    var commission_value_number = numberFormat(commission_value);
+                    $('#commission_value').val(commission_value);
+
+                    // update total
+                    $('.total').html(numberFormat(parseFloat(subtotal) - parseFloat(commission_value)));
+
+                    // update value
+                    $('.commission-wrapper .percent').html(commission_percent);
+                    $('.commission-wrapper .value').html(commission_value_number);
+
+                    // show
+                    if ($('.booking-review').is(":visible")) {
+                        $('.commission-wrapper').show();
+                    }
+                } else {
+                    $('.commission-wrapper').hide();
+                }
+            }
+
+
             function isEmptyBooking() {
                 var room_count = $('.room-list-wrapper [data-room]').length;
                 var tato_select = $('#tato_select').val();
 
                 if (!room_count || !tato_select) {
-                    console.log('hide');
                     $('#submit').hide();
                 } else {
                     $('#submit').fadeIn();
@@ -1456,6 +1524,14 @@ Class PageTATO
                             'deposit'    => ($deposit_rate * $cart_total) / 100,
                             'expired_at' => date('Y-m-d H:i:s', strtotime('+ 3 days'))
                         ], ['id' => $cart->id]);
+
+
+                        if (isset($_POST['is_commission']) && !empty($_POST['is_commission'])) {
+                            $wpdb->update(TBL_CART, [
+                                'commission_percent' => $_POST['commission_percent'],
+                                'commission_value' => $_POST['commission_value']
+                            ], ['id' => $cart->id]);
+                        }
 
 
                         // sendEmailHTML()

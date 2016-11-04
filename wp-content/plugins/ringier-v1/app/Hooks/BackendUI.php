@@ -91,6 +91,9 @@ class BackendUI
             var $ = jQuery.noConflict();
             $(document).ready(function () {
                 $('.select2').select2();
+
+                // Remove add new booking submenu
+                $('a[href="post-new.php?post_type=booking"]').css('display', 'none');
             });
 
             function switch_loading(is_loading) {

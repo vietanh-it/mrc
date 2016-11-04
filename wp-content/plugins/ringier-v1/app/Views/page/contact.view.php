@@ -85,7 +85,7 @@ while (have_posts()) : the_post();
                         </ul>
 
                         <div class="info-ct" style="margin-top: 20px">
-                            <img src="<?php echo VIEW_URL .'/images/icon-location-2.png '?>" alt="" style="padding-right: 12px; font-weight: bold;"> <b>MEKONG RIVER CRUISER LIMITED</b>
+                            <img src="<?php echo VIEW_URL .'/images/icon-location-2.png '?>" alt="" style="padding-right: 12px; font-weight: bold;"> <b>VIET PRINCESS CRUISES LIMITED</b>
                             <ul style="padding-left: 45px; color: #898989;">
                                 <li>Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam</li>
                                 <li>Tel: +84 8 3514 6033</li>

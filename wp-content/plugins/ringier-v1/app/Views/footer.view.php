@@ -68,7 +68,7 @@
                             <li><a href="<?php echo WP_SITEURL . '/contact-us'; ?>" title=""> Contact Us</a></li>
                             <li><a href="<?php echo WP_SITEURL . '/news/' ?>" title=""> Media Centre</a></li>
                             <li><a href="<?php echo WP_SITEURL . '/faq'; ?>" title=""> FAQ</a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/partner/' ?>" title=""> Partner</a></li>
+                            <li><a href="<?php echo WP_SITEURL . '/partner/' ?>" title=""> Partners</a></li>
                         </ul>
                     </div>
 
@@ -134,7 +134,7 @@
                             </div>
                         </div>
                         <br/><br/>
-                        MEKONG RIVER CRUISER LIMITED <br/>
+                        VIET PRINCESS CRUISES LIMITED <br/>
                         Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam <br/>
                         Tel: +84 8 3514 6033 <br/>
                     </div>
@@ -146,7 +146,7 @@
                 </a>
             </div>
             <div class="col-xs-12 text-left hide-on-med-and-up ul-mb">
-                <img src="<?php echo VIEW_URL.'/images/icon-location.png' ?>" alt="" style="margin-right: 10px"> MEKONG RIVER CRUISER LIMITED <br/>
+                <img src="<?php echo VIEW_URL.'/images/icon-location.png' ?>" alt="" style="margin-right: 10px"> VIET PRINCESS CRUISES LIMITED <br/>
                 <ul>
                     <li>Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam </li>
                     <li>Tel: +84 8 3514 6033 <br/></li>
@@ -160,7 +160,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6"
                              style="font-family: 'Source Sans Pro', sans-serif; font-size: 14px;">&copy; <?php echo date('Y'); ?>
-                            Mekong River Cruiser.
+                            Viet Princess Cruises.
                         </div>
                         <div class="col-xs-12 col-sm-6 text-right">
                             <a href="<?php echo WP_SITEURL . '/terms-and-conditions'; ?>" title="">

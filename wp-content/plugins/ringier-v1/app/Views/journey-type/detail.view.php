@@ -22,13 +22,14 @@ if (!empty($journey_type_info)) { ?>
                         <?php if (!empty($journey_type_info->offer_main_info)) { ?>
                             <li>
                                 <b>Promotion:</b> Save up
-                                                  to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
+                                to <?php echo $journey_type_info->offer_main_info->promotion ?>% on selected dates
                             </li>
                         <?php } ?>
                     </ul>
                     <a href="javascript:void(0)" class="btn-show-journey"
                        data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
-                    <span>from US$<span class="price-if"><?php echo number_format($min_price) ?></span> per person</span>
+                    <span>from US$<span
+                            class="price-if"><?php echo number_format($min_price) ?></span> per person</span>
                 </div>
             </div>
 
@@ -147,13 +148,17 @@ if (!empty($journey_type_info)) { ?>
 
                                 <div class="panel-heading" role="tab" id="heading_<?php echo $k + 1 ?>">
                                     <div class="panel-title be-travel">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $k + 1 ?>" aria-expanded="true" aria-controls="collapseOne">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapse_<?php echo $k + 1 ?>" aria-expanded="true"
+                                           aria-controls="collapseOne">
                                             <?php echo date('d M Y', strtotime($v->departure)); ?>
                                         </a>
                                     </div>
                                 </div>
 
-                                <div id="collapse_<?php echo $k + 1 ?>" class="panel-collapse collapse in ctn-show-hide-traveller" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="collapse_<?php echo $k + 1 ?>"
+                                     class="panel-collapse collapse in ctn-show-hide-traveller" role="tabpanel"
+                                     aria-labelledby="headingOne">
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-xs-4">
@@ -200,7 +205,8 @@ if (!empty($journey_type_info)) { ?>
 
                                                     <img src="<?php echo VIEW_URL ?>/images/icon-ticket.png">
 
-                                                <?php }else{
+                                                <?php }
+                                                else {
                                                     echo 'none';
                                                 } ?>
                                             </div>
@@ -232,7 +238,18 @@ if (!empty($journey_type_info)) { ?>
 
                                 </div>
                             <?php }
-                        }?>
+                        }
+                        else { ?>
+                            <div class="panel-heading" role="tab" id="heading_1">
+                                <div class="panel-title be-travel">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                       href="#collapse_1" aria-expanded="true"
+                                       aria-controls="collapseOne">
+                                        No journeys available
+                                    </a>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -255,10 +272,12 @@ if (!empty($journey_type_info)) { ?>
                         </div>
                     <?php } ?>
 
-                    <h3 class="title-main">Journey map</h3>
-                    <a href="<?php echo $journey_type_info->map_image ?>" class="fancybox">
-                        <img src="<?php echo $journey_type_info->map_image ?>" alt="">
-                    </a>
+                    <?php if (!empty($journey_type_info->map_image)) { ?>
+                        <h3 class="title-main">Journey map</h3>
+                        <a href="<?php echo $journey_type_info->map_image ?>" class="fancybox">
+                            <img src="<?php echo $journey_type_info->map_image ?>" alt="">
+                        </a>
+                    <?php } ?>
 
                     <?php if ($journey_type_info->ship_info->gallery) { ?>
                         <h3 class="title-main">The ship</h3>
@@ -273,24 +292,25 @@ if (!empty($journey_type_info)) { ?>
                     <?php } ?>
                 </div>
 
-                <div class="col-xs-12 col-sm-8">
-                    <h3 class="title-main">Itinerary</h3>
-                    <?php
-                    if (!empty($journey_type_info->related_journey_type)) {
-                        $related = get_permalink($journey_type_info->related_journey_type); ?>
-                        <a href="<?php echo $related ?>" class="btn-jt-navigation">
-                            <?php echo $journey_type_info->navigation == 'upstream' ? 'Downstream' : 'Upstream'; ?>
-                        </a>
-                    <?php }
-                    if (!empty($journey_type_info->itinerary)) {
+                <?php if (!empty($journey_type_info->itinerary)) { ?>
+                    <div class="col-xs-12 col-sm-8">
+                        <h3 class="title-main">Itinerary</h3>
+                        <?php
+                        if (!empty($journey_type_info->related_journey_type)) {
+                            $related = get_permalink($journey_type_info->related_journey_type); ?>
+                            <a href="<?php echo $related ?>" class="btn-jt-navigation">
+                                <?php echo $journey_type_info->navigation == 'upstream' ? 'Downstream' : 'Upstream'; ?>
+                            </a>
+                        <?php }
+
                         $itinerary = ($journey_type_info->itinerary);
                         foreach ($itinerary as $k => $it) {
                             if (!empty($it->day)) {
                                 $extra_text = '';
-                                if($k == 0) {
+                                if ($k == 0) {
                                     $extra_text = '/ EMBARKATION';
                                 }
-                                if($k == (count($itinerary) - 1)) {
+                                if ($k == (count($itinerary) - 1)) {
                                     $extra_text = '/ DISEMBARKATION';
                                 }
                                 ?>
@@ -298,16 +318,22 @@ if (!empty($journey_type_info)) { ?>
                                     <div class="day-in">
                                         DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?> <?php echo $extra_text; ?></div>
                                     <p><?php echo apply_filters('the_content', $it->content) ?></p>
-                                    <a href="<?php echo $it->location_info->permalink ?>" class="see-more-lc">See more about <?php echo $it->location_info->post_title ?>  </a>
+                                    <a href="<?php echo $it->location_info->permalink ?>" class="see-more-lc">See more
+                                        about <?php echo $it->location_info->post_title ?>  </a>
                                 </div>
                             <?php }
-                        }
-                    } ?>
-                    <div class="title-main">WHAT’S INCLUDED</div>
-                    <p>
-                        <?php echo apply_filters('the_content', $journey_type_info->include) ?>
-                    </p>
-                </div>
+                        } ?>
+
+                        <?php if (!empty($journey_type_info->include)) { ?>
+                            <div class="title-main">WHAT’S INCLUDED</div>
+                            <p>
+                                <?php echo apply_filters('the_content', $journey_type_info->include) ?>
+                            </p>
+                        <?php } ?>
+
+                    </div>
+                <?php } ?>
+
             </div>
             <?php if (!empty($list_add_on['data'])) { ?>
                 <div class="row">

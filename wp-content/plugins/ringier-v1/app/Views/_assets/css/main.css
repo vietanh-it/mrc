@@ -303,24 +303,24 @@ nav ul.navbar-nav li.active a {
 }
 
 .icon-n.icon-location {
-    background: url("../images/icon-location-mb-white.png");
+    background: url("../images/icon-location-mb-white.png?v=1");
     background-size: 15px 20px;
 }
 
 .icon-n.icon-date {
-    background: url("../images/icon-date-mb-white.png");
+    background: url("../images/icon-date-mb-white.png?v=1");
     background-size: 20px;
     width: 19px;
 }
 
 .icon-n.icon-port {
-    background: url("../images/icon-port-mb-white.png");
+    background: url("../images/icon-port-mb-white.png?v=1");
     background-size: 20px;
     width: 20px;
 }
 
 .icon-n.icon-ship {
-    background: url("../images/icon-dns-mb-white.png");
+    background: url("../images/icon-dns-mb-white.png?v=1");
     background-size: 25px 22px;
     width: 25px;
     height: 22px;
@@ -867,10 +867,10 @@ footer ul li {
 
 .journey-detail .featured-image .info a {
     padding: 10px 20px;
-    color: #e4a611;
+    color: #ffffff;
     border: 1px solid #e4a611;
     border-radius: 5px;
-    background: white;
+    background: #e4a611;
     text-transform: uppercase;
     font-weight: bold;
     font-family: 'Playfair Display', serif;
@@ -878,8 +878,8 @@ footer ul li {
 }
 
 .journey-detail .featured-image .info a:hover {
-    background: #e4a611;
-    color: white;
+    background: #ffffff;
+    color: #e4a611;
     text-decoration: none;
 }
 
@@ -2259,10 +2259,10 @@ header .top-bar .top-info li:first-child {
     padding-bottom: 20px;
 }
 .see-more-lc{
-    color: #e4a611;
+    color: #ccc;
 }
 .see-more-lc:hover{
-    color: #d5b76e;
+    color: #aaa;
 }
 
 #introduction{
@@ -2334,6 +2334,14 @@ header .top-bar .top-info li:first-child {
 }
 
 @media (max-width: 768px) {
+    .navbar-toggle {
+        margin-right: 5px;
+    }
+
+    .btn-jt-navigation {
+        right: 15px;
+    }
+
     .list-galary-3.ship.owl-carousel .owl-wrapper-outer {
         padding-top: 0;
     }

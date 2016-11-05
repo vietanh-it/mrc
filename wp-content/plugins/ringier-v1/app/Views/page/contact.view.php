@@ -11,7 +11,7 @@ while (have_posts()) : the_post();
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <h1 class="tile-main" style="margin-bottom: 10px"><?php the_title() ?>
-                            <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+                            <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
                         </h1>
                     </div>
                 </div>

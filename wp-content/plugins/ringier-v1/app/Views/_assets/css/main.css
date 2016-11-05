@@ -318,8 +318,8 @@ nav ul.navbar-nav li.active a {
 
 .icon-n.icon-ship {
     background: url("../images/icon-ship.png");
-    width: 23px;
-    height: 23px;
+    width: 25px;
+    height: 22px;
 }
 
 .form-find-journey button {
@@ -2505,8 +2505,8 @@ header .top-bar .top-info li:first-child {
     .form-find-journey .icon-n.icon-ship {
         background: url("../images/icon-dns-mb.png");
         z-index: 100;
-        -webkit-background-size: 23px 23px;
-        background-size: 23px 23px;
+        -webkit-background-size: 25px 22px;
+        background-size: 25px 22px;
     }
 
     .form-find-journey .form-find-journey .form-group {
@@ -2740,10 +2740,10 @@ header .top-bar .top-info li:first-child {
     .icon-ac{
         width: 24px;
         height: 24px;
-        background: url(../images/icon-user-2.png) 100%;
+        background: url(../images/icon-user-2.png?v=2) 100%;
         display: block;
         margin-top: -3px;
-        background-size: 25px;
+        background-size: 24px;
     }
 
     .ctn-list-journey-mb{

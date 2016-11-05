@@ -12,7 +12,7 @@ var_dump($list_rs_food);*/
 <div class="container">
     <div class="row">
         <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;">resources
-            <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+            <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
         </h1>
     </div>
 </div>

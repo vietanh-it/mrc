@@ -41,7 +41,7 @@ while (have_posts()) : the_post(); ?>
             <div class="col-xs-12 col-sm-12 tile-main">
                 Booking Detail
                 <br>
-                <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+                <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
                 <br><span class="text">Please review your booking carefully</span>
                 <a href="javascript:void(0)">
                     <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>" class="img-icon">

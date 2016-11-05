@@ -174,7 +174,7 @@ get_header();
     <div class="container ">
         <div class="row">
             <h2 class="col-xs-12 col-sm-12 tile-main"><a href="<?php echo WP_SITEURL . '/journeys/' ?>">Journey</a>
-                <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+                <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
             </h2>
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row list-slide-mb">
@@ -221,7 +221,7 @@ get_header();
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                     <div class="tile-main" style="position: relative">
                         <a href="javascript:void(0)">Latest offer</a>
-                        <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+                        <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
 
                         <a class="btn-kep-offer" href="#form-kep-offer"><img
                                 src="<?php echo VIEW_URL . '/images/icon-email-2.png?v2' ?>" style="padding-right: 10px;width: 30px">
@@ -323,7 +323,7 @@ get_header();
             <div class="container ">
                 <div class="row">
                     <h2 class="col-xs-12 col-sm-12 tile-main">Featured Room Item
-                        <br> <img src="<?php echo VIEW_URL . '/images/line.png' ?>">
+                        <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
                     </h2>
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                         <div class="row">

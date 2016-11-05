@@ -146,7 +146,7 @@
                 </a>
             </div>
             <div class="col-xs-12 text-left hide-on-med-and-up ul-mb">
-                <img src="<?php echo VIEW_URL.'/images/icon-location.png' ?>" alt="" style="margin-right: 10px"> VIET PRINCESS CRUISES LIMITED <br/>
+                <img src="<?php echo VIEW_URL.'/images/icon-location.png?v=1' ?>" alt="" style="margin-right: 10px; width: 15px;"> VIET PRINCESS CRUISES LIMITED <br/>
                 <ul>
                     <li>Add: No. 11.O, Mieu Noi Residences, Ward 3, Binh Thanh District, HCMC, Vietnam </li>
                     <li>Tel: +84 8 3514 6033 <br/></li>

@@ -102,7 +102,7 @@ get_header();
 
                 <div class="text-center">
                     <button type="submit">
-                        <i class="fa fa-search" aria-hidden="true"></i> Find now
+                        <img src="<?php echo VIEW_URL . '/images/icon-search.png?v=1'; ?>" style="width: 20px; vertical-align: top; padding-top: 4px; margin-right: 5px;"> Find now
                     </button>
                 </div>
             </form>
@@ -134,7 +134,7 @@ get_header();
     <div class="container ">
         <div class="row">
             <h2 class="col-xs-12 col-sm-12 tile-main white"><a href="<?php echo WP_SITEURL . '/why-us/' ?>">Why us</a>
-                <br> <img src="<?php echo VIEW_URL . '/images/line-white.png' ?>">
+                <br> <img src="<?php echo VIEW_URL . '/images/line-white.png?v=1' ?>" style="width: 110px">
             </h2>
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <div class="row list-slide-mb">
@@ -151,7 +151,7 @@ get_header();
                                     <div class="image">
                                         <a href="<?php echo $p->permalink ?>"> <img
                                                 src="<?php echo $p->images->featured ?>" alt="" class="img-main"></a>
-                                        <img src="<?php echo VIEW_URL . '/images/why-' . $i . '.png' ?>"
+                                        <img src="<?php echo VIEW_URL . '/images/why-' . $i . '.png?v=2' ?>"
                                              class="img-icon">
                                     </div>
                                     <div class="desc">

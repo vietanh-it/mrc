@@ -52,56 +52,65 @@ get_header(); ?>
 
                                 $journey_detail = $modelJourney->getInfo($value->journey_id);
                                 $total = $modelBooking->getCartTotalByID($value->id);
-                                $total = number_format($total);
-                                $total_people = $modelBooking->getCartTotalPeople($value->id);
-                                $status = $modelBooking->getBookingStatusText($value->status); ?>
 
-                                <tr>
-                                    <td style="white-space: nowrap; padding-right: 5px;">
-                                        <a href="<?php echo $booking_permalink; ?>" style="color: #545454;">
-                                            <b>
-                                                <?php echo $value->booking_code; ?>
-                                            </b>
-                                        </a>
-                                    </td>
-                                    <td><?php echo date('j M Y', strtotime($journey_detail->departure)); ?></td>
-                                    <td>
-                                        <?php echo $journey_detail->journey_type_info->starting_point ?>
-                                        - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?>
-                                        nights
-                                    </td>
-                                    <td style="text-decoration: underline">
-                                        <a href="<?php echo $journey_detail->permalink; ?>"
-                                           target="_blank" style="color: rgb(84, 84, 84);">
-                                            <?php echo $journey_detail->journey_type_info->post_title . ' - ' . $journey_detail->post_title; ?>
-                                        </a>
-                                    </td>
-                                    <td style="text-decoration: underline">
-                                        <a href="<?php echo $journey_detail->journey_type_info->ship_info->permalink; ?>"
-                                           target="_blank" style="color: rgb(84, 84, 84);">
-                                            <?php echo $journey_detail->journey_type_info->ship_info->post_title; ?>
-                                        </a>
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <?php echo $total_people; ?>
-                                    </td>
-                                    <td>
-                                        <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo $total; ?></b>
-                                    </td>
-                                    <td>
+                                // Chỉ hiện booking nào có total > 0
+                                if ($total > 0) {
+                                    $total = number_format($total);
+                                    $total_people = $modelBooking->getCartTotalPeople($value->id);
+                                    $status = $modelBooking->getBookingStatusText($value->status);
+
+                                    if ($value->status == 'cart') {
+                                        // journey permalink for cart
+                                        $booking_permalink = $journey_detail->permalink . '?step=booking-review';
+                                    } ?>
+
+                                    <tr>
+                                        <td style="white-space: nowrap; padding-right: 5px;">
+                                            <a href="<?php echo $booking_permalink; ?>" style="color: #545454;">
+                                                <b>
+                                                    <?php echo $value->booking_code; ?>
+                                                </b>
+                                            </a>
+                                        </td>
+                                        <td><?php echo date('j M Y', strtotime($journey_detail->departure)); ?></td>
+                                        <td>
+                                            <?php echo $journey_detail->journey_type_info->starting_point ?>
+                                            - <?php echo $journey_detail->journey_type_info->destination_info->post_title ?> <?php echo $journey_detail->journey_type_info->nights; ?>
+                                            nights
+                                        </td>
+                                        <td style="text-decoration: underline">
+                                            <a href="<?php echo $journey_detail->permalink; ?>"
+                                               target="_blank" style="color: rgb(84, 84, 84);">
+                                                <?php echo $journey_detail->journey_type_info->post_title . ' - ' . $journey_detail->post_title; ?>
+                                            </a>
+                                        </td>
+                                        <td style="text-decoration: underline">
+                                            <a href="<?php echo $journey_detail->journey_type_info->ship_info->permalink; ?>"
+                                               target="_blank" style="color: rgb(84, 84, 84);">
+                                                <?php echo $journey_detail->journey_type_info->ship_info->post_title; ?>
+                                            </a>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?php echo $total_people; ?>
+                                        </td>
+                                        <td>
+                                            <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo $total; ?></b>
+                                        </td>
+                                        <td>
                                     <span style="color: #e4a611">
                                         <?php echo $status; ?>
                                     </span>
-                                    </td>
-                                    <td style="text-align: center">
-                                        <a href="javascript:void(0)">
-                                            <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>"
-                                                 class="img-icon">
-                                        </a>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <a href="javascript:void(0)">
+                                                <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>"
+                                                     class="img-icon">
+                                            </a>
+                                        </td>
+                                    </tr>
 
-                            <?php }
+                                <?php }
+                            }
                         }
                         else { ?>
                             <tr>
@@ -124,29 +133,41 @@ get_header(); ?>
                             $total = $modelBooking->getCartTotalByID($value->id);
                             $total = number_format($total);
                             $total_people = $modelBooking->getCartTotalPeople($value->id);
-                            $status = $modelBooking->getBookingStatusText($value->status); ?>
+                            $status = $modelBooking->getBookingStatusText($value->status);
+
+                            if ($value->status == 'cart') {
+                                // journey permalink for cart
+                                $booking_permalink = $journey_detail->permalink . '?step=booking-review';
+                            }
+                            ?>
 
                             <div class="panel-heading" role="tab" id="heading_<?php echo $key + 1 ?>">
                                 <div class="panel-title be-travel">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $key + 1 ?>" aria-expanded="true" aria-controls="collapseOne">
-                                        <?php echo $value->booking_code; ?>
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                       href="#collapse_<?php echo $key + 1 ?>" aria-expanded="true"
+                                       aria-controls="collapseOne">
+                                        <?php echo $value->booking_code . ': ' . $status; ?>
                                     </a>
                                 </div>
                             </div>
 
-                            <div id="collapse_<?php echo $key + 1 ?>" class="panel-collapse collapse  ctn-show-hide-traveller" role="tabpanel" aria-labelledby="headingOne">
+                            <div id="collapse_<?php echo $key + 1 ?>"
+                                 class="panel-collapse collapse  ctn-show-hide-traveller" role="tabpanel"
+                                 aria-labelledby="headingOne">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-xs-4">
                                             <b>Booking ID </b>:
                                         </div>
                                         <div class="col-xs-8">
-                                            <?php echo $value->booking_code; ?>
+                                            <a href="<?php echo $booking_permalink; ?>">
+                                                <?php echo $value->booking_code; ?>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-4">
-                                            <b>Departure  </b>
+                                            <b>Departure </b>
                                         </div>
                                         <div class="col-xs-8">
                                             <?php echo date('j M Y', strtotime($journey_detail->departure)); ?>
@@ -215,7 +236,7 @@ get_header(); ?>
 
                             </div>
                         <?php }
-                    }?>
+                    } ?>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 text-center" style="margin : 50px 0">

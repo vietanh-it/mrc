@@ -205,7 +205,7 @@ if (is_single()) {
                                 <a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
 
                             <li class="<?php echo (!empty($page_name) && $page_name == 'why-us') ? 'active' : '' ?>">
-                                <a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
+                                <a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">We Pioneer </a></li>
                         </ul>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">

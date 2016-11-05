@@ -45,8 +45,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                 <div class="col-xs-12 col-sm-7">
                     <div class="img-ship">
                         <p><?php echo $ship_info->post_title; ?> Deck Plan</p>
-                        <img src="<?php echo VIEW_URL . '/images/booking-info-bar.png'; ?>"
-                             style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px;">
+                        <img src="<?php echo VIEW_URL . '/images/booking-info-bar.png?v=1'; ?>"
+                             style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; width: 390px;">
 
                         <div class="ship_map" style="position: relative;">
                             <img src="<?php echo $ship_info->map; ?>"

@@ -195,6 +195,47 @@ get_header();
                         <?php
                     }
                 } ?>
+
+
+                <?php if(!empty($ship_detail->facilities)){ ?>
+                    <h3 class="title-main" style="margin-top: 0; border-bottom: 1px solid #e4a611;
+    padding-bottom: 20px;">Facilities & Services</h3>
+
+                    <?php $facilities = unserialize($ship_detail->facilities);
+                    foreach ($facilities as $k => $v){
+                        $facility = unserialize($v);
+                        $img_full= wp_get_attachment_image_src($facility['facility_img_id'],'full');
+                        if($img_full) $img_full = array_shift($img_full);
+
+                        $img= wp_get_attachment_image_src($facility['facility_img_id'],'widescreen');
+                        if($img) $img = array_shift($img);
+                        ?>
+                        <div class="box-deck box-room-2">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-8">
+                                    <div class="title">
+                                        <?php echo !empty($facility['facility_title']) ? $facility['facility_title'] : '' ?>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-8">
+                                    <div class="desc">
+                                        <?php echo apply_filters('the_content',$facility['facility_description']) ?>
+                                    </div>
+                                    <div class="content">
+                                        <b>More info</b>
+                                        <?php echo apply_filters('the_content',$facility['facility_content']) ?>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <a href="<?php echo $img_full ?>" class="fancybox" title="<?php echo $facility['facility_title'] ?>">
+                                        <img src="<?php echo $img ?>" alt="<?php echo $facility['facility_title'] ?>" style="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } ?>
             </div>
         </div>
     </div>

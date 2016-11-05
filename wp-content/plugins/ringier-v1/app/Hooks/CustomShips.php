@@ -38,6 +38,7 @@ class CustomShips
     {
         add_meta_box('decks', 'DECKS', [$this, 'show'], 'ship', 'normal', 'high');
         add_meta_box('rooms', 'ROOMS', [$this, 'show_rooms'], 'ship', 'normal', 'high');
+        add_meta_box('facilities', 'Facilities & Services', [$this, 'show_facilities'], 'ship', 'normal', 'high');
 
     }
 
@@ -745,16 +746,317 @@ class CustomShips
         <?php
     }
 
+
+
+    public function show_facilities()
+    {
+        global $post;
+        $objShip = Ships::init();
+        $ship_info = $objShip->getShipInfo($post->ID);
+
+        ?>
+
+
+        <?php if (!empty($ship_info->facilities)) {
+        $list_facilities = unserialize($ship_info->facilities);
+        ?>
+        <div class="ctn-box-facility ">
+            <?php
+            foreach ($list_facilities as $k => $v) {
+                $v = unserialize($v);
+                $img= wp_get_attachment_image_src($v['facility_img_id']);
+                if($img) $img = array_shift($img);
+
+                //var_dump($v);?>
+                <div class="box-day">
+                    <div class="class-show-all" style="">
+                        <div class="form-group">
+                            <label for="facility_title">Title : </label>
+                            <input type="text" class="form-control day_name_key" placeholder="" name="facility_title[]" value="<?php echo $v['facility_title'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="day_content">Description</label>
+                            <textarea class="form-control" rows="5" name="facility_description[]" ><?php echo $v['facility_description'] ?></textarea>
+                        </div>
+                        <div class="form-group tniMCE">
+                            <label for="day_content">Content</label>
+                            <!--<textarea class="form-control" rows="5" name="room_content[]" ><?php /*echo $v['room_content'] */?></textarea>-->
+                            <?php wp_editor($v['facility_content'], 'facility_content_'.$k, [
+                                'textarea_rows' => 5,
+                                'textarea_name'=>'facility_content[]'
+                            ]); ?>
+                        </div>
+                        <div class="form-group">
+                            <label  for="featured_image" >Image</label>
+                            <div  class="img_featured_show">
+                        <span class="btn btn-success fileinput-button">
+                            <input class="facility_featured_image" type="file" name="featured_image" data-number ="<?php echo $k +1 ?>">
+                        </span>
+                                <div  class="facility_progress_<?php echo $k +1 ?> hidden">
+                                    <div class="facility_progress-bar-<?php echo $k +1 ?> progress-bar-success"></div>
+                                </div>
+                                <div class="facility_return_images_<?php echo $k +1 ?>">
+                                    <img src="<?php echo $img ?>" alt="">
+                                </div>
+                                <input type="hidden" name="facility_img_id[]" value="<?php echo $v['facility_img_id']  ?>" class="facility_img_id_<?php echo $k +1 ?>">
+                            </div>
+                        </div>
+
+                        <a href="javascript:void" class="delete_day">Delete facility</a>
+                    </div>
+                    <?php if (!empty($v->day)) { ?>
+                        <div class="class-hide-all" style="display: none">
+                            <b>facility : <span class="number_day_change"><?php echo $v->day ?></span></b>
+                        </div>
+                    <?php } ?>
+                    <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
+                        <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
+                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+            <?php } ?>
+        </div>
+        <?php
+    } else { ?>
+        <div class="ctn-box-facility">
+            <div class="box-day">
+                <div class="class-show-all" style="">
+                    <div class="form-group">
+                        <label for="day_name">Title :  </label>
+                        <input type="text" class="form-control day_name_key" placeholder="" name="facility_title[]">
+                    </div>
+                    <div class="form-group">
+                        <label for="day_content">Description</label>
+                        <textarea class="form-control" rows="5" name="facility_description[]" ></textarea>
+                    </div>
+                    <div class="form-group tniMCE">
+                        <label for="day_content">Content</label>
+                        <?php wp_editor('', 'facility_content_1', [
+                            'textarea_rows' => 5,
+                            'textarea_name'=>'facility_content[]'
+                        ]); ?>
+                    </div>
+                    <div class="form-group">
+                        <label  for="featured_image" >Image</label>
+                        <div  class="img_featured_show">
+                        <span class="btn btn-success fileinput-button">
+                            <input class="facility_featured_image" type="file" name="featured_image" data-number ="<?php echo 1 ?>" >
+                        </span>
+                            <div  class="facility_progress_1 hidden">
+                                <div class="facility_progress-bar-1 progress-bar-success"></div>
+                            </div>
+                            <div class="facility_return_images_1"></div>
+                            <input type="hidden" name="facility_img_id[]" value="" class="facility_img_id_1">
+                        </div>
+                    </div>
+                    <a href="javascript:void" class="delete_day">Delete facility</a>
+                </div>
+                <div class="class-hide-all" style="display: none">
+                    <b>facility  : <span class="number_day_change"></span></b>
+                </div>
+                <a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" >
+                    <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                </a>
+                <a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none">
+                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    <?php } ?>
+
+
+        <a href="javascript:void(0)" class="add_new_facility" data-number="<?php echo (!empty($list_facilities))  ? count($list_facilities) + 1 : 2 ?>">Add new facility</a>
+
+
+        <script>
+            var $ = jQuery.noConflict();
+            jQuery(document).ready(function ($) {
+                $('.add_new_facility').click(function () {
+                    var obj = $(this);
+                    var number = obj.attr('data-number');
+
+                    var html = '<div class="box-day"> ' +
+                        '<div class="class-show-all" style="">' +
+                        '<div class="form-group"> ' +
+                        '<label for="facility_title">Title : </label> ' +
+                        '<input type="text" class="form-control day_name_key"  placeholder="" name="facility_title[]"> ' +
+                        '</div>' +
+                        '<div class="form-group"> ' +
+                        '<label for="facility_description">Description</label> ' +
+                        '<textarea class="form-control" rows="5" name="facility_description[]" ></textarea>' +
+                        '</div> ' +
+                        '<div class="form-group tniMCE"> ' +
+                        '<label for="facility_content">Content</label> ' +
+                        '<textarea class="form-control tinimce_n" rows="5" name="facility_content[]"></textarea> ' +
+                        '</div>' +
+                        '<div class="form-group"> ' +
+                        '<label  for="featured_image" >Image</label> ' +
+                        '<div  class="img_featured_show"> <span class="btn btn-success fileinput-button"> ' +
+                        '<input class="facility_featured_image" type="file" name="featured_image" data-number ="'+number+'" > </span> ' +
+                        '<div  class="facility_progress_'+number+' hidden"> ' +
+                        '<div class="progress-bar-'+number+' progress-bar-success"></div> ' +
+                        '</div> ' +
+                        '<div class="facility_return_images_'+number+'"></div> ' +
+                        '<input type="hidden" name="facility_img_id[]" value="" class="facility_img_id_'+number+'">' +
+                        '</div> ' +
+                        '</div> ' +
+                        ' <a href="javascript:void" class="delete_day">Delete facility</a>' +
+                        '</div>' +
+                        '<div class="class-hide-all" style="display: none"> ' +
+                        '<b>facility  : <span class="number_day_change"></span></b> ' +
+                        '</div> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" > ' +
+                        '<i class="fa fa-sort-asc" aria-hidden="true"></i> ' +
+                        '</a> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none"> ' +
+                        '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
+                        '</a>' +
+                        '</div>';
+                    $('.ctn-box-facility').append(html);
+                    obj.attr('data-number',parseInt(number) + 1);
+
+                    tinymce.init({ selector:'textarea.tinimce_n' });
+                });
+
+                $(document).delegate('.delete_day', 'click', function () {
+                    $(this).closest('.box-day').remove();
+                });
+
+                $(document).delegate('.hide-day', 'click', function () {
+                    var obj  = $(this);
+                    obj.closest('.box-day').find('.show-day').fadeIn();
+                    obj.closest('.box-day').find('.class-hide-all').fadeIn();
+                    obj.closest('.box-day').find('.class-show-all').fadeOut();
+                    obj.fadeOut();
+                });
+
+                $(document).delegate('.show-day', 'click', function () {
+                    var obj  = $(this);
+                    obj.closest('.box-day').find('.hide-day').fadeIn();
+                    obj.closest('.box-day').find('.class-show-all').fadeIn();
+                    obj.closest('.box-day').find('.class-hide-all').fadeOut();
+
+                    obj.fadeOut();
+                });
+
+                $(document).delegate('.day_name_key','change', function () {
+                    var obj  = $(this);
+                    var day = obj.val();
+                    obj.closest('.box-day').find('.number_day_change').text(day);
+                });
+                $(document).delegate('.day_name_key','keyup', function () {
+                    var obj  = $(this);
+                    var day = obj.val();
+                    obj.closest('.box-day').find('.number_day_change').text(day);
+                });
+
+                $(document).delegate('.facility_featured_image', 'click', function () {
+                    var obj = $(this);
+                    var  number = obj.attr('data-number');
+                    rvn_upload_photo_facility(obj, {
+                        action: 'ajax_handler_media',
+                        method: 'UploadImages',
+                        counterField: '#counter_field_featured',
+                        image_size: 'thumbnail',
+                        progress_bar: '.facility_progress_'+number
+                    },number);
+                });
+            });
+
+            function rvn_upload_photo_facility(obj, params,number=1) {
+                var defaults = {
+                    action: '',
+                    counterField: '',
+                    method: '',
+                    numberImagesCurr: 0,
+                    maxNumberOfFiles: 1,
+                    object_id: 0,
+                    image_size: 'thumbnail',
+                    progress_bar: '.facility_progress_'+number,
+                    container: ''
+                };
+
+                $.extend(defaults, params);
+
+                var contain_error = $('<p class="errors" style="color: #d9534f"/>');
+                var obj_progress_bar = $('.facility_progress-bar-'+number, $(defaults.progress_bar));
+
+                $(obj).fileupload({
+                        url: "<?php echo admin_url('admin-ajax.php') ?>",
+                        dataType: 'json',
+                        formData: {
+                            action: defaults.action,
+                            method: defaults.method,
+                            image_size: defaults.image_size
+                        },
+                        maxFileSize: 2 * 1024 * 1024,
+                        acceptFileTypes: /(\.|\/)(jpe?g|png)$/i,
+                        numberImagesCurr: defaults.numberImagesCurr,
+                        counterField: defaults.counterField,
+                        messages: {
+                            acceptFileTypes: 'Hình này không hợp lệ.',
+                            maxFileSize: 'Kích thước hình phải nhỏ hơn 2M'
+                        },
+                        progressall: function(e, data) {
+                            $('.facility_progress_'+number).removeClass('hidden');
+                            var progress = parseInt(data.loaded / data.total * 100, 10) - 10;
+                            obj_progress_bar.css(
+                                'width',
+                                progress + '%'
+                            );
+                        },
+                        done: function (e, data) {
+                            $('.facility_progress_'+number).addClass('hidden');
+                            if(data.result.status == 'success'){
+                                var images =  data.result.img;
+                                contain_error.remove();
+                                console.log(data.result);
+
+                                $('.facility_return_images_'+number).html("<img src ='"+images+"' style='max-width:100%;padding : 10px 0' />" );
+                                $('.facility_img_id_'+number).val(data.result.img_id);
+
+                            }else{
+                                contain_error.append('<span>' + data.result.message + '</span>');
+                                contain_error.insertBefore($(defaults.progress_bar));
+                            }
+                        },
+                        stop: function() {
+                            obj_progress_bar.css(
+                                'width', '100%'
+                            );
+                            obj_progress_bar.fadeOut(500, function() {
+                                $(this).css('width', 0);
+                            }).fadeIn();
+                        }
+                    })
+                    .on('fileuploadprocessalways', function(e, data) {
+                        var index = data.index,
+                            file = data.files[index];
+                        if(file.error) {
+                            contain_error.append('<span>' + file.name + ' : ' + file.error + '</span><br/>');
+                            contain_error.insertBefore($(defaults.progress_bar));
+                        }
+                    });
+            }
+
+        </script>
+        <?php
+    }
+
     public function save()
     {
 
         global $post;
         if(!empty($post) && $post->post_type == 'ship') {
             if($_POST){
-                //var_dump($_POST);
+               // var_dump($_POST); exit();
                 $data = $_POST;
                 $args_deck =array();
                 $args_room =array();
+                $args_facility =array();
                 $room_general_introduction = !empty($_POST['room_general_introduction']) ? $_POST['room_general_introduction'] : '';
                 if(!empty($data['deck_title']) && !empty($data['deck_content'])){
                     foreach ($data['deck_title'] as $k => $title ){
@@ -779,12 +1081,24 @@ class CustomShips
 
                         $args_room[] = serialize($room);
                     }
+
+                    foreach ($data['facility_title'] as $k => $title ){
+                        $facility = array(
+                            'facility_title' => $title ,
+                            'facility_content' => $data['facility_content'][$k],
+                            'facility_description' => $data['facility_description'][$k],
+                            'facility_img_id' => $data['facility_img_id'][$k],
+                        );
+
+                        $args_facility[] = serialize($facility);
+                    }
                 }
 
                 $ship_data = array(
                     'ship_id' => $data['post_ID'],
                     'decks' => serialize($args_deck),
                     'rooms_info' => serialize($args_room),
+                    'facilities' => serialize($args_facility),
                     'room_general_introduction' => ($room_general_introduction),
                 );
 

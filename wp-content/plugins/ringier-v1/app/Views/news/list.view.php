@@ -11,7 +11,7 @@ $cover_id = get_post_meta($slider_page->ID,'cover_news',true);
 if($cover_id){
     $cover= wp_get_attachment_image_src($cover_id,'full');
     if($cover){ $cover = array_shift($cover); ?>
-        <div class="journey-detail" style="margin-bottom: 40px">
+        <div class="journey-detail news-cover">
             <div class="featured-image" >
                 <img src="<?php echo $cover ?>" alt="bg" >
             </div>
@@ -19,6 +19,13 @@ if($cover_id){
     <?php }
 } ?>
 
+<div class="container">
+    <div class="row">
+        <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;"> News
+            <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
+        </h1>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">

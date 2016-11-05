@@ -2294,6 +2294,14 @@ header .top-bar .top-info li:first-child {
     overflow: hidden;
 }
 
+.box-news:first-child {
+    margin-top: 40px;
+}
+
+.news-cover {
+    margin-bottom: 40px;
+}
+
 @media (min-width: 1200px) {
 
     .container {
@@ -2334,6 +2342,22 @@ header .top-bar .top-info li:first-child {
 }
 
 @media (max-width: 768px) {
+    .btn-ship-detail-list {
+        position: relative;
+        top: auto;
+        left: auto;
+        border-radius: 0;
+        margin-bottom: 20px;
+    }
+
+    .news-cover {
+        margin-bottom: 0;
+    }
+
+    .box-news:first-child {
+        margin-top: 0;
+    }
+
     .navbar-toggle {
         margin-right: 5px;
     }

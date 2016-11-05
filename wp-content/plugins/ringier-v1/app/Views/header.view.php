@@ -66,6 +66,10 @@ if (is_single()) {
             <div class="row">
                 <div class="col-xs-6 col-sm-6">
                     <ul class="top-info">
+                        <!--<li class="hide-on-med-and-down"><a href="--><?php //echo WP_SITEURL . '/news/' ?><!--"> Media centre </a></li>-->
+                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">We Pioneer</a></li>
+                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/faq/' ?>"> FAQ </a></li>
+                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL; ?>/terms-and-conditions"> Terms and Conditions</a></li>
                         <li><a href="<?php echo WP_SITEURL.'/refer-friends/'?>" class="refer-friend">
                                 <img src="<?php echo VIEW_URL . '/images/icon-add-friends.png' ?>" style="width: 16px"> Refer friends</a>
                             <?php /*if (is_user_logged_in()) { */?><!--
@@ -90,9 +94,6 @@ if (is_single()) {
                                 </form>
                             --><?php /*} */?>
                         </li>
-                        <!--<li class="hide-on-med-and-down"><a href="--><?php //echo WP_SITEURL . '/news/' ?><!--"> Media centre </a></li>-->
-                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL . '/faq/' ?>"> FAQ </a></li>
-                        <li class="hide-on-med-and-down"><a href="<?php echo WP_SITEURL; ?>/terms-and-conditions"> Terms and Conditions</a></li>
                     </ul>
                 </div>
                 <div class="col-xs-6 col-sm-6">
@@ -167,9 +168,6 @@ if (is_single()) {
 
                             <li class="<?php echo ((!empty($page_name) && $page_name == 'news') or $post_type == 'new') ? 'active' : '' ?>">
                                 <a href="<?php echo WP_SITEURL . '/news/' ?>" title="">news </a></li>
-
-                            <li class="<?php echo (!empty($page_name) && $page_name == 'why-us') ? 'active' : '' ?>">
-                                <a href="<?php echo WP_SITEURL . '/why-us/' ?>" title="">WHY US </a></li>
                         </ul>
                     </div>
                 </div>

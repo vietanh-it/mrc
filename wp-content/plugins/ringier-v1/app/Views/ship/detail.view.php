@@ -222,7 +222,7 @@ get_header();
                                         <?php echo apply_filters('the_content',$facility['facility_description']) ?>
                                     </div>
                                     <div class="content">
-                                        <!--<b>More info</b>-->
+                                        <b>More info</b>
                                         <?php echo apply_filters('the_content',$facility['facility_content']) ?>
                                     </div>
                                 </div>

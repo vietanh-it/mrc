@@ -31,7 +31,7 @@ class CustomJourneyType
     public function itinerary()
     {
         add_meta_box('itinerary', 'ITINERARY', [$this, 'show'], 'journey_type', 'normal', 'high');
-        add_meta_box('include', 'WHAT’S INCLUDED', [$this, 'show_include'], 'journey_type', 'normal', 'high');
+        add_meta_box('include_editor', 'WHAT’S INCLUDED', [$this, 'show_include'], 'journey_type', 'normal', 'high');
         add_meta_box('ship_price', 'Ship and Room Price', [$this, 'show_ship'], 'journey_type', 'normal', 'high');
     }
 

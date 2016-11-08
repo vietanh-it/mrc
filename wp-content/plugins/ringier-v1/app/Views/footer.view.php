@@ -81,8 +81,7 @@
                                     Mekong Princess
                                 </a>
                             </li>
-                            <li><a href="<?php echo WP_SITEURL . '/ship/hong-princess/' ?>" title="Hong Princess">Hong
-                                    Princess</a>
+                            <li><a href="<?php echo WP_SITEURL . '/ship/viet-princess/' ?>" title="Viet Princess">Viet Princess</a>
                             </li>
                             <li><a href="<?php echo WP_SITEURL . '/ship/han-princess/' ?>" title="Han Princess">Han
                                     Princess</a>

@@ -31,7 +31,7 @@ class MenuSendy
 
     public function initPages()
     {
-        // add_menu_page('Sendy', 'Sendy', 'create_users', 'sendy-iframe', [$this, 'sendyIframe'], 'dashicons-email-alt', 50);
+        add_menu_page('Sendy', 'Sendy', 'create_users', 'sendy-iframe', [$this, 'sendyIframe'], 'dashicons-email-alt', 6);
     }
 
     // Register Navigation Menus

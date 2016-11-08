@@ -41,7 +41,7 @@ if (!empty($journey_type_info)) { ?>
                 <div class="col-xs-12 col-sm-12">
                     <div class="ctn-list-journey hide-on-med-and-down">
                         <div class="title">Check availability and book online
-                            <span>Prices shown are per person in USD$ and include all discounts.</span></div>
+                            <span>Prices shown are per person in USD and include all discounts.</span></div>
                         <table class="table table-striped">
                             <thead>
                             <tr>

@@ -84,6 +84,9 @@ class CustomJourneyType
                 width: 100%;
                 padding: 7px;
             }
+            .box-day input[type="checkbox"]{
+                width: 10px;
+            }
             .box-day select{
                 width: 100%;
             }
@@ -110,10 +113,16 @@ class CustomJourneyType
                 color: blue;
             }
 
+            .box-lc{
+                padding-left: 10px;
+                margin-bottom: 10px;
+                display: inline-block;
+            }
+
         </style>
         <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
 
-
+        
         <?php if (!empty($list_itinerary)) { ?>
         <div class="ctn-box-day">
             <?php
@@ -126,17 +135,32 @@ class CustomJourneyType
                             <label for="day_name">Day : </label>
                             <input type="number" class="form-control day_name_key" placeholder="" name="day_name[]" value="<?php echo $v->day ?>">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="    border: 1px solid #ccc;  padding: 10px;">
                             <label for="day_port">Location</label>
-                            <select name="day_port[]" class="form-control">
+                            <!--<select name="day_port[]" class="form-control">
                                 <option value=""> --- Select port --- </option>
-                                <?php if(!empty($list_port['data'])){
-                                    foreach ($list_port['data'] as $p){ ?>
-                                        <option value="<?php echo $p->ID ?>" <?php echo $v->location== $p->ID ? 'selected' :''  ?> ><?php echo $p->post_title ?></option>
-                                    <?php }
-                                } ?>
-                            </select>
-                            <!--<input type="text" class="form-control" placeholder="" name="day_port[]" value="<?php /*echo $v['day_port']*/?>">-->
+                                <?php /*if(!empty($list_port['data'])){
+                                    foreach ($list_port['data'] as $p){ */?>
+                                        <option value="<?php /*echo $p->ID */?>" <?php /*echo $v->location== $p->ID ? 'selected' :''  */?> ><?php /*echo $p->post_title */?></option>
+                                    <?php /*}
+                                } */?>
+                            </select>-->
+
+                            <?php
+                            $location_args = array();
+                            if(!empty($v->location)){
+                                $location_args = unserialize($v->location);
+                            }
+                            if(!empty($list_port['data'])) {
+                                foreach ($list_port['data'] as $p) { ?>
+                                    <div class="box-lc">
+                                        <input type="checkbox" <?php echo in_array($p->ID,
+                                            $location_args) ? 'checked' : '' ?> value="<?php echo $p->ID ?>"
+                                               name="day_port_<?php echo $k ?>[]"> <?php echo $p->post_title ?>
+                                    </div>
+
+                                <?php }
+                            }?>
                         </div>
                         <div class="form-group">
                             <label for="day_content">Content</label>
@@ -160,8 +184,7 @@ class CustomJourneyType
 
             <?php } ?>
         </div>
-        <?php
-    } else { ?>
+    <?php } else { ?>
         <div class="ctn-box-day">
             <div class="box-day">
                 <div class="class-show-all" style="">
@@ -169,17 +192,27 @@ class CustomJourneyType
                         <label for="day_name">Day : </label>
                         <input type="number" class="form-control day_name_key" placeholder="" name="day_name[]">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="    border: 1px solid #ccc;  padding: 10px;">
                         <label for="day_port">Location</label>
-                        <select name="day_port[]" class="form-control">
-                            <option value=""> --- Select port --- </option>
-                            <?php if(!empty($list_port['data'])){
-                                foreach ($list_port['data'] as $p){ ?>
-                                    <option value="<?php echo $p->ID ?>" ><?php echo $p->post_title ?></option>
-                                <?php }
-                            } ?>
-                        </select>
-                        <!--<input type="text" class="form-control" placeholder="" name="day_port[]">-->
+                        <!--<select name="day_port[]" class="form-control">
+                                <option value=""> --- Select port --- </option>
+                                <?php /*if(!empty($list_port['data'])){
+                                    foreach ($list_port['data'] as $p){ */?>
+                                        <option value="<?php /*echo $p->ID */?>" <?php /*echo $v->location== $p->ID ? 'selected' :''  */?> ><?php /*echo $p->post_title */?></option>
+                                    <?php /*}
+                                } */?>
+                            </select>-->
+
+                        <?php
+                        if(!empty($list_port['data'])) {
+                            foreach ($list_port['data'] as $p) { ?>
+                                <div class="box-lc">
+                                    <input type="checkbox"  value="<?php echo $p->ID ?>"
+                                           name="day_port_0[]"> <?php echo $p->post_title ?>
+                                </div>
+
+                            <?php }
+                        }?>
                     </div>
                     <div class="form-group">
                         <label for="day_content">Content</label>
@@ -204,52 +237,61 @@ class CustomJourneyType
     <?php } ?>
 
 
-        <a href="javascript:void(0)" class="add_new_day">Add new day</a>
+        <?php if(empty($list_itinerary)){
+        $total_i = 1;
+    } else{
+        $total_i = count($list_itinerary);
+    }
+        ?>
+        <a href="javascript:void(0)" class="add_new_day" data-nb="<?php echo $total_i ?>">Add new day</a>
 
         <script>
             var $ = jQuery.noConflict();
             jQuery(document).ready(function ($) {
                 var list_port = <?php echo json_encode($list_port['data']) ?>;
 
-                var html = '<div class="box-day"> ' +
-                    '<div class="class-show-all" style="">' +
-                    '<div class="form-group"> ' +
-                    '<label for="day_name">Day : </label> ' +
-                    '<input type="number" class="form-control day_name_key"  placeholder="" name="day_name[]"> ' +
-                    '</div> ' +
-                    '<div class="form-group"> ' +
-                    '<label for="day_port">Location</label> ' +
-                    '<select name="day_port[]" class="form-control"> ' +
-                    '<option value=""> --- Select port --- </option> ' ;
-
-                if(list_port){
-                    $.each(list_port, function(key, p) {
-                        html +=' <option value="'+p.ID+'" >'+p.post_title+'</option>';
-                    });
-                }
-
-                html +='</select>' +
-                    '<!--<input type="text" class="form-control"  placeholder="" name="day_port[]">--> ' +
-                    '</div> ' +
-                    '<div class="form-group"> ' +
-                    '<label for="day_content">Content</label> ' +
-                    '<textarea name="day_content[]" class="tinimce_n" rows="5"></textarea>'+
-                    '</div> ' +
-                    '<a href="javascript:void(0)" class="delete_day">Delete day</a>' +
-                    '</div>' +
-                    '<div class="class-hide-all" style="display: none"> ' +
-                    '<b>Day  : <span class="number_day_change"></span></b> ' +
-                    '</div> ' +
-                    '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" > ' +
-                    '<i class="fa fa-sort-asc" aria-hidden="true"></i> ' +
-                    '</a> ' +
-                    '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none"> ' +
-                    '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
-                    '</a>' +
-                    '</div>';
-
                 $('.add_new_day').click(function () {
+                    var number_i = $(this).attr('data-nb');
+
+                    var html = '<div class="box-day"> ' +
+                        '<div class="class-show-all" style="">' +
+                        '<div class="form-group"> ' +
+                        '<label for="day_name">Day : </label> ' +
+                        '<input type="number" class="form-control day_name_key"  placeholder="" name="day_name[]"> ' +
+                        '</div> ' +
+                        '<div class="form-group"> ' +
+                        '<label for="day_port">Location</label> ';
+
+                    if(list_port){
+                        $.each(list_port, function(key, p) {
+                            html +=' <div class="box-lc"> ' +
+                                '<input type="checkbox"  value="'+ p.ID +'" name="day_port_'+number_i+'[]"> '+ p.post_title +
+                                '</div>';
+                        });
+                    }
+
+                    html +='' +
+                        '<!--<input type="text" class="form-control"  placeholder="" name="day_port[]">--> ' +
+                        '</div> ' +
+                        '<div class="form-group"> ' +
+                        '<label for="day_content">Content</label> ' +
+                        '<textarea name="day_content[]" class="tinimce_n" rows="5"></textarea>'+
+                        '</div> ' +
+                        '<a href="javascript:void(0)" class="delete_day">Delete day</a>' +
+                        '</div>' +
+                        '<div class="class-hide-all" style="display: none"> ' +
+                        '<b>Day  : <span class="number_day_change"></span></b> ' +
+                        '</div> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day hide-day" title="Hide" > ' +
+                        '<i class="fa fa-sort-asc" aria-hidden="true"></i> ' +
+                        '</a> ' +
+                        '<a href="javascript:void(0)" class="icon-show-hide-day show-day" title="Show more" style="display: none"> ' +
+                        '<i class="fa fa-sort-desc" aria-hidden="true"></i> ' +
+                        '</a>' +
+                        '</div>';
+
                     $('.ctn-box-day').append(html);
+                    $(this).attr('data-nb', parseInt(number_i) + 1);
                     tinymce.init({ selector:'textarea.tinimce_n' });
                 });
 
@@ -427,7 +469,7 @@ class CustomJourneyType
 
     public function save()
     {
-        /*var_dump($_POST);
+       /* var_dump($_POST);
         exit();*/
         global $post;
         if(!empty($post) && $post->post_type == 'journey_type') {
@@ -438,10 +480,12 @@ class CustomJourneyType
                     $objJourneyType->deleteJourneyTypeItinerary($_POST['post_ID']);
                     $data = array();
                     foreach ($_POST['day_name'] as $k => $v) {
+                        $location = $_POST['day_port_'.$k];
+                        if(is_array($location)) $location = serialize($location);
                         $data = array(
                             'journey_type_id' => $_POST['post_ID'],
                             'day' => $v,
-                            'location' => $_POST['day_port'][$k],
+                            'location' => $location,
                             'content' => $_POST['day_content'][$k],
                         );
 

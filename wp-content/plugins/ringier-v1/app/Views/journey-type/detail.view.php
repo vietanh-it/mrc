@@ -313,13 +313,32 @@ if (!empty($journey_type_info)) { ?>
                                 if ($k == (count($itinerary) - 1)) {
                                     $extra_text = '/ DISEMBARKATION';
                                 }
+
+                                $title_lc = ' ';
+                                if(!empty($it->location_info) && is_array($it->location_info)){
+                                    $total_lc = count($it->location_info);
+                                    foreach ($it->location_info as $kc => $lc){
+                                        if($kc+1 >= $total_lc){
+                                            $title_lc .= $lc->post_title;
+                                        }else{
+                                            $title_lc .= $lc->post_title .', ';
+                                        }
+                                    }
+                                }
                                 ?>
                                 <div class="box-day-in">
                                     <div class="day-in">
-                                        DAY <?php echo $it->day ?> <?php echo $it->location_info->post_title ?> <?php echo $extra_text; ?></div>
+                                        DAY <?php echo $it->day ?> <?php echo $title_lc ?> <?php echo $extra_text; ?></div>
                                     <p><?php echo apply_filters('the_content', $it->content) ?></p>
-                                    <a href="<?php echo $it->location_info->permalink ?>" class="see-more-lc">See more
-                                        about <?php echo $it->location_info->post_title ?>  </a>
+                                    <?php
+                                    if(!empty($it->location_info) && is_array($it->location_info)) {
+                                        foreach ($it->location_info as  $lc) { ?>
+                                            <a href="<?php echo $lc->permalink ?>" class="see-more-lc">See more
+                                                about <?php echo $lc->post_title ?>  </a> <br>
+                                        <?php }
+                                    }
+                                    ?>
+
                                 </div>
                             <?php }
                         } ?>

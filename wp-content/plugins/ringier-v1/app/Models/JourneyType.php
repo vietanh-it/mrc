@@ -344,16 +344,18 @@ class JourneyType
         if ($result) {
             foreach ($result as &$v) {
                 $location_info = [];
-                if (!empty($v->location)) {
-                    $lc = unserialize($v->location);
-                    if(!empty($lc)){
-                        foreach ($lc as $l){
-                            $objPost = Posts::init();
-                            $location_info[] = $objPost->getInfo($l);
+                if (!empty($v->location)  ) {
+                    if(is_serialized($v->location)){
+                        $lc = unserialize($v->location);
+                        if(!empty($lc)){
+                            foreach ($lc as $l){
+                                $objPost = Posts::init();
+                                $location_info[] = $objPost->getInfo($l);
+                            }
                         }
+                    }else{
+                        $location_info = array($v->location);
                     }
-
-
                 }
                 $v->location_info = $location_info;
             }

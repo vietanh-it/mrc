@@ -149,7 +149,11 @@ class CustomJourneyType
                             <?php
                             $location_args = array();
                             if(!empty($v->location)){
-                                $location_args = unserialize($v->location);
+                                if(is_serialized($v->location)){
+                                    $location_args = unserialize($v->location);
+                                }else{
+                                    $location_args = array($v->location);
+                                }
                             }
                             if(!empty($list_port['data'])) {
                                 foreach ($list_port['data'] as $p) { ?>

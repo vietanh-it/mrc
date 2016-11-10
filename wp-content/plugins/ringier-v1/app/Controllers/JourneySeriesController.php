@@ -1,6 +1,7 @@
 <?php
 namespace RVN\Controllers;
 
+use RVN\Models\Booking;
 use RVN\Models\Journey;
 use RVN\Models\JourneySeries;
 
@@ -49,5 +50,29 @@ class JourneySeriesController extends _BaseController
             'status' => 'success',
             'data' => $list_series
         ];
+    }
+
+    public function ajaxCheckJourneyHasBooking($data){
+        $result = array(
+            'status' =>'error',
+            'message' => array('An error, please try again.'),
+        );
+        if(!empty($data['journey_id'])){
+            $objBooking = Booking::init();
+            $check_journey_have_booking = $objBooking->checkJourneyHaveBooking($data['journey_id']);
+            if($check_journey_have_booking){
+                $result = array(
+                    'status' =>'error',
+                    'message' => array('This journey has been set before, you can not delete it !!!'),
+                );
+            }else{
+                $result = array(
+                    'status' => 'success',
+                    'message' => 'success'
+                );
+            }
+        }
+
+        return $result;
     }
 }

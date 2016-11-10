@@ -727,4 +727,14 @@ class Booking
 
         return true;
     }
+
+    public function checkJourneyHaveBooking($journey_id){
+        $query = 'SELECT * FROM ' . $this->_tbl_cart . ' WHERE journey_id = ' . $journey_id .' AND status != "cart" ';
+        $rs =  $this->_wpdb->get_results($query);
+        if(empty($rs)){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

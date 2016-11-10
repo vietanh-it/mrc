@@ -343,9 +343,37 @@ class BoxJourneySeries
                     var obj = $(this);
                     var journey_id = obj.attr('data-journey');
                     if (journey_id != 0) {
-                        $('.list-journey-remove').append('<input type="hidden" name="journey_remove[]" value="' + journey_id + '">');
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_journey_series',
+                                method: 'CheckJourneyHasBooking',
+                                journey_id: journey_id
+                            },
+                            success: function (data) {
+                                var new_departure = '';
+                                if (data.status == 'success') {
+                                    $('.list-journey-remove').append('<input type="hidden" name="journey_remove[]" value="' + journey_id + '">');
+                                    obj.closest('.single-journey').remove();
+                                }else{
+                                    var result = data.message;
+                                    var htmlErrors = "";
+                                    if (result.length > 0) {
+                                        htmlErrors += "<ul style='color: red'>";
+                                        for (var i = 0; i < result.length; i++) {
+                                            htmlErrors += "<li style='list-style: none'>" + result[i] + "</li>";
+                                        }
+                                        htmlErrors += "</ul>";
+                                    }
+                                    swal({"title": "Error", "text": htmlErrors, "type": "error", html: true});
+                                }
+                            }
+                        });
+                    }else {
+                        obj.closest('.single-journey').remove();
                     }
-                    obj.closest('.single-journey').remove();
                 });
                 $(document).delegate(".datepicker", "hover", function () {
                     $(this).datepicker({

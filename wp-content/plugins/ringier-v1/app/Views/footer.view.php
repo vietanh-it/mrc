@@ -159,9 +159,9 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6"
                              style="font-family: 'Source Sans Pro', sans-serif; font-size: 14px;">&copy; <?php echo date('Y'); ?>
-                            Viet Princess Cruises.
+                            Viet Princess Cruises
                         </div>
-                        <div class="col-xs-12 col-sm-6 text-right">
+                        <div class="col-xs-12 col-sm-6 text-right" style="text-transform: none;">
                             <a href="<?php echo WP_SITEURL . '/terms-and-conditions'; ?>" title="">
                                 Terms and Conditions
                             </a> |

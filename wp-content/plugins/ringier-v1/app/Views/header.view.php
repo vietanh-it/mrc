@@ -237,9 +237,9 @@ if (is_single()) {
 
                 <div class="col-xs-12 col-sm-2 hide-on-med-and-down">
                     <div class="action-contact">
-                        <a href="#" title="">
-                            <img src="<?php echo VIEW_URL . '/images/icon-headphone.png' ?>">
-                            <div class="right-icon">
+                        <a href="#" title="" style="display: inline-flex; white-space: nowrap;">
+                            <img src="<?php echo VIEW_URL . '/images/icon-headphone.png' ?>" style="vertical-align: top; float: none; max-height: 24px;">
+                            <div class="right-icon" style="float: none;">
                                 <span class="top">1-800-304-9616</span><br><span class="bot">or contact our agent</span>
                             </div>
                         </a>

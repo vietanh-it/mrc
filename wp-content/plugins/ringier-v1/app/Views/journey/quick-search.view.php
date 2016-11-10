@@ -93,7 +93,7 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
 
                 <div class="col-xs-12 col-sm-2">
                     <div class="text-right">
-                        <button type="submit">
+                        <button type="submit" style="display: inline-flex; white-space: nowrap;">
                             <img src="<?php echo VIEW_URL . '/images/icon-search-yellow.png?v=1'; ?>" style="width: 20px; vertical-align: top; padding-top: 4px; margin-right: 5px;"> Find now
                         </button>
                     </div>

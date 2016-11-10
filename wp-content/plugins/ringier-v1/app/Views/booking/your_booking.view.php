@@ -102,7 +102,7 @@ get_header(); ?>
                                     </span>
                                         </td>
                                         <td style="text-align: center">
-                                            <a href="javascript:void(0)">
+                                            <a href="<?php echo WP_SITEURL.'/contact-us/' ?>">
                                                 <img src="<?php echo VIEW_URL . '/images/icon-question.png' ?>"
                                                      class="img-icon">
                                             </a>

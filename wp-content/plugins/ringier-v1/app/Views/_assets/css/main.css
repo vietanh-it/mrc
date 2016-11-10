@@ -2301,6 +2301,9 @@ header .top-bar .top-info li:first-child {
 .news-cover {
     margin-bottom: 40px;
 }
+.form-account .form-group img{
+    width: 20px;
+}
 
 @media (min-width: 1200px) {
 

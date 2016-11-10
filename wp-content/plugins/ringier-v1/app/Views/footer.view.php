@@ -1,3 +1,20 @@
+<?php if(is_user_logged_in()){
+    $objBooking = \RVN\Models\Booking::init();
+    $objJourney = \RVN\Models\Journey::init();
+    $booking_id = 0;
+    $check_user_have_booking = $objBooking->getBookingLists(get_current_user_id());
+    if(!empty($check_user_have_booking)){
+        foreach ($check_user_have_booking  as $v){
+            if($v->status =='before-you-go'){
+                $journey_info = $objJourney->getInfo($v->journey_id);
+                if(strtotime($journey_info->departure) > time() ){
+                    $booking_id = $v->id;
+                }
+            }
+        }
+    }
+} ?>
+
 <div class="join-with">
     <div class="container">
         <div class="row">
@@ -93,7 +110,9 @@
                         <h4>Journeys</h4>
                         <ul class="hide-on-med-and-down">
                             <li><a href="<?php echo WP_SITEURL . '/journeys/' ?>" title="">Destination</a></li>
-                            <li><a href="<?php echo WP_SITEURL . '/before-you-go/'; ?>" title="">Before you go</a></li>
+                            <?php if(!empty($booking_id)){ ?>
+                                <li><a href="<?php echo WP_SITEURL . '/before-you-go/?id='.$booking_id; ?>" title="">Before you go</a></li>
+                            <?php } ?>
                             <li>
                                 <a href="<?php echo WP_SITEURL . '/account/your-booking/' ?>" title="">
                                     Your booking

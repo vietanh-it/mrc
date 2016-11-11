@@ -30,7 +30,7 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                         <div class="col-xs-12 col-sm-3">
                             <div class="form-group">
                                 <select name="_destination" class="form-control select-2">
-                                    <option value="">Choose your destination</option>
+                                    <option value="">Destinations</option>
                                     <?php if ($list_destination) {
                                         foreach ($list_destination as $v) { ?>
                                             <option
@@ -45,7 +45,7 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                             <div class="form-group">
                                 <!--<input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month" value="<?php /*echo $month */ ?>">-->
                                 <select name="_month" class="form-control select-2">
-                                    <option value="">Choose sail month</option>
+                                    <option value="">All months</option>
                                     <?php if ($list_month) {
                                         foreach ($list_month as $v) { ?>
                                             <option
@@ -60,7 +60,7 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                         <div class="col-xs-12 col-sm-3">
                             <div class="form-group">
                                 <select name="_port" class="form-control select-2">
-                                    <option value="">Choose port of departure</option>
+                                    <option value="">Departure/Arrival City</option>
                                     <?php if ($list_port) {
                                         foreach ($list_port as $v) {
                                             if (!empty($v->post_name) && !empty($v->post_title)) { ?>
@@ -77,7 +77,7 @@ $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
                         <div class="col-xs-12 col-sm-3">
                             <div class="form-group">
                                 <select name="_ship" class="form-control select-2">
-                                    <option value="">Choose your ship</option>
+                                    <option value="">Ships</option>
                                     <?php if ($list_ship['data']) {
                                         foreach ($list_ship['data'] as $v) { ?>
                                             <option

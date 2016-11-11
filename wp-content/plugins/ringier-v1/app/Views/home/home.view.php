@@ -53,7 +53,7 @@ get_header();
                 <h3>Find your journey</h3>
                 <div class="form-group">
                     <select name="_destination" class="form-control select-2">
-                        <option value="">Choose your destination</option>
+                        <option value="">Destinations</option>
                         <?php if (!empty($list_destination)) {
                             foreach ($list_destination as $v) { ?>
                                 <option value="<?php echo $v->post_name ?>"> <?php echo $v->post_title ?></option>
@@ -65,7 +65,7 @@ get_header();
                 <div class="form-group">
                     <!-- <input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month">-->
                     <select name="_month" class="form-control select-2">
-                        <option value="">Choose sail month</option>
+                        <option value="">All months</option>
                         <?php if (!empty($list_month)) {
                             foreach ($list_month as $v) { ?>
                                 <option value="<?php echo $v->month ?>"> <?php echo $v->month ?></option>
@@ -76,7 +76,7 @@ get_header();
                 </div>
                 <div class="form-group">
                     <select name="_port" class="form-control select-2">
-                        <option value="">Choose port of departure</option>
+                        <option value="">Departure/Arrival City</option>
                         <?php if (!empty($list_port)) {
                             foreach ($list_port as $v) {
                                 if (!empty($v->post_name) && !empty($v->post_title)) { ?>
@@ -90,7 +90,7 @@ get_header();
 
                 <div class="form-group">
                     <select name="_ship" class="form-control select-2">
-                        <option value="">Choose your ship</option>
+                        <option value="">Ships</option>
                         <?php if (!empty($list_ship)) {
                             foreach ($list_ship as $v) { ?>
                                 <option value="<?php echo $v->post_name ?>"> <?php echo $v->post_title ?></option>

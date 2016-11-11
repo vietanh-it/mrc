@@ -2,7 +2,6 @@
 get_header();
 
 $min_price = valueOrNull($min_price, 0);
-
 if (!empty($journey_type_info)) { ?>
 
     <div class="journey-detail">
@@ -21,11 +20,12 @@ if (!empty($journey_type_info)) { ?>
 
             <div class="container container-big">
                 <div class="info">
-                    <h2>
-                        <?php echo limitWords($journey_type_info->post_content, 55); ?>
+                    <h2 class="mCustomScrollbar">
+                        <?php echo apply_filters('the_content',$journey_type_info->post_content); ?>
                     </h2>
                     <ul>
-                        <li><b><?php echo $journey_type_info->duration ?></b></li>
+                        <li>  From <b><?php echo $journey_type_info->starting_point ?></b> to <b><?php echo $journey_type_info->destination_info->post_title; ?></b> - <b><?php echo $journey_type_info->duration ?></b>
+                        </li>
                         <?php if (!empty($journey_type_info->offer_main_info)) { ?>
                             <li>
                                 <b>Promotion:</b> Save up

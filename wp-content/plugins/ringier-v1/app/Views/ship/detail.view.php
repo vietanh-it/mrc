@@ -2,15 +2,24 @@
 $ship_detail = !empty($ship_detail) ? $ship_detail : [];
 get_header();
 ?>
-<div class="container">
-    <div class="row">
-        <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;"><?php echo $ship_detail->post_title; ?>
-            <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
-        </h1>
-    </div>
-</div>
+
 
 <div class="journey-detail">
+    <?php if (!empty($ship_detail->images->full)) { ?>
+        <div class="featured-image featured-image-2 hide-on-med-and-up">
+            <a href="<?php echo $ship_detail->images->full ?>" class="fancybox"><img
+                    src="<?php echo $ship_detail->images->full ?>" alt="<?php echo $ship_detail->post_title ?>"></a>
+        </div>
+    <?php } ?>
+
+    <div class="container hide-on-med-and-up" style="margin-bottom: 30px">
+        <div class="row">
+            <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;"><?php echo $ship_detail->post_title; ?>
+                <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
+            </h1>
+        </div>
+    </div>
+
     <div class="container container-big">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -31,15 +40,22 @@ get_header();
                 </div>
             </div>
         </div>
-
     </div>
-
     <?php if (!empty($ship_detail->images->full)) { ?>
-        <div class="featured-image featured-image-2">
+        <div class="featured-image featured-image-2 hide-on-med-and-down">
             <a href="<?php echo $ship_detail->images->full ?>" class="fancybox"><img
                     src="<?php echo $ship_detail->images->full ?>" alt="<?php echo $ship_detail->post_title ?>"></a>
         </div>
     <?php } ?>
+
+    <div class="container hide-on-med-and-down" style="margin-bottom: 30px">
+        <div class="row">
+            <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;"><?php echo $ship_detail->post_title; ?>
+                <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
+            </h1>
+        </div>
+    </div>
+
 
     <div class="container container-big">
         <div class="row">

@@ -11,9 +11,16 @@ if (!empty($journey_type_info)) { ?>
                     src="<?php echo $journey_type_info->images->full ?>"
                     alt="<?php echo $journey_type_info->post_title ?>"></a>
 
+            <div class="container hide-on-med-and-up" style="margin-top: 30px">
+                <div class="row">
+                    <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;"><?php echo the_title() ?>
+                        <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
+                    </h1>
+                </div>
+            </div>
+
             <div class="container container-big">
                 <div class="info">
-                    <h1><?php the_title() ?></h1>
                     <h2>
                         <?php echo limitWords($journey_type_info->post_content, 55); ?>
                     </h2>
@@ -33,6 +40,14 @@ if (!empty($journey_type_info)) { ?>
                 </div>
             </div>
 
+        </div>
+
+        <div class="container hide-on-med-and-down" style="margin-top: 30px">
+            <div class="row">
+                <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;"><?php echo the_title() ?>
+                    <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
+                </h1>
+            </div>
         </div>
 
         <div class="container container-big" id="ctn-list-journey" style="display: none"

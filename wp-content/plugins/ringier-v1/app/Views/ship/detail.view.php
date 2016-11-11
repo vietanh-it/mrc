@@ -71,7 +71,7 @@ get_header();
                 <?php } ?>
 
                 <?php if (!empty($ship_detail->youtube_id)) { ?>
-                    <h3 class="title-main">Ship video</h3>
+                    <h3 class="title-main" <?php echo  (empty($ship_detail->gallery)) ? 'style="margin-top: 0;"' :''?>>Ship video</h3>
                     <iframe src="https://www.youtube.com/embed/<?php echo $ship_detail->youtube_id ?>"
                             frameborder="0" allowfullscreen=""
                             class="embed-responsive-item" style="width: 100%;min-height: 250px"></iframe>

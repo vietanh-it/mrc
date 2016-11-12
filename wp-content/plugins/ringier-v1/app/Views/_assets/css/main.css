@@ -2361,6 +2361,10 @@ header .top-bar .top-info li:first-child {
 }
 
 @media (max-width: 768px) {
+    .journey-detail .featured-image .info h2 {
+        height: 150px;
+    }
+
     .btn-ship-detail-list {
         position: relative;
         top: auto;

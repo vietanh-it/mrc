@@ -19,7 +19,7 @@ add_action('after_setup_theme', 'r_theme_setup');
 
 function r_scripts_styles()
 {
-    $version = '20161102_1367';
+    $version = '20161102_1368';
 
     wp_enqueue_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
     wp_enqueue_style('jquery-ui', 'https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css');

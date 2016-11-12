@@ -3,6 +3,11 @@ $list_guest = !empty($list_guest) ? $list_guest : array();
 $booking_code = !empty($booking_code) ? $booking_code : '';
 $total_guest = !empty($total_guest) ? $total_guest : 1;
 
+if (!empty($return) && ($return['status'] == 'error')) {
+    wp_redirect(WP_SITEURL);
+    exit();
+}
+
 get_header();
 
 function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){

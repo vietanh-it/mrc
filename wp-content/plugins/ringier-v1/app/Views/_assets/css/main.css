@@ -2361,6 +2361,10 @@ header .top-bar .top-info li:first-child {
 }
 
 @media (max-width: 768px) {
+    .form-find-journey .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #898989;
+    }
+
     .journey-detail .featured-image .info h2 {
         height: 150px;
     }

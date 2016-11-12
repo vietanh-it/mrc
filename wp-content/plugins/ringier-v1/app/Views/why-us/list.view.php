@@ -4,13 +4,13 @@ get_header();
 $list_post = !empty($list_post) ? $list_post : array();
 ?>
 
-    <div class="container">
-        <div class="row">
-            <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-bottom: 40px; margin-top: 0;">Why us
-                <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
-            </h1>
-        </div>
-    </div>
+    <!--<div class="container">-->
+    <!--    <div class="row">-->
+    <!--        <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-bottom: 40px; margin-top: 0;">Why us-->
+    <!--            <br> <img src="--><?php //echo VIEW_URL . '/images/line.png?v=1' ?><!--" style="width: 110px">-->
+    <!--        </h1>-->
+    <!--    </div>-->
+    <!--</div>-->
 
 <?php
 $slider_page = get_page_by_path(PAGE_HOME_SLIDER_SLUG);
@@ -25,13 +25,13 @@ if($cover_id){
     <?php }
 } ?>
 
-    <!--<div style="background: #d5b76e;">-->
-    <!--    <div class="row">-->
-    <!--        <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-bottom: 0">Why us-->
-    <!--            <br> <img src="--><?php //echo VIEW_URL . '/images/line.png?v=1' ?><!--">-->
-    <!--        </h1>-->
-    <!--    </div>-->
-    <!--</div>-->
+    <div style="background: #d5b76e;">
+        <div class="row">
+            <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-bottom: 0">Why us
+                <br> <img src="<?php echo VIEW_URL . '/images/line-white.png?v=1' ?>">
+            </h1>
+        </div>
+    </div>
 
     <div class="why-us" style="padding-top: 50px">
         <div class="container ">

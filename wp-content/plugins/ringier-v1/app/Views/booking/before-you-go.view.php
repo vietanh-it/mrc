@@ -525,7 +525,7 @@ function htmlDetailBeforeYouGo($cart_id,$k = 0,$guest = ''){
                 </div>
                 <ul class="be-dow">
                     <li><a href="#"><i class="fa fa-download" aria-hidden="true"></i> Download the form</a></li>
-                    <li><a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Need support?</a></li>
+                    <li><a href="<?php echo WP_SITEURL.'/contact-us/' ?>"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Need support?</a></li>
                 </ul>
                 <form method="post">
                     <div class="ctn-detail-byg panel-group" id="accordion" role="tablist" aria-multiselectable="true">

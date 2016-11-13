@@ -8,6 +8,8 @@ if (!empty($_GET['payment_type']) && !empty($_GET['booking_id']) && is_user_logg
     $m_addon = \RVN\Models\Addon::init();
     $cart_info = $booking_model->getBookingDetail($booking_id);
 
+    $journey_permalink = get_permalink($cart_info->journey_id);
+
     $list_addon_buy_more = $booking_model->getServiceAddonByBookingId($booking_id,'buy-more');
     $addon_total = 0;
     if (!empty($list_addon_buy_more)) {
@@ -26,7 +28,7 @@ if (!empty($_GET['payment_type']) && !empty($_GET['booking_id']) && is_user_logg
     $payment_type = $_GET['payment_type'];
     // $current_url = WP_SITEURL . (strtok($_SERVER["REQUEST_URI"], '?'));
     // $current_url = 'https://' . $_SERVER['HTTP_HOST'] . (strtok($_SERVER["REQUEST_URI"], '?'));
-    $current_url = WP_SITEURL . '/account/payment-return?booking_id=' . $booking_id;
+    $current_url = $journey_permalink.'?step=buy-more-service-return&booking_id=' . $booking_id;
 
     $vpcOrderInfo = $cart_info->booking_code . ' - ' . date('ymdHis');
     if (strlen($vpcOrderInfo) > 32) {
@@ -80,8 +82,8 @@ if (!empty($_GET['payment_type']) && !empty($_GET['booking_id']) && is_user_logg
             $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', SECURE_SECRET_CC)));
         }
 
-        wp_redirect($vpcURL);
-        exit;
+        /*wp_redirect($vpcURL);
+        exit;*/
     }
     elseif ($payment_type == 'atm') {
         $vpc = [

@@ -2361,6 +2361,10 @@ header .top-bar .top-info li:first-child {
 }
 
 @media (max-width: 768px) {
+    .list-galary-3.resource.owl-carousel .owl-wrapper-outer {
+        padding-top: 0;
+    }
+
     .form-find-journey .select2-container--default .select2-selection--single .select2-selection__rendered {
         color: #898989;
     }

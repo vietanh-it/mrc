@@ -9,13 +9,6 @@ $list_rs_food = !empty($list_rs_food) ? $list_rs_food : [];
 var_dump($list_rs_services);
 var_dump($list_rs_food);*/
 ?>
-<div class="container">
-    <div class="row">
-        <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;">resources
-            <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
-        </h1>
-    </div>
-</div>
 <?php if (!empty($list_post['data'])) { ?>
     <div class="featured-rs" style="overflow: hidden">
         <div class="row">
@@ -35,6 +28,15 @@ var_dump($list_rs_food);*/
         </div>
     </div>
 <?php } ?>
+
+
+<div class="container" style="margin-top: 35px;">
+    <div class="row">
+        <h1 class="col-xs-12 col-sm-12 tile-main" style="margin-top: 0;">resources
+            <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
+        </h1>
+    </div>
+</div>
 
 
 <div class="container list-content-wrapper">
@@ -147,6 +149,8 @@ var_dump($list_rs_food);*/
     var $ = jQuery.noConflict();
     $(document).ready(function () {
         var sliderHeight = $('.owl-carousel .owl-wrapper').height() + 40;
-        $('.list-galary-3.resource.owl-carousel .owl-wrapper-outer').height(sliderHeight);
+        if(sliderHeight > 318) {
+            $('.list-galary-3.resource.owl-carousel .owl-wrapper-outer').height(sliderHeight);
+        }
     });
 </script>

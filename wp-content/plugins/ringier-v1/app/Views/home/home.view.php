@@ -50,7 +50,7 @@ get_header();
     <div class="container">
         <div class="form-find-journey">
             <form method="get" action="<?php echo WP_SITEURL . '/journeys' ?>" class="quick-search-journey-form">
-                <h3>FIND FOR JOURNEY</h3>
+                <h3>FIND YOUR JOURNEY</h3>
                 <div class="form-group">
                     <select name="_destination" class="form-control select-2">
                         <option value="">Destinations</option>

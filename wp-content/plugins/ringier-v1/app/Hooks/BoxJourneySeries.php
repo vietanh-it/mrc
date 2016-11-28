@@ -158,8 +158,8 @@ class BoxJourneySeries
                     nights
                 </div>
                 <div class="radio-group" style="width: auto;">
-                    <label style="margin-right: 15px;"><input type="radio" id="option_auto" name="auto_manual" checked style="width: auto;"> Automatically</label>
-                    <label><input type="radio" id="option_manual" name="auto_manual" style="width: auto;"> Manually</label>
+                    <label style="margin-right: 15px;"><input type="radio" id="option_auto" name="auto_manual" checked style="width: auto;" value="option_auto"> Automatically</label>
+                    <label><input value="option_manual" type="radio" id="option_manual" name="auto_manual" style="width: auto;"> Manually</label>
                 </div>
             </div>
 
@@ -294,6 +294,36 @@ class BoxJourneySeries
                         });
                 });
 
+                $('input[name = "auto_manual"]').change(function () {
+                    var obj = $(this);
+                    var auto_manual = obj.val();
+
+                    var title = "Are you sure choice option?";
+                    var text = "";
+                    if(auto_manual == 'option_manual'){
+                        text = "When you select this option, the journey will be made by hand, the journey is going to disappear!!";
+                    }else {
+                        text = "When you select this option, the journey will be generated automatically, the journey is going to disappear!!";
+                    }
+
+                    swal({
+                            title: title,
+                            text: text,
+                            type: "warning", showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, choice it!",
+                            closeOnConfirm: false
+                        },
+                        function () {
+                            $(".edit_journey").closest('.journey-main').addClass('journey-main-empty');
+                            $('.journey-disable .delete_journey').click();
+                            $(".edit_journey").remove();
+                            $('.btn-add-new-item').attr('data-number', 2);
+                            swal.close();
+                        }
+                    );
+                });
+
                 $('.single-journey input,select').attr('readonly', true);
 
                 $('.btn-add-new-item').on('click', function (e) {
@@ -329,7 +359,14 @@ class BoxJourneySeries
                                         var new_departure = '';
                                         if (data) {
                                             new_departure = data.date;
-                                            var html = singleJourneySeries(prefix, data.raw_date, navigation, new_departure);
+                                            var html = '';
+                                            var auto_manual = $('input[name = "auto_manual"]:checked').val();
+                                            //console.log(auto_manual);
+                                            if(auto_manual == 'option_auto'){
+                                                html = singleJourneySeries(prefix, data.raw_date, navigation, new_departure);
+                                            }else {
+                                                html = singleJourneySeries(prefix,data.raw_date,'','');
+                                            }
                                             $('.item-wrapper').append(html);
 
                                             $('.journey-main-empty').append('<a href="javascript:void(0)" class="edit_journey"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>');
@@ -436,17 +473,28 @@ class BoxJourneySeries
                     '<input class="journey-code" type="hidden" name="journey-code[]" value="' + number + '">' +
                     '</div>' +
                     '<div class="form-group">' +
-                    '<label>Departure:</label>' +
-                    '<input type="text" class="departure" readonly name="departure[]" placeholder="" value="' + departure + '">' +
-                    '</div>' +
+                    '<label>Departure:</label>';
+                        if(departure !=''){
+                            html +=  '<input type="text" class="departure" readonly name="departure[]" placeholder="" value="' + departure + '">' ;
+                        }else {
+                            html +=  '<input type="text" class="departure datepicker"  name="departure[]" placeholder="" value="' + departure + '">' ;
+                        }
+
+                    html +='</div>' +
                     '<div class="form-group">' +
                     '<label>Navigation</label>' +
                     '<select name="navigation[]" class="navigation">';
-                if (navigation == 'upstream') {
+                if(navigation != ''){
+                    if (navigation == 'upstream') {
+                        html += '<option value="downstream" selected>Downstream</option>';
+                    } else {
+                        html += '<option value="upstream" selected>Upstream</option>';
+                    }
+                }else {
                     html += '<option value="downstream" selected>Downstream</option>';
-                } else {
                     html += '<option value="upstream" selected>Upstream</option>';
                 }
+
 
                 html += '</select>' +
                     '</div>' +

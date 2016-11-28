@@ -157,6 +157,10 @@ class BoxJourneySeries
                                                      style="font-weight: bold;font-size: 15px"><?php echo (!empty($journey_type_info_current)) ? $journey_type_info_current->nights : 0 ?></span>
                     nights
                 </div>
+                <div class="radio-group" style="width: auto;">
+                    <label style="margin-right: 15px;"><input type="radio" id="option_auto" name="auto_manual" checked style="width: auto;"> Automatically</label>
+                    <label><input type="radio" id="option_manual" name="auto_manual" style="width: auto;"> Manually</label>
+                </div>
             </div>
 
             <div class="item-wrapper">

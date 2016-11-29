@@ -278,8 +278,8 @@ class BoxJourneySeries
                 $(document).delegate(".edit_journey", "click", function () {
                     var obj = $(this);
                     swal({
-                            title: "Are you sure edit main journey?",
-                            text: "When you edit the main journey, the journey will be lost!",
+                            title: "Edit main journey?",
+                            text: "When you edit the main journey, the journey series will be reset.",
                             type: "warning", showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "Yes, edit it!",
@@ -298,12 +298,12 @@ class BoxJourneySeries
                     var obj = $(this);
                     var auto_manual = obj.val();
 
-                    var title = "Are you sure choice option?";
+                    var title = "Change option?";
                     var text = "";
                     if(auto_manual == 'option_manual'){
-                        text = "When you select this option, the journey will be made by hand, the journey is going to disappear!!";
+                        text = "When you choose this option, the journey will be made by hand, the journey series will be reset.";
                     }else {
-                        text = "When you select this option, the journey will be generated automatically, the journey is going to disappear!!";
+                        text = "When you choose this option, the journey will be generated automatically, the journey series will be reset.";
                     }
 
                     swal({
@@ -311,7 +311,7 @@ class BoxJourneySeries
                             text: text,
                             type: "warning", showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Yes, choice it!",
+                            confirmButtonText: "Yes",
                             closeOnConfirm: false
                         },
                         function () {

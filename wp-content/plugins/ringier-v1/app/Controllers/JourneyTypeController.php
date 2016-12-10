@@ -58,7 +58,7 @@ class JourneyTypeController extends _BaseController
 
 
         // List Journey
-        $journey_list = $m_journey->getJourneyList(['journey_type_id' => $journey_id]);
+        $journey_list = $m_journey->getJourneyList(['journey_type_id' => $journey_id,'limit' => 1000]);
 
 
         return view('journey-type/detail',

@@ -16,7 +16,9 @@ define("GOOGLE_CLIENT_SECRET", "RDJcby4lI0vodEt7mmTM-fG5");
 define("PATH_VIEW", __DIR__ . '/app/Views/');
 define("VIEW_URL", WP_SITEURL . '/wp-content/plugins/ringier-v1/app/Views/_assets');
 
-define('PAGE_HOME_SLIDER_SLUG','home-slider');
+define('PAGE_HOME_SLIDER_SLUG', 'home-slider');
+
+define('CURRENCY_RATE', 22300);
 
 if (!defined('CACHEGROUP')) {
     define('CACHEGROUP', 'default');
@@ -35,11 +37,11 @@ if (!defined('PASSWORD_DEFAULT')) {
 }
 
 if (!defined('SECURE_SECRET_ATM')) {
-    define('SECURE_SECRET_ATM', 'A3EFDFABA8653DF2342E8DAC29B51AF0');
+    define('SECURE_SECRET_ATM', 'B476481454B1E893B1F078FD6363F122');
 }
 
 if (!defined('SECURE_SECRET_CC')) {
-    define('SECURE_SECRET_CC', '6D0870CDE5F24F34F3915FB0045120DB');
+    define('SECURE_SECRET_CC', '15D01C23137AC8A7B4FF07C88DC4A8F6');
 }
 
 

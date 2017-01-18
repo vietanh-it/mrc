@@ -160,8 +160,11 @@ global $post;
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right">
-                                    <b style="color: #e4a611">Deposit Due:
-                                                              US$<?php echo number_format($stateroom_total + $addon_total); ?></b>
+                                    <b style="color: #e4a611">Deposit Due (USD):
+                                        US$<?php echo number_format($stateroom_total + $addon_total); ?></b>
+                                    <br/>
+                                    <b style="color: #e4a611">Deposit Due (VND):
+                                        <?php echo number_format(ceil(($stateroom_total + $addon_total) * CURRENCY_RATE)); ?> VND</b>
                                 </td>
                             </tr>
                             </tbody>

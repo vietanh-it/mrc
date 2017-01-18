@@ -167,8 +167,18 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                     <!--<a href="-->
                                     <?php //echo WP_SITEURL . '/journeys' ?><!--" class="back">Back</a>-->
                                     <a href="<?php echo $journey_type_info->permalink; ?>" class="back">Back</a>
-                                    <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
-                                       class="btn btn-primary btn-continue btn-yellow">Continue</a>
+
+                                    <?php // Add-ons
+                                    $addon_model = \RVN\Models\Addon::init();
+                                    $addon_list = $addon_model->getList(['journey_type_id' => $journey_detail->journey_type_info->ID]);
+
+                                    if (empty($addon_list)) { ?>
+                                        <a href="<?php echo $journey_detail->permalink . '?step=booking-review'; ?>"
+                                           class="btn btn-primary btn-continue btn-yellow">Continue</a>
+                                    <?php } else { ?>
+                                        <a href="<?php echo $journey_detail->permalink . '?step=services-addons'; ?>"
+                                           class="btn btn-primary btn-continue btn-yellow">Continue</a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </form>

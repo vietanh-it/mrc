@@ -12,7 +12,7 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
     $booking_model = \RVN\Models\Booking::init();
     $cart_info = $booking_model->getCartInfo(get_current_user_id(), $post->ID);
 
-    $rate = 22300;
+    $rate = CURRENCY_RATE;
     $cart_info['total'] = $cart_info['total'] * $rate;
 
     $payment_type = $_GET['payment_type'];
@@ -29,8 +29,8 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
 
     if ($payment_type == 'credit_card') {
         $vpc = [
-            'vpc_Merchant'    => 'TESTONEPAY',
-            'vpc_AccessCode'  => '6BEB2546',
+            'vpc_Merchant'    => 'VIETPRINCESS',
+            'vpc_AccessCode'  => '6A7DD958',
             'vpc_Version'     => 2,
             'vpc_MerchTxnRef' => $vpcOrderInfo,
             'vpc_OrderInfo'   => $vpcOrderInfo,
@@ -43,7 +43,7 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'Title'           => 'Booking MRC Ticket'
         ];
 
-        $vpcURL = "https://mtf.onepay.vn/vpcpay/vpcpay.op?";
+        $vpcURL = "https://onepay.vn/vpcpay/vpcpay.op?";
 
         $md5HashData = "";
         ksort($vpc);
@@ -79,8 +79,8 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
     }
     elseif ($payment_type == 'atm') {
         $vpc = [
-            'vpc_Merchant'    => 'ONEPAY',
-            'vpc_AccessCode'  => 'D67342C2',
+            'vpc_Merchant'    => 'VIETPRINCESS',
+            'vpc_AccessCode'  => '55IFIU4X',
             'vpc_Version'     => 2,
             'vpc_MerchTxnRef' => $vpcOrderInfo,
             'vpc_OrderInfo'   => $vpcOrderInfo,
@@ -94,7 +94,7 @@ if (!empty($_GET['payment_type']) && is_user_logged_in()) {
             'Title'           => 'Booking MRC Ticket'
         ];
 
-        $vpcURL = "https://mtf.onepay.vn/onecomm-pay/vpc.op?";
+        $vpcURL = "https://onepay.vn/onecomm-pay/vpc.op?";
 
         $md5HashData = "";
         ksort($vpc);

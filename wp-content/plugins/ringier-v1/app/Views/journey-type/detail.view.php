@@ -35,9 +35,12 @@ if (!empty($journey_type_info)) { ?>
                     </ul>
                     <a href="javascript:void(0)" class="btn-show-journey"
                        data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
-                    <?php if(!empty($min_price)) { ?>
-                    <span>from US$<span
-                            class="price-if"><?php echo number_format($min_price) ?></span> per person</span>
+                    <?php if (!empty($min_price)) { ?>
+                        <span>from
+                        <span class="price-if">
+                             US$<?php echo number_format($min_price) ?>
+                            / <?php echo number_format($min_price * CURRENCY_RATE) ?> VND
+                        </span> per person</span>
                     <?php } ?>
                 </div>
             </div>
@@ -125,12 +128,12 @@ if (!empty($journey_type_info)) { ?>
                                             <?php if (!empty($offer) && ($j_min_price->min_price > $j_min_price->min_price_offer)) { ?>
                                                 <span
                                                     style="text-decoration: line-through;color: burlywood; padding-right: 5px;">
-                                                US$<?php echo number_format($j_min_price->min_price); ?>
+                                                US$<?php echo number_format($j_min_price->min_price); ?> / <?php echo number_format($j_min_price->min_price * CURRENCY_RATE); ?> VND
                                             </span>
                                             <?php } ?>
 
                                             <b style="color: #e4a611">
-                                                US$<?php echo number_format($j_min_price->min_price_offer); ?>
+                                                US$<?php echo number_format($j_min_price->min_price_offer); ?> / <?php echo number_format($j_min_price->min_price_offer * CURRENCY_RATE); ?> VND
                                             </b> pp
                                             <br>based on <?php echo $j_min_price->type; ?> cabin
                                         </td>

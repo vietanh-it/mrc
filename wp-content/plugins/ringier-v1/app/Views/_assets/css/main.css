@@ -1023,12 +1023,14 @@ footer ul li {
 
 .journey-detail .bk-box .price-2 {
     float: right;
+    text-align: right;
 }
 
 .journey-detail .bk-box .price {
     float: right;
     color: #929292;
     font-size: 13px;
+    text-align: right;
 }
 
 .journey-detail .bk-box .price .big {

@@ -132,7 +132,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-3">
                                                 <span class="price-2">
-                                                    <?php echo "US$<b>" . number_format($twin_price) . '</b>'; ?>
+                                                    <?php echo "US$<b>" . number_format($twin_price) . '</b>'; ?> <br/>
+                                                    <span style="white-space: nowrap"><?php echo "<b>" . number_format($twin_price * CURRENCY_RATE) . ' VND</b>'; ?></span>
                                                 </span>
                                                 </div>
                                             </div>
@@ -154,7 +155,8 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-3">
                                                 <span class="price-2">
-                                                <?php echo "US$<b>" . number_format($single_price) . "</b>"; ?>
+                                                <?php echo "US$<b>" . number_format($single_price) . "</b>"; ?> <br/>
+                                                <span style="white-space: nowrap"><?php echo "<b>" . number_format($single_price * CURRENCY_RATE) . " VND</b>"; ?></span>
                                                 </span>
                                                 </div>
                                             </div>
@@ -294,7 +296,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
                             // TOTAL
                             $('.booking-total').html(data.data.booking_total_text);
-                            $('.stateroom-booking-total').html(data.data.stateroom_booking_total_text);
+                            $('.stateroom-booking-total').html(data.data.stateroom_booking_total_text + ' <br/> ' + data.data.stateroom_booking_total_text_vnd + ' VND');
                         }
                         else {
                             var html_msg = '<div>';
@@ -381,7 +383,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
 
                         // TOTAL
                         $('.booking-total').html(data.data.total_text);
-                        $('.stateroom-booking-total').html(data.data.stateroom_total_text);
+                        $('.stateroom-booking-total').html(data.data.stateroom_total_text + ' <br/> ' + data.data.stateroom_total_text_vnd + ' VND');
 
                         // Hide stateroom if not selected
                         stateroomToggle();

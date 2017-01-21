@@ -229,6 +229,7 @@ class Booking
         $cart->booking_total_text = number_format($cart->booking_total);
         $cart->stateroom_booking_total = valueOrNull($this->getCartTotal($user_id, $data['journey_id'], false), 0);
         $cart->stateroom_booking_total_text = number_format($cart->stateroom_booking_total);
+        $cart->stateroom_booking_total_text_vnd = number_format($cart->stateroom_booking_total * CURRENCY_RATE);
 
         return $cart;
     }
@@ -305,17 +306,18 @@ class Booking
         }
 
         return [
-            'cart'                   => $cart,
-            'cart_info'              => $cart_info,
-            'cart_addon'             => $cart_addon,
-            'room_type_twin_count'   => $room_type_twin_count,
-            'room_type_single_count' => $room_type_single_count,
-            'total_twin'             => $total_twin_guests,
-            'total_single'           => $total_single_guests,
-            'total'                  => $total,
-            'total_text'             => number_format($total),
-            'stateroom_total'        => $stateroom_total,
-            'stateroom_total_text'   => number_format($stateroom_total)
+            'cart'                     => $cart,
+            'cart_info'                => $cart_info,
+            'cart_addon'               => $cart_addon,
+            'room_type_twin_count'     => $room_type_twin_count,
+            'room_type_single_count'   => $room_type_single_count,
+            'total_twin'               => $total_twin_guests,
+            'total_single'             => $total_single_guests,
+            'total'                    => $total,
+            'total_text'               => number_format($total),
+            'stateroom_total'          => $stateroom_total,
+            'stateroom_total_text'     => number_format($stateroom_total),
+            'stateroom_total_text_vnd' => number_format($stateroom_total * CURRENCY_RATE)
         ];
     }
 

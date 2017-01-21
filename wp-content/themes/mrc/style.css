@@ -11,6 +11,10 @@ Tags: mrc
 Text Domain: mrc
 */
 
+.box-journey .image {
+    position: relative;
+}
+
 .ship_map img {
     width: 100%;
     height: 100%;

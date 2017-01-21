@@ -172,7 +172,7 @@ $rooms_html = $ship_ctrl->getShipRooms($ship_info->ID, $booked_rooms); ?>
                                     $addon_model = \RVN\Models\Addon::init();
                                     $addon_list = $addon_model->getList(['journey_type_id' => $journey_detail->journey_type_info->ID]);
 
-                                    if (empty($addon_list)) { ?>
+                                    if (empty($addon_list['total'])) { ?>
                                         <a href="<?php echo $journey_detail->permalink . '?step=booking-review'; ?>"
                                            class="btn btn-primary btn-continue btn-yellow">Continue</a>
                                     <?php } else { ?>

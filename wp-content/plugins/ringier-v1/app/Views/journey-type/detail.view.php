@@ -35,8 +35,10 @@ if (!empty($journey_type_info)) { ?>
                     </ul>
                     <a href="javascript:void(0)" class="btn-show-journey"
                        data-journey_type="<?php echo $journey_type_info->ID ?>">choose your date</a>
+                    <?php if(!empty($min_price)) { ?>
                     <span>from US$<span
                             class="price-if"><?php echo number_format($min_price) ?></span> per person</span>
+                    <?php } ?>
                 </div>
             </div>
 

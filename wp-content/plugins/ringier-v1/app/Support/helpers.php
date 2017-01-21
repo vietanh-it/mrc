@@ -236,7 +236,7 @@ if (!function_exists('htmlPrice')) {
                         // 1.1.1 Offer
                         $result_string .= "<span class='old-price'>US$" . number_format($room_type_object->twin_high_season_price) . "<br/>" . number_format($room_type_object->twin_high_season_price * CURRENCY_RATE) . " VND</span>";
                     }
-                    $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_price) . "<br/>" . number_format($room_type_object->twin_price * CURRENCY_RATE) . '</span>';
+                    $result_string .= "<span class='big'>US$" . number_format($room_type_object->twin_price) . "<br/>" . number_format($room_type_object->twin_price * CURRENCY_RATE) . ' VND</span>';
                 }
                 elseif ($season == 'low') {
                     // 1.2 Low season

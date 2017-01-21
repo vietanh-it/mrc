@@ -211,5 +211,16 @@
 <div id="fb-root"></div>
 <?php wp_footer(); ?>
 <script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
+
+<script>
+    // Format number
+    function numberFormat(x) {
+        if (isNaN(x))return "";
+
+        n = x.toString().split('.');
+        return n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (n.length > 1 ? "." + n[1] : "");
+    }
+</script>
+
 </body>
 </html>

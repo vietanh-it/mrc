@@ -606,7 +606,6 @@ jQuery(document).ready(function ($) {
 
     $(window).scroll(function() {
         var currentPosition = $(window).scrollTop();
-        console.log(currentPosition);
         if(currentPosition !=0){
             $("nav").addClass('scrool-top-event');
         }else{

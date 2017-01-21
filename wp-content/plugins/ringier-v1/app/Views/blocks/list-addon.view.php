@@ -91,7 +91,10 @@ if (!empty($list_addon)) {
 
                                                     <tr>
                                                         <td><?php echo $v->option_name; ?></td>
-                                                        <td>US$<?php echo !empty($v->option_price) ? number_format($v->option_price) : 0; ?></td>
+                                                        <td>
+                                                            US$<?php echo !empty($v->option_price) ? number_format($v->option_price) : 0; ?> <br/>
+                                                            <?php echo !empty($v->option_price) ? number_format($v->option_price * CURRENCY_RATE) : 0; ?> VND
+                                                        </td>
                                                         <td data-type="addon" data-addon-object-id="<?php echo $v->object_id ?>" data-addon-option="<?php echo $v->id ?>">
 
                                                             <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
@@ -104,7 +107,8 @@ if (!empty($list_addon)) {
 
                                                         </td>
                                                         <td>
-                                                            US$<span class="addon-subtotal"><?php echo number_format(valueOrNull($addon->total, 0)); ?></span>
+                                                            US$<span class="addon-subtotal"><?php echo number_format(valueOrNull($addon->total, 0)); ?></span> <br/>
+                                                            <span class="addon-subtotal-vnd"><?php echo number_format(valueOrNull($addon->total, 0) * CURRENCY_RATE); ?></span> VND
                                                         </td>
                                                     </tr>
 
@@ -117,7 +121,8 @@ if (!empty($list_addon)) {
                                                 </td>
                                                 <td>
                                                     <b>
-                                                        US$<span class="addon-total"><?php echo number_format($addon_total); ?></span>
+                                                        US$<span class="addon-total"><?php echo number_format($addon_total); ?></span> <br/>
+                                                        <span class="addon-total-vnd"><?php echo number_format($addon_total * CURRENCY_RATE); ?> VND</span>
                                                     </b>
                                                 </td>
                                             </tr>
@@ -159,7 +164,10 @@ if (!empty($list_addon)) {
                                             <tbody>
                                             <tr>
                                                 <td>Sharing</td>
-                                                <td>US$<?php echo number_format($item->twin_share_price); ?></td>
+                                                <td>
+                                                    US$<?php echo number_format($item->twin_share_price); ?> <br/>
+                                                    <?php echo number_format($item->twin_share_price * CURRENCY_RATE); ?> VND
+                                                </td>
                                                 <td data-type="twin-tour" data-addon-object-id="<?php echo $item->ID ?>">
 
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
@@ -172,12 +180,16 @@ if (!empty($list_addon)) {
 
                                                 </td>
                                                 <td>
-                                                    US$<span class="addon-subtotal"><?php echo !empty($tour_info_twin->total) ? number_format(valueOrNull($tour_info_twin->total, 0)) : 0; ?></span>
+                                                    US$<span class="addon-subtotal"><?php echo !empty($tour_info_twin->total) ? number_format(valueOrNull($tour_info_twin->total, 0)) : 0; ?></span> <br/>
+                                                    <span class="addon-subtotal-vnd"><?php echo !empty($tour_info_twin->total) ? number_format(valueOrNull($tour_info_twin->total, 0) * CURRENCY_RATE) : 0; ?></span> VND
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>One Person</td>
-                                                <td>US$<?php echo number_format($item->single_price); ?></td>
+                                                <td>
+                                                    US$<?php echo number_format($item->single_price); ?> <br/>
+                                                    <?php echo number_format($item->single_price * CURRENCY_RATE); ?> VND
+                                                </td>
                                                 <td data-type="single-tour" data-addon-object-id="<?php echo $item->ID ?>">
 
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="minus">-</a>
@@ -189,7 +201,9 @@ if (!empty($list_addon)) {
                                                     <a href="javascript:void(0)" class="action-quantity" data-action-type="plus">+</a>
 
                                                 </td>
-                                                <td>US$<span class="addon-subtotal"><?php echo !empty($tour_info_single->total) ? number_format(valueOrNull($tour_info_single->total, 0)) : 0; ?></span>
+                                                <td>
+                                                    US$<span class="addon-subtotal"><?php echo !empty($tour_info_single->total) ? number_format(valueOrNull($tour_info_single->total, 0)) : 0; ?></span> <br/>
+                                                    <span class="addon-subtotal-vnd"><?php echo !empty($tour_info_single->total) ? number_format(valueOrNull($tour_info_single->total, 0) * CURRENCY_RATE) : 0; ?></span> VND
                                                 </td>
                                             </tr>
                                             <tr>
@@ -198,7 +212,8 @@ if (!empty($list_addon)) {
                                                 </td>
                                                 <td>
                                                     <b>
-                                                        US$<span class="addon-total"><?php echo number_format($tour_total); ?></span>
+                                                        US$<span class="addon-total"><?php echo number_format($tour_total); ?></span> <br/>
+                                                        <span class="addon-total-vnd"><?php echo number_format($tour_total * CURRENCY_RATE); ?></span> VND
                                                     </b>
                                                 </td>
                                             </tr>
@@ -332,7 +347,8 @@ if (!empty($list_addon)) {
                             parent.find('span').html(data.data.quantity);
 
                             // Subtotal
-                            parent.parent('tr').find('.addon-subtotal').html(data.data.total);
+                            parent.parent('tr').find('.addon-subtotal').html(numberFormat(data.data.total));
+                            parent.parent('tr').find('.addon-subtotal-vnd').html(numberFormat(data.data.total * <?php echo CURRENCY_RATE; ?>));
 
                             // Addon total
                             getAddonTotal(parent.parents('table').attr('data-item-id'));
@@ -370,7 +386,8 @@ if (!empty($list_addon)) {
                 total += parseFloat($(v).html());
             });
 
-            table.find('.addon-total').html(total);
+            table.find('.addon-total').html(numberFormat(total));
+            table.find('.addon-total-vnd').html(numberFormat(total * <?php echo CURRENCY_RATE; ?>));
         }
     </script>
 

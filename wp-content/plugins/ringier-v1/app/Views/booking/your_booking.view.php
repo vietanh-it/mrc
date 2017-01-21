@@ -55,7 +55,7 @@ get_header(); ?>
 
                                 // Chỉ hiện booking nào có total > 0
                                 if ($total > 0) {
-                                    $total = number_format($total);
+                                    // $total = number_format($total);
                                     $total_people = $modelBooking->getCartTotalPeople($value->id);
                                     $status = $modelBooking->getBookingStatusText($value->status);
 
@@ -94,7 +94,8 @@ get_header(); ?>
                                             <?php echo $total_people; ?>
                                         </td>
                                         <td>
-                                            <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo $total; ?></b>
+                                            <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo number_format($total); ?></b> <br/>
+                                            <b style="color: black;font-size: 17px;text-transform: uppercase;white-space: nowrap;"><?php echo number_format($total * CURRENCY_RATE); ?> VND</b>
                                         </td>
                                         <td>
                                     <span style="color: #e4a611">
@@ -218,7 +219,8 @@ get_header(); ?>
                                             <b>Payment </b>
                                         </div>
                                         <div class="col-xs-8">
-                                            <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo $total; ?></b>
+                                            <b style="color: black;font-size: 17px;text-transform: uppercase">US$<?php echo number_format($total); ?></b> <br/>
+                                            <b style="color: black;font-size: 17px;text-transform: uppercase; white-space: nowrap;"><?php echo number_format($total * CURRENCY_RATE); ?> VND</b>
                                         </div>
                                     </div>
                                     <div class="row">

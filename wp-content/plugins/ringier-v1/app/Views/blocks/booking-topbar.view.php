@@ -18,8 +18,7 @@ if (!empty($journey_id)) {
     if (is_user_logged_in()) {
         $user_id = get_current_user_id();
         $cart_detail = $modelBooking->getCartInfo($user_id, $journey_detail->ID);
-    }
-    else {
+    } else {
         $user_id = false;
         $cart_detail = [
             'cart'                   => null,
@@ -43,8 +42,10 @@ if (!empty($journey_id)) {
                     </p>
                 </div>
                 <div class="col-xs-12 col-sm-7 right">
-                    <span class="total-price">Total: US$<span
-                            class="booking-total"><?php echo number_format($cart_detail['total']); ?></span></span>
+                    <span class="total-price">Total:
+                        US$<span class="booking-total"><?php echo number_format($cart_detail['total']); ?></span> <br/>
+                        <span class="booking-total-vnd"><?php echo number_format($cart_detail['total'] * CURRENCY_RATE); ?></span> VND
+                    </span>
                     <a href="javascript:void(0)" class="btn-menu-jn">
                         <img src="<?php echo VIEW_URL . '/images/icon-menu-1.png' ?>" class="">
                     </a>
@@ -66,8 +67,10 @@ if (!empty($journey_id)) {
     </div>
 
     <div class="bottom-fixed-mobile">
-        <span class="total-price">Total: US$<span
-                class="booking-total"><?php echo number_format($cart_detail['total']); ?></span></span>
+        <span class="total-price">Total:
+            US$<span class="booking-total"><?php echo number_format($cart_detail['total']); ?></span> <br/>
+            <span class="booking-total-vnd"><?php echo number_format($cart_detail['total'] * CURRENCY_RATE); ?></span> VND
+        </span>
     </div>
 
 <?php } ?>

@@ -277,7 +277,8 @@ get_header();
                                                      alt="<?php echo $v->post_title ?>" class="lazy">
                                             </a>
                                             <div class="price">
-                                                $<?php echo number_format($journey_min_price->min_price_offer) ?>
+                                                $<?php echo number_format($journey_min_price->min_price_offer) ?> <br/>
+                                                <?php echo number_format($journey_min_price->min_price_offer * CURRENCY_RATE) ?> VND
                                             </div>
                                         </div>
 

@@ -89,7 +89,9 @@ global $post;
                                         <td><?php echo $room_info->room_type_name . ' ' . $room_size . ' - Room ' . $room_info->room_name; ?></td>
                                         <td><?php echo $quantity; ?></td>
                                         <td class="text-right color-main">
-                                            US$<?php echo number_format($v->total); ?></td>
+                                            US$<?php echo number_format($v->total); ?> <br/>
+                                            <?php echo number_format($v->total * CURRENCY_RATE); ?> VND
+                                        </td>
                                     </tr>
 
                                 <?php }
@@ -97,8 +99,12 @@ global $post;
 
                             <tr>
                                 <td colspan="3" class="text-right">
-                                    <b>Total:<span class="color-main"
-                                                   style="font-size: 17px"> US$<?php echo number_format($stateroom_total); ?></span></b>
+                                    <b>Total:
+                                        <span class="color-main" style="font-size: 17px">
+                                            US$<?php echo number_format($stateroom_total); ?> <br/>
+                                            <?php echo number_format($stateroom_total * CURRENCY_RATE); ?> VND
+                                        </span>
+                                    </b>
                                 </td>
                             </tr>
 
@@ -137,7 +143,9 @@ global $post;
                                                 <?php echo $value->quantity; ?>
                                             </td>
                                             <td class="text-right color-main">
-                                                US$<?php echo number_format($value->total); ?></td>
+                                                US$<?php echo number_format($value->total); ?> <br/>
+                                                <?php echo number_format($value->total * CURRENCY_RATE); ?> VND
+                                            </td>
                                         </tr>
 
                                     <?php }
@@ -145,8 +153,14 @@ global $post;
 
                                 <tr>
                                     <td colspan="3" class="text-right">
-                                        <b>Total:<span class="color-main"
-                                                       style="font-size: 17px"> US$<?php echo number_format($addon_total); ?></span></b>
+                                        <b>Total:
+                                            <span class="color-main" style="font-size: 17px">
+                                                US$<?php echo number_format($addon_total); ?>
+                                            </span>
+                                            <span class="color-main" style="font-size: 17px">
+                                                <?php echo number_format($addon_total * CURRENCY_RATE); ?> VND
+                                            </span>
+                                        </b>
                                     </td>
                                 </tr>
 
@@ -154,8 +168,12 @@ global $post;
 
                             <tr style="background: #d5b76e">
                                 <td colspan="3" class="text-right">
-                                    Grand Total:<b><span
-                                            style="font-size: 17px;color: white">  US$<?php echo number_format($stateroom_total + $addon_total); ?></span></b>
+                                    Grand Total:<b>
+                                        <span style="font-size: 17px;color: white">
+                                            US$<?php echo number_format($stateroom_total + $addon_total); ?> <br/>
+                                            <?php echo number_format(($stateroom_total + $addon_total) * CURRENCY_RATE); ?> VND
+                                        </span>
+                                    </b>
                                 </td>
                             </tr>
                             <tr>

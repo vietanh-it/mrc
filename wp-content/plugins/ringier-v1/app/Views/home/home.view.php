@@ -194,13 +194,16 @@ get_header();
                                         </a>
                                         <?php if (!empty($min_price)) { ?>
                                             <div class="price">
-                                                $<?php echo number_format($min_price) ?>
+                                                $<?php echo number_format($min_price) ?> <br/>
+                                                <?php echo number_format($min_price * CURRENCY_RATE); ?> VND
                                             </div>
                                         <?php } ?>
                                     </div>
                                     <div class="desc">
-                                        <a href="<?php echo $v->permalink ?>" class="title"
-                                           title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                                        <div class="jt-title-wrapper">
+                                            <a href="<?php echo $v->permalink ?>" class="title"
+                                               title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                                        </div>
 
                                         <ul>
                                             <li>

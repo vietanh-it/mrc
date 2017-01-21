@@ -1,5 +1,7 @@
 <?php
 
+use RVN\Models\JourneyType;
+
 get_header();
 $list_journey_type = !empty($list_journey_type) ? $list_journey_type : [];
 
@@ -14,17 +16,29 @@ view('journey/quick-search');
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
             <div class="row">
                 <?php if ($list_journey_type['data']) {
+                    $m_jt = JourneyType::init();
                     foreach ($list_journey_type['data'] as $v) {
+                        $min_price = $m_jt->getJourneyTypeMinPrice($v->ID);
                         ?>
                         <div class="col-xs-12 col-sm-4">
                             <div class="box-journey">
                                 <div class="image">
                                     <a href="<?php echo $v->permalink ?>" title="<?php echo $v->post_title ?>">
-                                        <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>" class="lazy">
+                                        <img src="<?php echo $v->images->featured ?>" alt="<?php echo $v->post_title ?>"
+                                             class="lazy">
                                     </a>
+                                    <?php if (!empty($min_price)) { ?>
+                                        <div class="price">
+                                            $<?php echo number_format($min_price) ?> <br/>
+                                            <?php echo number_format($min_price * CURRENCY_RATE); ?> VND
+                                        </div>
+                                    <?php } ?>
                                 </div>
                                 <div class="desc">
-                                    <a href="<?php echo $v->permalink ?>" class="title" title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                                    <div class="jt-title-wrapper">
+                                        <a href="<?php echo $v->permalink ?>" class="title"
+                                           title="<?php echo $v->post_title ?>"><?php echo $v->post_title ?></a>
+                                    </div>
 
                                     <ul>
                                         <li><b><?php echo $v->starting_point . ' - ' . $v->destination_info->post_title; ?></b></li>

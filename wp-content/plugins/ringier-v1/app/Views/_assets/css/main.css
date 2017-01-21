@@ -471,6 +471,7 @@ nav ul.navbar-nav li.active a {
     color: white;
     bottom: 0;
     font-weight: bold;
+    text-align: right;
 }
 
 .box-journey-2 {
@@ -2315,6 +2316,11 @@ header .top-bar .top-info li:first-child {
     width: 100%;
     border-radius: 0;
 }
+
+.jt-title-wrapper {
+    height: 50px;
+}
+
 @media (min-width: 1200px) {
 
     .container {

@@ -14,6 +14,9 @@ class JourneyTypeController extends _BaseController
     protected function __construct()
     {
         parent::__construct();
+
+        add_action("wp_ajax_ajax_handler_jt", [$this, "ajaxHandler"]);
+        add_action("wp_ajax_nopriv_ajax_handler_jt", [$this, "ajaxHandler"]);
     }
 
 
@@ -50,19 +53,17 @@ class JourneyTypeController extends _BaseController
         $min_price = $journeyType->getJourneyTypeMinPrice($journey_type_info->ID);
 
         $objTourAddon = Addon::init();
-        $list_add_on = $objTourAddon->getList(
-            [
-                'journey_type_id' => $journey_id,
-                'limit'           => 6,
-            ]);
+        $list_add_on = $objTourAddon->getList([
+            'journey_type_id' => $journey_id,
+            'limit'           => 6,
+        ]);
 
 
         // List Journey
-        $journey_list = $m_journey->getJourneyList(['journey_type_id' => $journey_id,'limit' => 1000]);
+        $journey_list = $m_journey->getJourneyList(['journey_type_id' => $journey_id, 'limit' => 1000]);
 
 
-        return view('journey-type/detail',
-            compact('journey_type_info', 'journey_list', 'list_add_on', 'min_price'));
+        return view('journey-type/detail', compact('journey_type_info', 'journey_list', 'list_add_on', 'min_price'));
     }
 
 
@@ -71,6 +72,63 @@ class JourneyTypeController extends _BaseController
         $journeyType = JourneyType::init();
 
         return $journeyType->getJourneyMinPrice($journey_id, $type);
+    }
+
+
+    public function ajaxGetMonths($data = [])
+    {
+        if (!empty($data['destination'])) {
+            $m_jt = JourneyType::init();
+            $rs = $m_jt->getMonthsHaveJourney($data['destination']);
+
+            $result = [
+                'status' => 'success',
+                'data'   => $rs
+            ];
+
+            return $result;
+        } else {
+            return false;
+        }
+
+    }
+
+
+    // Get Ports, Excursion
+    public function ajaxGetPorts($data = [])
+    {
+        if (!empty($data['month'])) {
+            $m_jt = JourneyType::init();
+            $rs = $m_jt->getPorts($data);
+
+            $result = [
+                'status' => 'success',
+                'data'   => $rs
+            ];
+
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+
+    // Get Ports, Excursion
+    public function ajaxGetShips($data = [])
+    {
+        if (!empty($data['port'])) {
+            $m_jt = JourneyType::init();
+            $rs = $m_jt->getShips($data);
+
+            $result = [
+                'status' => 'success',
+                'data'   => $rs
+            ];
+
+            return $result;
+        } else {
+            return false;
+        }
     }
 
 }

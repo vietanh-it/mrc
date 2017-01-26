@@ -64,8 +64,7 @@ class JourneyType
         $cacheId = __CLASS__ . 'getJourneyTypeList' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        }
-        else {
+        } else {
             $result = false;
         }
         if ($result == false) {
@@ -153,8 +152,7 @@ class JourneyType
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
-        }
-        else {
+        } else {
             $cacheId = __CLASS__ . 'getInfo' . $object->ID;
         }
 
@@ -258,8 +256,7 @@ class JourneyType
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 foreach ($list_journey['data'] as $journey) {
                     $min_price_journey = $journey->min_price;
                     if (!empty($journey->min_price_offer)) {
@@ -286,8 +283,7 @@ class JourneyType
         $jt_info = $this->_wpdb->get_row($select);
         if (($jt_info)) {
             $this->updateJourneyTypeInfo($id, $data);
-        }
-        else {
+        } else {
             $this->_wpdb->insert($this->_tbl_journey_type_info, $data);
         }
     }
@@ -344,14 +340,14 @@ class JourneyType
         if ($result) {
             foreach ($result as &$v) {
                 $location_info = [];
-                if (!empty($v->location)  ) {
-                    if(is_serialized($v->location)){
+                if (!empty($v->location)) {
+                    if (is_serialized($v->location)) {
                         $lc = unserialize($v->location);
-                    }else{
-                        $lc = array($v->location);
+                    } else {
+                        $lc = [$v->location];
                     }
-                    if(!empty($lc)){
-                        foreach ($lc as $l){
+                    if (!empty($lc)) {
+                        foreach ($lc as $l) {
                             $objPost = Posts::init();
                             $location_info[] = $objPost->getInfo($l);
                         }
@@ -407,5 +403,162 @@ class JourneyType
         }
 
         return $min;
+    }
+
+
+    public function isJourneyTypeHaveJourney($jt_id)
+    {
+        $query = "SELECT object_id FROM {$this->_prefix}journey_series_info WHERE journey_type_id = {$jt_id}";
+        $journey_series = $this->_wpdb->get_results($query);
+
+        // Flag = false : ko có journey
+        // Flah = true : có journey
+        $flag = false;
+        foreach ($journey_series as $k => $v) {
+            if (!$flag) {
+                $query = "SELECT * FROM {$this->_tbl_journey_info} WHERE journey_series_id = {$v->object_id} AND departure >= CURDATE() LIMIT 1";
+                $is_exist = $this->_wpdb->get_row($query);
+                if ($is_exist) {
+                    $flag = true;
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        return $flag;
+    }
+
+
+    public function getMonthsHaveJourney($destination)
+    {
+        $m_post = Posts::init();
+        // $query = "SELECT * FROM {$this->_wpdb->posts} WHERE post_name = '{$destination}' AND post_type='destination'";
+        // $dest = $this->_wpdb->get_row($query);
+        $dest = $m_post->getPostBySlug($destination, 'destination');
+
+        // Get list journey type have destination id
+        $query = "SELECT * FROM {$this->_tbl_journey_type_info} WHERE destination = {$dest->ID}";
+        $jt = $this->_wpdb->get_results($query);
+
+        $result = [];
+        foreach ($jt as $k => $v) {
+
+            if (!empty($v->object_id)) {
+                // Get journey series of journey type
+                $query1 = "SELECT * FROM {$this->_prefix}journey_series_info jsi INNER JOIN {$this->_wpdb->posts} p ON jsi.object_id = p.ID WHERE jsi.journey_type_id = {$v->object_id} AND p.post_status = 'publish'";
+                $series = $this->_wpdb->get_results($query1);
+
+                // Select months from journey info
+                foreach ($series as $key => $value) {
+                    if (!empty($value->object_id)) {
+
+                        $query2 = "SELECT DATE_FORMAT(departure, '%m/%Y') as jt_month FROM {$this->_tbl_journey_info} WHERE journey_series_id = {$value->object_id} AND departure >= CURDATE() GROUP BY DATE_FORMAT(departure, '%m/%Y')";
+                        $month_rs = $this->_wpdb->get_results($query2);
+
+                        foreach ($month_rs as $month) {
+                            if (!empty($month->jt_month)) {
+                                $result[$month->jt_month] = $month->jt_month;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+
+    // Get ports, excursion
+    public function getPorts($data)
+    {
+        $result = [];
+
+        // Destination
+        $m_post = Posts::init();
+        $dest = $m_post->getPostBySlug($data['destination'], 'destination');
+
+        // Get journey_series_id
+        $query = "SELECT * FROM {$this->_tbl_journey_info} ji INNER JOIN {$this->_prefix}journey_series_info jsi ON ji.journey_series_id = jsi.object_id INNER JOIN {$this->_wpdb->posts} p ON jsi.object_id = p.ID INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.object_id WHERE ji.departure >= CURDATE() AND DATE_FORMAT(ji.departure, '%m/%Y') = '{$data['month']}' AND jti.destination = {$dest->ID} AND p.post_status = 'publish' GROUP BY ji.journey_series_id";
+        $rs = $this->_wpdb->get_results($query);
+
+        if (!empty($rs)) {
+
+            foreach ($rs as $k => $v) {
+                $itinary_list = $this->getJourneyTypeItinerary($v->object_id);
+
+                foreach ($itinary_list as $key => $val) {
+                    if (!empty($val->location)) {
+                        $locations = unserialize($val->location);
+                        if (!empty($locations)) {
+                            foreach ($locations as $k2 => $v2) {
+                                $excursion = get_post($v2);
+                                $result[$excursion->post_name] = $excursion->post_title;
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        return $result;
+    }
+
+
+    // Get ships by dest, month, port
+    public function getShips($data)
+    {
+        $result = [];
+
+        $m_post = Posts::init();
+        $m_ship = Ships::init();
+
+        // Destination
+        $dest = $m_post->getPostBySlug($data['dest'], 'destination');
+
+        // Port
+        $port_excursion = $m_post->getPostBySlug($data['port'], ['port', 'excursion']);
+
+        // Get journey_series_id
+        $query = "SELECT * FROM {$this->_tbl_journey_info} ji 
+INNER JOIN {$this->_prefix}journey_series_info jsi ON ji.journey_series_id = jsi.object_id 
+INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.object_id 
+INNER JOIN {$this->_wpdb->posts} p ON jsi.object_id = p.ID
+WHERE ji.departure >= CURDATE() 
+AND DATE_FORMAT(ji.departure, '%m/%Y') = '{$data['month']}' 
+AND jti.destination = {$dest->ID}
+ AND p.post_status = 'publish'
+GROUP BY ji.journey_series_id";
+        $rs = $this->_wpdb->get_results($query);
+
+        if (!empty($rs)) {
+
+            foreach ($rs as $k => $v) {
+                $itinary_list = $this->getJourneyTypeItinerary($v->journey_type_id);
+
+                foreach ($itinary_list as $key => $val) {
+                    if (!empty($val->location)) {
+                        $locations = unserialize($val->location);
+                        if (!empty($locations)) {
+                            foreach ($locations as $k2 => $v2) {
+                                $excursion = get_post($v2);
+                                if ($excursion->ID == $port_excursion->ID) {
+                                    $ship = $m_ship->getShipDetail($v->ship);
+                                    $result[$ship->post_name] = $ship->post_title;
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        return $result;
     }
 }

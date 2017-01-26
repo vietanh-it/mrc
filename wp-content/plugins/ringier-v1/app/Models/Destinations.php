@@ -59,22 +59,38 @@ class Destinations
 
     public function getDestinationHaveJourney()
     {
-        $m_journey_type = JourneyType::init();
-        $m_journey = Journey::init();
+        $query = "SELECT object_id, destination FROM `mrc_journey_type_info` GROUP BY destination";
+        // Destination have journeys
+        $destinations = $this->_wpdb->get_results($query);
 
         $result = [];
-        $jouney_type = $m_journey_type->getJourneyTypeList();
-        if (!empty($jouney_type['data'])) {
-
-            foreach ($jouney_type['data'] as $k => $v) {
-                $destination = $this->getInfo($v->destination);
-                if (!empty($destination)) {
-                    $result[$destination->ID] = $destination;
-                }
+        $m_journey_type = JourneyType::init();
+        foreach ($destinations as $k => $v) {
+            $rs = $m_journey_type->isJourneyTypeHaveJourney($v->object_id);
+            if (!empty($rs)) {
+                $dest = $this->getInfo($v->destination);
+                $result[] = $dest;
             }
-
         }
 
         return $result;
+
+        // $m_journey = Journey::init();
+
+        // $result = [];
+        // $jouney_type = $m_journey_type->getJourneyTypeList();
+        // if (!empty($jouney_type['data'])) {
+        //
+        //     foreach ($jouney_type['data'] as $k => $v) {
+        //         $destination = $this->getInfo($v->destination);
+        //         if (!empty($destination)) {
+        //             $result[$destination->ID] = $destination;
+        //         }
+        //     }
+        //
+        // }
+
+        // return $result;
     }
+
 }

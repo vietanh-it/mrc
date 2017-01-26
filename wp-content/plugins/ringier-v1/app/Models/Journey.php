@@ -48,8 +48,7 @@ class Journey
         $cacheId = __CLASS__ . 'getJourneyList' . serialize($params);
         if (!empty($params['is_cache'])) {
             $result = wp_cache_get($cacheId);
-        }
-        else {
+        } else {
             $result = false;
         }
         if ($result == false) {
@@ -72,7 +71,6 @@ class Journey
             $objPost = Posts::init();
             $join .= ' INNER JOIN ' . $this->_tbl_journey_info . ' as ji ON ji.object_id = p.ID
                        INNER JOIN ' . $this->_tbl_journey_series_info . ' as jsi ON jsi.object_id = ji.journey_series_id
-                       INNER JOIN ' . $this->_wpdb->posts . ' as pjs ON jsi.object_id = pjs.ID
                        INNER JOIN ' . $this->_tbl_journey_type_info . ' as jti ON jti.object_id = jsi.journey_type_id';
 
             if (!empty($params['_ship'])) {
@@ -85,13 +83,6 @@ class Journey
                 $destination = $objPost->getPostBySlug($params['_destination'], 'destination');
                 if ($destination) {
                     $where .= ' AND jti.destination = ' . $destination->ID;
-                }
-            }
-            if (!empty($params['_port'])) {
-                $port = $objPost->getPostBySlug($params['_port'], 'port');
-                if ($port) {
-                    $join .= ' INNER JOIN ' . $this->_tbl_journey_type_port . ' as jtp ON jtp.journey_type_id = jti.object_id';
-                    $where .= ' AND jtp.port_id = ' . $port->ID;
                 }
             }
 
@@ -110,7 +101,7 @@ class Journey
 
             // Loại những journey đã khởi hành
             if (empty($params['is_get_all'])) {
-                $where .= " AND DATE_FORMAT(ji.departure, '%Y-%m-%d') >= '" . date('Y-m-d') . "'";
+                $where .= " AND ji.departure >= CURDATE()";
             }
 
 
@@ -142,7 +133,7 @@ class Journey
 
             $query = "SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_title, p.post_name, p.post_excerpt, p.post_date, p.post_author, p.post_status, p.comment_count, p.post_type,p.post_content FROM " . $this->_wpdb->posts . " as p
             $join
-            WHERE p.post_type = 'journey' AND p.post_status='publish' AND pjs.post_status = 'publish' 
+            WHERE p.post_type = 'journey' AND p.post_status='publish' 
             $where $not_in
             ORDER BY $order_by  LIMIT $to, $limit
             ";
@@ -151,9 +142,32 @@ class Journey
 
             $list = $this->_wpdb->get_results($query);
             $total = $this->_wpdb->get_var("SELECT FOUND_ROWS() as total");
+
             if ($list) {
+                if (!empty($params['_port'])) {
+                    $port = $objPost->getPostBySlug($params['_port'], ['port', 'excursion']);
+                } else {
+                    $port = false;
+                }
+
                 foreach ($list as $key => &$value) {
                     $value = $this->getInfo($value);
+                    if (!empty($port)) {
+                        $flag = false;
+                        foreach ($value->journey_type_info->itinerary as $k => $v) {
+                            $location = unserialize($v->location);
+                            foreach ($location as $k1 => $v1) {
+                                if ($port->ID == $v1) {
+                                    $flag = true;
+                                }
+                            }
+                        }
+
+                        if ($flag == false) {
+                            unset($list[$key]);
+                            $total = $total - 1;
+                        }
+                    }
                 }
             }
 
@@ -178,8 +192,7 @@ class Journey
     {
         if (is_numeric($object)) {
             $cacheId = __CLASS__ . 'getInfo' . $object;
-        }
-        else {
+        } else {
             $cacheId = __CLASS__ . 'getInfo' . $object->ID;
         }
 
@@ -316,8 +329,7 @@ class Journey
             $price = $price - (($price * $offer) / 100);
 
             return $price;
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -446,7 +458,7 @@ INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.obje
     {
         $result = false;
         if ($journey_id) {
-            $result = $this->_wpdb->update($this->_wpdb->posts,array('post_status'=>'draft'), ['ID' => $journey_id]);
+            $result = $this->_wpdb->update($this->_wpdb->posts, ['post_status' => 'draft'], ['ID' => $journey_id]);
         }
 
         return $result;

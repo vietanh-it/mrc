@@ -40,8 +40,7 @@ get_header();
                 foreach ($home_page_info->gallery as $img) { ?>
                     <div><img src="<?php echo $img->full ?>" alt=""></div>
                 <?php }
-            }
-            else { ?>
+            } else { ?>
                 <div><img src="<?php echo VIEW_URL . '/images/bn1.jpg' ?>" alt=""></div>
                 <div><img src="<?php echo VIEW_URL . '/images/bn2.jpg' ?>" alt=""></div>
                 <div><img src="<?php echo VIEW_URL . '/images/bn3.jpg' ?>" alt=""></div>
@@ -54,7 +53,7 @@ get_header();
             <form method="get" action="<?php echo WP_SITEURL . '/journeys' ?>" class="quick-search-journey-form">
                 <h3>FIND YOUR JOURNEY</h3>
                 <div class="form-group">
-                    <select name="_destination" class="form-control select-2">
+                    <select id="journey_destinations" name="_destination" class="form-control select-2">
                         <option value="">Destinations</option>
                         <?php if (!empty($list_destination)) {
                             foreach ($list_destination as $v) { ?>
@@ -66,18 +65,19 @@ get_header();
                 </div>
                 <div class="form-group">
                     <!-- <input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month">-->
-                    <select name="_month" class="form-control select-2">
+                    <select id="journey_months" name="_month" class="form-control select-2">
                         <option value="">All months</option>
-                        <?php if (!empty($list_month)) {
-                            foreach ($list_month as $v) { ?>
-                                <option value="<?php echo $v->month ?>"> <?php echo $v->month ?></option>
-                            <?php }
-                        } ?>
+                        <?php //if (!empty($list_month)) {
+                        // foreach ($list_month as $v) { ?>
+                        <!--    <option value="--><?php //echo $v->month ?><!--"> -->
+                        <?php //echo $v->month ?><!--</option>-->
+                        <?php //}
+                        // } ?>
                     </select>
                     <span class="icon-n icon-date"></span>
                 </div>
                 <div class="form-group">
-                    <select name="_port" class="form-control select-2">
+                    <select id="journey_ports" name="_port" class="form-control select-2">
                         <option value="">Departure/Arrival City</option>
                         <?php if (!empty($list_port)) {
                             foreach ($list_port as $v) {
@@ -91,7 +91,7 @@ get_header();
                 </div>
 
                 <div class="form-group">
-                    <select name="_ship" class="form-control select-2">
+                    <select id="journey_ships" name="_ship" class="form-control select-2">
                         <option value="">Ships</option>
                         <?php if (!empty($list_ship)) {
                             foreach ($list_ship as $v) { ?>
@@ -104,7 +104,8 @@ get_header();
 
                 <div class="text-center">
                     <button type="submit">
-                        <img src="<?php echo VIEW_URL . '/images/icon-search.png?v=1'; ?>" style="width: 20px; vertical-align: top; padding-top: 4px; margin-right: 5px;"> Find now
+                        <img src="<?php echo VIEW_URL . '/images/icon-search.png?v=1'; ?>"
+                             style="width: 20px; vertical-align: top; padding-top: 4px; margin-right: 5px;"> Find now
                     </button>
                 </div>
             </form>
@@ -118,8 +119,7 @@ get_header();
                 foreach ($home_page_info->gallery as $img) { ?>
                     <div><img src="<?php echo $img->full ?>" alt=""></div>
                 <?php }
-            }
-            else { ?>
+            } else { ?>
                 <div><img src="<?php echo VIEW_URL . '/images/bn1.jpg' ?>" alt=""></div>
                 <div><img src="<?php echo VIEW_URL . '/images/bn2.jpg' ?>" alt=""></div>
                 <div><img src="<?php echo VIEW_URL . '/images/bn3.jpg' ?>" alt=""></div>
@@ -236,7 +236,8 @@ get_header();
                         <br> <img src="<?php echo VIEW_URL . '/images/line.png?v=1' ?>" style="width: 110px">
 
                         <a class="btn-kep-offer" href="#form-kep-offer"><img
-                                src="<?php echo VIEW_URL . '/images/icon-email-2.png?v2' ?>" style="padding-right: 10px;width: 30px">
+                                src="<?php echo VIEW_URL . '/images/icon-email-2.png?v2' ?>"
+                                style="padding-right: 10px;width: 30px">
                             Keep in touch with best offer</a>
 
                         <form id="form-kep-offer" style="display: none" class="form-facybox">
@@ -278,7 +279,8 @@ get_header();
                                             </a>
                                             <div class="price">
                                                 $<?php echo number_format($journey_min_price->min_price_offer) ?> <br/>
-                                                <?php echo number_format($journey_min_price->min_price_offer * CURRENCY_RATE) ?> VND
+                                                <?php echo number_format($journey_min_price->min_price_offer * CURRENCY_RATE) ?>
+                                                VND
                                             </div>
                                         </div>
 
@@ -324,8 +326,7 @@ get_header();
 <?php if (!empty($list_room_items['data']) or !empty($list_room_items_featured['data'])) {
     if (!empty($list_room_items_featured['data'])) {
         $big_room = array_shift($list_room_items_featured['data']);
-    }
-    else {
+    } else {
         if (!empty($list_room_items['data'])) {
             $big_room = array_shift($list_room_items['data']);
         }
@@ -434,5 +435,163 @@ get_header();
         // $(window).bind("load", ScaleSlider);
         // $(window).bind("resize", ScaleSlider);
         // $(window).bind("orientationchange", ScaleSlider);
+
+        $('#journey_destinations').on('change', function () {
+            var dest = $(this).val();
+            if (dest) {
+                // Add to cart ajax
+                $.ajax({
+                    url: MyAjax.ajax_url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        action: 'ajax_handler_jt',
+                        method: 'GetMonths',
+                        destination: dest
+                    },
+                    beforeSend: function () {
+                        switch_loading(true);
+                    },
+                    success: function (data) {
+                        switch_loading(false);
+
+                        if (data.status == 'success') {
+                            $('#journey_months option:gt(0)').remove();
+                            $('#journey_ports option:gt(0)').remove();
+                            $('#journey_ships option:gt(0)').remove();
+
+                            var options = [];
+                            $.each(data.data, function (k, v) {
+                                var item = new Option(k, v);
+                                options.push(item);
+                            });
+                            $('#journey_months').append(options);
+                        }
+                        else {
+                            var html_msg = '<div>';
+                            if (data.message) {
+                                $.each(data.message, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            } else if (data.data) {
+                                $.each(data.data, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            }
+                            html_msg += "</div>";
+                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                        }
+
+                    }
+                }); // end ajax
+            }
+        });
+
+
+        $('#journey_months').on('change', function () {
+            var dest = $('#journey_destinations').val();
+            var month = $(this).val();
+            if (dest && month) {
+                // Add to cart ajax
+                $.ajax({
+                    url: MyAjax.ajax_url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        action: 'ajax_handler_jt',
+                        method: 'GetPorts',
+                        month: month,
+                        destination: dest
+                    },
+                    beforeSend: function () {
+                        switch_loading(true);
+                    },
+                    success: function (data) {
+                        switch_loading(false);
+
+                        if (data.status == 'success') {
+                            $('#journey_ports option:gt(0)').remove();
+
+                            var options = [];
+                            $.each(data.data, function (k, v) {
+                                var item = new Option(v, k);
+                                options.push(item);
+                            });
+                            $('#journey_ports').append(options);
+                        }
+                        else {
+                            var html_msg = '<div>';
+                            if (data.message) {
+                                $.each(data.message, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            } else if (data.data) {
+                                $.each(data.data, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            }
+                            html_msg += "</div>";
+                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                        }
+
+                    }
+                }); // end ajax
+            }
+        });
+
+
+        $('#journey_ports').on('change', function () {
+            var dest = $('#journey_destinations').val();
+            var month = $('#journey_months').val();
+            var port = $('#journey_ports').val();
+            if (dest && month && port) {
+                // Add to cart ajax
+                $.ajax({
+                    url: MyAjax.ajax_url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        action: 'ajax_handler_jt',
+                        method: 'GetShips',
+                        dest: dest,
+                        month: month,
+                        port: port
+                    },
+                    beforeSend: function () {
+                        switch_loading(true);
+                    },
+                    success: function (data) {
+                        switch_loading(false);
+
+                        if (data.status == 'success') {
+                            $('#journey_ships option:gt(0)').remove();
+
+                            var options = [];
+                            $.each(data.data, function (k, v) {
+                                var item = new Option(v, k);
+                                options.push(item);
+                            });
+                            $('#journey_ships').append(options);
+                        }
+                        else {
+                            var html_msg = '<div>';
+                            if (data.message) {
+                                $.each(data.message, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            } else if (data.data) {
+                                $.each(data.data, function (k_msg, msg) {
+                                    html_msg += msg + "<br/>";
+                                });
+                            }
+                            html_msg += "</div>";
+                            swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                        }
+
+                    }
+                }); // end ajax
+            }
+        });
+
     });
 </script>

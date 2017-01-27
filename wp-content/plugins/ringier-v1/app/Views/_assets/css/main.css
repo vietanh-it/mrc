@@ -2760,7 +2760,15 @@ header .top-bar .top-info li:first-child {
     }
 
     .journey-detail .featured-image .info span {
-        display: none;
+        /*display: none;*/
+        color: #333333;
+        float: right;
+        max-width: 135px;
+        margin-top: -17px;
+    }
+
+    .journey-detail .featured-image .info span.price-if {
+        margin-top: 0;
     }
 
     .ctn-list-journey {

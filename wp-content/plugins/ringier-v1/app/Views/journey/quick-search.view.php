@@ -8,6 +8,19 @@ $ship = !empty($_GET['_ship']) ? $_GET['_ship'] : '';
 $port = !empty($_GET['_port']) ? $_GET['_port'] : '';
 $month = !empty($_GET['_month']) ? $_GET['_month'] : '';
 
+$m_jt = \RVN\Models\JourneyType::init();
+if (!empty($destination)) {
+    $month_list = $m_jt->getMonthsHaveJourney($destination);
+}
+
+if (!empty($month)) {
+    $port_list = $m_jt->getPorts(['destination' => $destination, 'month' => $month]);
+}
+
+if (!empty($port)) {
+    $ship_list = $m_jt->getShips(['dest' => $destination, 'port' => $port, 'month' => $month]);
+}
+
 $m_post = \RVN\Models\Posts::init();
 
 ?>
@@ -39,9 +52,17 @@ $m_post = \RVN\Models\Posts::init();
                                 <!--<input type="text" name="_month" class="form-control month-year-input" placeholder="Choose sail month" value="<?php /*echo $month */ ?>">-->
                                 <select id="journey_months" name="_month" class="form-control select-2">
                                     <option value="">All months</option>
-                                    <?php if (!empty($month)) { ?>
-                                        <option value="<?php echo $month ?>" selected><?php echo $month ?></option>
-                                    <?php } ?>
+                                    <?php if (!empty($month_list)) {
+                                        foreach ($month_list as $k => $v) {
+                                            $seleted1 = '';
+                                            if ($v == $month) {
+                                                $seleted1 = 'selected';
+                                            }
+                                            ?>
+                                            <option
+                                                value="<?php echo $v ?>" <?php echo $seleted1 ?>><?php echo $v ?></option>
+                                        <?php }
+                                    } ?>
                                 </select>
                                 <span class="icon-n icon-date"></span>
                             </div>
@@ -51,12 +72,18 @@ $m_post = \RVN\Models\Posts::init();
                             <div class="form-group">
                                 <select id="journey_ports" name="_port" class="form-control select-2">
                                     <option value="">Departure/Arrival City</option>
-                                    <?php if (!empty($port)) {
-                                        $selected_port = $m_post->getPostBySlug($port, ['port', 'excursion']) ?>
-                                        <option value="<?php echo $port ?>" selected>
-                                            <?php echo $selected_port->post_title ?>
-                                        </option>
-                                    <?php } ?>
+
+                                    <?php if (!empty($port_list)) {
+                                        foreach ($port_list as $k => $v) {
+                                            $seleted2 = '';
+                                            if ($k == $port) {
+                                                $seleted2 = 'selected';
+                                            }
+                                            ?>
+                                            <option
+                                                value="<?php echo $k ?>" <?php echo $seleted2 ?>><?php echo $v ?></option>
+                                        <?php }
+                                    } ?>
                                 </select>
                                 <span class="icon-n icon-port"></span>
                             </div>
@@ -66,12 +93,18 @@ $m_post = \RVN\Models\Posts::init();
                             <div class="form-group">
                                 <select id="journey_ships" name="_ship" class="form-control select-2">
                                     <option value="">Ships</option>
-                                    <?php if (!empty($ship)) {
-                                        $selected_ship = $m_post->getPostBySlug($ship, 'ship') ?>
-                                        <option value="<?php echo $ship ?>" selected>
-                                            <?php echo $selected_ship->post_title ?>
-                                        </option>
-                                    <?php } ?>
+
+                                    <?php if (!empty($ship_list)) {
+                                        foreach ($ship_list as $k => $v) {
+                                            $seleted3 = '';
+                                            if ($k == $ship) {
+                                                $seleted3 = 'selected';
+                                            }
+                                            ?>
+                                            <option
+                                                value="<?php echo $k ?>" <?php echo $seleted3 ?>><?php echo $v ?></option>
+                                        <?php }
+                                    } ?>
                                 </select>
                                 <span class="icon-n icon-ship"></span>
                             </div>

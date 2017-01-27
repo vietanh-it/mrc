@@ -54,7 +54,8 @@ get_header();
                                     </div>
                                     <div class="col-xs-12 col-sm-2">
                                         <div class="bk">
-                                            <p>from US$<b><?php echo $v->min_price ?></b> pp</p>
+                                            <p style="margin-bottom: 0;">from US$<b><?php echo $v->min_price ?></b> pp</p>
+                                            <p><b><?php echo number_format($v->min_price * CURRENCY_RATE) ?></b> VND pp</p>
                                             <a href="<?php echo $v->permalink ?>">Book now</a>
                                         </div>
                                     </div>

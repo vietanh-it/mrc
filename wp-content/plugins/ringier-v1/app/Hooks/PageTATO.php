@@ -152,7 +152,7 @@ Class PageTATO
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Deposit ($)</label>
-                            <input type="number" name="deposit_rate" id="deposit_rate">
+                            <input type="number" name="deposit_rate" id="deposit_rate" min="0">
                         </div>
                     </div>
                 </div>
@@ -562,7 +562,8 @@ Class PageTATO
                                     <td></td>
                                     <td colspan="2">Deposit Amount (%)</td>
                                     <td class="bold">
-                                        <span class="deposit-amount">0</span>% = $<span
+                                        <span class="deposit-amount-wrapper"><span class="deposit-amount">0</span>% = </span>
+                                        $<span
                                             class="deposit-amount-real">0</span>
                                     </td>
                                 </tr>
@@ -1227,8 +1228,13 @@ Class PageTATO
 
 
                 $('#deposit_rate').change(function () {
-                    $('.deposit-amount-real').html(numberFormat($(this).val()));
-                    updateDeposit();
+                    var deposit_value = $(this).val();
+
+                    if (deposit_value) {
+                        $('.deposit-amount-wrapper').fadeOut();
+                        $('.deposit-amount-real').html(numberFormat(deposit_value));
+                        updateDeposit(deposit_value);
+                    }
                 });
 
                 // button add new TA/TO booking
@@ -1476,11 +1482,18 @@ Class PageTATO
             }
 
 
-            function updateDeposit() {
+            function updateDeposit(deposit_value = false) {
                 var total = $('.total').html().replace(',', '');
                 var percent = $('.deposit-amount').html();
-                $('.deposit-amount-real').html(Math.ceil(parseFloat(total) * parseFloat(percent) / 100));
-                $('#deposit_rate').val(Math.ceil(parseFloat(total) * parseFloat(percent) / 100));
+
+                if (!deposit_value) {
+                    $('#deposit_rate').val(Math.ceil(parseFloat(total) * parseFloat(percent) / 100));
+                    $('.deposit-amount-real').html(Math.ceil(parseFloat(total) * parseFloat(percent) / 100));
+                    $('.deposit-amount-wrapper').fadeIn();
+                } else {
+                    $('#deposit_rate').val(Math.ceil(deposit_value));
+                    $('.deposit-amount-real').html(Math.ceil(deposit_value));
+                }
             }
 
 

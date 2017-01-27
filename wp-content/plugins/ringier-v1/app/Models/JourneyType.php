@@ -436,7 +436,11 @@ class JourneyType
         $m_post = Posts::init();
         // $query = "SELECT * FROM {$this->_wpdb->posts} WHERE post_name = '{$destination}' AND post_type='destination'";
         // $dest = $this->_wpdb->get_row($query);
-        $dest = $m_post->getPostBySlug($destination, 'destination');
+        if(is_numeric($destination)) {
+            $dest = get_post($destination);
+        } else {
+            $dest = $m_post->getPostBySlug($destination, 'destination');
+        }
 
         // Get list journey type have destination id
         $query = "SELECT * FROM {$this->_tbl_journey_type_info} WHERE destination = {$dest->ID}";
@@ -478,7 +482,11 @@ class JourneyType
 
         // Destination
         $m_post = Posts::init();
-        $dest = $m_post->getPostBySlug($data['destination'], 'destination');
+        if(is_numeric($data['destination'])) {
+            $dest = get_post($data['destination']);
+        } else {
+            $dest = $m_post->getPostBySlug($data['destination'], 'destination');
+        }
 
         // Get journey_series_id
         $query = "SELECT * FROM {$this->_tbl_journey_info} ji INNER JOIN {$this->_prefix}journey_series_info jsi ON ji.journey_series_id = jsi.object_id INNER JOIN {$this->_wpdb->posts} p ON jsi.object_id = p.ID INNER JOIN {$this->_tbl_journey_type_info} jti ON jsi.journey_type_id = jti.object_id WHERE ji.departure >= CURDATE() AND DATE_FORMAT(ji.departure, '%m/%Y') = '{$data['month']}' AND jti.destination = {$dest->ID} AND p.post_status = 'publish' GROUP BY ji.journey_series_id";
@@ -518,10 +526,18 @@ class JourneyType
         $m_ship = Ships::init();
 
         // Destination
-        $dest = $m_post->getPostBySlug($data['dest'], 'destination');
+        if(is_numeric($data['dest'])) {
+            $dest = get_post($data['dest']);
+        } else {
+            $dest = $m_post->getPostBySlug($data['dest'], 'destination');
+        }
 
         // Port
-        $port_excursion = $m_post->getPostBySlug($data['port'], ['port', 'excursion']);
+        if(is_numeric($data['port'])) {
+            $port_excursion = get_post($data['port']);
+        } else {
+            $port_excursion = $m_post->getPostBySlug($data['port'], ['port', 'excursion']);
+        }
 
         // Get journey_series_id
         $query = "SELECT * FROM {$this->_tbl_journey_info} ji 

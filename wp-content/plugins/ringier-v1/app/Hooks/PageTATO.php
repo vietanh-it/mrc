@@ -73,8 +73,7 @@ Class PageTATO
 
                 remove_meta_box('submitdiv', 'booking', 'side');
                 remove_meta_box('wpseo_meta', 'booking', 'normal');
-            }
-            elseif (!empty($booking->is_tato)) {
+            } elseif (!empty($booking->is_tato)) {
                 // add_meta_box('tato-booking', 'TA/TO Booking', [$this, 'tatoBooking'], 'booking', 'normal', 'high');
             }
         }
@@ -152,7 +151,7 @@ Class PageTATO
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Deposit (%)</label>
+                            <label>Deposit ($)</label>
                             <input type="number" name="deposit_rate" id="deposit_rate">
                         </div>
                     </div>
@@ -163,7 +162,8 @@ Class PageTATO
                         <div class="form-group">
                             <label style="margin-top: 10px;">
                                 <span class="cb-commission-wrapper" style="display: none;">
-                                    <input type="checkbox" name="is_commission" id="is_commission"> Include commission (<span class="cm-percent"></span>%) on booking
+                                    <input type="checkbox" name="is_commission" id="is_commission"> Include commission (<span
+                                        class="cm-percent"></span>%) on booking
                                 </span>
                                 <input type="hidden" name="commission_percent" id="commission_percent" value="0">
                                 <input type="hidden" name="commission_value" id="commission_value" value="0">
@@ -175,9 +175,9 @@ Class PageTATO
                 <div class="row">
                     <div class="col-md-12">
                         <i>Note: The booking is kept for only 3 days. Please tell the TA/TO for deposit as
-                           soon
-                           as
-                           possible.</i>
+                            soon
+                            as
+                            possible.</i>
                     </div>
                 </div>
 
@@ -589,14 +589,164 @@ Class PageTATO
             $(document).ready(function ($) {
 
                 $('#destination').change(function () {
+                    var dest = $(this).val();
+                    console.log(dest);
+                    if (dest) {
+                        // Add to cart ajax
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_jt',
+                                method: 'GetMonths',
+                                destination: dest
+                            },
+                            beforeSend: function () {
+                                switch_loading(true);
+                            },
+                            success: function (data) {
+                                switch_loading(false);
+
+                                if (data.status == 'success') {
+                                    $('#sail_month option:gt(0)').remove();
+                                    $('#port option:gt(0)').remove();
+                                    $('#ship option:gt(0)').remove();
+
+                                    var options = [];
+                                    $.each(data.data, function (k, v) {
+                                        var item = new Option(k, v);
+                                        options.push(item);
+                                    });
+                                    $('#sail_month').append(options);
+                                }
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
+
+                            }
+                        }); // end ajax
+                    }
+
                     loadJourney();
                 });
 
                 $('#sail_month').change(function () {
+                    var dest = $('#destination').val();
+                    var month = $(this).val();
+                    if (dest && month) {
+                        // Add to cart ajax
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_jt',
+                                method: 'GetPorts',
+                                month: month,
+                                destination: dest
+                            },
+                            beforeSend: function () {
+                                switch_loading(true);
+                            },
+                            success: function (data) {
+                                switch_loading(false);
+
+                                if (data.status == 'success') {
+                                    $('#port option:gt(0)').remove();
+
+                                    var options = [];
+                                    $.each(data.data, function (k, v) {
+                                        var item = new Option(v, k);
+                                        options.push(item);
+                                    });
+                                    $('#port').append(options);
+                                }
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
+
+                            }
+                        }); // end ajax
+                    }
+
                     loadJourney();
                 });
 
                 $('#port').change(function () {
+                    var dest = $('#destination').val();
+                    var month = $('#sail_month').val();
+                    var port = $('#port').val();
+                    if (dest && month && port) {
+                        // Add to cart ajax
+                        $.ajax({
+                            url: ajax_url,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                action: 'ajax_handler_jt',
+                                method: 'GetShips',
+                                dest: dest,
+                                month: month,
+                                port: port
+                            },
+                            beforeSend: function () {
+                                switch_loading(true);
+                            },
+                            success: function (data) {
+                                switch_loading(false);
+
+                                if (data.status == 'success') {
+                                    $('#ship option:gt(0)').remove();
+
+                                    var options = [];
+                                    $.each(data.data, function (k, v) {
+                                        var item = new Option(v, k);
+                                        options.push(item);
+                                    });
+                                    $('#ship').append(options);
+                                }
+                                else {
+                                    var html_msg = '<div>';
+                                    if (data.message) {
+                                        $.each(data.message, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    } else if (data.data) {
+                                        $.each(data.data, function (k_msg, msg) {
+                                            html_msg += msg + "<br/>";
+                                        });
+                                    }
+                                    html_msg += "</div>";
+                                    swal({"title": "Error", "text": html_msg, "type": "error", html: true});
+                                }
+
+                            }
+                        }); // end ajax
+                    }
+
                     loadJourney();
                 });
 
@@ -1042,7 +1192,7 @@ Class PageTATO
                                 switch_loading(false);
 
                                 if (data.status == 'success') {
-                                    $('#deposit_rate').val(data.data.deposit_rate);
+                                    // $('#deposit_rate').val(data.data.deposit_rate);
                                     $('.deposit-amount').html(data.data.deposit_rate);
 
                                     $('#commission_percent').val(data.data.commission_rate);
@@ -1077,7 +1227,7 @@ Class PageTATO
 
 
                 $('#deposit_rate').change(function () {
-                    $('.deposit-amount').html($(this).val());
+                    $('.deposit-amount-real').html(numberFormat($(this).val()));
                     updateDeposit();
                 });
 
@@ -1330,6 +1480,7 @@ Class PageTATO
                 var total = $('.total').html().replace(',', '');
                 var percent = $('.deposit-amount').html();
                 $('.deposit-amount-real').html(parseFloat(total) * parseFloat(percent) / 100);
+                $('#deposit_rate').html(parseFloat(total) * parseFloat(percent) / 100);
             }
 
 
@@ -1356,6 +1507,8 @@ Class PageTATO
                     }
                 } else {
                     $('.commission-wrapper').hide();
+                    // Total = subtotal
+                    $('.total').html($('.subtotal').html());
                 }
             }
 
@@ -1440,8 +1593,7 @@ Class PageTATO
                                         $addon_list[$arr[2]] = [
                                             $arr[3] => $value
                                         ];
-                                    }
-                                    else {
+                                    } else {
                                         $addon_list[$arr[2]][$arr[1]] = $value;
                                     }
                                 }
@@ -1469,8 +1621,7 @@ Class PageTATO
                                     'quantity'     => $quantity,
                                     'total'        => $total
                                 ]);
-                            }
-                            else {
+                            } else {
                                 $wpdb->update(TBL_CART_DETAIL, [
                                     'type'     => $type,
                                     'price'    => $price,
@@ -1499,8 +1650,7 @@ Class PageTATO
                                         'object_id'   => $object_id,
                                         'twin_single' => $k
                                     ]);
-                                }
-                                else {
+                                } else {
                                     $data['addon_option_id'] = $k;
                                     $data['price'] = $m_addon->getAddonPrice([
                                         'object_id'       => $object_id,
@@ -1529,7 +1679,7 @@ Class PageTATO
                         if (isset($_POST['is_commission']) && !empty($_POST['is_commission'])) {
                             $wpdb->update(TBL_CART, [
                                 'commission_percent' => $_POST['commission_percent'],
-                                'commission_value' => $_POST['commission_value']
+                                'commission_value'   => $_POST['commission_value']
                             ], ['id' => $cart->id]);
                         }
 

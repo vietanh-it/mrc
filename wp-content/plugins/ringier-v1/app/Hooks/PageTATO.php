@@ -1479,8 +1479,8 @@ Class PageTATO
             function updateDeposit() {
                 var total = $('.total').html().replace(',', '');
                 var percent = $('.deposit-amount').html();
-                $('.deposit-amount-real').html(parseFloat(total) * parseFloat(percent) / 100);
-                $('#deposit_rate').html(parseFloat(total) * parseFloat(percent) / 100);
+                $('.deposit-amount-real').html(Math.ceil(parseFloat(total) * parseFloat(percent) / 100));
+                $('#deposit_rate').val(Math.ceil(parseFloat(total) * parseFloat(percent) / 100));
             }
 
 
@@ -1490,7 +1490,7 @@ Class PageTATO
                 var commission_percent = $('#commission_percent').val();
 
                 if (is_commission) {
-                    var commission_value = parseFloat(subtotal) * parseFloat(commission_percent) / 100;
+                    var commission_value = Math.ceil(parseFloat(subtotal) * parseFloat(commission_percent) / 100);
                     var commission_value_number = numberFormat(commission_value);
                     $('#commission_value').val(commission_value);
 
@@ -1510,6 +1510,8 @@ Class PageTATO
                     // Total = subtotal
                     $('.total').html($('.subtotal').html());
                 }
+
+                updateDeposit();
             }
 
 
@@ -1543,10 +1545,11 @@ Class PageTATO
                 if (!empty($_POST['journey_id']) && !empty($_POST['tato'])) {
                     $journey_id = $_POST['journey_id'];
                     $tato_id = $_POST['tato'];
-                    $deposit_rate = $_POST['deposit_rate'];
+                    $deposit_value = $_POST['deposit_rate'];
 
                     $cart = $m_booking->getTatoCart($user_id, $journey_id);
 
+                    // Create cart if not exist
                     if (empty($cart)) {
                         $journey = $m_journey->getJourneyInfoByID($journey_id);
                         $code = $m_booking->generateBookingCode($journey->journey_code);
@@ -1671,7 +1674,8 @@ Class PageTATO
                             'status'     => 'tato',
                             'tato_id'    => $tato_id,
                             'is_tato'    => 1,
-                            'deposit'    => ($deposit_rate * $cart_total) / 100,
+                            // 'deposit'    => ($deposit_rate * $cart_total) / 100,
+                            'deposit'    => $deposit_value,
                             'expired_at' => date('Y-m-d H:i:s', strtotime('+ 3 days'))
                         ], ['id' => $cart->id]);
 
